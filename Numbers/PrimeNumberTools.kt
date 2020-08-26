@@ -22,4 +22,29 @@ object PrimeNumberTools {
         return primeNumbers
     }
     
+    /** Checks for a Prime Number Factor in product that is greater than the limit
+     * @param product The product to search in
+     * @param limit The maximum prime factor that is allowed
+     * @return The smallest prime factor above the limit, or null  */
+    fun getFirstPrimeAboveLimit(product: Long, limit: Long): Long? {
+        var remainingFactors = product
+        while (remainingFactors % 2 == 0L) remainingFactors /= 2  //Discard all 2 values
+        if (limit < remainingFactors) { //Is there a potential factor greater than the remainder
+            var primeCounter = 3L  //Need to remove all primes below or equal to the limit
+            while (limit in primeCounter until remainingFactors) {
+                if (remainingFactors % primeCounter == 0L)
+                    remainingFactors /= primeCounter    //Throw away
+                else
+                    primeCounter += 2    //Increment
+            }
+            if (limit < remainingFactors) {
+                while (primeCounter <= remainingFactors) {
+                    if (remainingFactors % primeCounter == 0L) return primeCounter
+                    else primeCounter++
+                }
+            }
+        }
+        return null
+    }
+    
 }
