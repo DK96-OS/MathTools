@@ -37,7 +37,7 @@ class ProductGenerator(
             var primeAboveLimit = PrimeNumberTools.getFirstPrimeAboveLimit(product, maxPrime)
             while (primeAboveLimit != null) {
                 product /= primeAboveLimit
-                product *= (primeAboveLimit - if (Math.random() > 0.5) 1 else -1)
+                product *= (primeAboveLimit - if (Math.random() > 0.5) 1 else 2)
                 primeAboveLimit = PrimeNumberTools.getFirstPrimeAboveLimit(product, maxPrime)
             }
         }
