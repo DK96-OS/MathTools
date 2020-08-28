@@ -54,24 +54,27 @@ object PrimeNumberTools {
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
     fun getFirstPrimeAboveLimit(product: Long, limit: Long): Long? {
-        var remainingFactors = product
-        while (remainingFactors % 2 == 0L) remainingFactors /= 2  //Discard all 2 values
-        if (limit < remainingFactors) { //Is there a potential factor greater than the remainder
-            var primeCounter = 3L  //Need to remove all primes below or equal to the limit
-            while (limit in primeCounter until remainingFactors) {
-                if (remainingFactors % primeCounter == 0L)
-                    remainingFactors /= primeCounter    //Throw away
-                else
-                    primeCounter += 2    //Increment
+        var composite = product
+        while (composite % 2 == 0L) composite /= 2
+        if (limit >= 3)
+            while (composite % 3 == 0L && composite > limit) composite /= 3
+        else if (composite % 3 == 0L) 
+            return 3
+        if (limit >= 5)
+            while (composite % 5 == 0L && composite > limit) composite /= 5
+        else if (composite % 5 == 0L) 
+            return 5
+        if (limit < composite) {
+            var primeCounter = 7L
+            while (limit in primeCounter until composite) {
+                if (composite % primeCounter == 0L) composite /= primeCounter
+                else primeCounter += 2
             }
-            if (limit < remainingFactors) {
-                while (primeCounter <= remainingFactors) {
-                    if (remainingFactors % primeCounter == 0L) return primeCounter
-                    else primeCounter++
-                }
+            if (limit < composite) while (primeCounter <= composite) {
+                if (composite % primeCounter == 0L) return primeCounter else primeCounter++
             }
         }
         return null
     }
-    
+
 }
