@@ -15,22 +15,15 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
 
     /** Create a new counter when a new result appears. Copy the result from generator */
     protected abstract fun createCounter(g: G): C
-    
+
     /** Runs the Generator and counts the occurrence of each result
      * @param x The number of time to run the generator */
     fun runXTimes(x: Long) {
-        var wasAdded = false
-        for (i in 0L..x) {
+        for (i in 0L until x) {
             generator.generate()
-            for (c in (counterList.size - 1).downTo(0)) {
-                if (generator.isCountedBy(counterList[c])) { // Find the counter for this result
-                    counterList[c].count++
-                    wasAdded = true
-                    break
-                }
-            }
-            if (!wasAdded) counterList.add(createCounter(generator))
-            else wasAdded = false
+            val counter = counterList.find { generator.isCountedBy(it) }
+            if (counter != null) counter.count++
+            else counterList.add(createCounter(generator))
         }
     }
 
