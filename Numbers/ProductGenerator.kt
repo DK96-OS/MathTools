@@ -18,21 +18,25 @@ class ProductGenerator(
     var maxPrime: Long = maxPrime
         private set
 
-    private val rng = Random(System.currentTimeMillis())
-
-    init { generate() }
+    init {
+        if (range.first < 2 || range.last - range.first < 3 || maxPrime < 2)
+            throw IllegalArgumentException()
+        generate()
+    }
 
     /** Updates the generator parameters, and runs again
      * @param rng The new product range
-     * @param maxPrime The highest prime number allowed, null makes the generator pointless */
-    fun setParametersAndRegenerate(rng: LongRange, maxPrime: Long) {
+     * @param limit The highest prime number allowed */
+    fun setParametersAndRegenerate(rng: LongRange, limit: Long) {
+        if (rng.first < 2 || rng.last - rng.first < 3 || maxPrime < 2)
+            throw IllegalArgumentException()
         range = rng
-        this.maxPrime = maxPrime
+        maxPrime = limit
         generate()
     }
 
     override fun generate() {
-        product = range.random(rng)
+        product = range.random()
         if (maxPrime < product) {
             var primeAboveLimit = PrimeNumberTools.getFirstPrimeAboveLimit(product, maxPrime)
             while (primeAboveLimit != null) {
