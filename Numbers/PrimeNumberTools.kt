@@ -29,7 +29,27 @@ object PrimeNumberTools {
         return primeNumbers
     }
 
-    /** Checks for a Prime Number Factor in product that is greater than the limit
+    /** Determines whether this Product/Prime contains a prime number greater than the limit
+     * @param product The product to test
+     * @param limit The maximum prime number allowed */
+    fun checkForPrimeFactorAboveLimit(product: Long, limit: Long)
+        : Boolean = if (limit < product) {
+        var composite = product
+        while (composite % 2 == 0L && composite > limit) composite /= 2
+        if (limit >= 3) while (composite % 3 == 0L && composite > limit) composite /= 3
+        if (limit >= 5) while (composite % 5 == 0L && composite > limit) composite /= 5
+        if (composite <= limit) false else {
+            var primeCounter = 7L
+            while (limit in primeCounter until composite) {
+                while (composite % primeCounter == 0L) composite /= primeCounter
+                primeCounter += 2
+                if (primeCounter.toString().endsWith('5')) primeCounter += 2
+            }
+            composite > limit
+        }
+    } else false
+
+    /** Obtains the lowest Prime Number Factor that is greater than the limit or null
      * @param product The product to search in
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
