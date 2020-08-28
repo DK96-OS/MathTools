@@ -7,11 +7,18 @@ object PrimeNumberTools {
      * @param maxPrime The maximum possible number that will be added to the list */
     fun createPrimeNumberList(maxPrime: Long): ArrayList<Int> {
         val primeNumbers = arrayListOf(2, 3, 5, 7)
-        var testN = primeNumbers[primeNumbers.size - 1] + 2
+        var testN = primeNumbers[primeNumbers.size - 1] + 4
         var mayBePrime = true
+        var upperPrimeLimit: Int  // Upper limit on the second factor
         while (testN <= maxPrime) {
-            for (pIndex in 1 until primeNumbers.size) { // Checks division by all primes 3 and up
-                if (testN % primeNumbers[pIndex] == 0) { // Successful division
+            upperPrimeLimit = testN / 2    // Increment pattern eliminates 2
+            for (pIndex in 1 until primeNumbers.size) {
+                val prime = primeNumbers[pIndex]
+                if (prime > upperPrimeLimit)
+                    break
+                else if (testN % prime != 0)
+                    upperPrimeLimit = testN / prime
+                else {
                     mayBePrime = false
                     break
                 }
@@ -21,30 +28,53 @@ object PrimeNumberTools {
         }
         return primeNumbers
     }
-    
-    /** Checks for a Prime Number Factor in product that is greater than the limit
+
+    /** Determines whether this Product/Prime contains a prime number greater than the limit
+     * @param product The product to test
+     * @param limit The maximum prime number allowed */
+    fun checkForPrimeFactorAboveLimit(product: Long, limit: Long)
+        : Boolean = if (limit < product) {
+        var composite = product
+        while (composite % 2 == 0L && composite > limit) composite /= 2
+        if (limit >= 3) while (composite % 3 == 0L && composite > limit) composite /= 3
+        if (limit >= 5) while (composite % 5 == 0L && composite > limit) composite /= 5
+        if (composite <= limit) false else {
+            var primeCounter = 7L
+            while (limit in primeCounter until composite) {
+                while (composite % primeCounter == 0L) composite /= primeCounter
+                primeCounter += 2
+                if (primeCounter.toString().endsWith('5')) primeCounter += 2
+            }
+            composite > limit
+        }
+    } else false
+
+    /** Obtains the lowest Prime Number Factor that is greater than the limit or null
      * @param product The product to search in
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
     fun getFirstPrimeAboveLimit(product: Long, limit: Long): Long? {
-        var remainingFactors = product
-        while (remainingFactors % 2 == 0L) remainingFactors /= 2  //Discard all 2 values
-        if (limit < remainingFactors) { //Is there a potential factor greater than the remainder
-            var primeCounter = 3L  //Need to remove all primes below or equal to the limit
-            while (limit in primeCounter until remainingFactors) {
-                if (remainingFactors % primeCounter == 0L)
-                    remainingFactors /= primeCounter    //Throw away
-                else
-                    primeCounter += 2    //Increment
+        var composite = product
+        while (composite % 2 == 0L) composite /= 2
+        if (limit >= 3)
+            while (composite % 3 == 0L && composite > limit) composite /= 3
+        else if (composite % 3 == 0L) 
+            return 3
+        if (limit >= 5)
+            while (composite % 5 == 0L && composite > limit) composite /= 5
+        else if (composite % 5 == 0L) 
+            return 5
+        if (limit < composite) {
+            var primeCounter = 7L
+            while (limit in primeCounter until composite) {
+                if (composite % primeCounter == 0L) composite /= primeCounter
+                else primeCounter += 2
             }
-            if (limit < remainingFactors) {
-                while (primeCounter <= remainingFactors) {
-                    if (remainingFactors % primeCounter == 0L) return primeCounter
-                    else primeCounter++
-                }
+            if (limit < composite) while (primeCounter <= composite) {
+                if (composite % primeCounter == 0L) return primeCounter else primeCounter++
             }
         }
         return null
     }
-    
+
 }
