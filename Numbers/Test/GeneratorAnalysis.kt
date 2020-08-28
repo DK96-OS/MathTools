@@ -44,12 +44,16 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
         else counterList.sortByDescending { it.count }
     }
 
-    fun printCounters() {
-        val total = totalCycles / 100f   // Pre-convert to percentage
-        counterList.forEach {
-            val percentage = it.count / total
-            println(it.counterToString() + " = $percentage %")
-        }
+    /** Determines the Median value of all counters
+     * @param sortedAscending Pass true if counters have already been sorted, ascending. */
+    fun calculateMedian(sortedAscending: Boolean = false): Float {
+        if (counterList.size < 3) throw IllegalStateException()
+        if (!sortedAscending) sortCounters(true)
+        val halfIndex = counterList.size / 2
+        return if (halfIndex * 2 == counterList.size)
+            counterList[halfIndex].count.toFloat()
+        else
+            (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
     }
 
     /** Call between each Test */
@@ -58,27 +62,26 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
         counterList.clear()
     }
 
+    fun printCounters() {
+        val total = totalCycles / 100f   // Pre-convert to percentage
+        counterList.forEach {
+            val percentage = it.count / total
+            println(it.counterToString() + " = $percentage %")
+        }
+    }
+
     /** Prints the Mean counter value and it's probability */
     fun printMeanValues() { println("Mean: ($meanCount, $meanPercent %)") }
 
     /** Determines the Median counter value, as well as the differences
      * @param sortedAscending Pass true if counters have already been sorted, ascending. */
     fun printMedianRange(sortedAscending: Boolean = false) {
-        if (counterList.size < 3)
-            throw IllegalStateException()
-        if (!sortedAscending)
-            sortCounters(true)
-        val halfIndex = counterList.size / 2
-        val median = if (halfIndex * 2 == counterList.size)
-            counterList[halfIndex].count.toFloat()
-        else
-            (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
-        val total = totalCycles.toFloat()
-        val medianPercent = 100f * median / total
-        println("Median: ($median, $medianPercent %)")
+        val median = calculateMedian(sortedAscending)
+        val total = totalCycles / 100f
+        println("Median: ($median, ${median / total} %)")
         val min = counterList[0].count
         val max = counterList[counterList.size - 1].count
-        println("\tRange: ($min, $max) or (${100 * min / total} %, ${100 * max / total} %)")
+        println("\tRange: ($min, $max) or (${min / total} %, ${max / total} %)")
         val lowerLimitDiff = median - min
         val upperLimitDiff = max - median
         println("\tMedian " + when {
