@@ -7,7 +7,10 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
 
     var totalCycles: Long = 0L
         private set
- 
+
+    protected val meanCount: Float get() = totalCycles / counterList.size.toFloat()
+    protected val meanPercent: Float get() = 100f / counterList.size
+
     /** Update the Generator with new parameters based on the seed value
      * @param g The generator to update
      * @param seed A number that you use to specify a set of generator parameters */
@@ -53,6 +56,35 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     fun clearCounters() {
         totalCycles = 0L
         counterList.clear()
+    }
+
+    /** Prints the Mean counter value and it's probability */
+    fun printMeanValues() { println("Mean: ($meanCount, $meanPercent%)") }
+
+    /** Determines the Median counter value, as well as the differences
+     * @param sortedAscending Pass true if counters have already been sorted, ascending. */
+    fun printMedianRange(sortedAscending: Boolean = false) {
+        if (counterList.size < 3)
+            throw IllegalStateException()
+        if (!sortedAscending)
+            sortCounters(true)
+        val halfIndex = counterList.size / 2
+        val median = if (halfIndex * 2 == counterList.size)
+            counterList[halfIndex].count.toFloat()
+        else
+            (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
+        val min = counterList[0].count
+        val max = counterList[counterList.size - 1].count
+        println("Median: $median in range ($min, $max)")
+        val lowerLimitDiff = median - min
+        val upperLimitDiff = max - median
+        when {
+            lowerLimitDiff > upperLimitDiff ->
+                println("\tMedian closer to UpperLimit by ${lowerLimitDiff - upperLimitDiff}")
+            upperLimitDiff > lowerLimitDiff ->
+                println("\tMedian closer to LowerLimit by ${upperLimitDiff - lowerLimitDiff}")
+            else -> println("\tMedian is centered exactly within the range")
+        }
     }
 
 }
