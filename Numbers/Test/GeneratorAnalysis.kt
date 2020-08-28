@@ -2,9 +2,12 @@
   * Developed by DK96-OS 2018 - 2020 */
 abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     protected val generator: G,
-    val counterList: ArrayList<C> = arrayListOf()
+    protected val counterList: ArrayList<C> = arrayListOf()
 ) {
 
+    var totalCycles: Long = 0L
+        private set
+ 
     /** Update the Generator with new parameters based on the seed value
      * @param g The generator to update
      * @param seed A number that you use to specify a set of generator parameters */
@@ -25,6 +28,7 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
             if (counter != null) counter.count++
             else counterList.add(createCounter(generator))
         }
+        totalCycles += x
     }
 
     /** Update the Generator Parameters with the given seed
@@ -32,11 +36,23 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     fun changeParameters(seed: Int) { setParams(generator, seed) }
 
     /** Sorts the counters by the number of times each result occurred */
-    fun sortCounters() { counterList.sortBy { it.count } }
+    fun sortCounters(ascending: Boolean = true) {
+        if (ascending) counterList.sortBy { it.count }
+        else counterList.sortByDescending { it.count }
+    }
 
-    fun printCounters() { counterList.forEach { println(it.counterToString()) } }
+    fun printCounters() {
+        val total = totalCycles / 100f    // Pre-convert to percentage
+        counterList.forEach {
+            val percentage = it.count / total
+            println(it.counterToString() + " = $percentage%")
+        }
+    }
 
     /** Call between each Test */
-    fun clearCounters() { counterList.clear() }
+    fun clearCounters() {
+        totalCycles = 0L
+        counterList.clear()
+    }
 
 }
