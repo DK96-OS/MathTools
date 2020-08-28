@@ -45,10 +45,10 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     }
 
     fun printCounters() {
-        val total = totalCycles / 100f    // Pre-convert to percentage
+        val total = totalCycles / 100f   // Pre-convert to percentage
         counterList.forEach {
             val percentage = it.count / total
-            println(it.counterToString() + " = $percentage%")
+            println(it.counterToString() + " = $percentage %")
         }
     }
 
@@ -59,7 +59,7 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     }
 
     /** Prints the Mean counter value and it's probability */
-    fun printMeanValues() { println("Mean: ($meanCount, $meanPercent%)") }
+    fun printMeanValues() { println("Mean: ($meanCount, $meanPercent %)") }
 
     /** Determines the Median counter value, as well as the differences
      * @param sortedAscending Pass true if counters have already been sorted, ascending. */
@@ -73,18 +73,21 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
             counterList[halfIndex].count.toFloat()
         else
             (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
+        val total = totalCycles.toFloat()
+        val medianPercent = 100f * median / total
+        println("Median: ($median, $medianPercent %)")
         val min = counterList[0].count
         val max = counterList[counterList.size - 1].count
-        println("Median: $median in range ($min, $max)")
+        println("\tRange: ($min, $max) or (${100 * min / total} %, ${100 * max / total} %)")
         val lowerLimitDiff = median - min
         val upperLimitDiff = max - median
-        when {
+        println("\tMedian " + when {
             lowerLimitDiff > upperLimitDiff ->
-                println("\tMedian closer to UpperLimit by ${lowerLimitDiff - upperLimitDiff}")
+                "closer to UpperLimit by ${lowerLimitDiff - upperLimitDiff}"
             upperLimitDiff > lowerLimitDiff ->
-                println("\tMedian closer to LowerLimit by ${upperLimitDiff - lowerLimitDiff}")
-            else -> println("\tMedian is centered exactly within the range")
-        }
+                "closer to LowerLimit by ${upperLimitDiff - lowerLimitDiff}"
+            else -> "is centered exactly within the range"
+        })
     }
 
 }
