@@ -7,11 +7,18 @@ object PrimeNumberTools {
      * @param maxPrime The maximum possible number that will be added to the list */
     fun createPrimeNumberList(maxPrime: Long): ArrayList<Int> {
         val primeNumbers = arrayListOf(2, 3, 5, 7)
-        var testN = primeNumbers[primeNumbers.size - 1] + 2
+        var testN = primeNumbers[primeNumbers.size - 1] + 4
         var mayBePrime = true
+        var upperPrimeLimit: Int  // Upper limit on the second factor
         while (testN <= maxPrime) {
-            for (pIndex in 1 until primeNumbers.size) { // Checks division by all primes 3 and up
-                if (testN % primeNumbers[pIndex] == 0) { // Successful division
+            upperPrimeLimit = testN / 2    // Increment pattern eliminates 2
+            for (pIndex in 1 until primeNumbers.size) {
+                val prime = primeNumbers[pIndex]
+                if (prime > upperPrimeLimit)
+                    break
+                else if (testN % prime != 0)
+                    upperPrimeLimit = testN / prime
+                else {
                     mayBePrime = false
                     break
                 }
@@ -21,7 +28,7 @@ object PrimeNumberTools {
         }
         return primeNumbers
     }
-    
+
     /** Checks for a Prime Number Factor in product that is greater than the limit
      * @param product The product to search in
      * @param limit The maximum prime factor that is allowed
