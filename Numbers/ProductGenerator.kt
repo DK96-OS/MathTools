@@ -36,14 +36,11 @@ class ProductGenerator(
     }
 
     override fun generate() {
-        product = range.random()
-        if (maxPrime < product) {
-            var primeAboveLimit = PrimeNumberTools.getFirstPrimeAboveLimit(product, maxPrime)
-            while (primeAboveLimit != null) {
-                product /= primeAboveLimit
-                product *= (primeAboveLimit - if (Math.random() > 0.5) 1 else 2)
-                primeAboveLimit = PrimeNumberTools.getFirstPrimeAboveLimit(product, maxPrime)
-            }
+        var invalid = true
+        while (invalid) {
+            product = range.random()
+            invalid = if (maxPrime < product)
+                PrimeNumberTools.checkForPrimeFactorAboveLimit(product, maxPrime) else false
         }
     }
 
