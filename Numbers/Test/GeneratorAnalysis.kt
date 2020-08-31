@@ -1,9 +1,15 @@
-/** Test Helper class for running Generators, and counting the results
+/** Generator Testing Framework for outcome analysis
   * Developed by DK96-OS 2018 - 2020 */
 abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     protected val generator: G,
-    val counterList: ArrayList<C> = arrayListOf()
+    protected val counterList: ArrayList<C> = arrayListOf()
 ) {
+
+    var totalCycles: Long = 0L
+        private set
+
+    protected val meanCount: Float get() = totalCycles / counterList.size.toFloat()
+    protected val meanPercent: Float get() = 100f / counterList.size
 
     /** Update the Generator with new parameters based on the seed value
      * @param g The generator to update
@@ -15,23 +21,17 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
 
     /** Create a new counter when a new result appears. Copy the result from generator */
     protected abstract fun createCounter(g: G): C
-    
+
     /** Runs the Generator and counts the occurrence of each result
      * @param x The number of time to run the generator */
     fun runXTimes(x: Long) {
-        var wasAdded = false
-        for (i in 0L..x) {
+        for (i in 0L until x) {
             generator.generate()
-            for (c in (counterList.size - 1).downTo(0)) {
-                if (generator.isCountedBy(counterList[c])) { // Find the counter for this result
-                    counterList[c].count++
-                    wasAdded = true
-                    break
-                }
-            }
-            if (!wasAdded) counterList.add(createCounter(generator))
-            else wasAdded = false
+            val counter = counterList.find { generator.isCountedBy(it) }
+            if (counter != null) counter.count++
+            else counterList.add(createCounter(generator))
         }
+        totalCycles += x
     }
 
     /** Update the Generator Parameters with the given seed
@@ -39,11 +39,102 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     fun changeParameters(seed: Int) { setParams(generator, seed) }
 
     /** Sorts the counters by the number of times each result occurred */
-    fun sortCounters() { counterList.sortBy { it.count } }
+    fun sortCounters(ascending: Boolean = true) {
+        if (ascending) counterList.sortBy { it.count }
+        else counterList.sortByDescending { it.count }
+    }
 
-    fun printCounters() { counterList.forEach { println(it.counterToString()) } }
+    /** Determines the Median value of all counters
+     * @param sortedAscending Pass true if counters have already been sorted, ascending. */
+    fun getMedian(sortedAscending: Boolean = false): Float {
+        if (counterList.size < 3) throw IllegalStateException()
+        if (!sortedAscending) sortCounters(true)
+        val halfIndex = counterList.size / 2
+        return if (halfIndex * 2 == counterList.size)
+            counterList[halfIndex].count.toFloat()
+        else
+            (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
+    }
+
+    /** Calculates the Standard Deviation of the Probability */
+    fun getStandardDeviation(): Float {
+        if (counterList.size < 3) throw IllegalStateException()
+        val mean = meanPercent.toDouble()
+        val total = totalCycles.toDouble() / 100f
+        var varianceSum = 0.0
+        counterList.forEach {
+            val deviation = (it.count / total) - mean
+            varianceSum += deviation * deviation
+        }
+        return sqrt(varianceSum / (counterList.size - 1)).toFloat()
+    }
+
+    /** Calculates the Standard Error, the Standard Deviation of the Mean
+     * @param sDev Provide the Standard Deviation if already known */
+    fun getStandardError(sDev: Float? = null)
+        : Float = ((sDev ?: getStandardDeviation()) / sqrt(counterList.size.toDouble())).toFloat()
+
+    /** Calculates the Fractional Error in the Error
+     * Helps determine the appropriate number of measurements to minimize the error */
+    fun getErrorInError(): Float = (1.0 / sqrt(2.0 * counterList.size - 2.0)).toFloat()
 
     /** Call between each Test */
-    fun clearCounters() { counterList.clear() }
+    fun clearCounters() {
+        totalCycles = 0L
+        counterList.clear()
+    }
+
+    /** Prints all counters, their represented values and outcome probability */
+    fun printCounters() {
+        val total = totalCycles / 100f   // Pre-convert to percentage
+        counterList.forEach {
+            val percentage = it.count / total
+            println(it.counterToString() + " = $percentage %")
+        }
+    }
+
+    /** Prints the Mean value, Standard Deviation and Error */
+    fun printMeanValues() {
+        val sDev = getStandardDeviation()
+        val sError = "%.2f".format(getStandardError(sDev) * (1f + getErrorInError()))
+        val sDevStr = "%.2f".format(sDev)
+        println("Mean%=$meanPercent +/- $sError \tSDev=$sDevStr%")
+    }
+
+    /** Determines the Median counter value, as well as the differences
+     * @param sortedAscending Pass true if counters have already been sorted, ascending. */
+    fun printMedianRange(sortedAscending: Boolean = false) {
+        val median = getMedian(sortedAscending)
+        val total = totalCycles / 100f
+        val min = counterList[0].count
+        val max = counterList[counterList.size - 1].count
+        val medianRangeFraction = "%.3f".format((median - min) / (max - min))
+        println("Median%=${median / total} : Fraction of Range=$medianRangeFraction%")
+        val rMinStr = "%.4f".format(min / total)
+        val rMaxStr = "%.4f".format(max / total)
+        println("Range%: ($rMinStr, $rMaxStr)")
+    }
+
+    /** Runs the generator using a specific seed for multiple sample sizes
+     * @param seed The identifier for the input parameters to test
+     * @param sampleSizes List of the sample sizes to test in sequence */
+    fun compareSampleSizes(seed: Int, vararg sampleSizes: Long) {
+        changeParameters(seed)
+        for (s in sampleSizes) {
+            println("\n\t$s Cycles, Seed $seed:")
+            clearCounters()
+            runXTimes(s)
+            printMeanValues()
+            printMedianRange()
+        }
+    }
+
+    fun compareSeeds(seedRange: IntRange,
+                     vararg sampleSize: Long = longArrayOf(500, 5000, 50000)) {
+        for (i in seedRange) {
+            compareSampleSizes(i, *sampleSize)
+            println("\n_________________")
+        }
+    }
 
 }
