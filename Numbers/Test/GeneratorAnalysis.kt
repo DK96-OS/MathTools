@@ -1,4 +1,4 @@
-/** Test Helper class for running Generators, and counting the results
+/** Generator Testing Framework for outcome analysis
   * Developed by DK96-OS 2018 - 2020 */
 abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     protected val generator: G,
@@ -56,26 +56,27 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
             (counterList[halfIndex].count + counterList[halfIndex + 1].count) / 2f
     }
 
-    /** Calculates the Standard Deviation of the Counters from the Mean */
+    /** Calculates the Standard Deviation of the Probability */
     fun getStandardDeviation(): Float {
-        if (counterList.size < 2) throw IllegalStateException()
-        val mean = meanCount.toDouble()
+        if (counterList.size < 3) throw IllegalStateException()
+        val mean = meanPercent.toDouble()
+        val total = totalCycles.toDouble() / 100f
         var varianceSum = 0.0
         counterList.forEach {
-            val deviation = it.count - mean
+            val deviation = (it.count / total) - mean
             varianceSum += deviation * deviation
         }
         return sqrt(varianceSum / (counterList.size - 1)).toFloat()
     }
 
-    /** Calculates the Standard Error, the Standard Deviation of the Mean 
+    /** Calculates the Standard Error, the Standard Deviation of the Mean
      * @param sDev Provide the Standard Deviation if already known */
     fun getStandardError(sDev: Float? = null)
-        : Float = ((sDev ?: getStandardDeviation()) / sqrt(totalCycles.toDouble())).toFloat()
+        : Float = ((sDev ?: getStandardDeviation()) / sqrt(counterList.size.toDouble())).toFloat()
 
     /** Calculates the Fractional Error in the Error
      * Helps determine the appropriate number of measurements to minimize the error */
-    fun getErrorInError(): Float = (1.0 / sqrt(2.0 * totalCycles - 2.0)).toFloat()
+    fun getErrorInError(): Float = (1.0 / sqrt(2.0 * counterList.size - 2.0)).toFloat()
 
     /** Call between each Test */
     fun clearCounters() {
@@ -83,6 +84,7 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
         counterList.clear()
     }
 
+    /** Prints all counters, their represented values and outcome probability */
     fun printCounters() {
         val total = totalCycles / 100f   // Pre-convert to percentage
         counterList.forEach {
@@ -94,8 +96,9 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     /** Prints the Mean value, Standard Deviation and Error */
     fun printMeanValues() {
         val sDev = getStandardDeviation()
-        val sError = getStandardError(sDev) * (1f + getErrorInError())
-        println("Mean: ($meanCount, $meanPercent %) +/- $sError \nStandard Deviation: $sDev")
+        val sError = "%.2f".format(getStandardError(sDev) * (1f + getErrorInError()))
+        val sDevStr = "%.2f".format(sDev)
+        println("Mean%=$meanPercent +/- $sError \tSDev=$sDevStr%")
     }
 
     /** Determines the Median counter value, as well as the differences
@@ -103,19 +106,35 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     fun printMedianRange(sortedAscending: Boolean = false) {
         val median = getMedian(sortedAscending)
         val total = totalCycles / 100f
-        println("Median: ($median, ${median / total} %)")
         val min = counterList[0].count
         val max = counterList[counterList.size - 1].count
-        println("\tRange: ($min, $max) or (${min / total} %, ${max / total} %)")
-        val lowerLimitDiff = median - min
-        val upperLimitDiff = max - median
-        println("\tMedian " + when {
-            lowerLimitDiff > upperLimitDiff ->
-                "closer to UpperLimit by ${lowerLimitDiff - upperLimitDiff}"
-            upperLimitDiff > lowerLimitDiff ->
-                "closer to LowerLimit by ${upperLimitDiff - lowerLimitDiff}"
-            else -> "is centered exactly within the range"
-        })
+        val medianRangeFraction = "%.3f".format((median - min) / (max - min))
+        println("Median%=${median / total} : Fraction of Range=$medianRangeFraction%")
+        val rMinStr = "%.4f".format(min / total)
+        val rMaxStr = "%.4f".format(max / total)
+        println("Range%: ($rMinStr, $rMaxStr)")
+    }
+
+    /** Runs the generator using a specific seed for multiple sample sizes
+     * @param seed The identifier for the input parameters to test
+     * @param sampleSizes List of the sample sizes to test in sequence */
+    fun compareSampleSizes(seed: Int, vararg sampleSizes: Long) {
+        changeParameters(seed)
+        for (s in sampleSizes) {
+            println("\n\t$s Cycles, Seed $seed:")
+            clearCounters()
+            runXTimes(s)
+            printMeanValues()
+            printMedianRange()
+        }
+    }
+
+    fun compareSeeds(seedRange: IntRange,
+                     vararg sampleSize: Long = longArrayOf(500, 5000, 50000)) {
+        for (i in seedRange) {
+            compareSampleSizes(i, *sampleSize)
+            println("\n_________________")
+        }
     }
 
 }
