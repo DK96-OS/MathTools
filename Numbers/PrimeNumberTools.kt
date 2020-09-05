@@ -2,31 +2,32 @@
 /** Container for PrimeNumber functions */
 object PrimeNumberTools {
 
-    /** Creates a list of prime numbers up to the maximum provided
-     * Checks odd numbers if they can be divided by the primes accumulated
-     * @param maxPrime The maximum possible number that will be added to the list */
-    fun createPrimeNumberList(maxPrime: Long): ArrayList<Int> {
-        val primeNumbers = arrayListOf(2, 3, 5, 7)
-        var testN = primeNumbers[primeNumbers.size - 1] + 4
-        var mayBePrime = true
-        var upperPrimeLimit: Int  // Upper limit on the second factor
-        while (testN <= maxPrime) {
-            upperPrimeLimit = testN / 2    // Increment pattern eliminates 2
-            for (pIndex in 1 until primeNumbers.size) {
-                val prime = primeNumbers[pIndex]
-                if (prime > upperPrimeLimit)
-                    break
-                else if (testN % prime != 0)
-                    upperPrimeLimit = testN / prime
-                else {
-                    mayBePrime = false
-                    break
-                }
-            }
-            if (mayBePrime) primeNumbers.add(testN) else mayBePrime = true
-            testN += 2
+    /** Updates a list of prime numbers, to contain all primes up to the maximum
+     * @param maxPrime The maximum possible number that may be added to the list if prime */
+    fun ArrayList<Int>.updatePrimeNumberList(maxPrime: Long) {
+        var tryAddingMore = true
+        if (isEmpty()) {
+            add(2)
+            add(3)
+        } else while (last() > maxPrime) {
+            tryAddingMore = false
+            removeLast()
         }
-        return primeNumbers
+        if (tryAddingMore) {
+            var testN = last() + 2
+            var mayBePrime = true
+            while (testN <= maxPrime) {
+                for (primeIdx in 1 until size) {
+                    val prime = get(primeIdx)
+                    if (testN % prime == 0) {
+                        mayBePrime = false
+                        break
+                    } else if (prime > testN / get(primeIdx - 1)) break
+                }
+                if (mayBePrime) add(testN) else mayBePrime = true
+                testN += 2
+            }
+        }
     }
 
     /** Determines whether this Product/Prime contains a prime number greater than the limit
@@ -54,27 +55,29 @@ object PrimeNumberTools {
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
     fun getFirstPrimeAboveLimit(product: Long, limit: Long): Long? {
-        var composite = product
-        while (composite % 2 == 0L) composite /= 2
-        if (limit >= 3)
-            while (composite % 3 == 0L && composite > limit) composite /= 3
-        else if (composite % 3 == 0L) 
-            return 3
-        if (limit >= 5)
-            while (composite % 5 == 0L && composite > limit) composite /= 5
-        else if (composite % 5 == 0L) 
-            return 5
-        if (limit < composite) {
-            var primeCounter = 7L
-            while (limit in primeCounter until composite) {
-                if (composite % primeCounter == 0L) composite /= primeCounter
-                else primeCounter += 2
-            }
-            if (limit < composite) while (primeCounter <= composite) {
-                if (composite % primeCounter == 0L) return primeCounter else primeCounter++
-            }
+        var composite = if (limit >= 2) redFactor(2, product)
+        else throw IllegalArgumentException()
+        var primeCounter = 3
+        while (limit in primeCounter until composite) { // Safe to remove
+            val reduced = redFactor(primeCounter, composite)
+            if (reduced < composite) composite = reduced
+            primeCounter += 2
+        }
+        while (primeCounter in (limit + 1) .. composite) {
+            if (composite % primeCounter == 0L) return primeCounter.toLong()
+            else primeCounter += 2
         }
         return null
     }
 
+    /** Reduces the composite by the given factor repeatedly
+     * @param f The factor to reduce
+     * @param composite The composite number to be reduced if it contains f
+     * @return The reduced or unreduced composite number */
+    fun redFactor(f: Int, composite: Long): Long = if (composite % f == 0L) {
+        var reduced = composite / f
+        while (reduced % f == 0L) { reduced /= f }
+        reduced
+    } else composite
+    
 }
