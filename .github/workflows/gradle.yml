@@ -11,20 +11,22 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        java: [ '8', '11', '15' ]
+    name: Java ${{ matrix.java }} Build
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 11
+    - name: Set up Java
       uses: actions/setup-java@v2
       with:
-        java-version: '11'
-        distribution: 'adopt'
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      continue-on-error: true
-      shell: bash
+        java-version: ${{ matrix.java }}
+        distribution: 'zulu'
     - name: Build with Gradle
-      run: ./gradlew build
+      run: gradle build
       timeout-minutes: 3
       shell: bash
+    - name: Run tests with Gradle
+      run: gradle test
+      timeout-minutes: 2
