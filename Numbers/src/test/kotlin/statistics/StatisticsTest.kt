@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import kotlin.math.roundToInt
+import statistics.Statistics
 
 /** Test the Statistics functions */
 class StatisticsTest {

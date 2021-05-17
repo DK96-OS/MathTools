@@ -23,18 +23,18 @@ class IntegerMgrTest {
 	}
 	
 	@Test fun testTrySetN() {
-		singleDigitInt.trySetInt(7)
+		singleDigitInt.trySetN(7)
 		assertEquals(7, singleDigitInt.number)
-		singleDigitInt.trySetInt(-10)
+		singleDigitInt.trySetN(-10)
 		assertEquals(-9, singleDigitInt.number)
-		singleDigitInt.trySetInt(30)
+		singleDigitInt.trySetN(30)
 		assertEquals(9, singleDigitInt.number)
 	}
 	
 	@Test fun testAdditionOperation() {
 		singleDigitInt.trySetN(7)
 		assertEquals(12, singleDigitInt + 5)
-		assertEquals(12.5f, singleDigitInt + 5.5)
+		assertEquals(12.5f, singleDigitInt + 5.5f)
 		assertEquals(14, singleDigitInt + singleDigitInt)
 	}
 	
