@@ -23,14 +23,13 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
+    - name: Assemble Source Files
+      run: |
+      	gradle assemble
+      timeout-minutes: 4
     - name: Run tests
       run: |
-        gradle --build-cache check --continue --info --warning-mode=all
-      timeout-minutes: 5
-    - name: Build with Gradle
-      run: |
-        gradle --build-cache build --scan --info --warning-mode=all --no-watch-fs
-        gradle --stop
-      timeout-minutes: 5
+        gradle check --continue
+      timeout-minutes: 4
       shell: bash
     
