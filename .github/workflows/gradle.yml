@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, Actions ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -32,16 +32,16 @@ jobs:
     - name: Upload Numbers Tests Results
       uses: actions/upload-artifact@v2
       with:
-        name: Numbers-Test-Results ${{ matrix.java }}
-        path: | 
+        name: Numbers-Test-Results on Java${{ matrix.java }}
+        path: |
           /home/runner/work/MathTools/MathTools/Numbers/build/reports/tests/test
           /home/runner/work/MathTools/MathTools/Numbers/build/test-results/test
         retention-days: 60
     - name: Upload Systems Tests Results
       uses: actions/upload-artifact@v2
       with:
-        name: Systems-Test-Results ${{ matrix.java }}
-        path: | 
+        name: Systems-Test-Results on Java${{ matrix.java }}
+        path: |
           /home/runner/work/MathTools/MathTools/Systems/build/reports/tests/test
           /home/runner/work/MathTools/MathTools/Systems/build/test-results/test
         retention-days: 60
