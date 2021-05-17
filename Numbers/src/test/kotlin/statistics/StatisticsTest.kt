@@ -6,11 +6,11 @@ import kotlin.math.roundToInt
 /** Test the Statistics functions */
 class StatisticsTest {
   
-  @Test fun checkStatisticsOfList() {
-    val list = mutableListOf(100f, 110f, 190f, 200f)
+	@Test fun checkStatisticsOfList() {
+		val list = mutableListOf(100f, 110f, 190f, 200f)
 		assertEquals(150f, Statistics.calculateMeanFloat(list), 0.01f)
 		assertEquals(52f, Statistics.calculateStandardDevFloat(list), 1f)
-  }
+	}
   
  	@Test fun checkOneInProbability() {
 		val N = 200000L
@@ -20,7 +20,7 @@ class StatisticsTest {
 		assertEquals(16.67f, checkPercentage(6, N), 0.3f)
 		assertEquals(14.28f, checkPercentage(7, N), 0.3f)
 		assertEquals(12.50f, checkPercentage(8, N), 0.3f)
-		assertEquals(11.11f, checkPercentage(9, N), 0.2f)
+		assertEquals(11.11f, checkPercentage(9, N), 0.3f)
     
       // Check for variability
 		// for (i in 0 until 5) println("${checkPercentage(9, N)}")	
@@ -38,28 +38,27 @@ class StatisticsTest {
 		var mean = Statistics.calculateMeanFloat(measurements)
 		var sdev = Statistics.calculateStandardDevFloat(measurements, mean)
 		assertEquals(0.5f, mean, 0.001f)
-		println(sdev)
+		// println(sdev)
 			// One In 500
 		measurements = measureOneIn(500, 30_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.2f, mean, 0.001f)
-		println(sdev)
+		assertEquals(0.2f, mean, 0.002f)
+		// println(sdev)
 			// One In 1000
 		measurements = measureOneIn(1000, 30_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.1f, mean, 0.000_5f)
-		println(sdev)
+		assertEquals(0.1f, mean, 0.001f)
+		// println(sdev)
 	}
   
 	@Test fun testOneInProbabilityHighInputVariability2() {
 		val measurements = measureOneIn(5000, 10_000L, 30) 		// One In 5000
 		val mean = Statistics.calculateMeanFloat(measurements)
 		val sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.02f, mean, 0.000_01f)
+		assertEquals(0.02f, mean, 0.000_1f)
 		assertEquals(0.000_4f, sdev, 0.000_3f)
-		println(sdev)
 	}
   
   /** Runs the Statistics OneIn( x ) function N times */

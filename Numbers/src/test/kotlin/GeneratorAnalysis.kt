@@ -1,3 +1,5 @@
+import kotlin.math.sqrt
+
 /** Generator Testing Framework for outcome analysis
   * Developed by DK96-OS 2018 - 2020 */
 abstract class GeneratorAnalysis<G: Generator, C: Counter>(
