@@ -5,10 +5,10 @@ import org.junit.Test
 
 /** Generator Analysis of the ProductGenerator
   * Developed by DK96-OS : 2018 - 2021 */
-class ProductGeneratorAnalysis : GeneratorAnalysis<ProductGenerator, PrimeCounter>(
-    ProductGenerator(6..50L, 17)
+class ProductGeneratorAnalysis : GeneratorAnalysis
+<ProductGenerator, PrimeCounter>(
+	ProductGenerator(6..50L, 17)
 ) {
-
     override fun ProductGenerator.isCountedBy(counter: PrimeCounter)
     : Boolean = (product == counter.product)
 
@@ -19,7 +19,7 @@ class ProductGeneratorAnalysis : GeneratorAnalysis<ProductGenerator, PrimeCounte
             1 -> g.setParametersAndRegenerate(6..50L, 17)
             2 -> g.setParametersAndRegenerate(30..90L, 23)
             3 -> g.setParametersAndRegenerate(31..168L, 70)
-            else -> g.setParametersAndRegenerate(120..55691L, 190)
+            else -> g.setParametersAndRegenerate(120..15691L, 190)
         }
     }
 
@@ -27,34 +27,38 @@ class ProductGeneratorAnalysis : GeneratorAnalysis<ProductGenerator, PrimeCounte
     fun clear() { clearCounters() }
 
     @Test
-    fun perform() {
-        runXTimes(40000)
-        sortCounters()
-        printCounters()
+    fun testDistributionSeed1() {
+        runXTimes(40000)c
+        printMeanValues()
+        printMedianRange()
+        println("Error: ${getStandardError()}")
     }
 
     @Test
-    fun perform2() {
+    fun testDistributionSeed2() {
         changeParameters(2)
         runXTimes(40000)
-        sortCounters()
-        printCounters()
+        printMeanValues()
+        printMedianRange()
+        println("Error: ${getStandardError()}")
     }
 
     @Test
-    fun perform3() {
+    fun testDistributionSeed3() {
         changeParameters(3)
         runXTimes(40000)
-        sortCounters()
-        printCounters()
+        printMeanValues()
+        printMedianRange()
+        println("Error: ${getStandardError()}")
     }
 
     @Test
-    fun perform4() {
+    fun testDistributionSeed4() {
         changeParameters(4)
         runXTimes(40000)
-        sortCounters()
-        printCounters()
+        printMeanValues()
+        printMedianRange()
+        println("Error: ${getStandardError()}")
     }
 
 }
