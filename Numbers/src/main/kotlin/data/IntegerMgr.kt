@@ -3,15 +3,18 @@ package data
 /** Data Structure for an integer that may travel within a fixed range
  * Developed by DK96-OS : 2019 - 2021 */
 class IntegerMgr(
-    var number: Int,
+    number: Int,
     max: Int,
     min: Int = 1,
     var isIncreasing: Boolean = true
 ) {
     val range: IntRange = min .. max
+    
+    var number: Int = number
+    	private set
 
     /** Increases or Decreases by 1 based on isIncreasing */
-    fun increment() {
+    fun increment(): Int {
         if (isIncreasing) {
             if (number >= range.last) {
                 isIncreasing = false
@@ -23,6 +26,7 @@ class IntegerMgr(
                 number++
             } else number--
         }
+        return number
     }
     
     /** Returns the current value, then increments */
@@ -39,11 +43,7 @@ class IntegerMgr(
 
     /** Set the current value exactly, or to the closest end of the range. */
     fun trySetN(n: Int) {
-        when {
-            n in range -> number = n
-            n > range.last -> number = range.last
-            n < range.first -> number = range.first
-        }
+    	number = n.coerceIn(range.first, range.last)
     }
 
     override fun toString(): String = number.toString()
