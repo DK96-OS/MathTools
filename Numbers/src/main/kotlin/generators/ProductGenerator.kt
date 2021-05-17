@@ -1,3 +1,5 @@
+package generators
+
 import kotlin.random.Random
 
 /** Generator that limits the Prime numbers involved in a product

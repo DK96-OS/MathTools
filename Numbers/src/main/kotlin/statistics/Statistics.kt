@@ -1,3 +1,5 @@
+package statistics
+
 import kotlin.math.sqrt
 
 /** Key Statistics Functions */

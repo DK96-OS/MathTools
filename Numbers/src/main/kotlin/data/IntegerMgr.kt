@@ -1,3 +1,5 @@
+package data
+
 /** Data Structure for an integer that may travel within a fixed range
  * Developed by DK96-OS : 2019 - 2021 */
 class IntegerMgr(
