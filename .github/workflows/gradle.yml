@@ -24,12 +24,8 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
     - name: Assemble Source Files
-      run: |
-      	gradle assemble
+      run: gradle assemble
       timeout-minutes: 4
     - name: Run tests
-      run: |
-        gradle check --continue
+      run: gradle check --continue
       timeout-minutes: 4
-      shell: bash
-    
