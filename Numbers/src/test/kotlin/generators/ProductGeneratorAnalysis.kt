@@ -28,7 +28,7 @@ class ProductGeneratorAnalysis : GeneratorAnalysis
 
     @Test
     fun testDistributionSeed1() {
-        runXTimes(40000)c
+        runXTimes(40000)
         printMeanValues()
         printMedianRange()
         println("Error: ${getStandardError()}")
