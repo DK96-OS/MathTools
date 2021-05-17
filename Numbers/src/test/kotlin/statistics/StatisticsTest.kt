@@ -40,19 +40,19 @@ class StatisticsTest {
 		var measurements = measureOneIn(200)
 		var mean = Statistics.calculateMeanFloat(measurements)
 		var sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.5f, mean, 0.001f)
+		assertEquals(0.5f, mean, 0.01f)
 		// println(sdev)
 			// One In 500
 		measurements = measureOneIn(500, 30_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.2f, mean, 0.002f)
+		assertEquals(0.2f, mean, 0.005f)
 		// println(sdev)
 			// One In 1000
 		measurements = measureOneIn(1000, 30_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.1f, mean, 0.001f)
+		assertEquals(0.1f, mean, 0.005f)
 		// println(sdev)
 	}
   
@@ -60,7 +60,7 @@ class StatisticsTest {
 		val measurements = measureOneIn(5000, 10_000L, 30) 		// One In 5000
 		val mean = Statistics.calculateMeanFloat(measurements)
 		val sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.02f, mean, 0.000_1f)
+		assertEquals(0.02f, mean, 0.000_5f)
 		assertEquals(0.000_4f, sdev, 0.000_3f)
 	}
   
@@ -75,7 +75,10 @@ class StatisticsTest {
 	 * @param x The input to oneIn.
 	 * @param nFactor A factor in determining the number of trials per measurement
 	 * @param measurements The number of times to measure the percentage independently */
-	private fun measureOneIn(x:Int, nFactor:Long = 30_000L, measurements:Int = 20)
-	: List<Float> = Array(measurements) {checkPercentage(x, x * nFactor)}.toList()
+	private fun measureOneIn(
+		x:Int, nFactor:Long = 30_000L, measurements:Int = 20
+	): List<Float> = Array(measurements) {
+		checkPercentage(x, x * nFactor)
+	}.toList()
  
 }
