@@ -1,0 +1,49 @@
+package data
+
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
+
+/** Test the Integer Mgr class */
+class IntegerMgrTest {
+
+	private lateinit var singleDigitInt: IntegerMgr
+
+	@Before fun setup() {
+		singleDigitInt = IntegerMgr(0, max = 9, min = -9)
+	}
+
+	@Test fun testIncrementLoop() {
+		for (i in 1 .. 9) 
+			assertEquals(i, singleDigitInt.increment())
+		for (i in 8 downTo -9)
+			assertEquals(i, singleDigitInt.increment())
+		for (i in -8 .. 0)
+			assertEquals(i, singleDigitInt.increment())
+	}
+	
+	@Test fun testTrySetN() {
+		singleDigitInt.trySetInt(7)
+		assertEquals(7, singleDigitInt.number)
+		singleDigitInt.trySetInt(-10)
+		assertEquals(-9, singleDigitInt.number)
+		singleDigitInt.trySetInt(30)
+		assertEquals(9, singleDigitInt.number)
+	}
+	
+	@Test fun testAdditionOperation() {
+		singleDigitInt.trySetN(7)
+		assertEquals(12, singleDigitInt + 5)
+		assertEquals(12.5f, singleDigitInt + 5.5)
+		assertEquals(14, singleDigitInt + singleDigitInt)
+	}
+	
+	@Test fun testCompareOperation() {
+		singleDigitInt.trySetN(5)
+		assertEquals(true, singleDigitInt > 4)
+		assertEquals(true, singleDigitInt <= 5)
+		assertEquals(true, singleDigitInt >= 5)
+		assertEquals(false, singleDigitInt > 5)
+	}
+
+}
