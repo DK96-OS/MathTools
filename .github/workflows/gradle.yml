@@ -1,0 +1,47 @@
+# This workflow will build a Java project with Gradle
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master, Actions ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        java: [ '8', '11' ]
+    name: Java ${{ matrix.java }} Build
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: 'zulu'
+    - name: Assemble Source Files
+      run: gradle assemble
+      timeout-minutes: 4
+    - name: Run tests
+      run: gradle check --continue
+      timeout-minutes: 4
+    - name: Upload Numbers Tests Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Numbers-Test-Results ${{ matrix.java }}
+        path: | 
+          /home/runner/work/MathTools/MathTools/Numbers/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/Numbers/build/test-results/test
+        retention-days: 60
+    - name: Upload Systems Tests Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Systems-Test-Results ${{ matrix.java }}
+        path: | 
+          /home/runner/work/MathTools/MathTools/Systems/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/Systems/build/test-results/test
+        retention-days: 60
