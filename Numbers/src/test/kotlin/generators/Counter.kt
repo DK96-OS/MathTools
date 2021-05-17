@@ -1,3 +1,5 @@
+package generators
+
 /** Counts the number of some occurrence 
   * Developed by DK96-OS 2018 - 2020 */
 abstract class Counter(

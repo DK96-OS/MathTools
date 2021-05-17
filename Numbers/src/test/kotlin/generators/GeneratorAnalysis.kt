@@ -1,3 +1,5 @@
+package generators
+
 import kotlin.math.sqrt
 
 /** Generator Testing Framework for outcome analysis

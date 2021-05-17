@@ -1,14 +1,16 @@
+package generators
+
 import org.junit.Before
 import org.junit.Test
 
 /** Generator Analysis of the ProductGenerator
-  * Developed by DK96-OS 2018 - 2020 */
+  * Developed by DK96-OS : 2018 - 2021 */
 class ProductGeneratorAnalysis : GeneratorAnalysis<ProductGenerator, PrimeCounter>(
     ProductGenerator(6..50L, 17)
 ) {
 
     override fun ProductGenerator.isCountedBy(counter: PrimeCounter)
-        : Boolean = (product == counter.product)
+    : Boolean = (product == counter.product)
 
     override fun createCounter(g: ProductGenerator) = PrimeCounter(g.product)
 
