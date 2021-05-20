@@ -16,7 +16,7 @@ class StatisticsTest {
 	}
   
  	@Test fun checkOneInProbability() {
-		val N = 200000L
+		val N = 180_000L
 		assertEquals(33.33f, checkPercentage(3, N), 0.3f)
 		assertEquals(25.00f, checkPercentage(4, N), 0.3f)
 		assertEquals(20.00f, checkPercentage(5, N), 0.3f)
@@ -28,12 +28,11 @@ class StatisticsTest {
       // Check for variability
 		// for (i in 0 until 5) println("${checkPercentage(9, N)}")	
       // Variability decreases as x++
-    
-		assertEquals(5.0f, checkPercentage(20, N), 0.15f)
-		assertEquals(4.0f, checkPercentage(25, N), 0.15f)
-		assertEquals(2.5f, checkPercentage(40, N), 0.12f)
-		assertEquals(2.0f, checkPercentage(50, N), 0.12f)
-		assertEquals(1.0f, checkPercentage(100, N), 0.12f)	
+		assertEquals(5.0f, checkPercentage(20, N), 0.2f)
+		assertEquals(4.0f, checkPercentage(25, N), 0.2f)
+		assertEquals(2.5f, checkPercentage(40, N), 0.15f)
+		assertEquals(2.0f, checkPercentage(50, N), 0.15f)
+		assertEquals(1.0f, checkPercentage(100, N), 0.15f)	
 	}
   
 	@Test fun testOneInProbabilityHighInputStatistics() {
@@ -42,19 +41,19 @@ class StatisticsTest {
 		var sdev = Statistics.calculateStandardDevFloat(measurements, mean)
 		assertEquals(0.5f, mean, 0.02f)
 			// One In 500
-		measurements = measureOneIn(500, 30_000L)
+		measurements = measureOneIn(500, 25_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
 		assertEquals(0.2f, mean, 0.015f)
 			// One In 1000
-		measurements = measureOneIn(1000, 30_000L)
+		measurements = measureOneIn(1000, 25_000L)
 		mean = Statistics.calculateMeanFloat(measurements)
 		sdev = Statistics.calculateStandardDevFloat(measurements, mean)
 		assertEquals(0.1f, mean, 0.025f)
 	}
   
 	@Test fun testOneInProbabilityHighInputVariability2() {
-		val measurements = measureOneIn(5000, 10_000L, 30) 		// One In 5000
+		val measurements = measureOneIn(5000, 10_000L, 20) 		// One In 5000
 		val mean = Statistics.calculateMeanFloat(measurements)
 		val sdev = Statistics.calculateStandardDevFloat(measurements, mean)
 		assertEquals(0.02f, mean, 0.0015f)
@@ -73,7 +72,7 @@ class StatisticsTest {
 	 * @param nFactor A factor in determining the number of trials per measurement
 	 * @param measurements The number of times to measure the percentage independently */
 	private fun measureOneIn(
-		x:Int, nFactor:Long = 30_000L, measurements:Int = 20
+		x:Int, nFactor:Long = 25_000L, measurements:Int = 18
 	): List<Float> = Array(measurements) {
 		checkPercentage(x, x * nFactor)
 	}.toList()
