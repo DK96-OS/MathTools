@@ -3,33 +3,77 @@ package data
 /** Container for PrimeNumber functions */
 object PrimeNumberTools {
 
+
     /** Updates a list of prime numbers, to contain all primes up to the maximum
      * @param maxPrime The maximum possible number that may be added to the list if prime */
-    fun ArrayList<Int>.updatePrimeNumberList(maxPrime: Long) {
-        var tryAddingMore = true
-        if (isEmpty()) {
-            add(2)
-            add(3)
-        } else while (last() > maxPrime) {
-            tryAddingMore = false
-            removeLast()
+    fun resizePrimeList(list: ArrayList<Int>, maxPrime: Int) {
+        if (list.size > 0 && list.last() > maxPrime) {
+            list.removeLast()
+            while (list.last() > maxPrime) list.removeLast()
+        } else {
+            var counter = list.size
+		    var nextPrime = getPrime(counter)
+		    try {
+		    	while (nextPrime <= maxPrime) {
+		    		list.add(nextPrime)
+		    		nextPrime = getPrime(++counter)
+		    	}
+		    } catch(e: Exception) {println("Prime Number Exception: $e")}
         }
-        if (tryAddingMore) {
-            var testN = last() + 2
-            var mayBePrime = true
-            while (testN <= maxPrime) {
-                for (primeIdx in 1 until size) {
-                    val prime = get(primeIdx)
-                    if (testN % prime == 0) {
-                        mayBePrime = false
-                        break
-                    } else if (prime > testN / get(primeIdx - 1)) break
-                }
-                if (mayBePrime) add(testN) else mayBePrime = true
-                testN += 2
-            }
-        }
-    }
+    }	
+
+	/** This master prime set provides a reference for other sets to build from */
+	private val masterPrimeSet = ArrayDeque<Int>()
+	private const val setStart = 10
+	private const val setLimit = 180
+	
+	/** Obtain a prime number by it's index, starting at index 0 -> 2 */
+	fun getPrime(idx: Int): Int = when (idx) {
+		in setStart .. setStart + setLimit -> {
+			val diff = idx - setStart
+			if (diff < masterPrimeSet.size) 
+				masterPrimeSet[diff]
+			else {
+				increaseMasterPrimeSet(diff + 1 - masterPrimeSet.size)
+				masterPrimeSet[diff]
+			}
+		}
+		0 -> 2
+		in 1..3 -> 1 + 2 * idx
+		in 4..5 -> 3 + 2 * idx
+		in 6..7 -> 5 + 2 * idx
+		8 -> 23
+		9 -> 29
+		// If more constants are added, update the setStart constant
+		else -> throw IllegalArgumentException("Prime Number too high")
+	}
+
+	/** Add primes to the end of the set 
+		* @param n The number of primes to add to the master set */
+	private fun increaseMasterPrimeSet(n: Int) {
+		val initIndex = setStart + masterPrimeSet.size - 1	// Index of highest prime
+		if (initIndex + n > setStart + setLimit) 
+			throw IllegalArgumentException("Cannot increase set beyond limit")
+		var primeCounter = 0
+		var testN = getPrime(initIndex) + 2
+		var mayBePrime = true
+		while (primeCounter < n) {
+			var prevPrime = 2
+			for (i in 1 until initIndex) {
+				val prime = getPrime(i)
+				if (testN % prime == 0) {
+					mayBePrime = false
+					break
+				} else if (prime > testN.toFloat() / prevPrime) break
+				prevPrime = prime
+			}
+			if (!mayBePrime) mayBePrime = true else {
+				masterPrimeSet.add(testN)
+				primeCounter++
+			}
+			testN += 2	// Always increment by 2 to stay odd numbered
+		}
+	}
 
     /** Whether this Product/Prime contains a prime number greater than the limit
      * @param product The product to test
