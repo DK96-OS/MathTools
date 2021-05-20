@@ -3,7 +3,6 @@ package data
 /** Container for PrimeNumber functions */
 object PrimeNumberTools {
 
-
     /** Updates a list of prime numbers, to contain all primes up to the maximum
      * @param maxPrime The maximum possible number that may be added to the list if prime */
     fun resizePrimeList(list: ArrayList<Int>, maxPrime: Int) {
