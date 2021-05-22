@@ -1,15 +1,15 @@
 package data
 
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** Test the Integer Mgr class */
 class IntegerMgrTest {
 
 	private lateinit var singleDigitInt: IntegerMgr
 
-	@Before fun setup() {
+	@BeforeEach fun setup() {
 		singleDigitInt = IntegerMgr(0, max = 9, min = -9)
 	}
 
