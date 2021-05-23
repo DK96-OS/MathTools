@@ -9,10 +9,12 @@ dependencies {
 
 	// Coroutine support
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
     
     // JUnit 5
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
