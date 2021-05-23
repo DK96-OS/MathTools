@@ -8,8 +8,7 @@ object PrimeNumberTools {
 
 	/** Obtain a prime number by it's index, starting at index 0 -> 2 */
 	fun getPrime(idx: Int): Int = when (idx) {
-		in shortPrimes.byteIndexRange -> shortPrimes.getPrime(idx)
-		in shortPrimes.shortIndexRange -> shortPrimes.getPrime(idx)
+		in shortPrimes.indexRange -> shortPrimes.getPrime(idx)
 		//todo: Use special mathematical condition to enable computing higher prime numbers from the cache without storing them
 		else -> throw IllegalArgumentException("Prime Number too high for given cache.")
 	}
