@@ -56,11 +56,11 @@ class BytePrimeCacheTest {
 		// Require expanding by 6 primes
 		assertEquals(79, cache.getPrime(21))
 		assertEquals(6, cache.arraySize)		// No change to array
-		assertEquals(6, cache.queueSize)	// Added recent prime to queue
+		assertEquals(6, cache.queueSize)	// Added recent primes to queue
 		// Jump to a high prime
 		assertEquals(127, cache.getPrime(30))
-		assertEquals(12, cache.arraySize)	// Combined existing queued primes
-		assertEquals(9, cache.queueSize)	// Just recently added
+		assertEquals(21, cache.arraySize)	// Combined existing queued primes
+		assertEquals(0, cache.queueSize)	// Just recently added
 	}
 
 }
