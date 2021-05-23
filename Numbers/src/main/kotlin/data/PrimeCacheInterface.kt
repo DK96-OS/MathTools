@@ -26,7 +26,11 @@ interface PrimeCacheInterface {
 		for (i in 1 until indexRange.last) {
 			val testPrime = getPrime(i)
 			if (number % testPrime == 0) return false
-			if (testPrime > number.toFloat() / prevPrime) break
+			if (testPrime > number.toFloat() / prevPrime) {
+				val ratio = number.toFloat() / prevPrime
+				println("IsPrime BREAK on $number : $testPrime > $ratio")
+				break
+			}
 			prevPrime = testPrime
 		}
 		return true

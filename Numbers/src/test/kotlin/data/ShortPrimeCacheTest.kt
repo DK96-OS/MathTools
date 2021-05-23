@@ -13,6 +13,15 @@ class ShortPrimeCacheTest {
     	139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
     	211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
     )
+    
+    @Test fun testPrimeList() {
+    	assertEquals(127, primeList[30])
+    	assertEquals(139, primeList[33])
+    	assertEquals(149, primeList[34])
+    	assertEquals(151, primeList[35])
+    	assertEquals(157, primeList[36])
+    	assertEquals(163, primeList[37])
+    }
 
 	@Test fun testCacheInitialization() {
 		val cache = ShortPrimeCache()
@@ -37,8 +46,12 @@ class ShortPrimeCacheTest {
 	
 	@Test fun testIsPrime() {
 		val cache = ShortPrimeCache()
+		assertEquals(true, cache.isPrime(149))
+		assertEquals(true, cache.isPrime(151))
+		assertEquals(true, cache.isPrime(157))
+		assertEquals(false, cache.isPrime(159))
+		assertEquals(true, cache.isPrime(163))
 		assertEquals(true, cache.isPrime(211))
-		assertEquals(true, cache.isPrime(233))
 		assertEquals(true, cache.isPrime(239))
 		assertEquals(false, cache.isPrime(240))
 		assertEquals(true, cache.isPrime(251))
@@ -47,39 +60,44 @@ class ShortPrimeCacheTest {
 	
 	@Test fun testGetPrimeIncreasing() {
 		val cache = ShortPrimeCache()
-		for (i in 32 until primeList.size) {
-			println("CacheSize: ${cache.arraySize} + ${cache.queueSize}")
+		for (i in 32 until primeList.size) 
 			assertEquals(primeList[i], cache.getPrime(i))
-		}
 	}
 	
 	@Test fun testGetPrimeDecreasing() {
 		val cache = ShortPrimeCache()
-		for (i in primeList.size -1 downTo 30) {
-			println("CacheSize: ${cache.arraySize} + ${cache.queueSize}")
+		for (i in primeList.size -1 downTo 30)
 			assertEquals(primeList[i], cache.getPrime(i))
-		}
 	}
 
 	@Test fun testCacheExpansionSlow() {
 		val cache = ShortPrimeCache()
-		assertEquals(131, cache.getPrime(31))
 		assertEquals(137, cache.getPrime(32))
 		assertEquals(139, cache.getPrime(33))
 		assertEquals(149, cache.getPrime(34))
+		assertEquals(3, cache.arraySize)
+		assertEquals(1, cache.queueSize)
 		assertEquals(151, cache.getPrime(35))
-		for (i in 36 until 40) {
-			val prime = cache.getPrime(i)
-			println("idx: $i, prime=$prime")
-		}
+		assertEquals(2, cache.queueSize)
+		assertEquals(157, cache.getPrime(36))
+		assertEquals(3, cache.queueSize)
+		for (i in 37 .. 50)
+			assertEquals(primeList[i], cache.getPrime(i))
 	}
 
 	@Test fun testCacheExpansionQuick() {
 		val cache = ShortPrimeCache()
-		
-		for (i in 36 until 68 step 9) {
-			val prime = cache.getPrime(i)
-			println("idx: $i, prime=$prime")
-		}
+		assertEquals(3, cache.arraySize)
+		assertEquals(0, cache.queueSize)
+			// Expand the cache by 3
+		assertEquals(157, cache.getPrime(36))
+		assertEquals(3, cache.arraySize)
+		assertEquals(3, cache.queueSize)
+		assertEquals(149, cache.getPrime(34))
+		assertEquals(139, cache.getPrime(33))
+		assertEquals(151, cache.getPrime(35))
+		for (i in 36 until 58 step 8)
+			assertEquals(primeList[i], cache.getPrime(i))
 	}
+
 }

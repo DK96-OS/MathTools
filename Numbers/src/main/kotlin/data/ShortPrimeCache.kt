@@ -24,17 +24,11 @@ open class ShortPrimeCache : PrimeCacheInterface {
 	override fun getPrime(idx: Int): Int {
 		if (idx in byteCache.indexRange) return byteCache.getPrime(idx)
 		val shortIndex = idx - shortIndexRange.start
-		println("Check ShortIdx: $shortIndex in Array(size=$arraySize)")
 			// First check the Array
-		if (shortIndex in shortArray.indices) 
-			return shortArray[shortIndex].toInt()
+		if (shortIndex < arraySize) return shortArray[shortIndex].toInt()
 			// Check if the Queue has the prime
 		val overflow = shortIndex - arraySize
-		if (overflow < queueSize) {
-			println("Found index in Queue")
-			return if (queueSize > 9) consolidate(0) 
-			else shortQueue[overflow].toInt()
-		}
+		if (overflow < queueSize) return shortQueue[overflow].toInt()
 			// Extend the Queue
 		if (extendCache(idx)) return getPrime(idx)
 		else
@@ -44,10 +38,9 @@ open class ShortPrimeCache : PrimeCacheInterface {
 	private fun extendCache(toIndex: Int)
 	: Boolean = if (toIndex in shortIndexRange) {
 		var newPrimesRequired = 1 + toIndex  - shortIndexRange.start - arraySize - queueSize
-		println("to($toIndex): Primes Required: $newPrimesRequired")
 		if (queueSize > 9 || newPrimesRequired > 8 ||
-				arraySize > 7 && queueSize.toFloat() / arraySize >= 0.4f
-			) {
+			newPrimesRequired > 2 && queueSize >= 4
+		) {
 			if (newPrimesRequired < 0) throw IllegalArgumentException()
 			consolidate(newPrimesRequired)
 			true
@@ -59,9 +52,9 @@ open class ShortPrimeCache : PrimeCacheInterface {
 				val prime = findPrime(prevPrime, testN)
 				if (prime == null) break
 				shortQueue.addLast(prime.toShort())
-				val primeDiff = testN - prevPrime		// Consecutive difference
+				val primeDiff = prime - prevPrime		// Consecutive difference
 				prevPrime = prime
-				testN = prime + if (primeDiff == 2) 4 else 2	// Primes come in pairs
+				testN = prime + if (primeDiff == 2) 4 else 2	// Primes in pairs
 				newPrimesRequired--
 			}
 			newPrimesRequired == 0	// The correct amount of primes found
@@ -81,11 +74,11 @@ open class ShortPrimeCache : PrimeCacheInterface {
 				if (it < oldArray.size) oldArray[it]
 				else if (it < prevSize) shortQueue.removeFirst()
 				else {
-					val prime = findPrime(prev)
-					if (prime == null)
+					val newPrime = findPrime(prev)
+					if (newPrime == null)
 						throw IllegalStateException("Next Prime not found")
-					prev = prime
-					prime.toShort()
+					prev = newPrime
+					newPrime.toShort()
 				}
 			}
 		}

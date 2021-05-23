@@ -42,12 +42,14 @@ open class BytePrimeCache : PrimeCacheInterface {
 		var newPrimesRequired = toIndex - 9 - arraySize - queueSize
 			// Resize Array if there are enough primes to justify
 		if (queueSize > 9 || newPrimesRequired > 8 ||
-				newPrimesRequired > 2 && queueSize >= 4) {
+				newPrimesRequired > 2 && queueSize >= 4
+		) {
+			if (newPrimesRequired < 0) throw IllegalArgumentException()
 			consolidate(newPrimesRequired)
 			newPrimesRequired = 0
 		} else {	// Just add to queue
 			var prevPrime = (
-				byteQueue.lastOrNull() ?: byteArray.lastOrNull() ?: 29).toInt()
+				byteQueue.lastOrNull() ?: byteArray.last()).toInt()
 			var testN = prevPrime + 2
 			while (newPrimesRequired > 0) {
 				val prime = findPrime(prevPrime, testN)
@@ -70,16 +72,16 @@ open class BytePrimeCache : PrimeCacheInterface {
 		if (add == 0) byteArray = ByteArray(prevSize) {
 			if (it < oldArray.size) oldArray[it] else byteQueue.removeFirst()
 		} else {
-			var prev = byteQueue.lastOrNull() ?: oldArray.lastOrNull() ?: 29
+			var prev = (byteQueue.lastOrNull() ?: oldArray.last()).toInt()
 			byteArray = ByteArray(prevSize + add) {
 				if (it < oldArray.size) oldArray[it] 
 				else if (it < prevSize) byteQueue.removeFirst()
 				else {
-					val newPrime = findPrime(prev.toInt())?.toByte()
+					val newPrime = findPrime(prev)
 					if (newPrime == null)
 						throw IllegalStateException("Next prime not found")
 					prev = newPrime
-					newPrime
+					newPrime.toByte()
 				}
 			}
 		}
