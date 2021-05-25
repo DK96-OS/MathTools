@@ -2,7 +2,7 @@ package data
 
 /** A cache for really small prime numbers within the Byte range 
    *  Developed by DK96-OS : 2021 */
-open class BytePrimeCache : PrimeCacheInterface(
+open class BytePrimeCache : PrimeCacheBase(
 	maxIndex = 30, 
 	maxValue = Byte.MAX_VALUE.toInt(),
 ) {

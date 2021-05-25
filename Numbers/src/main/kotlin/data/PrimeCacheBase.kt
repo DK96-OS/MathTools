@@ -1,7 +1,7 @@
 package data
 
 /** Common to Prime Number Caches */
-abstract class PrimeCacheInterface(
+abstract class PrimeCacheBase(
 	/** The highest index that this Cache can store */
 	val maxIndex: Int, 
 	/** The maximum value that small data type arrays can hold */

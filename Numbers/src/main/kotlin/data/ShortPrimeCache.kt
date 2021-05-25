@@ -2,7 +2,7 @@ package data
 
 /** A cache for small prime numbers, within Short range 
    *  Developed by DK96-OS : 2021 */
-open class ShortPrimeCache : PrimeCacheInterface(
+open class ShortPrimeCache : PrimeCacheBase(
 	maxIndex = 3020, 
 	maxValue = Short.MAX_VALUE.toInt(),
 ) {	
