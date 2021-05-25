@@ -1,12 +1,13 @@
+package generators
+
 import kotlin.math.sqrt
 
 /** Generator Testing Framework for outcome analysis
-  * Developed by DK96-OS 2018 - 2020 */
+  * Developed by DK96-OS : 2018 - 2021 */
 abstract class GeneratorAnalysis<G: Generator, C: Counter>(
     protected val generator: G,
     protected val counterList: ArrayList<C> = arrayListOf()
 ) {
-
     var totalCycles: Long = 0L
         private set
 

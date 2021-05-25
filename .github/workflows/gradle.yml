@@ -24,13 +24,14 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
     - name: Assemble Source Files
-      run: gradle assemble
+      run: gradle assemble --warn
       timeout-minutes: 4
     - name: Run tests
       run: gradle check --continue
       timeout-minutes: 4
     - name: Upload Numbers Tests Results
       uses: actions/upload-artifact@v2
+      if: success() || failure()
       with:
         name: Numbers-Test-Results on Java${{ matrix.java }}
         path: |
@@ -39,6 +40,7 @@ jobs:
         retention-days: 60
     - name: Upload Systems Tests Results
       uses: actions/upload-artifact@v2
+      if: success() || failure()
       with:
         name: Systems-Test-Results on Java${{ matrix.java }}
         path: |

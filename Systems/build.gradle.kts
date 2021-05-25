@@ -3,15 +3,31 @@ plugins {
 }
 
 dependencies {
-    // Align versions of all Kotlin components
+     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-
-    // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // Use the Kotlin test library.
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+	// Coroutine support
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+    
+    // JUnit 5
+    testImplementation(platform("org.junit:junit-bom:5.7.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
 
-    // Use the Kotlin JUnit integration.
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+tasks.test {
+    useJUnitPlatform()
+	maxParallelForks = 4
+	testLogging {
+        events("passed", "failed") // not including "skipped"
+    }
+    reports {
+    	junitXml.apply {
+    		isOutputPerTestCase = true
+    		mergeReruns.set(true)
+    	}
+    }
 }

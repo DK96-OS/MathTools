@@ -1,0 +1,7 @@
+
+# ignore all build files
+build/
+
+# ignore gradle cached, generated and temp files
+.gradle/
+

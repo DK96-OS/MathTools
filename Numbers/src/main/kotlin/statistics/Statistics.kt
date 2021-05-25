@@ -1,3 +1,5 @@
+package statistics
+
 import kotlin.math.sqrt
 
 /** Key Statistics Functions */
@@ -20,7 +22,7 @@ object Statistics {
 	/** Compute the Standard Deviation for a list of Long */
 	fun calculateStandardDeviation(
 		list:List<Long>, 
-    mean:Float = calculateMeanLong(list))
+    	mean:Float = calculateMeanLong(list))
 	: Float {
 		if (list.size < 3) return mean
 		val varianceSum = list.sumOf {
@@ -33,7 +35,7 @@ object Statistics {
 	/** Compute the Standard Deviation for a list of Float */
 	fun calculateStandardDevFloat(
 		list:List<Float>, 
-    mean:Float = calculateMeanFloat(list))
+    	mean:Float = calculateMeanFloat(list))
 	: Float {
 		val nMinus1 = list.size - 1
 		if (nMinus1 < 2) return mean

@@ -1,7 +1,7 @@
 buildscript {
 	repositories {
-        google()
         mavenCentral()
+        google()
     }
     dependencies {
     	classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31")
@@ -10,8 +10,8 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         mavenCentral()
+        google()
     }
 }
 
