@@ -2,7 +2,10 @@ package data
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 /** Testing the Short PrimeCache class, for primes up to 32767 */
 class ShortPrimeCacheTest {
@@ -13,60 +16,38 @@ class ShortPrimeCacheTest {
     	139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
     	211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
     )
-    
-    @Test fun testPrimeList() {
+    /* These are the indices for a selection of numbers in the prime list:
     	assertEquals(127, primeList[30])
     	assertEquals(139, primeList[33])
-    	assertEquals(149, primeList[34])
     	assertEquals(151, primeList[35])
-    	assertEquals(157, primeList[36])
-    	assertEquals(163, primeList[37])
-    }
-
-	@Test fun testCacheInitialization() {
-		val cache = ShortPrimeCache()
-		assertEquals(2, cache.getPrime(0))
-		assertEquals(3, cache.getPrime(1))
-		assertEquals(5, cache.getPrime(2))
-		assertEquals(127, cache.getPrime(30))
-		assertEquals(131, cache.getPrime(31))
-	}
-
-	@Test fun testByteCacheIntegration() {
-		val cache = ShortPrimeCache()
-		assertEquals(59, cache.getPrime(16))	// The first queue element
-		assertEquals(53, cache.getPrime(15))	// Hardcoded Array element
-		assertEquals(47, cache.getPrime(14))
-		assertEquals(61, cache.getPrime(17))	// The 2nd queue element
-		assertEquals(6, cache.byteCache.arraySize)	// 6 Hardcoded
-		assertEquals(2, cache.byteCache.queueSize)
-		assertEquals(3, cache.arraySize)		// No change to array
-		assertEquals(0, cache.queueSize)	// No change to queue
-	}
+    	assertEquals(179, primeList[40])
+    	assertEquals(199, primeList[45])
+    */
 	
 	@Test fun testIsPrime() {
 		val cache = ShortPrimeCache()
-		assertEquals(true, cache.isPrime(149))
-		assertEquals(true, cache.isPrime(151))
-		assertEquals(true, cache.isPrime(157))
-		assertEquals(false, cache.isPrime(159))
-		assertEquals(true, cache.isPrime(163))
-		assertEquals(true, cache.isPrime(211))
-		assertEquals(true, cache.isPrime(239))
-		assertEquals(false, cache.isPrime(240))
-		assertEquals(true, cache.isPrime(251))
-		assertEquals(true, cache.isPrime(257))
-	}
-	
-	@Test fun testGetPrimeIncreasing() {
-		val cache = ShortPrimeCache()
-		for (i in 32 until primeList.size) 
-			assertEquals(primeList[i], cache.getPrime(i))
+		for (n in 2 until primeList.last())
+			assertEquals(n in primeList, cache.isPrime(n))
+		for (n in primeList.last() downTo 2) {
+			cache.clear()
+			println("Checking: $n")
+			assertEquals(n in primeList, cache.isPrime(n))
+		}
 	}
 	
 	@Test fun testGetPrimeDecreasing() {
 		val cache = ShortPrimeCache()
-		for (i in primeList.size -1 downTo 30)
+		for (i in primeList.size - 1 downTo 0) {
+			assertEquals(primeList[i], cache.getPrime(i))
+			cache.clear()
+		}
+	}
+
+	@ParameterizedTest
+	@ValueSource(ints = [1, 2, 3, 5, 6, 8, 10, 15])
+	fun testExpansionRates(rate: Int) {
+		val cache = ShortPrimeCache()
+		for (i in 0 until primeList.size step rate)
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
 
@@ -98,6 +79,24 @@ class ShortPrimeCacheTest {
 		assertEquals(151, cache.getPrime(35))
 		for (i in 36 until 58 step 8)
 			assertEquals(primeList[i], cache.getPrime(i))
+	}
+	
+	@RepeatedTest(4) 
+	fun testRandomAccess() {
+		val cache = ShortPrimeCache()
+		val testIndexRange = 33 .. 56
+		for (i in 0 until 200) {
+			val rand = testIndexRange.random()
+			assertEquals(primeList[rand], cache.getPrime(rand))
+			cache.clear()
+		}
+		for (x in 0 until 20) {
+			cache.clear()
+			for (i in 0 until 100) {
+				val rand = cache.getPrime(cache.shortIndexRange.random())
+				assertEquals(true, cache.isPrime(rand))
+			}
+		}
 	}
 
 }
