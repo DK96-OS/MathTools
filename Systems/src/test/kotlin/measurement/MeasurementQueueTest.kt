@@ -47,21 +47,21 @@ class MeasurementQueueTest {
         val container1 = ElectricalMeasureContainer("C1", 3)
         practiceQueue.pushInputs(false, container1)
         assertEquals(0, container1.measurementCount)
-        assertEquals(true, container1.recordData(
-            getMeasurement(1.0, 500.0)
-        ))
-        assertEquals(true, container1.recordData(
-            getMeasurement(1.0, 501.0)
-        ))
-        assertEquals(true, container1.recordData(
-            getMeasurement(1.01, 500.0)
-        ))
+        assertEquals(true, 
+        	container1.recordData(getMeasurement(1.0, 500.0)))
+        assertEquals(true, 
+        	container1.recordData(getMeasurement(1.0, 501.0)))
+        assertEquals(true, 
+        	container1.recordData(getMeasurement(1.01, 500.0)))
         assertEquals(container1, practiceQueue.getNext())
         assertEquals(3, container1.measurementCount)
         practiceQueue.completeFirst()
         val res1 = runBlocking { container1.getResults() }
         assertEquals("C1", res1.id)
-        println("Time: ${res1.timeDuration}, Energy: ${res1.energy}, Charge: ${res1.chargeMoved}")
+        val time = res1.timeDuration
+        val seconds = time * 1.0e-9
+        println("Time: $time ns  =  ${seconds} s")
+        println("Energy: ${res1.energy}, Charge: ${res1.chargeMoved}")
     }
 
     private val random = Random(400)
