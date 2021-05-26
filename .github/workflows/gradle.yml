@@ -23,6 +23,15 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
+    - name: Cache Gradle packages
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-jdk${{ matrix.java }}-${{ hashFiles('**/build.gradle*') }}
+        restore-keys: |
+          ${{ runner-os }}-gradle-jdk${{ matrix.java }}-
     - name: Assemble Source Files
       run: gradle assemble --warn
       timeout-minutes: 4
