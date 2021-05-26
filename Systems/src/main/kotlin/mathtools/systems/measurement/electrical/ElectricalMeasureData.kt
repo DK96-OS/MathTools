@@ -1,6 +1,6 @@
-package electrical
+package mathtools.systems.measurement.electrical
 
-import measurement.MeasurementData
+import mathtools.systems.measurement.MeasurementData
 
 /** Single Measurement Data for Electrical experiment 
  * Developed by DK96-OS : 2021 */

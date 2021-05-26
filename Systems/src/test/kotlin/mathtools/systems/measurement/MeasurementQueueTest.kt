@@ -1,8 +1,8 @@
-package measurement
+package mathtools.systems.measurement
 
-import electrical.ElectricalMeasureContainer
-import electrical.ElectricalMeasureData
-import electrical.ElectricalMeasurementResult
+import mathtools.systems.measurement.electrical.ElectricalMeasureContainer
+import mathtools.systems.measurement.electrical.ElectricalMeasureData
+import mathtools.systems.measurement.electrical.ElectricalMeasurementResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

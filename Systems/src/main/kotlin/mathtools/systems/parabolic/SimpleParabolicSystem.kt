@@ -1,4 +1,7 @@
-/** A solved Parabolic System's key functions */
+package mathtools.systems.parabolic
+
+/** A solved Parabolic System's key functions
+ * Developed by DK96-OS : 2019 */
 object SimpleParabolicSystem {
 
     /** The parabolic function */

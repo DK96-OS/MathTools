@@ -1,6 +1,6 @@
-package electrical
+package mathtools.systems.measurement.electrical
 
-import measurement.MeasurementResult
+import mathtools.systems.measurement.MeasurementResult
 
 /** The result of a series of identical Electrical measurements
  * Developed by DK96-OS : 2021 */

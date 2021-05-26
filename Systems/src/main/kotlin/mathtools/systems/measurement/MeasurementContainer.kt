@@ -1,9 +1,10 @@
-package measurement
+package mathtools.systems.measurement
 
 import java.util.*
 import java.util.concurrent.ArrayBlockingQueue
 
-/** A container for identically initialized set of measurements */
+/** A container for identically initialized set of measurements
+ * Developed by DK96-OS : 2021 */
 abstract class MeasurementContainer<
         D: MeasurementData,
         R: MeasurementResult

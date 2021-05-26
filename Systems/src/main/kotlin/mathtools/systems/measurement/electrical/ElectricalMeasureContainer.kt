@@ -1,16 +1,15 @@
-package electrical
+package mathtools.systems.measurement.electrical
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import measurement.MeasurementContainer
+import mathtools.systems.measurement.MeasurementContainer
 import kotlin.math.sqrt
 
 /** Measurement container for Electrical system
  * Developed by DK96-OS : 2021 */
 class ElectricalMeasureContainer(
     override val id: String, nMeasurements: Int) 
-: MeasurementContainer
-<ElectricalMeasureData, ElectricalMeasurementResult>
+: MeasurementContainer<ElectricalMeasureData, ElectricalMeasurementResult>
 (id, nMeasurements) {
 
     override suspend fun complete(list: List<ElectricalMeasureData>)
