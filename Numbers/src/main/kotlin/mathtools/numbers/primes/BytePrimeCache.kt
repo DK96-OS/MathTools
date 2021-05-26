@@ -1,6 +1,6 @@
-package data
+package mathtools.numbers.primes
 
-/** A cache for really small prime numbers within the Byte range 
+/** A cache for really small prime numbers within the Byte range
    *  Developed by DK96-OS : 2021 */
 open class BytePrimeCache : PrimeCacheBase(
 	maxIndex = 30, 

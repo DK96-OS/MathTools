@@ -1,7 +1,6 @@
-package generators
+package mathtools.numbers.generators
 
-import kotlin.random.Random
-import data.PrimeNumberTools
+import mathtools.numbers.primes.PrimeNumberTools
 
 /** Generator that limits the Prime numbers involved in a product
   * Developed by DK96-OS 2018 - 2020 */

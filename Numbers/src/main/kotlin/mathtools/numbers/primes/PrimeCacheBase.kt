@@ -1,4 +1,4 @@
-package data
+package mathtools.numbers.primes
 
 /** Common to Prime Number Caches */
 abstract class PrimeCacheBase(

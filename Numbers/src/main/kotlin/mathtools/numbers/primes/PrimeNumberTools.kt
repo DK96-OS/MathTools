@@ -1,4 +1,4 @@
-package data
+package mathtools.numbers.primes
 
 /** Container for PrimeNumber functions */
 object PrimeNumberTools {

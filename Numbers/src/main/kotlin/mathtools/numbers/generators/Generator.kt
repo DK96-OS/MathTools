@@ -1,4 +1,4 @@
-package generators
+package mathtools.numbers.generators
 
 /** Defines a reusable numerical data generator */
 interface Generator {

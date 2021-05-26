@@ -1,6 +1,6 @@
-package data
+package mathtools.numbers.primes
 
-/** A cache for small prime numbers, within Short range 
+/** A cache for small prime numbers, within Short range
    *  Developed by DK96-OS : 2021 */
 open class ShortPrimeCache : PrimeCacheBase(
 	maxIndex = 3020, 
