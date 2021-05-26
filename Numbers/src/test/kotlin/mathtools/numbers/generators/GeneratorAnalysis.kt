@@ -1,4 +1,4 @@
-package generators
+package mathtools.numbers.generators
 
 import kotlin.math.sqrt
 

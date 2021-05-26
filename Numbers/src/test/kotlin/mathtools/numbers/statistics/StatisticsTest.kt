@@ -1,10 +1,8 @@
-package statistics
+package mathtools.numbers.statistics
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.RepeatedTest
-import kotlin.math.roundToInt
-import statistics.Statistics
 
 /** Test the Statistics functions */
 class StatisticsTest {

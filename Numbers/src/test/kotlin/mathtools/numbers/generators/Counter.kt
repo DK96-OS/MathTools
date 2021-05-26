@@ -1,4 +1,4 @@
-package generators
+package mathtools.numbers.generators
 
 /** Counts the number of some occurrence 
   * Developed by DK96-OS 2018 - 2020 */

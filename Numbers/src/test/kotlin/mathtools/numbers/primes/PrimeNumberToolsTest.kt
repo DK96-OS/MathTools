@@ -1,11 +1,10 @@
-package data
+package mathtools.numbers.primes
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import data.PrimeNumberTools
 
 /** Testing the Prime Number tools object */
 class PrimeNumberToolsTest {
@@ -21,7 +20,7 @@ class PrimeNumberToolsTest {
 
     @Test fun testGetPrimeIncreasingByOne() {
     	for (idx in 0 until primeList.size)
-        	assertEquals(primeList[idx], PrimeNumberTools.getPrime(idx)) 
+        	assertEquals(primeList[idx], PrimeNumberTools.getPrime(idx))
     }
     
     @Test fun testGetPrimeDecreasingByOne() {

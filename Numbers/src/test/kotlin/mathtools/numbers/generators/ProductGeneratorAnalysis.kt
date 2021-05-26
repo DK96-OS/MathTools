@@ -1,15 +1,12 @@
-package generators
+package mathtools.numbers.generators
 
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 /** Generator Analysis of the ProductGenerator
   * Developed by DK96-OS : 2018 - 2021 */
-class ProductGeneratorAnalysis : GeneratorAnalysis
-<ProductGenerator, PrimeCounter>(
+class ProductGeneratorAnalysis : GeneratorAnalysis<ProductGenerator, PrimeCounter>(
 	ProductGenerator(6..50L, 17)
 ) {
     override fun ProductGenerator.isCountedBy(counter: PrimeCounter)
