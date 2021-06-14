@@ -1,6 +1,7 @@
 package mathtools.numbers.primes
 
-/** Container for PrimeNumber functions */
+/** Container for PrimeNumber functions
+ * Developed by DK96-OS : 2018 - 2021 */
 object PrimeNumberTools {
 
 	/** This master prime cache provides a reference for other sets */
@@ -8,9 +9,14 @@ object PrimeNumberTools {
 
 	/** Obtain a prime number by it's index, starting at index 0 -> 2 */
 	fun getPrime(idx: Int): Int = when (idx) {
-		in shortPrimes.indexRange -> shortPrimes.getPrime(idx)
-		//todo: Use special mathematical condition to enable computing higher prime numbers from the cache without storing them
-		else -> throw IllegalArgumentException("Prime Number too high for given cache.")
+		in shortPrimes.indexRange -> try {
+			shortPrimes.getPrime(idx)
+		} catch (e: OutOfMemoryError) {
+			shortPrimes.clear()
+			-1
+		}
+		else -> throw IllegalArgumentException(
+			"Prime Number too high for given cache.")
 	}
 
 	/** Clear all cached prime numbers */
@@ -19,16 +25,16 @@ object PrimeNumberTools {
     /** Whether this Product/Prime contains a prime number greater than the limit
      * @param product The product to test
      * @param limit The maximum prime number allowed */
-    fun checkForPrimeFactorAboveLimit(product: Long, limit: Long)
-    : Boolean = if (limit < product) {
-    	var primeIdx = 0
-        var checkPrime = getPrime(primeIdx)
-        var composite = product
-        while (limit in checkPrime until composite) {
-        	composite = reduceByFactor(checkPrime, composite)
-        	checkPrime = getPrime(++primeIdx)
-        }
-        composite > limit
+	fun checkForPrimeFactorAboveLimit(product: Long, limit: Long)
+	: Boolean = if (limit < product) {
+		var primeIdx = 0
+		var checkPrime = getPrime(primeIdx)
+		var composite = product
+		while (limit in checkPrime until composite) {
+			composite = reduceByFactor(checkPrime, composite)
+			checkPrime = getPrime(++primeIdx)
+		}
+		composite > limit
     } else false
 
     /** Obtain lowest Prime Number Factor that is greater than the limit
@@ -60,5 +66,38 @@ object PrimeNumberTools {
         while (reduced % factor == 0L) { reduced /= factor }
         reduced
     } else composite
-    
+	
+	/** Try to divide the product by all primes in the index range.
+	 * @param primeIndexRange The range of prime number indices to try
+	 * @param product Assumed to be a product of prime numbers
+	 * @return Remaining product after all divisions attempted, or null if 1 */
+	fun reduceByPrimes(primeIndexRange: IntRange, product: Long): Long? {
+		var composite: Long = product
+		for (primeIdx in primeIndexRange) {
+			val testPrime = getPrime(primeIdx)
+			composite = reduceByFactor(testPrime, composite)
+			if (composite < testPrime) break
+		}
+		return if (composite <= 1L) null else composite
+	}
+	
+    /** Remove any prime factors less than or equal to the maximum
+	 * @param product Assumed product of a set of prime numbers
+	 * @param maxPrime The maximum prime factor to be removed */
+	fun reduceByPrimes(product: Long, maxPrime: Long): Long? {
+		if (product <= maxPrime || maxPrime <= 1) return null
+		var composite: Long = reduceByFactor(2, product)
+		var primeIdx = 1
+		var testPrime: Int = 3	// getPrime(idx) currently returns Int
+		while (
+			testPrime <= composite &&
+			testPrime <= maxPrime && primeIdx <= shortPrimes.maxIndex
+		) {
+			testPrime = getPrime(primeIdx++)
+			composite = reduceByFactor(testPrime, composite)
+		}
+		return if (composite <= 1L || composite <= testPrime)
+			null else composite
+	}
+	
 }
