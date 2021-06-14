@@ -15,7 +15,8 @@ open class BytePrimeCache : PrimeCacheBase(
 	override fun highestCachedIndex(): Int = 9 + arraySize + queueSize
 	
 	/** Get a prime number by it's index */
-	override fun getPrime(idx: Int): Int = when (val arrayIndex = idx - 10) {
+	override fun getPrime(idx: Int)
+	: Int = when (val arrayIndex = idx - 10) {
 		in byteArray.indices -> byteArray[arrayIndex].toInt()
 		in -10 until 0 -> when (idx) {
 			0 -> 2
@@ -26,9 +27,12 @@ open class BytePrimeCache : PrimeCacheBase(
 		}
 		else -> {
 			val overflow = arrayIndex - arraySize
-			if (overflow < queueSize) byteQueue[overflow].toInt()
-			else if (extendCache(idx)) getPrime(idx)
-			else throw IllegalStateException("Cannot get prime at index: $idx")
+			when {
+				overflow < queueSize -> byteQueue[overflow].toInt()
+				extendCache(idx) -> getPrime(idx)
+				else -> throw IllegalStateException(
+					"Cannot get prime at index: $idx")
+			}
 		}
 	}
 	
@@ -63,14 +67,15 @@ open class BytePrimeCache : PrimeCacheBase(
 		} else {
 			var prev = (byteQueue.lastOrNull() ?: oldArray.last()).toInt()
 			byteArray = ByteArray(prevSize + add) {
-				if (it < oldArray.size) oldArray[it] 
-				else if (it < prevSize) byteQueue.removeFirst()
-				else {
-					val newPrime = findPrime(prev + 2)
-					if (newPrime == null)
-						throw IllegalStateException("Next prime not found")
-					prev = newPrime
-					newPrime.toByte()
+				when {
+					it < oldArray.size -> oldArray[it]
+					it < prevSize -> byteQueue.removeFirst()
+					else -> {
+						val newPrime = findPrime(prev + 2)
+							?: throw IllegalStateException("Next prime not found")
+						prev = newPrime
+						newPrime.toByte()
+					}
 				}
 			}
 		}
