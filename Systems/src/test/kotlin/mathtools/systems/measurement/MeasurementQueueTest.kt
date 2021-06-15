@@ -4,7 +4,6 @@ import mathtools.systems.measurement.electrical.ElectricalMeasureQueue
 import mathtools.systems.measurement.electrical.ElectricalMeasureData
 import mathtools.systems.measurement.electrical.ElectricalMeasurementResult
 import mathtools.systems.measurement.electrical.ElectricalParams
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
