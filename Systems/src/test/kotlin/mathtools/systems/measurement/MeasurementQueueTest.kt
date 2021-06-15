@@ -1,8 +1,9 @@
 package mathtools.systems.measurement
 
-import mathtools.systems.measurement.electrical.ElectricalMeasureContainer
+import mathtools.systems.measurement.electrical.ElectricalMeasureQueue
 import mathtools.systems.measurement.electrical.ElectricalMeasureData
 import mathtools.systems.measurement.electrical.ElectricalMeasurementResult
+import mathtools.systems.measurement.electrical.ElectricalParams
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -15,62 +16,67 @@ import kotlin.random.Random
  * Developed by DK96-OS : 2021 */
 class MeasurementQueueTest {
 
-    class ElectricalMeasurementQueue(scope: CoroutineScope)
-        : MeasurementQueue<ElectricalMeasureData,
-            ElectricalMeasureContainer, ElectricalMeasurementResult
-            >(scope)
-
-    private lateinit var practiceQueue: ElectricalMeasurementQueue
+    private lateinit var mQueue: ElectricalMeasureQueue
 
     @BeforeEach fun setup() {
-        runBlocking {
-            practiceQueue = ElectricalMeasurementQueue(this)
+        mQueue = ElectricalMeasureQueue()
+    }
+
+    @Test fun testContainerProcessingCycle() {runBlocking {
+		mQueue.provideParams(
+		    ElectricalParams("M1", 30), ElectricalParams("M2", 30)
+		)
+        assertEquals("M1", mQueue.activeParams?.id)
+        for (i in 0 until 29) {
+        	assertEquals(i, mQueue.activeCount)
+        	mQueue.recordData(getMeasurement())
         }
-    }
-
-    @Test fun testContainerProcessingCycle() {
-        practiceQueue.pushInputs(true,
-            ElectricalMeasureContainer("M1", 30),
-            ElectricalMeasureContainer("M2", 30),
-            ElectricalMeasureContainer("A1", 20),
-        )
-        assertEquals("M1", practiceQueue.getNext()?.id)
-        assertEquals(true, practiceQueue.completeFirst())
-        assertEquals("M2", practiceQueue.getNext()?.id)
-        assertEquals(true, practiceQueue.completeFirst())
-        assertEquals("A1", practiceQueue.getNext()?.id)
-        assertEquals(true, practiceQueue.completeFirst())
-        assertEquals(null, practiceQueue.getNext())
-    }
-
-    @Test fun testQueueContainerReuse() {
-        val container1 = ElectricalMeasureContainer("C1", 3)
-        practiceQueue.pushInputs(false, container1)
-        assertEquals(0, container1.measurementCount)
-        assertEquals(true, 
-        	container1.recordData(getMeasurement(1.0, 500.0)))
-        assertEquals(true, 
-        	container1.recordData(getMeasurement(1.0, 501.0)))
-        assertEquals(true, 
-        	container1.recordData(getMeasurement(1.01, 500.0)))
-        assertEquals(container1, practiceQueue.getNext())
-        assertEquals(3, container1.measurementCount)
-        practiceQueue.completeFirst()
-        val res1 = runBlocking { container1.getResults() }
-        assertEquals("C1", res1.id)
-        val time = res1.timeDuration
-        val seconds = time * 1.0e-9
-        println("Time: $time ns  =  ${seconds} s")
-        println("Energy: ${res1.energy}, Charge: ${res1.chargeMoved}")
-    }
+        assertEquals(29, mQueue.activeCount)
+        assertEquals("M1", mQueue.activeParams?.id)
+        mQueue.recordData(getMeasurement())	// The final data point
+ 		// Check Result
+        val resultM1 = mQueue.resultQueue.removeFirstOrNull()
+        assertEquals("M1", resultM1?.id)
+        // Next cycle, start by checking new params
+        assertEquals("M2", mQueue.activeParams?.id)
+        assertEquals(0, mQueue.activeCount)
+    } }
+    
+    @Test fun testDataInsertion() { runBlocking {
+    	mQueue.provideParams(ElectricalParams("Hello", 5))
+    	for (i in 0 until 5) mQueue.recordData(getMeasurement())
+        assertEquals(false, mQueue.recordData(getMeasurement()))
+        assertEquals(null, mQueue.activeParams)
+    	mQueue.provideParams(ElectricalParams("M2", 5))
+        assertEquals("M2", mQueue.activeParams?.id)
+        assertEquals(true, mQueue.recordData(getMeasurement()))
+    } }
+    
+    @Test fun testLooping() { runBlocking {
+    	mQueue.provideParams(
+    		ElectricalParams("M1", 5, 1.5f),
+    		ElectricalParams("M2", 5, 1.7f),
+    		ElectricalParams("M3", 5, 1.9f),
+    	)
+    	var dataCount = 0
+    	while (mQueue.recordData(getMeasurement(mQueue.activeParams))) {
+    		dataCount++ 
+    	}
+    	assertEquals(15, dataCount)
+    } }
 
     private val random = Random(400)
+
+	private fun getMeasurement(params: ElectricalParams?) 
+	: ElectricalMeasureData? = if (params != null) 
+		getMeasurement(params.power.toDouble(), params.voltage.toDouble())
+	else null
 
 	/** Create a new measurement with random fluctuations */
     private fun getMeasurement(
         inputPower: Double = 1.45,
         targetVoltage: Double = 450.0,
-    ): ElectricalMeasureData {
+    ) : ElectricalMeasureData {
         val startTime = System.nanoTime()
         val avgPower = runBlocking {
             delay(random.nextInt(1, 9).toLong())
