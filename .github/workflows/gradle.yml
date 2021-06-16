@@ -29,6 +29,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
+          ~/build
         key: ${{ runner.os }}-gradle-jdk${{ matrix.java }}-${{ hashFiles('**/build.gradle*') }}
         restore-keys: |
           ${{ runner-os }}-gradle-jdk${{ matrix.java }}-
