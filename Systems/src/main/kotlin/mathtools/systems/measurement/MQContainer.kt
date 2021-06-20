@@ -18,10 +18,9 @@ internal class MQContainer<Params : MQParams, Data>(
     } else false
 
     /** Return the recorded data as a list */
-    internal fun getData(): List<Data> {
-        val list = queue.toList()
+    internal fun getData(): MutableList<Data> {
+        val list = queue.toMutableList()
         queue.clear()
         return list
     }
 }
-
