@@ -6,7 +6,8 @@ object GroupSort {
     /** Remove and return the items in the list that match the selector.
       *  @param list A mutable list which will be modified if any items match
       *  @param presorted If the list is sorted according to selector, ie. the matches are all in one consecutive index range in the list.
-      *  @param selector The condition to test for determining a match */
+      *  @param selector The condition to test for determining a match
+      *  @return A new MutableList containing matching items or null if no matches were found */
     inline fun <T> extractGroup(
         list:MutableList<T>, presorted:Boolean=false, selector: (T) -> Boolean
     ) : MutableList<T>? {
