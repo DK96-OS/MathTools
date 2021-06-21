@@ -25,7 +25,7 @@ abstract class MeasurementQueue<Params : MQParams, Data> {
 
     /** Process the data in a completed container */
     protected abstract suspend fun process(
-        params: Params, data: List<Data>)
+        params: Params, data: MutableList<Data>)
 
     /** Insert measurement parameters into the queue */
     suspend fun provideParams(vararg params: Params) {

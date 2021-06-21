@@ -14,7 +14,7 @@ class ElectricalMeasureQueue : MeasurementQueue<
 
     override suspend fun process(
     	params: ElectricalParams, 
-    	data: List<ElectricalMeasureData>
+    	data: MutableList<ElectricalMeasureData>
     ) { coroutineScope {
     	val convertTime = 1.0e-9 	// Converting from nanoseconds
         val energy = async {
