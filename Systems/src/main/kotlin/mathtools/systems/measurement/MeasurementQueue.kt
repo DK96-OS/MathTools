@@ -43,21 +43,23 @@ abstract class MeasurementQueue<Params : MQParams, Data> {
     }
 
     /** Store a data measurement in the current active container
-     * @return False if there is no active container or the container failed */
-    suspend fun recordData(d: Data?): Boolean {
+     * @return The remaining measurements for the active container, 
+     *  or -1 if no container is active */
+    suspend fun recordData(d: Data?): Int {
         val active = activeContainer
         return when {
-            d == null -> false
-            active == null -> false	// Parameters not read, prevent recording
-            active.recordData(d) -> {
-            	if (checkFullContainer(active)) activeContainer = null
-                true
+            active == null -> -1    // Data likely won't match container
+            d == null -> active.params.nDataPoints - active.count
+            else -> coroutineScope {
+                val result = active.recordData(d)
+                if (result == 0) {
+                    activeContainer = null
+                    launch(Dispatchers.IO) {
+                        process(active.params, active.getData())
+                    }
+                } else if (result < 0) activeContainer = null
+                result
             }
-            checkFullContainer(active) -> {
-                activeContainer = null
-                false
-            }
-            else -> false
         }
     }
     
@@ -68,13 +70,6 @@ abstract class MeasurementQueue<Params : MQParams, Data> {
         if (activeContainer == null) activeContainer = container
         return container
     }
-
-	/** Check if the given container is full, launch the processing function */
-    private suspend fun checkFullContainer(c: MQContainer<Params, Data>)
-    : Boolean = if (c.count >= c.params.nDataPoints) coroutineScope {
-        launch(Dispatchers.IO) {process(c.params, c.getData())}
-        true
-    } else false
 
     /** Clears all data, while checking the first container for unsaved data */
     suspend fun clear() { coroutineScope {

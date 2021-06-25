@@ -10,12 +10,14 @@ internal class MQContainer<Params : MQParams, Data>(
     private val queue: ArrayDeque<Data> = ArrayDeque(params.nDataPoints)
 
     /** Records a measurement
-     * @returns true if successful, false if measurement count at capacity */
-    internal fun recordData(data: Data)
-    : Boolean = if (count < params.nDataPoints) {
-    	queue.addLast(data) 
-    	true
-    } else false
+     * @returns Count of remaining measurements before capacity reached */
+    internal fun recordData(data: Data): Int {
+        val diff = params.nDataPoints - count
+        return if (diff > 0) {
+    	    queue.addLast(data)
+    	    diff - 1
+        } else 0
+    }
 
     /** Return the recorded data as a list */
     internal fun getData(): MutableList<Data> {
