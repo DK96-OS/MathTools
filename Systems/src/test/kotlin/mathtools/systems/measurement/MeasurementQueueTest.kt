@@ -44,11 +44,13 @@ class MeasurementQueueTest {
     @Test fun testDataInsertion() { runBlocking {
     	mQueue.provideParams(ElectricalParams("Hello", 5))
     	for (i in 0 until 5) mQueue.recordData(getMeasurement())
-        assertEquals(false, mQueue.recordData(getMeasurement()))
+        assertEquals(-1, mQueue.recordData(getMeasurement()))
         assertEquals(null, mQueue.activeParams)
+        // Now add new Container Params
     	mQueue.provideParams(ElectricalParams("M2", 5))
         assertEquals("M2", mQueue.activeParams?.id)
-        assertEquals(true, mQueue.recordData(getMeasurement()))
+        assertEquals(5, mQueue.recordData(null))    // null returns remainder
+        assertEquals(4, mQueue.recordData(getMeasurement()))
     } }
     
     @Test fun testLooping() { runBlocking {
@@ -58,8 +60,10 @@ class MeasurementQueueTest {
     		ElectricalParams("M3", 5, 1.9f),
     	)
     	var dataCount = 0
-    	while (mQueue.recordData(getMeasurement(mQueue.activeParams))) {
-    		dataCount++ 
+    	while (mQueue.activeParams != null) {
+    	    val measurement = getMeasurement(mQueue.activeParams)
+    	    mQueue.recordData(measurement)
+    		dataCount++
     	}
     	assertEquals(15, dataCount)
     } }
