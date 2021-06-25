@@ -28,11 +28,12 @@ class MeasurementQueueTest {
         assertEquals("M1", mQueue.activeParams?.id)
         for (i in 0 until 29) {
         	assertEquals(i, mQueue.activeCount)
-        	mQueue.recordData(getMeasurement())
+        	val remaining = mQueue.recordData(getMeasurement())
+        	assertEquals(29 - i, remaining)
         }
         assertEquals(29, mQueue.activeCount)
         assertEquals("M1", mQueue.activeParams?.id)
-        mQueue.recordData(getMeasurement())	// The final data point
+        assertEquals(0, mQueue.recordData(getMeasurement()))
  		// Check Result
         val resultM1 = mQueue.resultQueue.removeFirstOrNull()
         assertEquals("M1", resultM1?.id)
@@ -43,7 +44,10 @@ class MeasurementQueueTest {
     
     @Test fun testDataInsertion() { runBlocking {
     	mQueue.provideParams(ElectricalParams("Hello", 5))
-    	for (i in 0 until 5) mQueue.recordData(getMeasurement())
+    	for (i in 0 until 5) {
+    	    val remaining = mQueue.recordData(getMeasurement())
+    	    assertEquals(4 - i, remaining)
+    	}
         assertEquals(-1, mQueue.recordData(getMeasurement()))
         assertEquals(null, mQueue.activeParams)
         // Now add new Container Params
