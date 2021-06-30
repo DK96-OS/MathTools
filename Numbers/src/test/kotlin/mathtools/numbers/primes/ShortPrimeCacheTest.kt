@@ -14,22 +14,20 @@ class ShortPrimeCacheTest {
     	71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 
     	139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
     	211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277,
+    	281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349,  // Index 69
     )
     /* These are the indices for a selection of numbers in the prime list:
-    	assertEquals(127, primeList[30])
-    	assertEquals(139, primeList[33])
-    	assertEquals(151, primeList[35])
-    	assertEquals(179, primeList[40])
     	assertEquals(199, primeList[45])
+    	assertEquals(251, primeList[53])
+    	assertEquals(349, primeList[69])
     */
-	
+
 	@Test fun testIsPrime() {
 		val cache = ShortPrimeCache()
 		for (n in 2 until primeList.last())
 			assertEquals(n in primeList, cache.isPrime(n))
 		for (n in primeList.last() downTo 2) {
 			cache.clear()
-			println("Checking: $n")
 			assertEquals(n in primeList, cache.isPrime(n))
 		}
 	}
@@ -49,7 +47,7 @@ class ShortPrimeCacheTest {
 		for (i in 0 until primeList.size step rate)
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
-
+/*
 	@Test fun testCacheExpansionSlow() {
 		val cache = ShortPrimeCache()
 		assertEquals(137, cache.getPrime(32))
@@ -64,7 +62,6 @@ class ShortPrimeCacheTest {
 		for (i in 37 .. 50)
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
-
 	@Test fun testCacheExpansionQuick() {
 		val cache = ShortPrimeCache()
 		assertEquals(3, cache.arraySize)
@@ -79,11 +76,12 @@ class ShortPrimeCacheTest {
 		for (i in 36 until 58 step 8)
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
+*/
 	
 	@RepeatedTest(4) 
 	fun testRandomAccess() {
 		val cache = ShortPrimeCache()
-		val testIndexRange = 33 .. 56
+		val testIndexRange = 1 .. 69
 		for (i in 0 until 200) {
 			val rand = testIndexRange.random()
 			assertEquals(primeList[rand], cache.getPrime(rand))
