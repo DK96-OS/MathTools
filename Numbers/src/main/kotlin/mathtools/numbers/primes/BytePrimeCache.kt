@@ -67,8 +67,7 @@ open class BytePrimeCache : PrimeCacheBase(
 					else -> {
 						prev = findPrime(prev + 2)
 							?: throw IllegalStateException("Next prime not found")
-						if (prev > Byte.MAX_VALUE)
-						    prev.toUByte().toByte() else prev.toByte()
+						prev.toUByte().toByte()
 					}
 				}
 			}
