@@ -69,8 +69,8 @@ abstract class PrimeCacheBase(
 	/** Find the next prime using the given number as a starting point
 		* @param testNum The first number to test for prime status */
 	internal fun findPrime(testNum: Int): Int? {
-		var n = testNum
-		while (n <= maxValue) if (quickIsPrime(n)) return n else n += 2
+		for (n in testNum .. maxValue step 2)
+		    if (quickIsPrime(n)) return n
 		return null
 	}
 }
