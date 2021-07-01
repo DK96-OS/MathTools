@@ -18,7 +18,10 @@ open class BytePrimeCache : PrimeCacheBase(
 	: Int = -1 + byteArray.size + byteQueue.size
 
     override fun getPrime(idx: Int): Int = when {
-        idx in byteArray.indices -> byteArray[idx].toUByte().toInt()
+        idx in byteArray.indices -> {
+            val raw = byteArray[idx].toInt()
+            if (raw > 0) raw else raw + 256
+        }
         idx <= highestCachedIndex() -> byteQueue[idx - arraySize].toInt()
         extendCache(idx) -> getPrime(idx)
         else -> throw IllegalStateException("Could not get prime at: $idx")
