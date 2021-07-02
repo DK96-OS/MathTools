@@ -28,19 +28,14 @@ abstract class PrimeCacheBase(
 
     /** Skip checking if 2 is a factor, assume number is odd */
     private fun quickIsPrime(number: Int): Boolean {
-        for (i in 1 .. maxIndex - 1 step 2) {
-            val testPrime1 = getPrime(i + 1)
-            if (number == testPrime1) return true
-            if (number % testPrime1 == 0) return false
-            val testPrime0 = getPrime(i)
-            if (number == testPrime0) return true
-            if (number % testPrime0 == 0) return false
-            // Factor limit condition
-            if (testPrime1 * testPrime0 > number) return true
+        var prevPrime = 2L
+        for (i in 1 .. indexRange.last) {
+            val testPrime = getPrime(i)
+            if (number % testPrime == 0) return false
+            if (testPrime * prevPrime > number) break
+            prevPrime = testPrime.toLong()
         }
-        // When the last index was skipped because of step 2
-        return if (maxIndex % 2 == 0)
-            number % getPrime(maxIndex) != 0 else true
+        return true
     }
 
     /** Determine if this number is prime */
