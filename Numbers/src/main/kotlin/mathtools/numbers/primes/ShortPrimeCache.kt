@@ -5,7 +5,7 @@ package mathtools.numbers.primes
 open class ShortPrimeCache : PrimeCacheBase(
 	maxIndex = 3020, 
 	maxValue = Short.MAX_VALUE.toInt(),
-) {	
+) {
 	/** Rely on BytePrimeCache for smallest primes */
 	internal val byteCache = BytePrimeCache()
 	
@@ -14,14 +14,16 @@ open class ShortPrimeCache : PrimeCacheBase(
 	val shortIndexRange: IntRange = byteCache.maxIndex + 1 .. maxIndex
 
 	/** Storage for short primes */
-	private var shortArray: ShortArray = shortArrayOf(131, 137, 139)
+	private var shortArray: ShortArray = shortArrayOf(
+	    257, 263, 269, 271, 277, 281, 283, 293,
+    )
 	private val shortQueue = ArrayDeque<Short>(12)	
 
 	internal val arraySize: Int get() = shortArray.size
 	internal val queueSize: Int get() = shortQueue.size
 
 	override fun highestCachedIndex()
-	: Int = byteCache.maxIndex + arraySize + queueSize
+	: Int = byteCache.maxIndex + shortArray.size + shortQueue.size
 
 	override fun getPrime(idx: Int): Int {
 		val shortIndex = idx - shortIndexRange.start
@@ -78,10 +80,12 @@ open class ShortPrimeCache : PrimeCacheBase(
 		}
 		return shortArray.last().toInt()
 	}
-	
+
 	override fun clear() {
 		shortQueue.clear()
-		shortArray = shortArrayOf(131, 137, 139)
+		shortArray = shortArrayOf(
+		    257, 263, 269, 271, 277, 281, 283, 293,
+		)
 		byteCache.clear()
 	}
 }

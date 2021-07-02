@@ -1,12 +1,14 @@
 package mathtools.numbers.statistics
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.RepeatedTest
 
 /** Test the Statistics functions */
 class StatisticsTest {
   
+    @Tag("fast")
 	@Test fun checkStatisticsOfList() {
 		val list = mutableListOf(100f, 110f, 190f, 200f)
 		assertEquals(150f, Statistics.calculateMeanFloat(list), 0.01f)
@@ -34,6 +36,7 @@ class StatisticsTest {
 		assertEquals(1.0f, checkPercentage(100, N), 0.35f)
 	}
 	
+	@Tag("slow")
 	@RepeatedTest(3) fun testOneIn500Distribution() {
 		val measurements = measureOneIn(500, 20_000L)
 		val mean = Statistics.calculateMeanFloat(measurements)
@@ -42,6 +45,7 @@ class StatisticsTest {
 		assertEquals(0.0015f, sdev, 0.0009f)
 	}
   
+    @Tag("slow")
 	@RepeatedTest(2) fun testOneIn5000Distribution() {
 		val measurements = measureOneIn(5000, 10_000L, 8)
 		val mean = Statistics.calculateMeanFloat(measurements)

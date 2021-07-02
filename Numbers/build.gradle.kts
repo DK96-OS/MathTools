@@ -19,8 +19,10 @@ dependencies {
 }
 
 tasks.test {
-    useJUnitPlatform()
-	maxParallelForks = 4
+    useJUnitPlatform() {
+        excludeTags("slow")
+    }
+	maxParallelForks = 3
 	testLogging {
         events("passed", "failed") // not including "skipped"
     }
