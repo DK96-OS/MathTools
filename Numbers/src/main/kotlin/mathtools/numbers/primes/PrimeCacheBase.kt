@@ -13,64 +13,66 @@ abstract class PrimeCacheBase(
 	/** Obtain the index of the highest prime number in the cache */
 	abstract fun highestCachedIndex(): Int
 
-	/** Obtain the Prime Number at the given index */
+	/** Request a prime number by it's index
+	  * @param idx The index of the requested prime number
+	  * @return The prime number at idx */
 	abstract fun getPrime(idx: Int): Int
 
-	/** Merge the Cache data structures, while adding new primes */
+	/** Merge existing data structures, and find new primes
+	  * @param add Try to find this many primes beyond highest cached index
+	  * @return The highest prime that has been recently added */
 	protected abstract fun consolidate(add: Int = 1): Int
 
 	/** Clear saved prime numbers in this cache */
 	abstract fun clear()
 
-	/** Skip checking if 2 is a factor, assume that number is odd */
-	protected fun quickIsPrime(number: Int): Boolean {
-		var prevPrime = 2L
-		for (i in 1 .. indexRange.last) {
-			val testPrime = getPrime(i)
-			if (number % testPrime == 0) return false
-			if (testPrime * prevPrime > number) break
-			prevPrime = testPrime.toLong()
-		}
-		return true
-	}
+    /** Skip checking if 2 is a factor, assume number is odd */
+    private fun quickIsPrime(number: Int): Boolean {
+        for (i in 1 .. maxIndex - 1 step 2) {
+            val testPrime1 = getPrime(i + 1)
+            if (number == testPrime1) return true
+            if (number % testPrime1 == 0) return false
+            val testPrime0 = getPrime(i)
+            if (number == testPrime0) return true
+            if (number % testPrime0 == 0) return false
+            // Factor limit condition
+            if (testPrime1 * testPrime0 > number) return true
+        }
+        // When the last index was skipped because of step 2
+        return if (maxIndex % 2 == 0)
+            number % getPrime(maxIndex) != 0 else true
+    }
 
-	/** Determine if this number is a prime */
-	fun isPrime(number: Int): Boolean {
-		if (number in 0 .. 3) return true
-		if (number < 0) return isPrime(-number)
-		if (number % 2 == 0) return false
-		if (number > maxValue * 23L)
-			throw IllegalArgumentException("Use a bigger cache")
-		var cacheIndex = highestCachedIndex()		// check cache size
-		var highestPrime = getPrime(cacheIndex)
-		if (highestPrime * 23L >= number 
-			|| highestPrime * getPrime(cacheIndex - 1) >= number
-			) return quickIsPrime(number)
-		var availablePrimes = (maxIndex - cacheIndex).coerceAtMost(16)
-		if (availablePrimes > 0) { 	// Can be expanded
-			highestPrime = consolidate(availablePrimes)
-			if (highestPrime * getPrime(cacheIndex - 1) >= number) 
-				return quickIsPrime(number)
-			cacheIndex = highestCachedIndex()
-			availablePrimes = (maxIndex - cacheIndex).coerceAtMost(32)
-			while (availablePrimes > 0 && highestPrime * 23L <= number) {
-				highestPrime = consolidate(availablePrimes)
-				if (highestPrime * getPrime(cacheIndex - 1) >= number) 
-					return quickIsPrime(number)
-				cacheIndex = highestCachedIndex()
-				availablePrimes = (maxIndex - cacheIndex).coerceAtMost(32)
-			}
-			if (highestPrime * getPrime(cacheIndex - 1) >= number)
-				return quickIsPrime(number)
-		}
-		throw IllegalArgumentException("Use a bigger cache")
-	}
+    /** Determine if this number is prime */
+    fun isPrime(number: Int): Boolean {
+        if (number in 0 .. 3) return true
+        if (number < 0) return isPrime(-number)
+        if (number % 2 == 0) return false
+        // Check current cache size, and maximum prime number
+        var cacheIndex = highestCachedIndex()
+        var highestPrime = getPrime(cacheIndex)
+        // Check factor break condition
+        var maxProduct = highestPrime * getPrime(cacheIndex - 1)
+        if (maxProduct > number) return quickIsPrime(number)
+        if (maxProduct == number) return false
+        // Expand the cache, assume more primes will be required
+        var availablePrimes = (maxIndex - cacheIndex).coerceAtMost(24)
+        while (availablePrimes > 0) { 	// Can be expanded
+            highestPrime = consolidate(availablePrimes)
+            maxProduct = highestPrime * getPrime(cacheIndex - 1)
+            if (maxProduct > number) return quickIsPrime(number)
+            if (maxProduct == number) return false
+            // The given number is still larger than the break condition
+            availablePrimes = (maxIndex - cacheIndex).coerceAtMost(48)
+        }
+        throw IllegalStateException("Inconsistent State")
+    }
 
-	/** Find the next prime using the given number as a starting point
-		* @param testNum The first number to test for prime status */
-	internal fun findPrime(testNum: Int): Int? {
-		for (n in testNum .. maxValue step 2)
-		    if (quickIsPrime(n)) return n
-		return null
-	}
+    /** Find the next prime using the given number as a starting point
+      * @param testNum The first number to test for prime status */
+    internal fun findPrime(testNum: Int): Int? {
+        for (n in testNum .. maxValue step 2)
+            if (quickIsPrime(n)) return n
+        return null
+    }
 }
