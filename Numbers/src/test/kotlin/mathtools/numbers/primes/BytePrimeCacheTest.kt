@@ -27,24 +27,26 @@ class BytePrimeCacheTest {
     }
     
     @Test fun testFindPrime() {
-    	val cache = BytePrimeCache()
-    	for (idx in 3 until primeList.size) {
-    	    val prevPrime = primeList[idx - 1]
-    	    val expectedPrime = primeList[idx]
-    	    assertEquals(
-    	        expectedPrime, cache.findPrime(prevPrime + 2))
-    	    cache.clear()
-    	}
+        val cache = BytePrimeCache()
+        for (idx in 2 until primeList.size) {
+            val prevPrime = primeList[idx - 1]
+            val expectedPrime = primeList[idx]
+            assertEquals(
+                expectedPrime, cache.findPrime(prevPrime + 2))
+            cache.clear()
+        }
     }
 
-    @Test fun testIsPrime() {
-    	val cache = BytePrimeCache()
-		for (n in 2 .. primeList.last())
-			assertEquals(n in primeList, cache.isPrime(n))
-		for (n in primeList.last() downTo 2) {
-			cache.clear()
-			assertEquals(n in primeList, cache.isPrime(n))
-		}
+    @Test
+    fun testIsPrime() {
+        val cache = BytePrimeCache()
+        for (n in 2 .. primeList.last())
+            assertEquals(
+                n in primeList, cache.isPrime(n), "Failed to identify: $n")
+        for (n in primeList.last() downTo 2) {
+            cache.clear()
+            assertEquals(n in primeList, cache.isPrime(n))
+        }
     }
 
 	@Test fun testGetPrimeDecreasing() {
@@ -53,63 +55,66 @@ class BytePrimeCacheTest {
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
 
-	@Test
-	fun testCacheQueue() {
-		val cache = BytePrimeCache()
-		val initialSize = cache.arraySize
-		// The first prime beyond the initial list
-		assertEquals(
-		    primeList[initialSize], cache.getPrime(initialSize))
-		// The array should not resize for one additional prime
-		assertEquals(16, cache.arraySize)
-		// The Queue should store this prime for now
-		assertEquals(1, cache.queueSize)
-		// Expansion, but only in the Queue
-		val queueCapacity = 8
-		val preCapacity = initialSize + queueCapacity - 1
-		assertEquals(
-		    primeList[preCapacity], cache.getPrime(preCapacity))
-		// Check Array and Queue Sizes again
-		assertEquals(16, cache.arraySize)
-		assertEquals(queueCapacity, cache.queueSize)
-		// Expand the array
-		val newMaxIndex = preCapacity + 1
-		assertEquals(
-		    primeList[newMaxIndex], cache.getPrime(newMaxIndex))
-		// After expansion, the Array contains the highest prime requested
-		assertEquals(newMaxIndex + 1, cache.arraySize)
-		assertEquals(0, cache.queueSize)    // And the Queue is empty
-	}
+    @Test
+    fun testCacheQueue() {
+        val cache = BytePrimeCache()
+        val initialSize = cache.arraySize
+        // The first prime beyond the initial list
+        assertEquals(
+            primeList[initialSize], cache.getPrime(initialSize))
+        // The array should not resize for one additional prime
+        assertEquals(16, cache.arraySize)
+        // The Queue should store this prime for now
+        assertEquals(1, cache.queueSize)
+        // Expansion, but only in the Queue
+        val queueCapacity = 8
+        val preCapacity = initialSize + queueCapacity - 1
+        assertEquals(
+            primeList[preCapacity], cache.getPrime(preCapacity))
+        // Check Array and Queue Sizes again
+        assertEquals(16, cache.arraySize)
+        assertEquals(queueCapacity, cache.queueSize)
+        // Expand the array
+        val newMaxIndex = preCapacity + 1
+        assertEquals(
+            primeList[newMaxIndex], cache.getPrime(newMaxIndex))
+        // After expansion, the Array contains the highest prime requested
+        assertEquals(newMaxIndex + 1, cache.arraySize)
+        assertEquals(0, cache.queueSize)    // And the Queue is empty
+    }
 
     @ParameterizedTest
     @ValueSource(ints = [1, 2, 3, 5, 6, 8, 9, 12])
-	fun testExpansionRates(rate: Int) {
-		val cache = BytePrimeCache()
-		for (i in 0 .. cache.maxIndex step rate)
-			assertEquals(primeList[i], cache.getPrime(i))
-	}
+    fun testExpansionRates(rate: Int) {
+        val cache = BytePrimeCache()
+        for (i in 0 .. cache.maxIndex step rate)
+            assertEquals(primeList[i], cache.getPrime(i))
+    }
 	
-	@RepeatedTest(3)
-	fun testRandomAccess() {
-		val cache = BytePrimeCache()
-		val testIndexRange = 10 .. cache.maxIndex
-		repeat(200) {
-			repeat(cache.maxIndex) {
-			    val rand = testIndexRange.random()
-			    assertEquals(primeList[rand], cache.getPrime(rand))
-		    }
-			cache.clear()
-		}
-	}
+    @RepeatedTest(3)
+    fun testRandomAccess() {
+        val cache = BytePrimeCache()
+        val testIndexRange = 10 .. cache.maxIndex
+        repeat(200) {
+            repeat(cache.maxIndex) {
+                val rand = testIndexRange.random()
+                assertEquals(primeList[rand], cache.getPrime(rand))
+            }
+            cache.clear()
+        }
+    }
 	
 	@ParameterizedTest
-	@ValueSource(ints = [2, 3, 5, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 22, 25, 26, 28, 30, 31, 33, 35, 40, 45, 50, 51, 52, 53])
-	fun testTargetedAccess(target: Int) {
-		val cache = BytePrimeCache()
-		val prime = primeList[target]
-		repeat(240_000) {
-			assertEquals(prime, cache.getPrime(target))
-		    cache.clear()
-		}
-	}
+	@ValueSource(ints = [2, 3, 5, 7, 9, 12, 14, 15, 16, 17, 18, 19, 20,
+	21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+	40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+	])
+    fun testTargetedAccess(target: Int) {
+        val cache = BytePrimeCache()
+        val prime = primeList[target]
+        repeat(240_000) {
+            assertEquals(prime, cache.getPrime(target))
+            cache.clear()
+        }
+    }
 }
