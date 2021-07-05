@@ -1,6 +1,7 @@
 package mathtools.numbers.generators
 
 import kotlin.math.sqrt
+import mathtools.numbers.statistics.Statistics
 
 /** Generator Testing Framework for outcome analysis
   * Developed by DK96-OS : 2018 - 2021 */
@@ -61,15 +62,9 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
 
     /** Calculates the Standard Deviation of the Probability */
     fun getStandardDeviation(): Float {
-        if (counterList.size < 3) throw IllegalStateException()
-        val mean = meanPercent.toDouble()
-        val total = totalCycles.toDouble() / 100f
-        var varianceSum = 0.0
-        counterList.forEach {
-            val deviation = (it.count / total) - mean
-            varianceSum += deviation * deviation
-        }
-        return sqrt(varianceSum / (counterList.size - 1)).toFloat()
+        val total: Float = totalCycles / 100f
+        val probabilities = counterList.map { it.count / total }
+        return Statistics.calculateStandardDevFloat(probabilities, meanPercent)
     }
 
     /** Calculates the Standard Error, the Standard Deviation of the Mean
