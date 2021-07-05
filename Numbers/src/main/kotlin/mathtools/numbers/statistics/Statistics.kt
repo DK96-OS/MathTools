@@ -21,10 +21,8 @@ object Statistics {
 
 	/** Compute the Standard Deviation for a list of Long */
 	fun calculateStandardDeviation(
-		list:List<Long>, 
-    	mean:Float = calculateMeanLong(list)
-    )
-	: Float {
+		list:List<Long>, mean:Float = calculateMeanLong(list)) 
+    : Float {
 		if (list.size < 3) return mean
 		val varianceSum = list.sumOf {
 			val dev = it.toDouble() - mean
@@ -35,10 +33,8 @@ object Statistics {
 
 	/** Compute the Standard Deviation for a list of Float */
 	fun calculateStandardDevFloat(
-		list:List<Float>, 
-    	mean:Float = calculateMeanFloat(list)
-    )
-	: Float {
+		list:List<Float>, mean:Float = calculateMeanFloat(list)) 
+    : Float {
 		val nMinus1 = list.size - 1
 		if (nMinus1 < 2) return mean
 		val varianceSum = list.sumOf {
