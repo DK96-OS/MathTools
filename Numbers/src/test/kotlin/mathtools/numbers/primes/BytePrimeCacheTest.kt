@@ -8,13 +8,14 @@ import org.junit.jupiter.params.provider.ValueSource
 
 /** Testing the Byte PrimeCache class, for primes less than 128 */
 class BytePrimeCacheTest {
-
-	private val primeList: List<Int> = listOf<Int>(
-    	2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-    	73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149,
-    	151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 
-    	229, 233, 239, 241, 251,
-    )
+    companion object {
+        val primeList: List<Int> = listOf<Int>(
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+            73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149,
+            151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227,
+            229, 233, 239, 241, 251,
+        )
+    }
 
     @Test fun testInitialization() {
     	val cache = BytePrimeCache()
@@ -100,20 +101,6 @@ class BytePrimeCacheTest {
                 val rand = testIndexRange.random()
                 assertEquals(primeList[rand], cache.getPrime(rand))
             }
-            cache.clear()
-        }
-    }
-	
-	@ParameterizedTest
-	@ValueSource(ints = [2, 3, 5, 7, 9, 12, 14, 15, 16, 17, 18, 19, 20,
-	21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-	40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
-	])
-    fun testTargetedAccess(target: Int) {
-        val cache = BytePrimeCache()
-        val prime = primeList[target]
-        repeat(240_000) {
-            assertEquals(prime, cache.getPrime(target))
             cache.clear()
         }
     }
