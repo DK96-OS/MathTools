@@ -29,10 +29,16 @@ abstract class PrimeCacheBase(
     /** Skip checking if 2 is a factor, assume number is odd */
     private fun quickIsPrime(number: Int): Boolean {
         var prevPrime = 2L
-        for (i in 1 .. indexRange.last) {
+        for (i in 1 .. 15) {
+            val testPrime = initArray[i]
+            if (number % testPrime == 0) return false
+            if (testPrime * prevPrime > number) return true
+            prevPrime = testPrime.toLong()
+        }
+        for (i in 16 .. indexRange.last) {
             val testPrime = getPrime(i)
             if (number % testPrime == 0) return false
-            if (testPrime * prevPrime > number) break
+            if (testPrime * prevPrime > number) return true
             prevPrime = testPrime.toLong()
         }
         return true
@@ -50,6 +56,7 @@ abstract class PrimeCacheBase(
         var maxProduct = highestPrime * getPrime(cacheIndex - 1)
         if (maxProduct > number) return quickIsPrime(number)
         if (maxProduct == number) return false
+        // todo: Check static primes before expanding cache
         // Expand the cache, assume more primes will be required
         var availablePrimes = (maxIndex - cacheIndex).coerceAtMost(24)
         while (availablePrimes > 0) { 	// Can be expanded
@@ -69,5 +76,11 @@ abstract class PrimeCacheBase(
         for (n in testNum .. maxValue step 2)
             if (quickIsPrime(n)) return n
         return null
+    }
+    
+    companion object {
+        internal val initArray: ByteArray = byteArrayOf(
+            2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
+        )
     }
 }
