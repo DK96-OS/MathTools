@@ -27,7 +27,7 @@ open class BytePrimeCache : PrimeCacheBase(
                 val queueIndex = arrayIndex - arraySize
                 if (queueIndex < queueSize) byteQueue[queueIndex].toInt()
                 else if (extendCache(idx)) getPrime(idx)
-                else 
+                else
                     throw IllegalStateException("Could not get prime at: $idx")
             }
         }
