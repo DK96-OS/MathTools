@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        java: [ '8', '11', '14', '15', '16' ]
+        java: [ '11', '16' ]
     name: Java ${{ matrix.java }} Build
     steps:
     - uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-        name: Numbers-Test-Results on Java${{ matrix.java }}
+        name: Numbers-Tests-Java${{ matrix.java }}
         path: |
           /home/runner/work/MathTools/MathTools/Numbers/build/reports/tests/test
           /home/runner/work/MathTools/MathTools/Numbers/build/test-results/test
@@ -52,7 +52,7 @@ jobs:
       uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-        name: Systems-Test-Results on Java${{ matrix.java }}
+        name: Systems-Tests-Java${{ matrix.java }}
         path: |
           /home/runner/work/MathTools/MathTools/Systems/build/reports/tests/test
           /home/runner/work/MathTools/MathTools/Systems/build/test-results/test
