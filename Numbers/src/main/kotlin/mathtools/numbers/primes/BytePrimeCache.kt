@@ -7,7 +7,7 @@ open class BytePrimeCache : PrimeCacheBase(
 	maxValue = UByte.MAX_VALUE.toInt(),
 ) {
 	private var byteArray: ByteArray? = null
-	private val byteQueue = ArrayDeque<UByte>(8)
+	private val byteQueue = ArrayList<UByte>(8)
 
 	internal val arraySize: Int get() = byteArray?.size ?: 0
 	internal val queueSize: Int get() = byteQueue.size
@@ -54,7 +54,7 @@ open class BytePrimeCache : PrimeCacheBase(
 			while (primesRequired > 0) {
 				val prime = findPrime(testN) ?: break
 				if (prime > maxValue) break
-				byteQueue.addLast(prime.toUByte())
+				byteQueue.add(prime.toUByte())
 				testN = prime + if (prime - prevPrime == 2) 4 else 2
 				prevPrime = prime
 				primesRequired--
