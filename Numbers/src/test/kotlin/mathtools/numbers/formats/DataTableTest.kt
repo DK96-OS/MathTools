@@ -17,7 +17,8 @@ class DataTableTest {
         table = DataTable(arrayOf("Input Index"))
     }
 
-    @Test fun testRowEntry() {
+    @Test
+    fun testRowEntry() {
         table.enterRow(2, arrayListOf(
             "Jvm 8" to 15f,
             "Jvm 11" to 14f,
@@ -44,6 +45,23 @@ class DataTableTest {
         table.enter(5, initVal, 36f)
         table.enter(5, finalVal, 52f)
         //
+        table.printCSV()
+    }
+
+    @Test
+    fun testColumnEntry() {
+        table.enterColumn("Jvm 8", arrayListOf(
+            2 to 15f,
+            5 to 17f,
+            9 to 20f,
+            12 to 24f,
+        ))
+        table.enterColumn("Jvm 11", arrayListOf(
+            2 to 14f,
+            5 to 16f,
+            9 to 20f,
+            10 to 25f
+        ))
         table.printCSV()
     }
 
