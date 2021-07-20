@@ -14,8 +14,8 @@ class DistributionCharacteristicsTest {
         )
         val dc = DistributionCharacteristics.process(uniData)
         assertEquals(true, dc != null)
-        assertEquals(30f, dc!!.mean, 0.1f)
-        assertEquals(3f, dc.standardDeviation, 1f)
+        assertEquals(30.0, dc!!.mean, 0.1)
+        assertEquals(3.0, dc.standardDeviation, 1.0)
         assertEquals(null, dc.outliers)
     }
 
@@ -29,8 +29,8 @@ class DistributionCharacteristicsTest {
         //
         val dc = DistributionCharacteristics.process(mtnData)
         assertEquals(true, dc != null)
-        assertEquals(100f, dc!!.mean, 0.1f)
-        assertEquals(40f, dc.standardDeviation, 2f)
+        assertEquals(100.0, dc!!.mean, 0.1)
+        assertEquals(40.0, dc.standardDeviation, 2.0)
         assertEquals(null, dc.outliers)
     }
 
@@ -42,19 +42,11 @@ class DistributionCharacteristicsTest {
         //
         val dc = DistributionCharacteristics.process(skewData)
         assertEquals(true, dc != null)
-        assertEquals(13f, dc!!.mean, 0.1f)
-        assertEquals(5f, dc.standardDeviation, 0.5f)
+        assertEquals(13.0, dc!!.mean, 0.1)
+        assertEquals(5.0, dc.standardDeviation, 0.5)
         assertEquals(null, dc.outliers)
     }
-    
-    @Test
-    fun testInvalidType() {
-        val intList = arrayListOf<Int>(2, 3, 4, 5, 6, 7, 8)
-        assertThrows(IllegalArgumentException::class.java) {
-            DistributionCharacteristics.process(intList)
-        }
-    }
-    
+
     @Test
     fun testEmptyList() {
         val emptyList = listOf<Long>()
