@@ -19,6 +19,21 @@ object Statistics {
 	fun calculateMeanFloat(list:List<Float>)
 	: Float = if (list.isEmpty()) 0f else list.sum() / list.size.toFloat()
 
+    inline fun <T : Number> calculateMean(list:List<T>)
+    : Double = if (list.isEmpty()) 0.0 else listSum(list) / list.size
+
+    inline fun <T : Number> calculateSDev(
+        list:List<T>, mean:Double = calculateMean(list))
+    : Double {
+        if (list.size <3) return 0.0
+        var varianceSum = 0.0
+        for (i in list.indices) {
+            val dev = list[i].toDouble() - mean
+            varianceSum += dev * dev
+        }
+        return sqrt(varianceSum / (list.size - 1))
+    }
+
 	/** Compute the Standard Deviation for a list of Long */
 	fun calculateStandardDeviation(
 		list:List<Long>, mean:Float = calculateMeanLong(list)) 
@@ -43,5 +58,9 @@ object Statistics {
 		}
 		return sqrt(varianceSum / nMinus1).toFloat()
 	}
+
+    /** Determine which side of the mean most values are found */
+    fun calculateSkewLong(
+        list:List<Long>, mean:Float, sDev:Float) {}
 
 }
