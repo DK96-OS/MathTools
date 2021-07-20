@@ -1,7 +1,10 @@
 package mathtools.numbers.statistics
 
-/* This file contains Statistics functions for Number Arrays */
+import kotlin.math.sqrt
 
+/* This file contains Statistics functions for Number Arrays
+    Including: CalculateMean, CalculateSDev
+*/
 
 /* The Mean value functions */
 
