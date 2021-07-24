@@ -6,8 +6,14 @@ data class DistributionCharacteristics(
     val standardDeviation: Double,
     val min: Double,
     val max: Double,
-    val outliers: ArrayList<Float>? = null,
+    val outliers: ArrayList<Double>? = null,
 ) {
+
+    constructor(
+        mean: Double, sDev: Double, min: Number, max: Number,
+        outliers: ArrayList<Double>? = null)
+    : this(mean, sDev, min.toDouble(), max.toDouble(), outliers)
+
     companion object {
         /** Determine the DistributionCharacteristics of the given List */
         inline fun <reified T : Number> process(list: List<T>)
@@ -20,39 +26,33 @@ data class DistributionCharacteristics(
             when (list.first()) {
                 is Float -> {
                     val list = list as List<Float>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 is Double -> {
                     val list = list as List<Double>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 is Long -> {
                     val list = list as List<Long>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 is Int -> {
                     val list = list as List<Int>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 is Short -> {
                     val list = list as List<Short>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 is Byte -> {
                     val list = list as List<Byte>
-                    val min = list.minOrNull()!!.toDouble()
-                    val max = list.maxOrNull()!!.toDouble()
-                    return DistributionCharacteristics(mean, sDev, min, max)
+                    return DistributionCharacteristics(
+                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
                 }
                 else -> throw IllegalArgumentException(
                     "Invalid Data Type Received: ${T::class.java.name}")
