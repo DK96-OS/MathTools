@@ -11,7 +11,7 @@ class NumberTypeTest {
     /** The most restrictive Number Type is used in mapping to other Types */
     lateinit var dataArray: ByteArray
     lateinit var dataList: List<Byte>
-    
+
     @BeforeEach
     fun setup() {
         /*  The range -128 to 127 is common to all Number types.
