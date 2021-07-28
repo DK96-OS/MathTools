@@ -11,8 +11,8 @@ class StatisticsTest {
     @Tag("fast")
 	@Test fun checkStatisticsOfList() {
 		val list = mutableListOf(100f, 110f, 190f, 200f)
-		assertEquals(150f, Statistics.calculateMeanFloat(list), 0.01f)
-		assertEquals(52f, Statistics.calculateStandardDevFloat(list), 1f)
+		assertEquals(150.0, Statistics.calculateMean(list), 0.01)
+		assertEquals(52.0, Statistics.calculateSDev(list), 1.0)
 	}
   
  	@RepeatedTest(3) fun testOneIn2To9Probability() {
@@ -39,19 +39,19 @@ class StatisticsTest {
 	@Tag("slow")
 	@RepeatedTest(3) fun testOneIn500Distribution() {
 		val measurements = measureOneIn(500, 20_000L)
-		val mean = Statistics.calculateMeanFloat(measurements)
-		val sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.2f, mean, 0.015f)
-		assertEquals(0.0015f, sdev, 0.0009f)
+		val mean = Statistics.calculateMean(measurements)
+		val sdev = Statistics.calculateSDev(measurements, mean)
+		assertEquals(0.2, mean, 0.015)
+		assertEquals(0.0015, sdev, 0.0009)
 	}
   
     @Tag("slow")
 	@RepeatedTest(2) fun testOneIn5000Distribution() {
 		val measurements = measureOneIn(5000, 10_000L, 8)
-		val mean = Statistics.calculateMeanFloat(measurements)
-		val sdev = Statistics.calculateStandardDevFloat(measurements, mean)
-		assertEquals(0.02f, mean, 0.002f)
-		assertEquals(0.000_3f, sdev, 0.000_29f)
+		val mean = Statistics.calculateMean(measurements)
+		val sdev = Statistics.calculateSDev(measurements, mean)
+		assertEquals(0.02, mean, 0.002)
+		assertEquals(0.000_3, sdev, 0.000_29)
 		println("Standard Deviation: $sdev")
 	}
   
