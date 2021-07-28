@@ -1,5 +1,8 @@
 package mathtools.numbers.statistics
 
+import mathtools.numbers.statistics.Statistics.calculateMean
+import mathtools.numbers.statistics.Statistics.calculateSDev
+
 /** Functions involved in characterizing distributions */
 data class DistributionCharacteristics(
     val mean: Double,
@@ -19,8 +22,8 @@ data class DistributionCharacteristics(
         inline fun <reified T : Number> process(list: List<T>)
         : DistributionCharacteristics? {
             if (list.size <= 2) return null
-            val mean = Statistics.calculateMean(list)
-            val sDev = Statistics.calculateSDev(list, mean)
+            val mean = calculateMean(list)
+            val sDev = calculateSDev(list, mean)
                 // Remove Outliers
                 // Determine skewedness
             when (list.first()) {
@@ -58,5 +61,47 @@ data class DistributionCharacteristics(
                     "Invalid Data Type Received: ${T::class.java.name}")
             }
         }
+
+        fun process(array: ByteArray)
+        : DistributionCharacteristics? = if (array.size <= 2)
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
+
+        fun process(array: ShortArray)
+        : DistributionCharacteristics? = if (array.size <= 2)
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
+
+        fun process(array: IntArray)
+        : DistributionCharacteristics? = if (array.size <= 2)
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
+
+        fun process(array: LongArray)
+        : DistributionCharacteristics? = if (array.size <= 2)
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
+
+        fun process(array: FloatArray)
+        : DistributionCharacteristics? = if (array.size <= 2) 
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
+
+        fun process(array: DoubleArray)
+        : DistributionCharacteristics? = if (array.size <= 2) 
+            null else DistributionCharacteristics(
+                calculateMean(array), calculateSDev(array),
+                array.minOrNull()!!, array.maxOrNull()!!
+            )
     }
 }
