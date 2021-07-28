@@ -75,8 +75,4 @@ object Statistics {
 		return sqrt(varianceSum / nMinus1).toFloat()
 	}
 
-    /** Determine which side of the mean most values are found */
-    fun calculateSkewLong(
-        list:List<Long>, mean:Float, sDev:Float) {}
-
 }
