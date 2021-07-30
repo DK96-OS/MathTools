@@ -47,10 +47,9 @@ fun calculateSDev(
 : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0f
-    var deviation = 0f
     val meanFloat = mean.toFloat()
     for (i in array.indices) {
-        deviation = array[i].toFloat() - meanFloat
+        val deviation = array[i].toFloat() - meanFloat
         varianceSum += deviation * deviation
     }
 	return sqrt(varianceSum.toDouble() / (array.size - 1))
@@ -62,10 +61,9 @@ fun calculateSDev(
 : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0f
-    var deviation = 0f
     val meanFloat = mean.toFloat()
     for (i in array.indices) {
-        deviation = array[i].toFloat() - meanFloat
+        val deviation = array[i].toFloat() - meanFloat
         varianceSum += deviation * deviation
     }
 	return sqrt(varianceSum.toDouble() / (array.size - 1))
@@ -77,9 +75,8 @@ fun calculateSDev(
 : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
-    var deviation = 0.0
     for (i in array.indices) {
-        deviation = array[i].toDouble() - mean
+        val deviation = array[i].toDouble() - mean
         varianceSum += deviation * deviation
     }
 	return sqrt(varianceSum / (array.size - 1))
@@ -119,9 +116,8 @@ fun calculateSDev(
 : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
-    var deviation = 0.0
     for (i in array.indices) {
-        deviation = array[i] - mean
+        val deviation = array[i] - mean
         varianceSum += deviation * deviation
     }
 	return sqrt(varianceSum / (array.size - 1))
