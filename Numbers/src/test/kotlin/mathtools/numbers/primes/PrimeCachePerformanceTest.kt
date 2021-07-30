@@ -75,8 +75,8 @@ class PrimeCachePerformanceTest {
             val max = dataList.maxOrNull()
             dataList.removeIf {it == max}
         }
-        val mean = Statistics.calculateMeanLong(dataList)
-        val sDev = Statistics.calculateStandardDeviation(dataList)
+        val mean = Statistics.calculateMean(dataList)
+        val sDev = Statistics.calculateSDev(dataList)
         val min = dataList.minOrNull()
         //val max = dataList.maxOrNull()
         println("$testName($params): u=$mean, o-=$sDev, min=$min")

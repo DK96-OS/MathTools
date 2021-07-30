@@ -18,7 +18,7 @@ class DataTable<Key, N : Number>(
     private val dataMap = mutableMapOf<Int, MutableMap<Int, N>>()
 
     /** Convenience for ArrayList item indexing */
-    private inline fun <T> ArrayList<T>.getIndexOrInsert(value: T): Int {
+    private fun <T> ArrayList<T>.getIndexOrInsert(value: T): Int {
         val idx = indexOf(value)
         return if (idx >= 0) idx else {
             add(value)

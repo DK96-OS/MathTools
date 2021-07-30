@@ -62,9 +62,10 @@ abstract class GeneratorAnalysis<G: Generator, C: Counter>(
 
     /** Calculates the Standard Deviation of the Probability */
     fun getStandardDeviation(): Float {
-        val total: Float = totalCycles / 100f
+        val total: Double = totalCycles / 100.0
         val probabilities = counterList.map { it.count / total }
-        return Statistics.calculateStandardDevFloat(probabilities, meanPercent)
+        return Statistics.calculateSDev(
+            probabilities, meanPercent.toDouble()).toFloat()
     }
 
     /** Calculates the Standard Error, the Standard Deviation of the Mean
