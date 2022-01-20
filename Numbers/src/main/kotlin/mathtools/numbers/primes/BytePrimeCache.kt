@@ -68,7 +68,7 @@ open class BytePrimeCache : PrimeCacheBase(
 		if (prevSize + add > indexRange.last + 1) return -1
 		val oldArray = byteArray
 		if (add == 0) byteArray = ByteArray(prevSize) {
-			if (it < oldArray?.size ?: 0) oldArray!![it]
+			if (it < (oldArray?.size ?: 0)) oldArray!![it]
 			else byteQueue.removeFirst().toByte()
 		} else {
 			var prev: Int = (
@@ -78,7 +78,7 @@ open class BytePrimeCache : PrimeCacheBase(
 			 ).toInt()
 			byteArray = ByteArray(prevSize + add) {
 				when {
-					it < oldArray?.size ?: 0 -> oldArray!![it]
+					it < (oldArray?.size ?: 0) -> oldArray!![it]
 					it < prevSize -> byteQueue.removeFirst().toByte()
 					else -> {
 						prev = findPrime(prev + 2)
