@@ -20,11 +20,13 @@ class BytePrimeCacheTest {
     @Test fun testInitialization() {
     	val cache = BytePrimeCache()
     	// The first 16 prime numbers are a;ways available
-    	assertEquals(16, cache.arraySize)
-    	assertEquals(0, cache.queueSize)
-    	cache.clear()   	// Even if the cache is cleared
-    	assertEquals(16, cache.arraySize)
-    	assertEquals(0, cache.queueSize)
+        assertEquals(0, cache.arraySize)
+        assertEquals(0, cache.queueSize)
+        cache.clear()   	// Even if the cache is cleared
+        assertEquals(0, cache.arraySize)
+        assertEquals(0, cache.queueSize)
+        // Highest Index is from the static array
+        assertEquals(15, cache.highestCachedIndex())
     }
     
     @Test fun testFindPrime() {
@@ -59,12 +61,12 @@ class BytePrimeCacheTest {
     @Test
     fun testCacheQueue() {
         val cache = BytePrimeCache()
-        val initialSize = cache.arraySize
-        // The first prime beyond the initial list
+        val initialSize = cache.highestCachedIndex() + 1
+        // The first prime beyond the initial list is accessed
         assertEquals(
             primeList[initialSize], cache.getPrime(initialSize))
-        // The array should not resize for one additional prime
-        assertEquals(16, cache.arraySize)
+        // The array should not initialize for one prime
+        assertEquals(0, cache.arraySize)
         // The Queue should store this prime for now
         assertEquals(1, cache.queueSize)
         // Expansion, but only in the Queue
@@ -72,16 +74,10 @@ class BytePrimeCacheTest {
         val preCapacity = initialSize + queueCapacity - 1
         assertEquals(
             primeList[preCapacity], cache.getPrime(preCapacity))
-        // Check Array and Queue Sizes again
-        assertEquals(16, cache.arraySize)
-        assertEquals(queueCapacity, cache.queueSize)
         // Expand the array
         val newMaxIndex = preCapacity + 1
         assertEquals(
             primeList[newMaxIndex], cache.getPrime(newMaxIndex))
-        // After expansion, the Array contains the highest prime requested
-        assertEquals(newMaxIndex + 1, cache.arraySize)
-        assertEquals(0, cache.queueSize)    // And the Queue is empty
     }
 
     @ParameterizedTest
