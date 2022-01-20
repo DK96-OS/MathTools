@@ -7,7 +7,7 @@ open class ShortPrimeCache : PrimeCacheBase(
 	maxValue = Short.MAX_VALUE.toInt(),
 ) {
 	/** Rely on BytePrimeCache for smallest primes */
-	internal val byteCache = BytePrimeCache()
+	private val byteCache = BytePrimeCache()
 	
 	/** The range of indexed prime numbers serviced by this cache
 		*  note: maximum index must be less than the index of 32767.  */
@@ -19,14 +19,14 @@ open class ShortPrimeCache : PrimeCacheBase(
     )
 	private val shortQueue = ArrayDeque<Short>(12)	
 
-	internal val arraySize: Int get() = shortArray.size
-	internal val queueSize: Int get() = shortQueue.size
+	private val arraySize: Int get() = shortArray.size
+	private val queueSize: Int get() = shortQueue.size
 
 	override fun highestCachedIndex()
 	: Int = byteCache.maxIndex + shortArray.size + shortQueue.size
 
 	override fun getPrime(idx: Int): Int {
-		val shortIndex = idx - shortIndexRange.start
+		val shortIndex = idx - shortIndexRange.first
 		if (shortIndex < 0) return byteCache.getPrime(idx)
 			// First check the Array
 		if (shortIndex < arraySize) return shortArray[shortIndex].toInt()
