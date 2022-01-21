@@ -30,7 +30,7 @@ object DoubleListResources {
     /** A list containing the max Double value */
     internal val maxValueList: MutableList<Double>
         get() = Array(5) {
-            Double.MAX_VALUE * (1 - (it / 10))
+            Double.MAX_VALUE * (1 - (it / 10.0))
         }.toMutableList()
 
     /** A list containing NaN value */

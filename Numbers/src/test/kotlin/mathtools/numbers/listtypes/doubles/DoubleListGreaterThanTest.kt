@@ -31,12 +31,12 @@ class DoubleListGreaterThanTest {
         assertEquals(3, result!!.size)
         result = DoubleList.findGreaterThan(
             medList.shuffled(),
-            medListFactor * 900 - 0.0001
+            medListFactor * 900
         )
         assertEquals(100, result!!.size)
         result = DoubleList.findGreaterThan(
             largeList.shuffled(),
-            largeListFactor * 120_000 - 100
+            largeListFactor * 120_000
         )
         assertEquals(30_000, result!!.size)
     }
@@ -68,7 +68,7 @@ class DoubleListGreaterThanTest {
         )
         assertEquals(null, result)
         result = DoubleList.findGreaterThan(
-            maxValueList, Double.MAX_VALUE - 0.000001
+            maxValueList, Double.MAX_VALUE * 0.99999999
         )
         assertEquals(1, result!!.size)
         assertEquals(0, result[0])
