@@ -5,7 +5,8 @@ import java.math.BigDecimal
 /** Functions of Double typed Lists */
 object DoubleList {
 
-    /** Find all elements greater than the limit */
+    /** Find all elements greater than the limit
+     * @return Indices of found elements, or null if none */
     fun findGreaterThan(
         list: List<Double>,
         limit: Double,
@@ -19,7 +20,8 @@ object DoubleList {
         return indices.ifEmpty { null }
     }
 
-    /** Find all elements less than the limit */
+    /** Find all elements less than the limit
+     * @return Indices of found elements, or null if none */
     fun findLessThan(
         list: List<Double>,
         limit: Double,
