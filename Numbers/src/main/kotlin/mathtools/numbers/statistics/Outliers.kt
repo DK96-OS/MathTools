@@ -13,7 +13,8 @@ object Outliers {
         val lowerList = lowerOutliers(dc, sDevLimit)
         return when {
             upperList != null -> if (lowerList == null) 
-                upperList else upperList.addAll(lowerList)
+                upperList
+            else upperList.apply { addAll(lowerList) }
             lowerList != null -> lowerList
             else -> null
         }
