@@ -12,7 +12,7 @@ fun <T : Number> listSum(list: List<T>)
             sum += floatList[i].toDouble()
         sum
     }
-    is Long -> (list as List<Long>).sum().toDouble()
+    is Long -> LongList.largeSum(list as List<Long>).toDouble()
     is Int -> {
         val intList = list as List<Int>
         var sum = 0L
