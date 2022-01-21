@@ -1,9 +1,9 @@
 package mathtools.numbers.statistics
 
+import mathtools.numbers.listtypes.listSum
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
