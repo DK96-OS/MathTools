@@ -3,29 +3,30 @@ package mathtools.numbers.statistics
 import mathtools.numbers.statistics.Statistics.calculateMean
 import mathtools.numbers.statistics.Statistics.calculateSDev
 
-/** Functions involved in characterizing distributions */
-data class DistributionCharacteristics(
+/** The key statistical parameters of a distribution */
+class DistributionCharacteristics internal constructor(
     val mean: Double,
     val standardDeviation: Double,
     val min: Double,
     val max: Double,
-    val outliers: ArrayList<Double>? = null,
 ) {
 
     constructor(
         mean: Double, sDev: Double, min: Number, max: Number,
-        outliers: ArrayList<Double>? = null)
-    : this(mean, sDev, min.toDouble(), max.toDouble(), outliers)
+    ) : this(mean, sDev, min.toDouble(), max.toDouble())
+
+    /** Calculate the value at a specific number of deviations from mean */
+    fun valueAtDeviation(nDevs: Double)
+        : Double = mean + nDevs * standardDeviation
 
     companion object {
         /** Determine the DistributionCharacteristics of the given List */
-        inline fun <reified T : Number> process(list: List<T>)
-        : DistributionCharacteristics? {
+        inline fun <reified T : Number> process(
+            list: List<T>
+        ) : DistributionCharacteristics? {
             if (list.size <= 2) return null
             val mean = calculateMean(list)
             val sDev = calculateSDev(list, mean)
-                // Remove Outliers
-                // Determine skewedness
             when (list.first()) {
                 is Float -> {
                     val list = list as List<Float>
@@ -35,7 +36,10 @@ data class DistributionCharacteristics(
                 is Double -> {
                     val list = list as List<Double>
                     return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
+                        mean, sDev,
+                        list.minOrNull()!! as Number,
+                        list.maxOrNull()!!
+                    )
                 }
                 is Long -> {
                     val list = list as List<Long>
@@ -63,45 +67,51 @@ data class DistributionCharacteristics(
         }
 
         fun process(array: ByteArray)
-        : DistributionCharacteristics? = if (array.size <= 2)
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
 
         fun process(array: ShortArray)
-        : DistributionCharacteristics? = if (array.size <= 2)
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
 
         fun process(array: IntArray)
-        : DistributionCharacteristics? = if (array.size <= 2)
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
 
         fun process(array: LongArray)
-        : DistributionCharacteristics? = if (array.size <= 2)
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
 
         fun process(array: FloatArray)
-        : DistributionCharacteristics? = if (array.size <= 2) 
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
 
         fun process(array: DoubleArray)
-        : DistributionCharacteristics? = if (array.size <= 2) 
-            null else DistributionCharacteristics(
-                calculateMean(array), calculateSDev(array),
-                array.minOrNull()!!, array.maxOrNull()!!
-            )
+            : DistributionCharacteristics? = if (array.size <= 2)
+            null
+        else DistributionCharacteristics(
+            calculateMean(array), calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
+        )
     }
 }
