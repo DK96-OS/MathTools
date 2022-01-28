@@ -24,7 +24,7 @@ object LongList {
         return indices ?: emptyList()
     }
 
-    /** Find all elements less than the limit */
+    /** Find indices of elements less than the limit */
     fun findLessThan(
         list: List<Long>,
         limit: Long,
@@ -35,6 +35,26 @@ object LongList {
         var indices: ArrayList<Int>? = null
         for (idx in start until list.size)
             if (list[idx] < limit) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
+            }
+        return indices ?: emptyList()
+    }
+
+    /** Find indices of elements outside of the given range */
+    fun findOutOfRange(
+        list: List<Long>,
+        range: LongRange,
+        start: Int = 0,
+    ) : List<Int> {
+        if (start < 0 || list.isEmpty()
+            || range.first == Long.MIN_VALUE && range.last == Long.MAX_VALUE
+        ) return emptyList()
+        var indices: ArrayList<Int>? = null
+        for (idx in start until list.size)
+            if (list[idx] !in range) {
                 if (indices == null)
                     indices = arrayListOf(idx)
                 else
