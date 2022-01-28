@@ -37,7 +37,7 @@ jobs:
       run: gradle assemble --warn
       timeout-minutes: 4
     - name: Run tests
-      run: gradle check --continue
+      run: gradle check --continue --warn
       timeout-minutes: 4
     - name: Upload Numbers Tests Results
       uses: actions/upload-artifact@v2
