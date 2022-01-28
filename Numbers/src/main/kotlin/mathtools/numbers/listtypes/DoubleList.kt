@@ -11,13 +11,19 @@ object DoubleList {
         list: List<Double>,
         limit: Double,
         start: Int = 0,
-    ) : List<Int>? {
-        if (start < 0 || list.isEmpty()) return null
-        val indices = ArrayList<Int>(4)
+    ) : List<Int> {
+        if (start < 0 || list.isEmpty())
+            return emptyList()
+        var indices: ArrayList<Int>? = null
         for (idx in start until list.size) {
-            if (list[idx] > limit) indices.add(idx)
+            if (list[idx] > limit) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
+            }
         }
-        return indices.ifEmpty { null }
+        return indices ?: emptyList()
     }
 
     /** Find all elements less than the limit
@@ -26,13 +32,34 @@ object DoubleList {
         list: List<Double>,
         limit: Double,
         start: Int = 0,
-    ) : List<Int>? {
-        if (start < 0 || list.isEmpty()) return null
-        val indices = ArrayList<Int>(4)
+    ) : List<Int> {
+        if (start < 0 || list.isEmpty())
+            return emptyList()
+        var indices: ArrayList<Int>? = null
         for (idx in start until list.size) {
-            if (list[idx] < limit) indices.add(idx)
+            if (list[idx] < limit) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
+            }
         }
-        return indices.ifEmpty { null }
+        return indices ?: emptyList()
+    }
+
+    /** Remove and return items from the mutable list at the given indices */
+    fun removeByIndices(
+        list: MutableList<Double>,
+        indices: List<Int>,
+    ) : List<Double> = when {
+        indices.isEmpty() -> emptyList()
+        else -> ArrayList<Double>().apply {
+            for (i in indices.size - 1 downTo 0) {
+                val listIndex = indices[i]
+                if (listIndex in list.indices)
+                    add(list.removeAt(listIndex))
+            }
+        }
     }
 
     /** Calculate a large sum.
