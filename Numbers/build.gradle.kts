@@ -18,6 +18,10 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
+sourceSets.main {
+	java.srcDirs("src/main/kotlin")
+}
+
 tasks.test {
     useJUnitPlatform() {
         excludeTags("slow")
