@@ -10,13 +10,18 @@ object LongList {
         list: List<Long>,
         limit: Long,
         start: Int = 0,
-    ) : List<Int>? {
-        if (start < 0 || list.isEmpty()) return null
-        val indices = ArrayList<Int>(4)
-        for (idx in start until list.size) {
-            if (list[idx] > limit) indices.add(idx)
-        }
-        return indices.ifEmpty { null }
+    ) : List<Int> {
+        if (start < 0 || list.isEmpty() || limit == Long.MAX_VALUE)
+            return emptyList()
+        var indices: ArrayList<Int>? = null
+        for (idx in start until list.size)
+            if (list[idx] > limit) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
+            }
+        return indices ?: emptyList()
     }
 
     /** Find all elements less than the limit */
@@ -24,13 +29,33 @@ object LongList {
         list: List<Long>,
         limit: Long,
         start: Int = 0,
-    ) : List<Int>? {
-        if (start < 0 || list.isEmpty()) return null
-        val indices = ArrayList<Int>(4)
-        for (idx in start until list.size) {
-            if (list[idx] < limit) indices.add(idx)
+    ) : List<Int> {
+        if (start < 0 || list.isEmpty() || limit == Long.MIN_VALUE)
+            return emptyList()
+        var indices: ArrayList<Int>? = null
+        for (idx in start until list.size)
+            if (list[idx] < limit) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
+            }
+        return indices ?: emptyList()
+    }
+
+    /** Remove and return items from the mutable list at the given indices */
+    fun removeByIndices(
+        list: MutableList<Long>,
+        indices: List<Int>,
+    ) : List<Long> = when {
+        indices.isEmpty() -> emptyList()
+        else -> ArrayList<Long>().apply {
+            for (i in indices.size - 1 downTo 0) {
+                val listIndex = indices[i]
+                if (listIndex in list.indices)
+                    add(list.removeAt(listIndex))
+            }
         }
-        return indices.ifEmpty { null }
     }
 
     /** Calculate a large sum */
