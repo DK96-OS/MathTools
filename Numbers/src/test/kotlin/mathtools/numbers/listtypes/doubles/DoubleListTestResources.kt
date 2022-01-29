@@ -1,6 +1,6 @@
 package mathtools.numbers.listtypes.doubles
 
-object DoubleListResources {
+object DoubleListTestResources {
 
     internal const val smallListFactor = 100.101
     /** A list with 10 elements */

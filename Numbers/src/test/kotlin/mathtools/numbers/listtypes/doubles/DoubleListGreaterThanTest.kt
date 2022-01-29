@@ -1,17 +1,17 @@
 package mathtools.numbers.listtypes.doubles
 
 import mathtools.numbers.listtypes.DoubleList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.largeList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.largeListFactor
-import mathtools.numbers.listtypes.doubles.DoubleListResources.maxValueList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.medList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.medListFactor
-import mathtools.numbers.listtypes.doubles.DoubleListResources.nanValueList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.negativeInfiniteList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.positiveInfiniteList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.singleItemList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.smallList
-import mathtools.numbers.listtypes.doubles.DoubleListResources.smallListFactor
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.largeList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.largeListFactor
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.maxValueList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.medList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.medListFactor
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.nanValueList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.negativeInfiniteList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.positiveInfiniteList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.singleItemList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.smallList
+import mathtools.numbers.listtypes.doubles.DoubleListTestResources.smallListFactor
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
@@ -28,17 +28,17 @@ class DoubleListGreaterThanTest {
             smallList.shuffled(),
             smallListFactor * 8 - 0.0001
         )
-        assertEquals(3, result!!.size)
+        assertEquals(3, result.size)
         result = DoubleList.findGreaterThan(
             medList.shuffled(),
             medListFactor * 900
         )
-        assertEquals(100, result!!.size)
+        assertEquals(100, result.size)
         result = DoubleList.findGreaterThan(
             largeList.shuffled(),
             largeListFactor * 120_000
         )
-        assertEquals(30_000, result!!.size)
+        assertEquals(30_000, result.size)
     }
 
     /** Greater Than works on single item and empty lists */
@@ -47,17 +47,17 @@ class DoubleListGreaterThanTest {
         var result = DoubleList.findGreaterThan(
             singleItemList, 5.0
         )
-        assertEquals(null, result)
+        assertEquals(emptyList<Double>(), result)
         result = DoubleList.findGreaterThan(
             singleItemList, 4.9999999
         )
-        assertEquals(1, result!!.size)
+        assertEquals(1, result.size)
         assertEquals(0, result[0])
         // Empty List
         result = DoubleList.findGreaterThan(
             emptyList(), 4.999
         )
-        assertEquals(null, result)
+        assertEquals(emptyList<Double>(), result)
     }
 
     /** Greater Than works with the Max Value */
@@ -66,11 +66,11 @@ class DoubleListGreaterThanTest {
         var result = DoubleList.findGreaterThan(
             maxValueList, Double.MAX_VALUE
         )
-        assertEquals(null, result)
+        assertEquals(emptyList<Double>(), result)
         result = DoubleList.findGreaterThan(
             maxValueList, Double.MAX_VALUE * 0.99999999
         )
-        assertEquals(1, result!!.size)
+        assertEquals(1, result.size)
         assertEquals(0, result[0])
     }
 
@@ -80,12 +80,12 @@ class DoubleListGreaterThanTest {
         var result = DoubleList.findGreaterThan(
             nanValueList, 3.9
         )
-        assertEquals(1, result!!.size)
+        assertEquals(1, result.size)
         assertEquals(4, result[0])
         result = DoubleList.findGreaterThan(
             nanValueList, 1.9
         )
-        assertEquals(2, result!!.size)
+        assertEquals(2, result.size)
         assertEquals(2, result[0])
         assertEquals(4, result[1])
     }
@@ -96,14 +96,14 @@ class DoubleListGreaterThanTest {
         var result = DoubleList.findGreaterThan(
             positiveInfiniteList, 3.9
         )
-        assertEquals(2, result!!.size)
+        assertEquals(2, result.size)
         assertEquals(3, result[0])
         assertEquals(4, result[1])
         // Negative Infinity
         result = DoubleList.findGreaterThan(
             negativeInfiniteList, 3.9
         )
-        assertEquals(1, result!!.size)
+        assertEquals(1, result.size)
         assertEquals(4, result[0])
     }
 
