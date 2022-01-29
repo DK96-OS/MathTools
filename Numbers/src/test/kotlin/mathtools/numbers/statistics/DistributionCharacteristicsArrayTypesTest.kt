@@ -1,12 +1,13 @@
 package mathtools.numbers.statistics
 
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
+import mathtools.numbers.statistics.StatisticsTestResources.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /**  */
-class ArrayTypesTest {
+class DistributionCharacteristicsArrayTypesTest {
 
     lateinit var byteArray: ByteArray
     lateinit var shortArray: ShortArray
@@ -25,6 +26,28 @@ class ArrayTypesTest {
         longArray = LongArray(101) { (it - 20).toLong() }
         floatArray = FloatArray(101) { (it - 20).toFloat() }
         doubleArray = DoubleArray(101) { (it - 20).toDouble() }
+    }
+
+    @Test
+    fun testEquivalence() {
+        assertEquals(byteArray.size, uniform101.size)
+        for (i in byteArray.indices)
+            assertEquals(
+                byteArray[i],
+                uniform101[i].toByte()
+            )
+        assertEquals(shortArray.size, uniform101.size)
+        for (i in shortArray.indices)
+            assertEquals(
+                shortArray[i],
+                uniform101[i].toShort()
+            )
+        assertEquals(intArray.size, uniform101.size)
+        for (i in intArray.indices)
+            assertEquals(
+                intArray[i],
+                uniform101[i].toInt()
+            )
     }
 
     @Test
