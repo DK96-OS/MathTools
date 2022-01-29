@@ -1,7 +1,7 @@
 package mathtools.numbers.listtypes
 
 /** Sum up the numbers in the list
- * Use with caution, overflows are not checked. */
+ * Use with caution, overflows are not checked in most cases. */
 fun <T : Number> listSum(list: List<T>)
 : Double = when (list.firstOrNull()) {
     is Double -> (list as List<Double>).sum()

@@ -2,7 +2,8 @@ package mathtools.numbers.statistics.outlier
 
 import mathtools.numbers.statistics.DistributionCharacteristics
 
-/** Describes the way that outliers are identified */
+/** Describes the way that outliers are identified
+ * Developed by DK96-OS : 2022 */
 interface OutlierPolicy {
 
     /* Find and Remove Outliers from a Mutable List */

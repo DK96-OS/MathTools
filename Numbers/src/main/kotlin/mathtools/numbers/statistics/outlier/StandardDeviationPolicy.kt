@@ -8,6 +8,7 @@ import kotlin.math.roundToLong
 /** An outlier policy that considers an element an outlier
  * when it's value is outside a maximum number of standard deviations
  * from the mean value of the distribution.
+ * Developed by DK96-OS : 2022
  * @param maxDeviations the number of standard deviations from the mean
  * @param upperOutliers check outliers greater than the mean
  * @param lowerOutliers check outliers less than the mean

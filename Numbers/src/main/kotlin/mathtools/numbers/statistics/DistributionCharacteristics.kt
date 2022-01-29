@@ -3,7 +3,8 @@ package mathtools.numbers.statistics
 import mathtools.numbers.statistics.Statistics.calculateMean
 import mathtools.numbers.statistics.Statistics.calculateSDev
 
-/** The key statistical parameters of a distribution */
+/** The key statistical parameters of a distribution
+ * Developed by DK96-OS : 2022 */
 class DistributionCharacteristics internal constructor(
     val mean: Double,
     val standardDeviation: Double,
