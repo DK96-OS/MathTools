@@ -12,40 +12,40 @@ interface OutlierPolicy {
      * @return The outliers that were removed, or empty list */
     fun removeOutliersDouble(
         mutableList: MutableList<Double>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte = 2u,
     ) : List<Double>
 
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list
     fun removeOutliersFloat(
         mutableList: MutableList<Float>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte = 2u,
     ) : List<Float>
     */
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list */
     fun removeOutliersLong(
         mutableList: MutableList<Long>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte = 2u,
     ) : List<Long>
 
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list
     fun removeOutliersInt(
         mutableList: MutableList<Int>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte = 2u,
     ) : List<Int>
     */
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list
     fun removeOutliersShort(
         mutableList: MutableList<Short>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte = 2u,
     ) : List<Short>
     */
 

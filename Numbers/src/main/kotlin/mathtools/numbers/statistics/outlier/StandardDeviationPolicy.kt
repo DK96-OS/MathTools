@@ -21,10 +21,10 @@ class StandardDeviationPolicy(
 
     override fun removeOutliersDouble(
         mutableList: MutableList<Double>,
-        maxOutliers: UShort,
         distribution: DistributionCharacteristics,
+        maxOutliers: UByte,
     ) : List<Double> = when {
-        maxOutliers == (0u).toUShort() -> emptyList()
+        maxOutliers == (0u).toUByte() -> emptyList()
         upperOutliers && lowerOutliers -> {
             val outlierIdx = DoubleList.findOutOfBounds(
                 mutableList,
@@ -59,10 +59,10 @@ class StandardDeviationPolicy(
 
     override fun removeOutliersLong(
         mutableList: MutableList<Long>,
-        maxOutliers: UShort,
-        distribution: DistributionCharacteristics
+        distribution: DistributionCharacteristics,
+        maxOutliers: UByte
     ) : List<Long> = when {
-        maxOutliers == (0u).toUShort() -> emptyList()
+        maxOutliers == (0u).toUByte() -> emptyList()
         upperOutliers && lowerOutliers -> {
             val lowerBound = distribution.valueAtDeviation(maxDeviations)
                 .roundToLong()
