@@ -51,7 +51,6 @@ class NumberTypeTest {
                 assertEquals(80.0, max)
                 assertEquals(30.0, mean)
                 assertEquals(29.3, standardDeviation, 0.002)
-                assertEquals(null, outliers)
             }
         }
         verify(dataList)

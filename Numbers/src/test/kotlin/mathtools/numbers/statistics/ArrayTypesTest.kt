@@ -2,9 +2,8 @@ package mathtools.numbers.statistics
 
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 /**  */
 class ArrayTypesTest {
@@ -40,11 +39,22 @@ class ArrayTypesTest {
 
     private fun verify(dc: DistributionCharacteristics?) {
         assertEquals(true, dc != null)
+        // Property Values
         assertEquals(-20.0, dc!!.min)
         assertEquals(80.0, dc.max)
         assertEquals(30.0, dc.mean)
         assertEquals(29.3, dc.standardDeviation, 0.002)
-        assertEquals(null, dc.outliers)
+        // Methods
+        assertEquals(
+            30 + 29.3 * 2,
+            dc.valueAtDeviation(2.0),
+            0.005
+        )
+        assertEquals(
+            30 - 29.3 * 2,
+            dc.valueAtDeviation(-2.0),
+            0.005
+        )
     }
 
 }
