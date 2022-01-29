@@ -35,10 +35,4 @@ object StatisticsTestResources {
 
 	val wave101DC = process(wave101)!!
 
-	fun convertToDouble(list: List<Number>)
-	: MutableList<Double> = (list as List<Double>).toMutableList()
-
-	fun convertToLong(list: List<Number>)
-	: MutableList<Long> = (list as List<Long>).toMutableList()
-
 }
