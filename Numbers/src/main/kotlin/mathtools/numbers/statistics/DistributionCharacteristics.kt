@@ -37,37 +37,52 @@ class DistributionCharacteristics internal constructor(
             val sDev = calculateSDev(list, mean)
             when (list.first()) {
                 is Float -> {
-                    val list = list as List<Float>
-                    return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
-                }
-                is Double -> {
-                    val list = list as List<Double>
+                    val typedList = list as List<Float>
                     return DistributionCharacteristics(
                         mean, sDev,
-                        list.minOrNull()!! as Number,
-                        list.maxOrNull()!!
+                        typedList.minOrNull()!!,
+                        typedList.maxOrNull()!!
+                    )
+                }
+                is Double -> {
+                    val typedList = list as List<Double>
+                    return DistributionCharacteristics(
+                        mean, sDev,
+                        typedList.minOrNull()!! as Number,
+                        typedList.maxOrNull()!!
                     )
                 }
                 is Long -> {
-                    val list = list as List<Long>
+                    val typedList = list as List<Long>
                     return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
+                        mean, sDev,
+                        typedList.minOrNull()!!,
+                        typedList.maxOrNull()!!
+                    )
                 }
                 is Int -> {
-                    val list = list as List<Int>
+                    val typedList = list as List<Int>
                     return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
+                        mean, sDev,
+                        typedList.minOrNull()!!,
+                        typedList.maxOrNull()!!
+                    )
                 }
                 is Short -> {
-                    val list = list as List<Short>
+                    val typedList = list as List<Short>
                     return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
+                        mean, sDev,
+                        typedList.minOrNull()!!,
+                        typedList.maxOrNull()!!
+                    )
                 }
                 is Byte -> {
-                    val list = list as List<Byte>
+                    val typedList = list as List<Byte>
                     return DistributionCharacteristics(
-                        mean, sDev, list.minOrNull()!!, list.maxOrNull()!!)
+                        mean, sDev,
+                        typedList.minOrNull()!!,
+                        typedList.maxOrNull()!!
+                    )
                 }
                 else -> throw IllegalArgumentException(
                     "Invalid Data Type Received: ${T::class.java.name}")
