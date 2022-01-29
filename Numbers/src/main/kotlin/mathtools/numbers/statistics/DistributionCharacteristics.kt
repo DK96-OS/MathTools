@@ -24,7 +24,15 @@ class DistributionCharacteristics internal constructor(
         inline fun <reified T : Number> process(
             list: List<T>
         ) : DistributionCharacteristics? {
-            if (list.size <= 2) return null
+            when (list.size) {
+                0 -> return null
+                1 -> {
+                    val first = list[0]
+                    return DistributionCharacteristics(
+                        first.toDouble(), 0.0, first, first
+                    )
+                }
+            }
             val mean = calculateMean(list)
             val sDev = calculateSDev(list, mean)
             when (list.first()) {
