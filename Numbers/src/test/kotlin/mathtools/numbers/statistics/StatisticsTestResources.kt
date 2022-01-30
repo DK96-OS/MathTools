@@ -36,10 +36,8 @@ object StatisticsTestResources {
 	val largeByteList: List<Byte> by lazy { largeByteArray.toList() }
 
 	val largeByteDC = DistributionCharacteristics(
-		120.0, 4.0, 100, 125
+		117.5, 6.726823234918257, 100, 125
 	)
-
-	fun cloneLargeByteArray(): ByteArray = largeByteArray.clone()
 
 	/* Mean value 63000 */
 	private val largeShortArray

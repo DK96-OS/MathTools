@@ -1,13 +1,13 @@
 package mathtools.numbers.statistics
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.RepeatedTest
 
 /** Test the Statistics functions */
 class StatisticsTest {
-  
+
     @Tag("fast")
 	@Test fun checkStatisticsOfList() {
 		val list = mutableListOf(100f, 110f, 190f, 200f)
