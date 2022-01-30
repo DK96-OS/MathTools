@@ -1,16 +1,16 @@
-package mathtools.numbers.statistics
+package mathtools.numbers.testdata
 
-import mathtools.numbers.statistics.StatisticsTestResources.largeByteList
-import mathtools.numbers.statistics.StatisticsTestResources.largeShortList
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class StatisticsTestResourcesTest {
+class TestDataSourceTest {
+
+	private val data = LargeTestDataSource()
 
 	@Test
 	fun testLargeByteArray() {
 		val counter = IntArray(128)
-		largeByteList.forEach { counter[it.toInt()]++ }
+		data.large120.forEach { counter[it.toInt()]++ }
 		for (i in 0 .. 99)
 			assertEquals(0, counter[i])
 		for (i in 100 .. 119)
@@ -27,7 +27,7 @@ class StatisticsTestResourcesTest {
 	@Test
 	fun testLargeShortArray() {
 		val counter = IntArray(45)
-		largeShortList.forEach { counter[it - 31996]++ }
+		data.large32000.forEach { counter[it - 31996]++ }
 		for (i in 0 until 4)
 			assertEquals(2500, counter[i])
 		assertEquals(10_000, counter[4])
