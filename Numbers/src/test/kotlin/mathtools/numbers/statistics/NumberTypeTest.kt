@@ -1,66 +1,78 @@
 package mathtools.numbers.statistics
 
+import mathtools.numbers.listtypes.ListNumberTypes.convertToByte
 import mathtools.numbers.listtypes.ListNumberTypes.convertToDouble
 import mathtools.numbers.listtypes.ListNumberTypes.convertToFloat
 import mathtools.numbers.listtypes.ListNumberTypes.convertToInt
 import mathtools.numbers.listtypes.ListNumberTypes.convertToLong
 import mathtools.numbers.listtypes.ListNumberTypes.convertToShort
 import mathtools.numbers.listtypes.listSum
+import mathtools.numbers.statistics.StatisticsTestResources.largeByteDC
+import mathtools.numbers.statistics.StatisticsTestResources.largeByteList
+import mathtools.numbers.statistics.StatisticsTestResources.largeShortList
+import mathtools.numbers.statistics.StatisticsTestResources.uniform101
+import mathtools.numbers.statistics.StatisticsTestResources.uniform101DC
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
 
-    /** The most restrictive Number Type is used in mapping to other Types */
-    lateinit var dataArray: ByteArray
-    lateinit var dataList: List<Byte>
-
-    lateinit var dataArray2: ByteArray
-    lateinit var dataList2: List<Byte>
-
-    @BeforeEach
-    fun setup() {
-        /* The range -128 to 127 is common to all Number types.
-           Target a mean value of 30 with a uniform spread of 50 on each side.*/
-        dataArray = ByteArray(101) { (it - 20).toByte() }
-        dataList = dataArray.toList()
-        /* Target a mean value of 120 with most values below */
-        dataArray2 = ByteArray(300_000) {
-            when (it) {
-                in 0 until 100_000 -> 120
-                in 100_000 until 200_000 ->
-                    (100 + (it - 100_000) / 5_000).toByte()
-                in 200_000 until 300_000 ->
-                    (121 + (it - 200_000) / 20_000).toByte()
-                else -> throw IllegalArgumentException()
-            }
-        }
-        dataList2 = dataArray2.toList()
+    /** The key to this Test is to run a stats function on many types
+     * and compare the results between types */
+    private inline fun runOnAllTypes(
+        numbers: List<Number>,
+        level: Int = 0,
+        verify: (dc: DistributionCharacteristics?) -> Unit,
+    ) {
+        if (level < 1)
+            verify(DistributionCharacteristics.process(
+                convertToByte(numbers)
+            ))
+        if (level < 2)
+            verify(DistributionCharacteristics.process(
+                convertToShort(numbers)
+            ))
+        if (level < 3)
+            verify(DistributionCharacteristics.process(
+                convertToInt(numbers)
+            ))
+        if (level < 4)
+            verify(DistributionCharacteristics.process(
+                convertToLong(numbers)
+            ))
+        if (level < 5)
+            verify(DistributionCharacteristics.process(
+                convertToFloat(numbers)
+            ))
+        verify(DistributionCharacteristics.process(
+            convertToDouble(numbers)
+        ))
     }
 
-    @Test
-    fun testDataArraySetup() {
-        val counter = IntArray(128)
-        dataArray2.forEach { counter[it.toInt()]++ }
-        assertEquals(0, counter[99])
-        assertEquals(5_000, counter[100])
-        assertEquals(5_000, counter[101])
-        assertEquals(5_000, counter[102])
-        assertEquals(5_000, counter[118])
-        assertEquals(5_000, counter[119])
-        assertEquals(100_000, counter[120])
-        assertEquals(20_000, counter[121])
-        assertEquals(20_000, counter[122])
-        assertEquals(20_000, counter[123])
-        assertEquals(20_000, counter[124])
-        assertEquals(20_000, counter[125])
-        assertEquals(0, counter[126])
+    /** Run a function on multiple list types, selected by level:
+     * Level 0: All
+     * Level 1: No Byte
+     * Level 2: No Byte, Short
+     * Level 3: No Byte, Short, Int
+     * Level 4: No Byte, Short, Int, Long
+     * Level 5: No Byte, Short, Int, Long, Float */
+    private inline fun runOnListTypes(
+        numbers: List<Number>,
+        level: Int = 0,
+        run: (data: List<Number>) -> Unit
+    ) {
+        if (level < 1) run(convertToByte(numbers))
+        if (level < 2) run(convertToShort(numbers))
+        if (level < 3) run(convertToInt(numbers))
+        if (level < 4) run(convertToLong(numbers))
+        if (level < 5) run(convertToFloat(numbers))
+        run(convertToDouble(numbers))
     }
 
+    @Suppress("DEPRECATION")
     @Test
-    fun testSum() {
+    fun testListSumFunction() {
         /** Data List 1
          * The sum of these numbers is:
          * -20 + -19 + .. 79 + 80
@@ -73,15 +85,9 @@ class NumberTypeTest {
          * There are 29 pairs and a 30 left over. Simplify:
          * = 1290 + (29 * 60) = 1290 + 1200 + 540 = 3030
          */
-        assertEquals(3030.0, listSum(convertToFloat(dataList)))
-        assertEquals(3030.0, listSum(convertToDouble(dataList)))
-        assertEquals(3030.0, listSum(convertToLong(dataList)))
-        assertEquals(3030.0, listSum(convertToInt(dataList)))
-        assertEquals(3030.0, listSum(convertToShort(dataList)))
-        assertEquals(3030.0, listSum(dataList))
-        // Array Equivalence
-        assertEquals(3030, dataArray.sum())
-        // Is an Array Sum function necessary...
+        runOnListTypes(uniform101) {
+            assertEquals(3030.0, listSum(it))
+        }
         /** Data List 2
          * uniform(100 .. 119) * 100k + (120 * 100k) + uniform(121..125) * 100k
          * Split off 100 from all terms:
@@ -91,48 +97,63 @@ class NumberTypeTest {
          * Simplify:
          * = 32M + 950k + 2.3M = 35.25M
          */
-        assertEquals(3.525E7, listSum(convertToFloat(dataList2)))
-        assertEquals(3.525E7, listSum(convertToDouble(dataList2)))
-        assertEquals(3.525E7, listSum(convertToLong(dataList2)))
-        assertEquals(3.525E7, listSum(convertToInt(dataList2)))
-        assertEquals(3.525E7, listSum(convertToShort(dataList2)))
-        assertEquals(3.525E7, listSum(dataList2))
-        assertEquals(3.525E7, dataArray2.sum().toDouble())
+        runOnListTypes(largeByteList) {
+            assertEquals(3.525E7, listSum(it))
+        }
+        /** Data List 3
+         * Todo: Calculate Sum algebraically */
+        runOnListTypes(largeShortList, 1) {
+            assertEquals(9.6018E8, listSum(it))
+        }
     }
 
     @Test
-    fun testDistributionCharacteristics() {
-        /**  Assertion sub-routine
-         * The outcome of each Type should be equal,
-         * and to some known precision */
-        fun verify(dc: DistributionCharacteristics?) {
-            dc!!.run {
-                assertEquals(-20.0, min)
-                assertEquals(80.0, max)
-                assertEquals(30.0, mean)
-                assertEquals(
-                    29.3, standardDeviation,
-                    0.002
-                )
-            }
+    fun testArraySumFunction() {
+        assertEquals(
+            3030, uniform101.toTypedArray().sum()
+        )
+        assertEquals(
+            3.525E7, largeByteList.toTypedArray().sum().toDouble()
+        )
+        assertEquals(
+            9.6018E8, convertToLong(largeShortList).toTypedArray().sum().toDouble()
+        )
+    }
+
+    @Test
+    fun testUniform101Stats() {
+        assertEquals(uniform101DC, DistributionCharacteristics.process(uniform101))
+        runOnAllTypes(uniform101, 1) {
+            assertEquals(uniform101DC, it)
         }
-        verify(DistributionCharacteristics.process(dataList))
-        verify(DistributionCharacteristics.process(dataArray))
-        verify(DistributionCharacteristics.process(
-            convertToFloat(dataList)
-        ))
-        verify(DistributionCharacteristics.process(
-            convertToDouble(dataList)
-        ))
-        verify(DistributionCharacteristics.process(
-            convertToLong(dataList)
-        ))
-        verify(DistributionCharacteristics.process(
-            convertToInt(dataList)
-        ))
-        verify(DistributionCharacteristics.process(
-            convertToShort(dataList)
-        ))
+    }
+
+    @Test
+    fun testLargeByteStats() {
+        assert(largeByteDC == DistributionCharacteristics.process(largeByteList))
+        runOnAllTypes(largeByteList, 1) {
+            assert(largeByteDC == it)
+        }
+    }
+
+    private fun verifyLargeShort(dc: DistributionCharacteristics?) {
+        dc!!.run {
+            assertEquals(31996.0, min)
+            assertEquals(32040.0, max)
+            assertEquals(32006.0, mean)
+            assertEquals(
+                12.288_410_535_993_526, standardDeviation,
+                0.000_000_000_000_001
+            )
+        }
+    }
+
+    @Test
+    fun testLargeShortStats() {
+        verifyLargeShort(
+            DistributionCharacteristics.process(largeShortList)
+        )
+        runOnAllTypes(largeShortList, 2) { verifyLargeShort(it) }
     }
 
 }
