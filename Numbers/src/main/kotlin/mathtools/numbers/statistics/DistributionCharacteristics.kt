@@ -20,6 +20,28 @@ class DistributionCharacteristics internal constructor(
     fun valueAtDeviation(nDevs: Double)
         : Double = mean + nDevs * standardDeviation
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DistributionCharacteristics
+
+        if (mean != other.mean) return false
+        if (standardDeviation != other.standardDeviation) return false
+        if (min != other.min) return false
+        if (max != other.max) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = mean.hashCode()
+        result = 31 * result + standardDeviation.hashCode()
+        result = 31 * result + min.hashCode()
+        result = 31 * result + max.hashCode()
+        return result
+    }
+
     companion object {
         /** Determine the DistributionCharacteristics of the given List */
         inline fun <reified T : Number> process(
