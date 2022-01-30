@@ -7,16 +7,17 @@ import mathtools.numbers.listtypes.ListNumberTypes.convertToInt
 import mathtools.numbers.listtypes.ListNumberTypes.convertToLong
 import mathtools.numbers.listtypes.ListNumberTypes.convertToShort
 import mathtools.numbers.listtypes.listSum
-import mathtools.numbers.statistics.StatisticsTestResources.largeByteDC
-import mathtools.numbers.statistics.StatisticsTestResources.largeByteList
-import mathtools.numbers.statistics.StatisticsTestResources.largeShortList
-import mathtools.numbers.statistics.StatisticsTestResources.uniform101
-import mathtools.numbers.statistics.StatisticsTestResources.uniform101DC
+import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
+import mathtools.numbers.testdata.LargeTestDataSource
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101DC
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
+
+    private val data: LargeTestDataSource = LargeTestDataSource()
 
     /** The key to this Test is to run a stats function on many types
      * and compare the results between types */
@@ -26,28 +27,40 @@ class NumberTypeTest {
         verify: (dc: DistributionCharacteristics?) -> Unit,
     ) {
         if (level < 1)
-            verify(DistributionCharacteristics.process(
+            verify(
+                process(
                 convertToByte(numbers)
-            ))
+            )
+            )
         if (level < 2)
-            verify(DistributionCharacteristics.process(
+            verify(
+                process(
                 convertToShort(numbers)
-            ))
+            )
+            )
         if (level < 3)
-            verify(DistributionCharacteristics.process(
+            verify(
+                process(
                 convertToInt(numbers)
-            ))
+            )
+            )
         if (level < 4)
-            verify(DistributionCharacteristics.process(
+            verify(
+                process(
                 convertToLong(numbers)
-            ))
+            )
+            )
         if (level < 5)
-            verify(DistributionCharacteristics.process(
+            verify(
+                process(
                 convertToFloat(numbers)
-            ))
-        verify(DistributionCharacteristics.process(
+            )
+            )
+        verify(
+            process(
             convertToDouble(numbers)
-        ))
+        )
+        )
     }
 
     /** Run a function on multiple list types, selected by level:
@@ -97,12 +110,12 @@ class NumberTypeTest {
          * Simplify:
          * = 32M + 950k + 2.3M = 35.25M
          */
-        runOnListTypes(largeByteList) {
+        runOnListTypes(data.large120) {
             assertEquals(3.525E7, listSum(it))
         }
         /** Data List 3
          * Todo: Calculate Sum algebraically */
-        runOnListTypes(largeShortList, 1) {
+        runOnListTypes(data.large32000, 1) {
             assertEquals(9.6018E8, listSum(it))
         }
     }
@@ -113,16 +126,16 @@ class NumberTypeTest {
             3030, uniform101.toTypedArray().sum()
         )
         assertEquals(
-            3.525E7, largeByteList.toTypedArray().sum().toDouble()
+            3.525E7, data.large120.toTypedArray().sum().toDouble()
         )
         assertEquals(
-            9.6018E8, convertToLong(largeShortList).toTypedArray().sum().toDouble()
+            9.6018E8, convertToLong(data.large32000).toTypedArray().sum().toDouble()
         )
     }
 
     @Test
     fun testUniform101Stats() {
-        assertEquals(uniform101DC, DistributionCharacteristics.process(uniform101))
+        assertEquals(uniform101DC, process(uniform101))
         runOnAllTypes(uniform101, 1) {
             assertEquals(uniform101DC, it)
         }
@@ -130,9 +143,9 @@ class NumberTypeTest {
 
     @Test
     fun testLargeByteStats() {
-        assert(largeByteDC == DistributionCharacteristics.process(largeByteList))
-        runOnAllTypes(largeByteList, 1) {
-            assert(largeByteDC == it)
+        assert(data.large120DC == process(data.large120))
+        runOnAllTypes(data.large120, 1) {
+            assert(data.large120DC == it)
         }
     }
 
@@ -151,9 +164,9 @@ class NumberTypeTest {
     @Test
     fun testLargeShortStats() {
         verifyLargeShort(
-            DistributionCharacteristics.process(largeShortList)
+            process(data.large32000)
         )
-        runOnAllTypes(largeShortList, 2) { verifyLargeShort(it) }
+        runOnAllTypes(data.large32000, 2) { verifyLargeShort(it) }
     }
 
 }

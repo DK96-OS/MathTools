@@ -1,20 +1,20 @@
 package mathtools.numbers.statistics
 
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
-import mathtools.numbers.statistics.StatisticsTestResources.uniform101
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-/**  */
+/** Testing DistributionCharacteristics on Number Array types */
 class DistributionCharacteristicsArrayTypesTest {
 
-    lateinit var byteArray: ByteArray
-    lateinit var shortArray: ShortArray
-    lateinit var intArray: IntArray
-    lateinit var longArray: LongArray
-    lateinit var floatArray: FloatArray
-    lateinit var doubleArray: DoubleArray
+    private lateinit var byteArray: ByteArray
+    private lateinit var shortArray: ShortArray
+    private lateinit var intArray: IntArray
+    private lateinit var longArray: LongArray
+    private lateinit var floatArray: FloatArray
+    private lateinit var doubleArray: DoubleArray
 
     @BeforeEach
     fun setup() {
@@ -34,7 +34,7 @@ class DistributionCharacteristicsArrayTypesTest {
         for (i in byteArray.indices)
             assertEquals(
                 byteArray[i],
-                uniform101[i].toByte()
+                uniform101[i]
             )
         assertEquals(shortArray.size, uniform101.size)
         for (i in shortArray.indices)
