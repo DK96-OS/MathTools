@@ -42,6 +42,13 @@ class DistributionCharacteristics internal constructor(
         return result
     }
 
+    override fun toString(): String = buildString {
+        append("Mean: $mean, ")
+        append("SD: $standardDeviation, ")
+        append("Min: $min, ")
+        append("Max: $max")
+    }
+
     companion object {
         /** Determine the DistributionCharacteristics of the given List */
         inline fun <reified T : Number> process(
