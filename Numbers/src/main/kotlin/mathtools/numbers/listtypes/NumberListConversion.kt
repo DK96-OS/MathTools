@@ -1,33 +1,35 @@
 package mathtools.numbers.listtypes
 
-object ListNumberTypes {
+/** Convert Numbered List Types
+ * Developed by DK96-OS : 2022 */
+object NumberListConversion {
 
-	fun convertToDouble(list: List<Number>)
+	fun toDouble(list: List<Number>)
 		: MutableList<Double> = ArrayList<Double>(list.size).apply {
 		for (i in list.indices) add(list[i].toDouble())
 	}
 
-	fun convertToFloat(list: List<Number>)
+	fun toFloat(list: List<Number>)
 		: MutableList<Float> = ArrayList<Float>(list.size).apply {
 		for (i in list.indices) add(list[i].toFloat())
 	}
 
-	fun convertToLong(list: List<Number>)
+	fun toLong(list: List<Number>)
 		: MutableList<Long> = ArrayList<Long>(list.size).apply {
 		for (i in list.indices) add(list[i].toLong())
 	}
 
-	fun convertToInt(list: List<Number>)
+	fun toInt(list: List<Number>)
 		: MutableList<Int> = ArrayList<Int>(list.size).apply {
 		for (i in list.indices) add(list[i].toInt())
 	}
 
-	fun convertToShort(list: List<Number>)
+	fun toShort(list: List<Number>)
 		: MutableList<Short> = ArrayList<Short>(list.size).apply {
 		for (i in list.indices) add(list[i].toShort())
 	}
 
-	fun convertToByte(list: List<Number>)
+	fun toByte(list: List<Number>)
 		: MutableList<Byte> = ArrayList<Byte>(list.size).apply {
 		for (i in list.indices) add(list[i].toByte())
 	}

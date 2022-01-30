@@ -1,11 +1,11 @@
 package mathtools.numbers.statistics
 
-import mathtools.numbers.listtypes.ListNumberTypes.convertToByte
-import mathtools.numbers.listtypes.ListNumberTypes.convertToDouble
-import mathtools.numbers.listtypes.ListNumberTypes.convertToFloat
-import mathtools.numbers.listtypes.ListNumberTypes.convertToInt
-import mathtools.numbers.listtypes.ListNumberTypes.convertToLong
-import mathtools.numbers.listtypes.ListNumberTypes.convertToShort
+import mathtools.numbers.listtypes.NumberListConversion.toByte
+import mathtools.numbers.listtypes.NumberListConversion.toDouble
+import mathtools.numbers.listtypes.NumberListConversion.toFloat
+import mathtools.numbers.listtypes.NumberListConversion.toInt
+import mathtools.numbers.listtypes.NumberListConversion.toLong
+import mathtools.numbers.listtypes.NumberListConversion.toShort
 import mathtools.numbers.listtypes.listSum
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
 import mathtools.numbers.testdata.LargeTestDataSource
@@ -19,50 +19,6 @@ class NumberTypeTest {
 
     private val data: LargeTestDataSource = LargeTestDataSource()
 
-    /** The key to this Test is to run a stats function on many types
-     * and compare the results between types */
-    private inline fun runOnAllTypes(
-        numbers: List<Number>,
-        level: Int = 0,
-        verify: (dc: DistributionCharacteristics?) -> Unit,
-    ) {
-        if (level < 1)
-            verify(
-                process(
-                convertToByte(numbers)
-            )
-            )
-        if (level < 2)
-            verify(
-                process(
-                convertToShort(numbers)
-            )
-            )
-        if (level < 3)
-            verify(
-                process(
-                convertToInt(numbers)
-            )
-            )
-        if (level < 4)
-            verify(
-                process(
-                convertToLong(numbers)
-            )
-            )
-        if (level < 5)
-            verify(
-                process(
-                convertToFloat(numbers)
-            )
-            )
-        verify(
-            process(
-            convertToDouble(numbers)
-        )
-        )
-    }
-
     /** Run a function on multiple list types, selected by level:
      * Level 0: All
      * Level 1: No Byte
@@ -75,12 +31,12 @@ class NumberTypeTest {
         level: Int = 0,
         run: (data: List<Number>) -> Unit
     ) {
-        if (level < 1) run(convertToByte(numbers))
-        if (level < 2) run(convertToShort(numbers))
-        if (level < 3) run(convertToInt(numbers))
-        if (level < 4) run(convertToLong(numbers))
-        if (level < 5) run(convertToFloat(numbers))
-        run(convertToDouble(numbers))
+        if (level < 1) run(toByte(numbers))
+        if (level < 2) run(toShort(numbers))
+        if (level < 3) run(toInt(numbers))
+        if (level < 4) run(toLong(numbers))
+        if (level < 5) run(toFloat(numbers))
+        run(toDouble(numbers))
     }
 
     @Suppress("DEPRECATION")
@@ -129,23 +85,24 @@ class NumberTypeTest {
             3.525E7, data.large120.toTypedArray().sum().toDouble()
         )
         assertEquals(
-            9.6018E8, convertToLong(data.large32000).toTypedArray().sum().toDouble()
+            9.6018E8, toLong(data.large32000)
+                .toTypedArray().sum().toDouble()
         )
     }
 
     @Test
     fun testUniform101Stats() {
         assertEquals(uniform101DC, process(uniform101))
-        runOnAllTypes(uniform101, 1) {
-            assertEquals(uniform101DC, it)
+        runOnListTypes(uniform101, 1) {
+            assertEquals(uniform101DC, process(it))
         }
     }
 
     @Test
     fun testLargeByteStats() {
         assert(data.large120DC == process(data.large120))
-        runOnAllTypes(data.large120, 1) {
-            assert(data.large120DC == it)
+        runOnListTypes(data.large120, 1) {
+            assert(data.large120DC == process(it))
         }
     }
 
@@ -163,10 +120,10 @@ class NumberTypeTest {
 
     @Test
     fun testLargeShortStats() {
-        verifyLargeShort(
-            process(data.large32000)
-        )
-        runOnAllTypes(data.large32000, 2) { verifyLargeShort(it) }
+        verifyLargeShort(process(data.large32000))
+        runOnListTypes(data.large32000, 2) {
+            verifyLargeShort(process(it))
+        }
     }
 
 }

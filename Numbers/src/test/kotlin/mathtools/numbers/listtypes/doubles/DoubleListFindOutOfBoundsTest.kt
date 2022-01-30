@@ -1,7 +1,7 @@
 package mathtools.numbers.listtypes.doubles
 
 import mathtools.numbers.listtypes.DoubleList.findOutOfBounds
-import mathtools.numbers.listtypes.ListNumberTypes.convertToDouble
+import mathtools.numbers.listtypes.NumberListConversion.toDouble
 import mathtools.numbers.testdata.LargeTestDataSource
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test
 /** Testing DoubleList's FindOutOfBounds function */
 class DoubleListFindOutOfBoundsTest {
 
-	private val u101 = convertToDouble(uniform101)
+	private val u101 = toDouble(uniform101)
 	private val data = LargeTestDataSource()
-	private val large120 = convertToDouble(data.large120)
+	private val large120 = toDouble(data.large120)
 
 	@Test
 	fun testEmptyList() {
