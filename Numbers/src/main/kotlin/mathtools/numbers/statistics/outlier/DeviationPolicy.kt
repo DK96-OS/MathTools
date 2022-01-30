@@ -13,11 +13,26 @@ import kotlin.math.roundToLong
  * @param upperOutliers check outliers greater than the mean
  * @param lowerOutliers check outliers less than the mean
  */
-class StandardDeviationPolicy(
+class DeviationPolicy(
     val maxDeviations: Double,
     val upperOutliers: Boolean = true,
     val lowerOutliers: Boolean = true,
 ) : OutlierPolicy {
+
+    init {
+        if (maxDeviations <= 0.0
+            || maxDeviations.isInfinite()
+            || maxDeviations.isNaN()
+            || maxDeviations == Double.MAX_VALUE
+            || maxDeviations == Double.MIN_VALUE
+        ) throw IllegalArgumentException(
+            "Max Deviations must be finite and greater than zero"
+        )
+        if (!(upperOutliers || lowerOutliers))
+            throw IllegalArgumentException(
+                "Select a region to search for outliers"
+            )
+    }
 
     override fun removeOutliersDouble(
         mutableList: MutableList<Double>,
