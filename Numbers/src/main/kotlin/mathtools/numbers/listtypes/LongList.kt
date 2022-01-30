@@ -105,7 +105,7 @@ object LongList {
                 }
             }
         }
-        if (minorSum > 0)
+        if (minorSum != 0L)
             sum += BigInteger.valueOf(minorSum)
         return sum
     }

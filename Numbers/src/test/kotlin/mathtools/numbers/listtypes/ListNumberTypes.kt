@@ -3,29 +3,33 @@ package mathtools.numbers.listtypes
 object ListNumberTypes {
 
 	fun convertToDouble(list: List<Number>)
-		: MutableList<Double> {
-		return (list as List<Double>).toMutableList()
+		: MutableList<Double> = ArrayList<Double>(list.size).apply {
+		for (i in list.indices) add(list[i].toDouble())
 	}
+
 	fun convertToFloat(list: List<Number>)
-		: MutableList<Float> {
-		return (list as List<Float>).toMutableList()
+		: MutableList<Float> = ArrayList<Float>(list.size).apply {
+		for (i in list.indices) add(list[i].toFloat())
 	}
 
 	fun convertToLong(list: List<Number>)
-		: MutableList<Long> {
-		return (list as List<Long>).toMutableList()
+		: MutableList<Long> = ArrayList<Long>(list.size).apply {
+		for (i in list.indices) add(list[i].toLong())
 	}
+
 	fun convertToInt(list: List<Number>)
-		: MutableList<Int> {
-		return (list as List<Int>).toMutableList()
+		: MutableList<Int> = ArrayList<Int>(list.size).apply {
+		for (i in list.indices) add(list[i].toInt())
 	}
+
 	fun convertToShort(list: List<Number>)
-		: MutableList<Short> {
-		return (list as List<Short>).toMutableList()
+		: MutableList<Short> = ArrayList<Short>(list.size).apply {
+		for (i in list.indices) add(list[i].toShort())
 	}
+
 	fun convertToByte(list: List<Number>)
-		: MutableList<Byte> {
-		return (list as List<Byte>).toMutableList()
+		: MutableList<Byte> = ArrayList<Byte>(list.size).apply {
+		for (i in list.indices) add(list[i].toByte())
 	}
 
 }
