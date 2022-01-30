@@ -51,16 +51,31 @@ object LongList {
         start: Int = 0,
     ) : List<Int> {
         if (start < 0 || list.isEmpty()
-            || range.first == Long.MIN_VALUE && range.last == Long.MAX_VALUE
+            || range.first > range.last
+            || range.first == Long.MIN_VALUE
+            && range.last == Long.MAX_VALUE
         ) return emptyList()
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size)
-            if (list[idx] !in range) {
-                if (indices == null)
-                    indices = arrayListOf(idx)
-                else
-                    indices.add(idx)
+        if (range.first == range.last) {
+            for (idx in start until list.size) {
+                val item = list[idx]
+                if (item != range.first)
+                    if (indices == null)
+                        indices = arrayListOf(idx)
+                    else
+                        indices.add(idx)
             }
+        } else {
+            for (idx in start until list.size) {
+                val item = list[idx]
+                if (item < range.first || range.last < item) {
+                    if (indices == null)
+                        indices = arrayListOf(idx)
+                    else
+                        indices.add(idx)
+                }
+            }
+        }
         return indices ?: emptyList()
     }
 
