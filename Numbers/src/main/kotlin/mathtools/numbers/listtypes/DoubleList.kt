@@ -56,11 +56,12 @@ object DoubleList {
         upperBound: Double,
         start: Int = 0
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
+        if (start < 0 || list.isEmpty() || lowerBound > upperBound)
             return emptyList()
         var indices: ArrayList<Int>? = null
         for (idx in start until list.size) {
-            if (list[idx] !in lowerBound .. upperBound) {
+            val item = list[idx]
+            if (item < lowerBound || upperBound < item) {
                 if (indices == null)
                     indices = arrayListOf(idx)
                 else
