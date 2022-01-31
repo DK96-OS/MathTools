@@ -34,99 +34,144 @@ class DeviationPolicy(
             )
     }
 
+    /** Obtain the outlier boundary values */
+    private val DistributionCharacteristics.bounds
+        : Pair<Double, Double> get() {
+        val upperBound = valueAtDeviation(maxDeviations)
+        val lowerBound = valueAtDeviation(-maxDeviations)
+        return lowerBound to upperBound
+    }
+
     override fun removeOutliersDouble(
         mutableList: MutableList<Double>,
         distribution: DistributionCharacteristics,
         maxOutliers: UByte,
-    ) : List<Double> = when {
-        maxOutliers == (0u).toUByte() -> emptyList()
-        upperOutliers && lowerOutliers -> {
-            val outlierIdx = DoubleList.findOutOfBounds(
-                mutableList,
-                distribution.valueAtDeviation(maxDeviations),
-                distribution.valueAtDeviation(-maxDeviations)
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                DoubleList.removeByIndices(mutableList, outlierIdx)
-            else
-                TODO()
+    ) : List<Double> {
+        if (maxOutliers == (0u).toUByte()) return emptyList()
+        return when {
+            upperOutliers && lowerOutliers -> {
+                val (lowerBound, upperBound) = distribution.bounds
+                val outlierIdx = DoubleList.findOutOfBounds(
+                    mutableList, lowerBound, upperBound
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    DoubleList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            upperOutliers -> {
+                val outlierIdx = DoubleList.findGreaterThan(
+                    mutableList,
+                    distribution.valueAtDeviation(maxDeviations)
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    DoubleList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            lowerOutliers -> {
+                val outlierIdx = DoubleList.findLessThan(
+                    mutableList,
+                    distribution.valueAtDeviation(-maxDeviations)
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    DoubleList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            else -> emptyList()
         }
-        upperOutliers -> {
-            val outlierIdx = DoubleList.findGreaterThan(
-                mutableList, distribution.valueAtDeviation(maxDeviations)
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                DoubleList.removeByIndices(mutableList, outlierIdx)
-            else
-                TODO()
-        }
-        lowerOutliers -> {
-            val outlierIdx = DoubleList.findLessThan(
-                mutableList, distribution.valueAtDeviation(-maxDeviations)
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                DoubleList.removeByIndices(mutableList, outlierIdx)
-            else
-	            TODO()
-        }
-        else -> emptyList()
     }
 
     override fun removeOutliersLong(
         mutableList: MutableList<Long>,
         distribution: DistributionCharacteristics,
         maxOutliers: UByte
-    ) : List<Long> = when {
-        maxOutliers == (0u).toUByte() -> emptyList()
-        upperOutliers && lowerOutliers -> {
-            val lowerBound = distribution.valueAtDeviation(maxDeviations)
-                .roundToLong()
-            val upperBound = distribution.valueAtDeviation(-maxDeviations)
-                .roundToLong()
-            val outlierIdx = LongList.findOutOfRange(
-                mutableList,
-                lowerBound..upperBound
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                LongList.removeByIndices(mutableList, outlierIdx)
-            else
-	            TODO()
+    ) : List<Long> {
+        if (maxOutliers == (0u).toUByte()) return emptyList()
+        return when {
+            upperOutliers && lowerOutliers -> {
+                val (b0, b1) = distribution.bounds
+                val outlierIdx = LongList.findOutOfRange(
+                    mutableList, b0.roundToLong() .. b1.roundToLong()
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    LongList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            upperOutliers -> {
+                val outlierIdx = LongList.findGreaterThan(
+                    mutableList,
+                    distribution.valueAtDeviation(maxDeviations).roundToLong()
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    LongList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            lowerOutliers -> {
+                val outlierIdx = LongList.findLessThan(
+                    mutableList,
+                    distribution.valueAtDeviation(-maxDeviations).roundToLong()
+                )
+                if (outlierIdx.size <= maxOutliers.toInt())
+                    LongList.removeByIndices(mutableList, outlierIdx)
+                else
+                    TODO()
+            }
+            else -> throw IllegalStateException()
         }
-        upperOutliers -> {
-            val outlierIdx = LongList.findGreaterThan(
-                mutableList,
-                distribution.valueAtDeviation(maxDeviations).roundToLong()
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                LongList.removeByIndices(mutableList, outlierIdx)
-            else
-				TODO()
-        }
-        lowerOutliers -> {
-            val outlierIdx = LongList.findLessThan(
-                mutableList,
-                distribution.valueAtDeviation(-maxDeviations).roundToLong()
-            )
-            if (outlierIdx.size <= maxOutliers.toInt())
-                LongList.removeByIndices(mutableList, outlierIdx)
-            else
-				TODO()
-        }
-        else -> emptyList()
     }
 
     override fun identifyOutliers(
         array: DoubleArray,
         distribution: DistributionCharacteristics
-    ) : List<Int> {
-        TODO()
+    ) : List<Int> = when {
+        upperOutliers && lowerOutliers -> {
+            val (lowerBound, upperBound) = distribution.bounds
+            val first = array.indexOfFirst {
+                it < lowerBound || upperBound < it
+            }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        upperOutliers -> {
+            val upperBound = distribution.valueAtDeviation(maxDeviations)
+            val first = array.indexOfFirst { it > upperBound }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        lowerOutliers -> {
+            val lowerBound = distribution.valueAtDeviation(-maxDeviations)
+            val first = array.indexOfFirst { it < lowerBound }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        else -> throw IllegalStateException()
     }
 
     override fun identifyOutliers(
         array: LongArray,
         distribution: DistributionCharacteristics
-    ) : List<Int> {
-        TODO()
+    ) : List<Int> = when {
+        upperOutliers && lowerOutliers -> {
+            val (b0, b1) = distribution.bounds
+            val lowerBound = b0.roundToLong()
+            val upperBound = b1.roundToLong()
+            val first = array.indexOfFirst {
+                it < lowerBound || upperBound < it
+            }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        upperOutliers -> {
+            val upperBound = distribution.valueAtDeviation(maxDeviations)
+            val first = array.indexOfFirst { upperBound < it }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        lowerOutliers -> {
+            val lowerBound = distribution.valueAtDeviation(-maxDeviations)
+            val first = array.indexOfFirst { it < lowerBound }
+            if (first > -1) listOf(first) else emptyList()
+        }
+        else -> throw IllegalStateException()
     }
 
 }
