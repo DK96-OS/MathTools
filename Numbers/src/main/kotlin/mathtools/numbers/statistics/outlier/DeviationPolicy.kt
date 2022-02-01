@@ -54,30 +54,48 @@ class DeviationPolicy(
                 val outlierIdx = DoubleList.findOutOfBounds(
                     mutableList, lowerBound, upperBound
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     DoubleList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    DoubleList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             upperOutliers -> {
                 val outlierIdx = DoubleList.findGreaterThan(
                     mutableList,
                     distribution.valueAtDeviation(maxDeviations)
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     DoubleList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    DoubleList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             lowerOutliers -> {
                 val outlierIdx = DoubleList.findLessThan(
                     mutableList,
                     distribution.valueAtDeviation(-maxDeviations)
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     DoubleList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    DoubleList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             else -> emptyList()
         }
@@ -95,30 +113,48 @@ class DeviationPolicy(
                 val outlierIdx = LongList.findOutOfRange(
                     mutableList, b0.roundToLong() .. b1.roundToLong()
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     LongList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    LongList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             upperOutliers -> {
                 val outlierIdx = LongList.findGreaterThan(
                     mutableList,
                     distribution.valueAtDeviation(maxDeviations).roundToLong()
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     LongList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    LongList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             lowerOutliers -> {
                 val outlierIdx = LongList.findLessThan(
                     mutableList,
                     distribution.valueAtDeviation(-maxDeviations).roundToLong()
                 )
-                if (outlierIdx.size <= maxOutliers.toInt())
+                val nOutlierOverflow = outlierIdx.size - maxOutliers.toInt()
+                if (nOutlierOverflow < 1)
                     LongList.removeByIndices(mutableList, outlierIdx)
                 else
-                    TODO()
+                    LongList.removeByIndices(
+                        mutableList, outlierIdx.sortedBy {
+                            val number = mutableList[it] - distribution.mean
+                            if (number >= 0) number else -number
+                        }.drop(nOutlierOverflow)
+                    )
             }
             else -> throw IllegalStateException()
         }
