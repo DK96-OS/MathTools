@@ -2,7 +2,6 @@ package mathtools.numbers.listtypes.longs
 
 import mathtools.numbers.listtypes.LongList.findOutOfRange
 import mathtools.numbers.listtypes.NumberListConversion.toLong
-import mathtools.numbers.testdata.LargeTestDataSource
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.Test
 class LongListFindOutOfRangeTest {
 
 	private val u101 = toLong(uniform101)
-	private val data = LargeTestDataSource()
-	private val large120 = toLong(data.large120)
 
 	@Test
 	fun testEmptyList() {
@@ -54,16 +51,18 @@ class LongListFindOutOfRangeTest {
 
 	@Test
 	fun testEqualBounds() {
+		// No elements equal to bounds
 		assertEquals(
-			large120.size - 20_000,
+			u101.size,
 			findOutOfRange(
-				large120, 121L..121
+				u101, 121L..121
 			).size
 		)
+		// One Element is equal to bounds
 		assertEquals(
-			large120.size - 100_000,
+			u101.size - 1,
 			findOutOfRange(
-				large120, 120L ..120L
+				u101, 30L ..30L
 			).size
 		)
 	}
@@ -92,19 +91,6 @@ class LongListFindOutOfRangeTest {
 				u101, -200L .. -100
 			)
 		)
-	}
-
-	@Test
-	fun testLarge120ExcludeBottom10() {
-		val result = findOutOfRange(
-			large120, 110L .. 125L
-		)
-		assertEquals(50_000, result.size)
-		for (i in 0 until 50_000)
-			assertEquals(
-				100L + (i / 5_000),
-				large120[result[i]]
-			)
 	}
 
 }

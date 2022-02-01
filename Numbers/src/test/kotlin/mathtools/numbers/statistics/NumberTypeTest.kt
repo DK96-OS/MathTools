@@ -8,16 +8,20 @@ import mathtools.numbers.listtypes.NumberListConversion.toLong
 import mathtools.numbers.listtypes.NumberListConversion.toShort
 import mathtools.numbers.listtypes.listSum
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
-import mathtools.numbers.testdata.LargeTestDataSource
+import mathtools.numbers.testdata.LargeTestDataSource.large123
+import mathtools.numbers.testdata.LargeTestDataSource.large123DC
+import mathtools.numbers.testdata.LargeTestDataSource.large123Sum
+import mathtools.numbers.testdata.LargeTestDataSource.large32760
+import mathtools.numbers.testdata.LargeTestDataSource.large32760DC
+import mathtools.numbers.testdata.LargeTestDataSource.large32760Sum
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101DC
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101Sum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
-
-    private val data: LargeTestDataSource = LargeTestDataSource()
 
     /** Run a function on multiple list types, selected by level:
      * Level 0: All
@@ -42,52 +46,15 @@ class NumberTypeTest {
     @Suppress("DEPRECATION")
     @Test
     fun testListSumFunction() {
-        /** Data List 1
-         * The sum of these numbers is:
-         * -20 + -19 + .. 79 + 80
-         * Cancel (negative, positive) pairs, now:
-         * = 21 + 22 + .. + 79 + 80
-         * Group the constant 20 out of all 60 remaining values:
-         * = (20 * 60) + 1 + 2 + 3 + .. + 59 + 60
-         * Group pairs from 1 to 59 into 60s:
-         * = (1200) + 60 + (1 + 59) + (2 + 58) + .. + (29 + 31) + 30
-         * There are 29 pairs and a 30 left over. Simplify:
-         * = 1290 + (29 * 60) = 1290 + 1200 + 540 = 3030
-         */
         runOnListTypes(uniform101) {
-            assertEquals(3030.0, listSum(it))
+            assertEquals(uniform101Sum, listSum(it))
         }
-        /** Data List 2
-         * uniform(100 .. 119) * 100k + (120 * 100k) + uniform(121..125) * 100k
-         * Split off 100 from all terms:
-         * = 100 * 300k + u(1..19) * 95k + 20 * 100k + u(21..25) * 100k
-         * Use average values of each uniformly increasing set
-         * = 30M + (10 * 95k) + 2M + (22.5 * 100k)
-         * Simplify:
-         * = 32M + 950k + 2.3M = 35.25M
-         */
-        runOnListTypes(data.large120) {
-            assertEquals(3.525E7, listSum(it))
+        runOnListTypes(large123) {
+            assertEquals(large123Sum, listSum(it))
         }
-        /** Data List 3
-         * Todo: Calculate Sum algebraically */
-        runOnListTypes(data.large32000, 1) {
-            assertEquals(9.6018E8, listSum(it))
+        runOnListTypes(large32760, 1) {
+            assertEquals(large32760Sum, listSum(it))
         }
-    }
-
-    @Test
-    fun testArraySumFunction() {
-        assertEquals(
-            3030, uniform101.toTypedArray().sum()
-        )
-        assertEquals(
-            3.525E7, data.large120.toTypedArray().sum().toDouble()
-        )
-        assertEquals(
-            9.6018E8, toLong(data.large32000)
-                .toTypedArray().sum().toDouble()
-        )
     }
 
     @Test
@@ -100,29 +67,17 @@ class NumberTypeTest {
 
     @Test
     fun testLargeByteStats() {
-        assert(data.large120DC == process(data.large120))
-        runOnListTypes(data.large120, 1) {
-            assert(data.large120DC == process(it))
-        }
-    }
-
-    private fun verifyLargeShort(dc: DistributionCharacteristics?) {
-        dc!!.run {
-            assertEquals(31996.0, min)
-            assertEquals(32040.0, max)
-            assertEquals(32006.0, mean)
-            assertEquals(
-                12.288_410_535_993_526, standardDeviation,
-                0.000_000_000_000_001
-            )
+        assert(large123DC == process(large123))
+        runOnListTypes(large123, 1) {
+            assert(large123DC == process(it))
         }
     }
 
     @Test
     fun testLargeShortStats() {
-        verifyLargeShort(process(data.large32000))
-        runOnListTypes(data.large32000, 2) {
-            verifyLargeShort(process(it))
+        assert(large32760DC == process(large32760))
+        runOnListTypes(large32760, 2) {
+            assert(large32760DC == process(it))
         }
     }
 

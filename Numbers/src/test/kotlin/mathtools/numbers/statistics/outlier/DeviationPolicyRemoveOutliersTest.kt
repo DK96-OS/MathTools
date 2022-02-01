@@ -5,7 +5,8 @@ import mathtools.numbers.listtypes.NumberListConversion.toLong
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SD
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SDUpper
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy3SD
-import mathtools.numbers.testdata.LargeTestDataSource
+import mathtools.numbers.testdata.LargeTestDataSource.large123
+import mathtools.numbers.testdata.LargeTestDataSource.large123DC
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101DC
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -21,23 +22,21 @@ class DeviationPolicyRemoveOutliersTest {
 	private val u101Long: MutableList<Long>
 		get() = toLong(uniform101)
 
-	private val data = LargeTestDataSource()
-
 	private val large120Double: MutableList<Double>
-		get() = toDouble(data.large120)
+		get() = toDouble(large123)
 	private val large120Long: MutableList<Long>
-		get() = toLong(data.large120)
+		get() = toLong(large123)
 
 	@Test
 	fun test2SDPolicyOnLarge120() {
 		assertEquals(
 			0, policy2SD.removeOutliersDouble(
-				large120Double, data.large120DC, 10u
+				large120Double, large123DC, 10u
 			).size
 		)
 		assertEquals(
 			0, policy2SD.removeOutliersLong(
-				large120Long, data.large120DC, 10u
+				large120Long, large123DC, 10u
 			).size
 		)
 	}

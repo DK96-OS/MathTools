@@ -1,38 +1,70 @@
 package mathtools.numbers.testdata
 
+import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
+import mathtools.numbers.testdata.LargeTestDataSource.large123
+import mathtools.numbers.testdata.LargeTestDataSource.large123DC
+import mathtools.numbers.testdata.LargeTestDataSource.large123Sum
+import mathtools.numbers.testdata.LargeTestDataSource.large32760
+import mathtools.numbers.testdata.LargeTestDataSource.large32760DC
+import mathtools.numbers.testdata.LargeTestDataSource.large32760Sum
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 
 class TestDataSourceTest {
 
-	private val data = LargeTestDataSource()
-
 	@Test
-	fun testLargeByteArray() {
-		val counter = IntArray(128)
-		data.large120.forEach { counter[it.toInt()]++ }
-		for (i in 0 .. 99)
-			assertEquals(0, counter[i])
-		for (i in 100 .. 119)
-			assertEquals(5_000, counter[i])
-		assertEquals(
-			100_000, counter[120]
-		)
-		for (i in 121 .. 125)
-			assertEquals(20_000, counter[i])
-		for (i in 126 .. 127)
-			assertEquals(0, counter[i])
+	fun testLarge123Values() {
+		val counter = IntArray(10)
+		val offset = 120
+		large123.forEach { counter[it - offset]++ }
+		assertEquals(10_000, counter[123 - offset])
+		assertEquals(5000, counter[122 - offset])
+		assertEquals(5000, counter[124 - offset])
+		for (i in 2 until 4) {
+			assertEquals(2500, counter[123 + i - offset])
+			assertEquals(2500, counter[123 - i - offset])
+		}
 	}
 
 	@Test
-	fun testLargeShortArray() {
-		val counter = IntArray(45)
-		data.large32000.forEach { counter[it - 31996]++ }
-		for (i in 0 until 4)
-			assertEquals(2500, counter[i])
-		assertEquals(10_000, counter[4])
-		for (i in 5 until 45)
-			assertEquals(250, counter[i])
+	fun testLarge123DC() {
+		assertEquals(large123DC, process(large123))
+	}
+
+	@Test
+	fun testLarge123Sum() {
+		assertEquals(large123Sum, large123.sum().toDouble())
+	}
+
+	@Test
+	fun testLarge32760Values() {
+		val counter = IntArray(10)
+		val offset = 32757
+		val mean = 32760
+		large32760.forEach { counter[it - offset]++ }
+		assertEquals(25_553, counter[mean - offset])
+		assertEquals(10_000, counter[mean + 1 - offset])
+		assertEquals(10_000, counter[mean - 1 - offset])
+		for (i in 2 until 4) {
+			assertEquals(5000, counter[mean + i - offset])
+			assertEquals(5000, counter[mean - i - offset])
+		}
+	}
+
+	@Test
+	fun testLarge32760DC() {
+		assertEquals(large32760DC, process(large32760))
+	}
+
+	@Test
+	fun testLarge32760Sum() {
+		assert(
+			large32760Sum > Int.MAX_VALUE.toDouble()
+		)
+		assertNotEquals(
+			large32760Sum, large32760.sum().toDouble()
+		)
 	}
 
 }

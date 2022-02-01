@@ -2,7 +2,6 @@ package mathtools.numbers.listtypes.doubles
 
 import mathtools.numbers.listtypes.DoubleList.findOutOfBounds
 import mathtools.numbers.listtypes.NumberListConversion.toDouble
-import mathtools.numbers.testdata.LargeTestDataSource
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.Test
 class DoubleListFindOutOfBoundsTest {
 
 	private val u101 = toDouble(uniform101)
-	private val data = LargeTestDataSource()
-	private val large120 = toDouble(data.large120)
 
 	@Test
 	fun testEmptyList() {
@@ -92,16 +89,18 @@ class DoubleListFindOutOfBoundsTest {
 
 	@Test
 	fun testEqualBounds() {
+		// No elements equal to bounds
 		assertEquals(
-			large120.indices.toList(),
+			u101.indices.toList(),
 			findOutOfBounds(
-				large120, 120.1, 120.1
+				u101, 123.1, 123.1
 			)
 		)
+		// One Element is equal to bounds
 		assertEquals(
-			large120.size - 100_000,
+			u101.size - 1,
 			findOutOfBounds(
-				large120, 120.0, 120.0
+				u101, 30.0, 30.0
 			).size
 		)
 	}
@@ -130,19 +129,6 @@ class DoubleListFindOutOfBoundsTest {
 				u101, -200.0, -100.0
 			)
 		)
-	}
-
-	@Test
-	fun testLarge120ExcludeBottom10() {
-		val result = findOutOfBounds(
-			large120, 110.0, 125.0
-		)
-		assertEquals(50_000, result.size)
-		for (i in 0 until 50_000)
-			assertEquals(
-				100.0 + (i / 5_000),
-				large120[result[i]]
-			)
 	}
 
 }
