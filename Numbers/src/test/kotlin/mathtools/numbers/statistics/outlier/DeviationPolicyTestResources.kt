@@ -1,9 +1,8 @@
 package mathtools.numbers.statistics.outlier
 
+/** Provider of specific Deviation Policy instances for test cases
+ * Developed by DK96-OS : 2022 */
 object DeviationPolicyTestResources {
-
-	/** Two sided policy with max of 3 Standard Deviations */
-	internal val policy3SD = DeviationPolicy(3.0)
 
 	/** Two sided policy with max of 2 Standard Deviations */
 	internal val policy2SD = DeviationPolicy(2.0)

@@ -4,8 +4,8 @@ import mathtools.numbers.listtypes.NumberListConversion.toDouble
 import mathtools.numbers.listtypes.NumberListConversion.toLong
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SD
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SD
+import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SDLower
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SDUpper
-import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy3SD
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101DC
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -17,8 +17,11 @@ import kotlin.math.roundToLong
 class DeviationPolicyRemoveOutliersTest {
 
 	/** Test Cases:
-	 *  1. Use Uniform for all tests
-	 *  2. If modifications to the list occur, recreate it
+	 *  1. Use Uniform Data Source for all tests - elements within 2 SD
+	 *  2. If modifications to the list occur, it should be recreated
+	 *  3. For coverage, use upper, lower and two-sided policies
+	 *      Below maxOutlier Limit uses a function that is already tested.
+	 *      Focus on cases where there are more outliers than the limit.
 	 */
 
 	@Test
@@ -32,7 +35,7 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size, mutableList.size)
 		assertEquals(
-			0, policy3SD.removeOutliersDouble(
+			0, policy2SDLower.removeOutliersDouble(
 				mutableList, uniform101DC, 10u
 			).size
 		)
@@ -61,7 +64,7 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size, mutableList.size)
 		assertEquals(
-			0, policy3SD.removeOutliersLong(
+			0, policy2SDLower.removeOutliersLong(
 				mutableList, uniform101DC, 10u
 			).size
 		)
@@ -109,10 +112,12 @@ class DeviationPolicyRemoveOutliersTest {
 	@Test
 	fun testMaxOutliersLimitDouble() {
 		val outlier0 = uniform101DC.valueAtDeviation(3.0)
-		val outlier1 = uniform101DC.valueAtDeviation(3.1)
-		val mutableList = toDouble(uniform101)
-		mutableList.add(outlier0)
-		mutableList.add(outlier1)   // Outlier 1 is larger, removed first
+		val outlier1 = uniform101DC.valueAtDeviation(-3.1)
+		val mutableList = toDouble(uniform101).apply {
+			add(outlier0)
+			add(outlier1)
+		}
+		// Outlier 1 is further from mean, removed first
 		val removed1 = policy2SD.removeOutliersDouble(
 			mutableList, uniform101DC, 1u
 		)
@@ -121,12 +126,13 @@ class DeviationPolicyRemoveOutliersTest {
 			mutableList, uniform101DC, 1u
 		)
 		assertEquals(outlier0, removed0[0])
+		//
 	}
 
 	@Test
 	fun testMaxOutliersLimitLong() {
 		val outlier0 = uniform101DC.valueAtDeviation(3.0).roundToLong()
-		val outlier1 = uniform101DC.valueAtDeviation(3.5).roundToLong()
+		val outlier1 = uniform101DC.valueAtDeviation(-3.5).roundToLong()
 		val mutableList = toLong(uniform101)
 		mutableList.add(outlier0)
 		mutableList.add(outlier1)   // Outlier 1 is larger, removed first
