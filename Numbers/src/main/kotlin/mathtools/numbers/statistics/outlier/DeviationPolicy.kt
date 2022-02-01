@@ -63,6 +63,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             upperOutliers -> {
@@ -79,6 +80,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             lowerOutliers -> {
@@ -95,6 +97,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             else -> emptyList()
@@ -122,6 +125,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             upperOutliers -> {
@@ -138,6 +142,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             lowerOutliers -> {
@@ -154,6 +159,7 @@ class DeviationPolicy(
                             val number = mutableList[it] - distribution.mean
                             if (number >= 0) number else -number
                         }.drop(nOutlierOverflow)
+                            .sorted()
                     )
             }
             else -> throw IllegalStateException()
