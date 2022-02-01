@@ -24,4 +24,20 @@ object DeviationPolicyTestResources {
 		lowerOutliers = true
 	)
 
+	/** Upper sided policy with max of 1 Standard Deviation */
+	internal val policy1SDUpper = DeviationPolicy(
+		1.0,
+		upperOutliers = true,
+		lowerOutliers = false
+	)
+
+	/** Lower sided policy with max of 1 Standard Deviation */
+	internal val policy1SDLower = DeviationPolicy(
+		1.0,
+		upperOutliers = false,
+		lowerOutliers = true
+	)
+
+
+
 }

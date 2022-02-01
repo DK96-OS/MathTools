@@ -3,6 +3,8 @@ package mathtools.numbers.statistics.outlier
 import mathtools.numbers.listtypes.NumberListConversion.toDouble
 import mathtools.numbers.listtypes.NumberListConversion.toLong
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SD
+import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SDLower
+import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SDUpper
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SD
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SDLower
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy2SDUpper
@@ -126,7 +128,6 @@ class DeviationPolicyRemoveOutliersTest {
 			mutableList, uniform101DC, 1u
 		)
 		assertEquals(outlier0, removed0[0])
-		//
 	}
 
 	@Test
@@ -144,6 +145,58 @@ class DeviationPolicyRemoveOutliersTest {
 			mutableList, uniform101DC, 1u
 		)
 		assertEquals(outlier0, removed0[0])
+	}
+
+	@Test
+	fun testOutlierLimitUpperPolicyDouble() {
+		val data = toDouble(uniform101)
+		val removed = policy1SDUpper.removeOutliersDouble(
+			data, uniform101DC, 5u
+		)
+		assertEquals(uniform101.size - 5, data.size)
+		assertEquals(5, removed.size)
+		// Removed are sorted in descending order, in this case
+		for (i in 0 until 5)
+			assertEquals(80.0 - i, removed[i])
+	}
+
+	@Test
+	fun testOutlierLimitUpperPolicyLong() {
+		val data = toLong(uniform101)
+		val removed = policy1SDUpper.removeOutliersLong(
+			data, uniform101DC, 5u
+		)
+		assertEquals(uniform101.size - 5, data.size)
+		assertEquals(5, removed.size)
+		// Removed are sorted in descending order, in this case
+		for (i in 0 until 5)
+			assertEquals(80L - i, removed[i])
+	}
+
+	@Test
+	fun testOutlierLimitLowerPolicyDouble() {
+		val data = toDouble(uniform101)
+		val removed = policy1SDLower.removeOutliersDouble(
+			data, uniform101DC, 5u
+		)
+		assertEquals(uniform101.size - 5, data.size)
+		assertEquals(5, removed.size)
+		// Removed are sorted in descending order, in this case
+		for (i in 0 until 5)
+			assertEquals(-16.0 - i, removed[i])
+	}
+
+	@Test
+	fun testOutlierLimitLowerPolicyLong() {
+		val data = toLong(uniform101)
+		val removed = policy1SDLower.removeOutliersLong(
+			data, uniform101DC, 5u
+		)
+		assertEquals(uniform101.size - 5, data.size)
+		assertEquals(5, removed.size)
+		// Removed are sorted in descending order, in this case
+		for (i in 0 until 5)
+			assertEquals(-16L - i, removed[i])
 	}
 
 }
