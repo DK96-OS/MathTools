@@ -1,12 +1,12 @@
 package mathtools.numbers.statistics
 
-import mathtools.numbers.listtypes.NumberListConversion.toByte
-import mathtools.numbers.listtypes.NumberListConversion.toDouble
-import mathtools.numbers.listtypes.NumberListConversion.toFloat
-import mathtools.numbers.listtypes.NumberListConversion.toInt
-import mathtools.numbers.listtypes.NumberListConversion.toLong
-import mathtools.numbers.listtypes.NumberListConversion.toShort
-import mathtools.numbers.listtypes.listSum
+import mathtools.lists.NumberListConversion.toByte
+import mathtools.lists.NumberListConversion.toDouble
+import mathtools.lists.NumberListConversion.toFloat
+import mathtools.lists.NumberListConversion.toInt
+import mathtools.lists.NumberListConversion.toLong
+import mathtools.lists.NumberListConversion.toShort
+import mathtools.lists.listSum
 import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
 import mathtools.numbers.testdata.LargeTestDataSource.large123
 import mathtools.numbers.testdata.LargeTestDataSource.large123DC

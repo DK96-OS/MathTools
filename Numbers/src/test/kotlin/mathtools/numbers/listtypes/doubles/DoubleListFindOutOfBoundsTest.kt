@@ -1,7 +1,7 @@
 package mathtools.numbers.listtypes.doubles
 
-import mathtools.numbers.listtypes.DoubleList.findOutOfBounds
-import mathtools.numbers.listtypes.NumberListConversion.toDouble
+import mathtools.lists.DoubleList.findOutOfBounds
+import mathtools.lists.NumberListConversion.toDouble
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

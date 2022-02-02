@@ -1,6 +1,6 @@
 package mathtools.numbers.statistics
 
-import mathtools.numbers.listtypes.listSum
+import mathtools.lists.listSum
 import kotlin.math.sqrt
 
 /** Key Statistics Functions

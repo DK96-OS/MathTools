@@ -1,7 +1,7 @@
 package mathtools.numbers.statistics.outlier
 
-import mathtools.numbers.listtypes.DoubleList
-import mathtools.numbers.listtypes.LongList
+import mathtools.lists.DoubleList
+import mathtools.lists.LongList
 import mathtools.numbers.statistics.DistributionCharacteristics
 import kotlin.math.roundToLong
 

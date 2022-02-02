@@ -1,7 +1,7 @@
 package mathtools.numbers.statistics.outlier
 
-import mathtools.numbers.listtypes.NumberListConversion.toDouble
-import mathtools.numbers.listtypes.NumberListConversion.toLong
+import mathtools.lists.NumberListConversion.toDouble
+import mathtools.lists.NumberListConversion.toLong
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SD
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SDLower
 import mathtools.numbers.statistics.outlier.DeviationPolicyTestResources.policy1SDUpper

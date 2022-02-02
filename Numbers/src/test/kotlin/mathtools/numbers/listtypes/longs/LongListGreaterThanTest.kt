@@ -1,7 +1,7 @@
 package mathtools.numbers.listtypes.longs
 
-import mathtools.numbers.listtypes.LongList.findGreaterThan
-import mathtools.numbers.listtypes.NumberListConversion.toLong
+import mathtools.lists.LongList.findGreaterThan
+import mathtools.lists.NumberListConversion.toLong
 import mathtools.numbers.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

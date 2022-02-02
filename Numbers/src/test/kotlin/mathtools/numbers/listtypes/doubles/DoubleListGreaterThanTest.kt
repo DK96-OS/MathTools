@@ -1,6 +1,6 @@
 package mathtools.numbers.listtypes.doubles
 
-import mathtools.numbers.listtypes.DoubleList
+import mathtools.lists.DoubleList
 import mathtools.numbers.listtypes.doubles.DoubleListTestResources.largeList
 import mathtools.numbers.listtypes.doubles.DoubleListTestResources.largeListFactor
 import mathtools.numbers.listtypes.doubles.DoubleListTestResources.maxValueList
