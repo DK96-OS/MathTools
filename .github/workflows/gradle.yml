@@ -45,8 +45,8 @@ jobs:
       with:
         name: Numbers-Tests-Java${{ matrix.java }}
         path: |
-          /home/runner/work/MathTools/MathTools/Numbers/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/Numbers/build/test-results/test
+          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/numbers/build/test-results/test
         retention-days: 60
     - name: Upload Systems Tests Results
       uses: actions/upload-artifact@v2
@@ -54,6 +54,24 @@ jobs:
       with:
         name: Systems-Tests-Java${{ matrix.java }}
         path: |
-          /home/runner/work/MathTools/MathTools/Systems/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/Systems/build/test-results/test
+          /home/runner/work/MathTools/MathTools/systems/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/systems/build/test-results/test
+        retention-days: 60
+    - name: Upload Lists Tests Results
+      uses: actions/upload-artifact@v2
+      if: success() || failure()
+      with:
+        name: Lists-Tests-Java${{ matrix.java }}
+        path: |
+          /home/runner/work/MathTools/MathTools/lists/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/lists/build/test-results/test
+        retention-days: 60
+    - name: Upload Statistics Tests Results
+      uses: actions/upload-artifact@v2
+      if: success() || failure()
+      with:
+        name: Statistics-Tests-Java${{ matrix.java }}
+        path: |
+          /home/runner/work/MathTools/MathTools/statistics/build/reports/tests/test
+          /home/runner/work/MathTools/MathTools/statistics/build/test-results/test
         retention-days: 60
