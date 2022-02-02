@@ -16,5 +16,9 @@ pluginManagement {
 	}
 }
 rootProject.name = "MathTools"
-include(":Numbers", ":Systems")
-
+include(
+	":lists",
+	":numbers",
+	":statistics",
+	":systems",
+)
