@@ -1,15 +1,15 @@
-package mathtools.systems.groups
+package mathtools.lists.objects
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import kotlin.random.Random
 
-/** Testing the GroupSort Functions */
-class GroupSortTest {
+/** Testing the ObjectList Functions
+ * Developed by DK96-OS : 2022 */
+class ObjectListTest {
 
     class SampleData(
         val groupId: Int, val r: Float,
@@ -20,8 +20,8 @@ class GroupSortTest {
     @BeforeEach fun setup() {
         // Start with 1 one and 2 twos, and so forth
         source = arrayListOf(
-            SampleData(1, 45f),
-            SampleData(2, 48f), SampleData(2, 50f),
+	        SampleData(1, 45f),
+	        SampleData(2, 48f), SampleData(2, 50f),
         )
         // Add one of each from 3 to 10
         for (i in 3 until 10) repeat(i) {
@@ -34,7 +34,7 @@ class GroupSortTest {
     fun testGroupSort(presortUsed:Boolean) {
         var prevSourceSize = source.size
         for (index in 1 until 10) {
-            val group = GroupSort.extractGroup(source, presortUsed) { 
+            val group = ObjectList.extractFrom(source, presortUsed) {
                 it.groupId == index
             }
             assertEquals(index, group!!.size)
@@ -48,7 +48,7 @@ class GroupSortTest {
         source.shuffle()    // Randomize the order of the initial dataset
         var prevSourceSize = source.size
         for (i in 1 until 10) {
-            val group = GroupSort.extractGroup(source) { it.groupId == i }
+            val group = ObjectList.extractFrom(source) { it.groupId == i }
             assertEquals(i, group!!.size)
             assertEquals(prevSourceSize - i, source.size)
             prevSourceSize = source.size
@@ -58,7 +58,7 @@ class GroupSortTest {
     @RepeatedTest(3)
     fun testSparseDataset() {
         // Remove 3 random groups from the source dataset
-        var removed = arrayListOf<Int>()
+        val removed = arrayListOf<Int>()
         while (removed.size <3) {
             val newRand = Random.nextInt(1, 9)
             if (newRand !in removed) {
@@ -72,7 +72,7 @@ class GroupSortTest {
         source.shuffle()
         // Perform the same grouping operation and assertion
         for (i in 1 until 10) {
-            val group = GroupSort.extractGroup(source) { it.groupId == i }
+            val group = ObjectList.extractFrom(source) { it.groupId == i }
             if (i in removed)
                 assertEquals(null, group)   // The selector didn't return true
             else {
@@ -84,4 +84,3 @@ class GroupSortTest {
     }
 
 }
-
