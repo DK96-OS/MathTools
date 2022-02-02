@@ -1,8 +1,8 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.statistics.Statistics
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import mathtools.numbers.statistics.Statistics
 import kotlin.system.measureNanoTime
 
 /** Performance Testing for Prime Number Caches */

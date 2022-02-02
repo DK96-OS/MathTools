@@ -1,7 +1,7 @@
 package mathtools.numbers.generators
 
-import kotlin.math.sqrt
 import mathtools.numbers.statistics.Statistics
+import kotlin.math.sqrt
 
 /** Generator Testing Framework for outcome analysis
   * Developed by DK96-OS : 2018 - 2021 */
