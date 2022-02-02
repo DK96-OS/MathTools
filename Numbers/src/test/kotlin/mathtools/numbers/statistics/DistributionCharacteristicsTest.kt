@@ -1,7 +1,6 @@
 package mathtools.numbers.statistics
 
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 
 /** Testing various data sets */
@@ -13,11 +12,15 @@ class DistributionCharacteristicsTest {
             25f, 26f, 27f, 28f, 29f, 30f, 31f, 32f, 33f, 34f, 35f
         )
         DistributionCharacteristics.process(uniData)!!.run {
-            assertEquals(30.0, mean, 0.1)
-            assertEquals(3.0, standardDeviation, 1.0)
+            assertEquals(30.0, mean, 0.000_001)
+            assertEquals(3.31, standardDeviation, 0.01)
             assertEquals(25.0, min)
             assertEquals(35.0, max)
-            assertEquals(null, outliers)
+            assertEquals(
+                30.0 + 3.31 * 3,
+                valueAtDeviation(3.0),
+                0.03
+            )
         }
     }
 
@@ -31,11 +34,15 @@ class DistributionCharacteristicsTest {
             repeat(200 - i) { mtnData.add(i.toLong()) }
         //
         DistributionCharacteristics.process(mtnData)!!.run {
-            assertEquals(100.0, mean, 0.1)
-            assertEquals(40.0, standardDeviation, 2.0)
+            assertEquals(100.0, mean, 0.001)
+            assertEquals(40.82, standardDeviation, 0.01)
             assertEquals(1.0, min)
             assertEquals(199.0, max)
-            assertEquals(null, outliers)
+            assertEquals(
+                100.0 + 40.82 * 3,
+                valueAtDeviation(3.0),
+                0.03
+            )
         }
     }
 
@@ -46,18 +53,37 @@ class DistributionCharacteristicsTest {
             repeat(i) { skewData.add(i.toLong()) }
         //
         DistributionCharacteristics.process(skewData)!!.run {
-            assertEquals(13.0, mean, 0.1)
-            assertEquals(5.0, standardDeviation, 0.5)
+            assertEquals(13.0, mean, 0.001)
+            assertEquals(4.59, standardDeviation, 0.01)
             assertEquals(1.0, min)
             assertEquals(19.0, max)
-            assertEquals(null, outliers)
+            assertEquals(
+                13.0 + 4.59 * 3,
+                valueAtDeviation(3.0),
+                0.03
+            )
         }
     }
 
     @Test
     fun testEmptyList() {
-        val emptyList = listOf<Long>()
-        assertEquals(null, DistributionCharacteristics.process(emptyList))
+        assertEquals(
+            null,
+            DistributionCharacteristics.process(emptyList())
+        )
+    }
+
+    @Test
+    fun testSingleList() {
+        DistributionCharacteristics.process(
+            listOf(24L)
+        )!!.apply {
+            assertEquals(24.0, mean)
+            assertEquals(0.0, standardDeviation)
+            assertEquals(24.0, min)
+            assertEquals(24.0, max)
+
+        }
     }
 
 }

@@ -1,65 +1,84 @@
 package mathtools.numbers.statistics
 
+import mathtools.numbers.listtypes.NumberListConversion.toByte
+import mathtools.numbers.listtypes.NumberListConversion.toDouble
+import mathtools.numbers.listtypes.NumberListConversion.toFloat
+import mathtools.numbers.listtypes.NumberListConversion.toInt
+import mathtools.numbers.listtypes.NumberListConversion.toLong
+import mathtools.numbers.listtypes.NumberListConversion.toShort
+import mathtools.numbers.listtypes.listSum
+import mathtools.numbers.statistics.DistributionCharacteristics.Companion.process
+import mathtools.numbers.testdata.LargeTestDataSource.large123
+import mathtools.numbers.testdata.LargeTestDataSource.large123DC
+import mathtools.numbers.testdata.LargeTestDataSource.large123Sum
+import mathtools.numbers.testdata.LargeTestDataSource.large32760
+import mathtools.numbers.testdata.LargeTestDataSource.large32760DC
+import mathtools.numbers.testdata.LargeTestDataSource.large32760Sum
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101DC
+import mathtools.numbers.testdata.UniformTestDataSource.uniform101Sum
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.BeforeEach
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
 
-    /** The most restrictive Number Type is used in mapping to other Types */
-    lateinit var dataArray: ByteArray
-    lateinit var dataList: List<Byte>
-
-    @BeforeEach
-    fun setup() {
-        /*  The range -128 to 127 is common to all Number types.
-            Target a mean value of 30 with a uniform spread of 50 on each side.*/
-        dataArray = ByteArray(101) { (it - 20).toByte() }
-        dataList = dataArray.toList()
+    /** Run a function on multiple list types, selected by level:
+     * Level 0: All
+     * Level 1: No Byte
+     * Level 2: No Byte, Short
+     * Level 3: No Byte, Short, Int
+     * Level 4: No Byte, Short, Int, Long
+     * Level 5: No Byte, Short, Int, Long, Float */
+    private inline fun runOnListTypes(
+        numbers: List<Number>,
+        level: Int = 0,
+        run: (data: List<Number>) -> Unit
+    ) {
+        if (level < 1) run(toByte(numbers))
+        if (level < 2) run(toShort(numbers))
+        if (level < 3) run(toInt(numbers))
+        if (level < 4) run(toLong(numbers))
+        if (level < 5) run(toFloat(numbers))
+        run(toDouble(numbers))
     }
 
+    @Suppress("DEPRECATION")
     @Test
-    fun testSum() {
-        // The sum of these numbers is:
-        // -20 + -19 + .. 79 + 80
-        // Cancel negative, positive pairs
-        // = 21 + 22 + .. + 79 + 80
-        // Group the constant 20 out of all 60 remaining values
-        // = (20 * 60) + 1 + 2 + 3 + .. + 59 + 60
-        // Group pairs from 1 to 59 into 60s.
-        // = (1200) + 60 + (1 + 59) + (2 + 58) + .. + (29 + 31) + 30
-        // There are 29 pairs and a 30 left over. Simplify
-        // = 1290 + (29 * 60)
-        // = 1290 + 1200 + 540
-        // = 3030
-        assertEquals(3030.0, listSum(dataList.map { it.toFloat() }))
-        assertEquals(3030.0, listSum(dataList.map { it.toDouble() }))
-        assertEquals(3030.0, listSum(dataList.map { it.toLong() }))
-        assertEquals(3030.0, listSum(dataList.map { it.toInt() }))
-        assertEquals(3030.0, listSum(dataList.map { it.toShort() }))
-        assertEquals(3030.0, listSum(dataList))
-    }
-
-    @Test
-    fun testCharacteristics() {
-        /** Ensure that the outcomes of all Types are equal on the same data */
-        fun verify(numbers: List<Number>) {
-            DistributionCharacteristics.process(numbers)!!.run {
-                assertEquals(-20.0, min)
-                assertEquals(80.0, max)
-                assertEquals(30.0, mean)
-                assertEquals(29.3, standardDeviation, 0.002)
-                assertEquals(null, outliers)
-            }
+    fun testListSumFunction() {
+        runOnListTypes(uniform101) {
+            assertEquals(uniform101Sum, listSum(it))
         }
-        verify(dataList)
-        verify(dataList.map { it.toFloat() })
-        verify(dataList.map { it.toDouble() })
-        verify(dataList.map { it.toLong() })
-        verify(dataList.map { it.toInt() })
-        verify(dataList.map { it.toShort() })
+        runOnListTypes(large123) {
+            assertEquals(large123Sum, listSum(it))
+        }
+        runOnListTypes(large32760, 1) {
+            assertEquals(large32760Sum, listSum(it))
+        }
+    }
+
+    @Test
+    fun testUniform101Stats() {
+        assertEquals(uniform101DC, process(uniform101))
+        runOnListTypes(uniform101, 1) {
+            assertEquals(uniform101DC, process(it))
+        }
+    }
+
+    @Test
+    fun testLargeByteStats() {
+        assert(large123DC == process(large123))
+        runOnListTypes(large123, 1) {
+            assert(large123DC == process(it))
+        }
+    }
+
+    @Test
+    fun testLargeShortStats() {
+        assert(large32760DC == process(large32760))
+        runOnListTypes(large32760, 2) {
+            assert(large32760DC == process(it))
+        }
     }
 
 }
