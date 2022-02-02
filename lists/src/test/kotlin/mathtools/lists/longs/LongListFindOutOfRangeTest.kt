@@ -1,8 +1,8 @@
-package mathtools.numbers.listtypes.longs
+package mathtools.lists.longs
 
 import mathtools.lists.LongList.findOutOfRange
 import mathtools.lists.NumberListConversion.toLong
-import mathtools.numbers.testdata.UniformTestDataSource.uniform101
+import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
