@@ -1,4 +1,4 @@
-package mathtools.numbers.listtypes.doubles
+package mathtools.lists.doubles
 
 object DoubleListTestResources {
 
