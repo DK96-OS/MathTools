@@ -66,16 +66,24 @@ class DeviationPolicyIdentifyOutliersTest {
 			doubleArray, uniform101DC
 		)
 		assertEquals(42, result.size)
+		for (i in 0 until 21)
+			assertEquals(i, result[i])
+		for (i in 80 until 101)
+			assertEquals(i, result[i - 80 + 21])
 		//
 		result = policy1SDUpper.identifyOutliers(
 			doubleArray, uniform101DC
 		)
 		assertEquals(21, result.size)
+		for (i in 80 until 101)
+			assertEquals(i, result[i - 80])
 		//
 		result = policy1SDLower.identifyOutliers(
 			doubleArray, uniform101DC
 		)
 		assertEquals(21, result.size)
+		for (i in 0 until 21)
+			assertEquals(i, result[i])
 	}
 
 	@Test
@@ -84,16 +92,24 @@ class DeviationPolicyIdentifyOutliersTest {
 			longArray, uniform101DC
 		)
 		assertEquals(42, result.size)
+		for (i in 0 until 21)
+			assertEquals(i, result[i])
+		for (i in 80 until 101)
+			assertEquals(i, result[i - 80 + 21])
 		//
 		result = policy1SDUpper.identifyOutliers(
 			longArray, uniform101DC
 		)
 		assertEquals(21, result.size)
+		for (i in 80 until 101)
+			assertEquals(i, result[i - 80])
 		//
 		result = policy1SDLower.identifyOutliers(
 			longArray, uniform101DC
 		)
 		assertEquals(21, result.size)
+		for (i in 0 until 21)
+			assertEquals(i, result[i])
 
 	}
 
