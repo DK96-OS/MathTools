@@ -1,4 +1,4 @@
-package mathtools.numbers.listtypes
+package mathtools.lists
 
 import java.math.BigInteger
 

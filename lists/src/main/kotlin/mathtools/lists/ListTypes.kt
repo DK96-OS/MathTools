@@ -1,4 +1,4 @@
-package mathtools.numbers.listtypes
+package mathtools.lists
 
 /** Sum up the numbers in the list
  * Use with caution, overflows are not checked in most cases. */

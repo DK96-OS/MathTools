@@ -1,4 +1,4 @@
-package mathtools.numbers.listtypes
+package mathtools.lists
 
 /** Convert Numbered List Types
  * Developed by DK96-OS : 2022 */
