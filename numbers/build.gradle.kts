@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
 	implementation(project(":lists"))
+	implementation(project(":statistics"))
 
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
