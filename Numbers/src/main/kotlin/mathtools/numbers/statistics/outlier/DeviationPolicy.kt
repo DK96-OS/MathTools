@@ -47,7 +47,7 @@ class DeviationPolicy(
         distribution: DistributionCharacteristics,
         maxOutliers: UByte,
     ) : List<Double> {
-        if (maxOutliers == (0u).toUByte()) return emptyList()
+        if (maxOutliers < 1u) return emptyList()
         return when {
             upperOutliers && lowerOutliers -> {
                 val (lowerBound, upperBound) = distribution.bounds
@@ -109,7 +109,7 @@ class DeviationPolicy(
         distribution: DistributionCharacteristics,
         maxOutliers: UByte
     ) : List<Long> {
-        if (maxOutliers == (0u).toUByte()) return emptyList()
+	    if (maxOutliers < 1u) return emptyList()
         return when {
             upperOutliers && lowerOutliers -> {
                 val (b0, b1) = distribution.bounds
@@ -172,20 +172,21 @@ class DeviationPolicy(
     ) : List<Int> = when {
         upperOutliers && lowerOutliers -> {
             val (lowerBound, upperBound) = distribution.bounds
-            val first = array.indexOfFirst {
-                it < lowerBound || upperBound < it
-            }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (d < lowerBound || upperBound < d) index else null
+	        }.filterNotNull()
         }
         upperOutliers -> {
             val upperBound = distribution.valueAtDeviation(maxDeviations)
-            val first = array.indexOfFirst { it > upperBound }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (upperBound < d) index else null
+	        }.filterNotNull()
         }
         lowerOutliers -> {
             val lowerBound = distribution.valueAtDeviation(-maxDeviations)
-            val first = array.indexOfFirst { it < lowerBound }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (d < lowerBound) index else null
+	        }.filterNotNull()
         }
         else -> throw IllegalStateException()
     }
@@ -198,20 +199,21 @@ class DeviationPolicy(
             val (b0, b1) = distribution.bounds
             val lowerBound = b0.roundToLong()
             val upperBound = b1.roundToLong()
-            val first = array.indexOfFirst {
-                it < lowerBound || upperBound < it
-            }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (d < lowerBound || upperBound < d) index else null
+	        }.filterNotNull()
         }
         upperOutliers -> {
             val upperBound = distribution.valueAtDeviation(maxDeviations)
-            val first = array.indexOfFirst { upperBound < it }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (upperBound < d) index else null
+	        }.filterNotNull()
         }
         lowerOutliers -> {
             val lowerBound = distribution.valueAtDeviation(-maxDeviations)
-            val first = array.indexOfFirst { it < lowerBound }
-            if (first > -1) listOf(first) else emptyList()
+	        array.mapIndexed { index, d ->
+		        if (d < lowerBound) index else null
+	        }.filterNotNull()
         }
         else -> throw IllegalStateException()
     }
