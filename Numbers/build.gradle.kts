@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+	implementation(project(":lists"))
+
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
