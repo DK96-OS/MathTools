@@ -1,6 +1,6 @@
 package mathtools.numbers.primes
 
-import mathtools.numbers.statistics.Statistics
+import mathtools.statistics.Statistics
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import kotlin.system.measureNanoTime
