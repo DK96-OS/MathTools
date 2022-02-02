@@ -1,10 +1,10 @@
-package mathtools.numbers.formats
+package mathtools.systems.table
 
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertEquals
 
-/**  */
+/** Testing Data Container and Formatter
+ * Developed by DK96-OS : 2021 */
 class DataTableTest {
 
     private val initVal = "Initial Value"

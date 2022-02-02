@@ -1,4 +1,4 @@
-package mathtools.numbers.formats
+package mathtools.systems.table
 
 
 /** Data Container and Formatter
