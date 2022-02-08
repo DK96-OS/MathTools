@@ -2,6 +2,17 @@ plugins {
 	kotlin("jvm")
 }
 
+configure<PublishingExtension> {
+	publications {
+		register<MavenPublication>("gpr") {
+			groupId = "io.github.dk96-os"
+			artifactId = "lists"
+			version = "0.1"
+			from(components["java"])
+		}
+	}
+}
+
 dependencies {
 	// Align versions of all Kotlin components
 	implementation(platform("org.jetbrains.kotlin:kotlin-bom"))

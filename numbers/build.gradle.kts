@@ -2,6 +2,17 @@ plugins {
 	kotlin("jvm")
 }
 
+configure<PublishingExtension> {
+	publications {
+		register<MavenPublication>("gpr") {
+			groupId = "io.github.dk96-os"
+			artifactId = "numbers"
+			version = "0.1"
+			from(components["java"])
+		}
+	}
+}
+
 dependencies {
 	implementation(project(":lists"))
 	implementation(project(":statistics"))
