@@ -10,17 +10,15 @@ on:
   pull_request:
     branches: [ master ]
 
-permissions:
-  actions: read
-  checks: write
-  contents: read
-  deployments: read
-  packages: read
-  statuses: read
-
 jobs:
   build:
     runs-on: ubuntu-20.04
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+      packages: read
+      statuses: read
     strategy:
       matrix:
         java: [ '11', '16' ]
@@ -84,4 +82,3 @@ jobs:
           /home/runner/work/MathTools/MathTools/statistics/build/reports/tests/test
           /home/runner/work/MathTools/MathTools/statistics/build/test-results/test
         retention-days: 60
-      
