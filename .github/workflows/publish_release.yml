@@ -20,11 +20,20 @@ jobs:
         with:
           java-version: '11'
           distribution: 'zulu'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Publish package
-        uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
         with:
-          arguments: publish
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/build
+          key: ${{ runner.os }}-gradle-jdk11-${{ hashFiles('**/build.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-jdk11-${{ hashFiles('**/build.gradle*') }}
+      - name: Check Build
+        run: gradle check --warn
+      - name: Publish package
+        run: gradle publish --warn
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
