@@ -30,7 +30,10 @@ jobs:
           key: ${{ runner.os }}-gradle-jdk11-${{ hashFiles('**/build.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-jdk11-${{ hashFiles('**/build.gradle*') }}
+      - name: Check Build
+        run: gradle check --warn
       - name: Publish package
-        run: gradle publish --warn --fail-fast
+        run: gradle publish --warn
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
