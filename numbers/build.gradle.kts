@@ -1,5 +1,6 @@
 plugins {
 	kotlin("jvm")
+	id("test-report-aggregation")
 }
 
 configure<PublishingExtension> {
@@ -50,4 +51,11 @@ tasks.test {
     		mergeReruns.set(true)
     	}
     }
+	doLast {
+		tasks.testAggregateTestReport
+	}
+}
+
+tasks.check {
+	dependsOn(tasks.named<TestReport>("testAggregateTestReport"))
 }
