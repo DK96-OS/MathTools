@@ -46,39 +46,11 @@ jobs:
     - name: Run tests
       run: gradle check --continue --warn
       timeout-minutes: 4
-    - name: Upload Numbers Tests Results
+    - name: Upload Tests Results
       uses: actions/upload-artifact@v2
       if: success() || failure()
       with:
-        name: Numbers-Tests-Java${{ matrix.java }}
+        name: JVM${{ matrix.java }}-Tests
         path: |
-          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/numbers/build/test-results/test
-        retention-days: 60
-    - name: Upload Systems Tests Results
-      uses: actions/upload-artifact@v2
-      if: success() || failure()
-      with:
-        name: Systems-Tests-Java${{ matrix.java }}
-        path: |
-          /home/runner/work/MathTools/MathTools/systems/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/systems/build/test-results/test
-        retention-days: 60
-    - name: Upload Lists Tests Results
-      uses: actions/upload-artifact@v2
-      if: success() || failure()
-      with:
-        name: Lists-Tests-Java${{ matrix.java }}
-        path: |
-          /home/runner/work/MathTools/MathTools/lists/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/lists/build/test-results/test
-        retention-days: 60
-    - name: Upload Statistics Tests Results
-      uses: actions/upload-artifact@v2
-      if: success() || failure()
-      with:
-        name: Statistics-Tests-Java${{ matrix.java }}
-        path: |
-          /home/runner/work/MathTools/MathTools/statistics/build/reports/tests/test
-          /home/runner/work/MathTools/MathTools/statistics/build/test-results/test
+          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
