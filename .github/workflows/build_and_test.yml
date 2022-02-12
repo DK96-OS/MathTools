@@ -18,7 +18,6 @@ jobs:
       checks: write
       contents: read
       packages: read
-      statuses: read
     strategy:
       matrix:
         java: [ '11', '16' ]
@@ -30,21 +29,17 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
-    - name: Cache Gradle packages
-      uses: actions/cache@v2
+    - name: Assemble from Source Files
+      uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
       with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-          ~/build
-        key: ${{ runner.os }}-gradle-jdk${{ matrix.java }}-${{ hashFiles('**/build.gradle*') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-jdk${{ matrix.java }}-${{ hashFiles('**/build.gradle*') }}
-    - name: Assemble Source Files
-      run: gradle assemble --warn
+        gradle-version: 7.4
+        arguments: assemble --warn
       timeout-minutes: 4
-    - name: Run tests
-      run: gradle check --continue --warn
+    - name: Run Tests
+      uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+      with:
+        gradle-version: 7.4
+        arguments: check --continue --warn
       timeout-minutes: 4
     - name: Upload Tests Results
       uses: actions/upload-artifact@v2
@@ -54,3 +49,4 @@ jobs:
         path: |
           /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
+      timeout-minutes: 1
