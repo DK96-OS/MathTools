@@ -18,10 +18,13 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.size < end)
+        if (start < 0 || list.isEmpty())
             return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until end) {
+        for (idx in start .. lastIndex) {
             if (list[idx] > limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -44,10 +47,13 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.size < end)
+        if (start < 0 || list.isEmpty())
             return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until end) {
+        for (idx in start .. lastIndex) {
             if (list[idx] < limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -72,10 +78,13 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.size < end || lowerBound > upperBound)
+        if (start < 0 || list.isEmpty() || lowerBound > upperBound)
             return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until end) {
+        for (idx in start .. lastIndex) {
             val item = list[idx]
             if (item < lowerBound || upperBound < item) {
                 if (indices == null)
