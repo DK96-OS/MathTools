@@ -12,11 +12,15 @@ object IntList {
 		list: List<Int>,
 		limit: Int,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty() || limit == Int.MAX_VALUE)
 			return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		for (idx in start .. lastIndex)
 			if (list[idx] > limit) {
 				if (indices == null)
 					indices = arrayListOf(idx)
@@ -31,11 +35,15 @@ object IntList {
 		list: List<Int>,
 		limit: Int,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty() || limit == Int.MIN_VALUE)
 			return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		for (idx in start .. lastIndex)
 			if (list[idx] < limit) {
 				if (indices == null)
 					indices = arrayListOf(idx)
@@ -50,12 +58,17 @@ object IntList {
 		list: List<Int>,
 		range: IntRange,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty()
 		    || range.first == Int.MIN_VALUE && range.last == Int.MAX_VALUE
 		) return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		// todo: Likely need to test case where range is single valued
+		for (idx in start .. lastIndex)
 			if (list[idx] !in range) {
 				if (indices == null)
 					indices = arrayListOf(idx)
