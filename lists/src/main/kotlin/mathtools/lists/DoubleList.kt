@@ -7,16 +7,21 @@ import java.math.BigDecimal
 object DoubleList {
 
     /** Find indices of elements greater than the limit
+     * @param list A List of values to search in
+     * @param limit The lowest value that will be ignored
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements above limit */
     fun findGreaterThan(
         list: List<Double>,
         limit: Double,
         start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
+        if (start < 0 || list.size < end)
             return emptyList()
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start until end) {
             if (list[idx] > limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -28,16 +33,21 @@ object DoubleList {
     }
 
     /** Find indices of elements less than the limit
+     * @param list A List of values to search in
+     * @param limit The greatest value that will be ignored
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements below limit */
     fun findLessThan(
         list: List<Double>,
         limit: Double,
         start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
+        if (start < 0 || list.size < end)
             return emptyList()
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start until end) {
             if (list[idx] < limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -49,17 +59,23 @@ object DoubleList {
     }
 
     /** Find indices of elements outside of the specified boundaries
+     * @param list A List of values to search in
+     * @param lowerBound The lower limit of the boundary
+     * @param upperBound The upper limit of the boundary
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements out of bounds */
     fun findOutOfBounds(
         list: List<Double>,
         lowerBound: Double,
         upperBound: Double,
-        start: Int = 0
+        start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty() || lowerBound > upperBound)
+        if (start < 0 || list.size < end || lowerBound > upperBound)
             return emptyList()
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start until end) {
             val item = list[idx]
             if (item < lowerBound || upperBound < item) {
                 if (indices == null)
