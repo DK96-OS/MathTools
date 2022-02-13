@@ -183,6 +183,24 @@ class DoubleListFindOutOfBoundsTest {
 	}
 
 	@Test
+	fun testBadIndexArgs() {
+		val results = Array<List<Int>?>(3) { null }
+		results[0] = findOutOfBounds(
+			u101, -10.0, 70.0, 91, 91
+		)
+		results[1] = findOutOfBounds(
+			u101, -10.0, 70.0, 91, 90
+		)
+		results[2] = findOutOfBounds(
+			u101, -10.0, 70.0, -1, 91
+		)
+		assertEquals(
+			listOf(0, 0, 0),
+			results.map { it?.size }
+		)
+	}
+
+	@Test
 	fun testSplitSublistSearch() {
 		val results = Array<Deferred<List<Int>>?>(4) { null }
 		runBlocking {
