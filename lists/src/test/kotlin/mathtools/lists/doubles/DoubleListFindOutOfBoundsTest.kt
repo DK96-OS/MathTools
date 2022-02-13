@@ -1,5 +1,8 @@
 package mathtools.lists.doubles
 
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import mathtools.lists.DoubleList.findOutOfBounds
 import mathtools.lists.NumberListConversion.toDouble
 import mathtools.lists.testdata.ListDataSource.uniform101
@@ -129,6 +132,76 @@ class DoubleListFindOutOfBoundsTest {
 				u101, -200.0, -100.0
 			)
 		)
+	}
+
+	@Test
+	fun testStartArg() {
+		val result1 = findOutOfBounds(
+			u101, -10.0, 80.0, 9
+		)
+		val result2 = findOutOfBounds(
+			u101, -10.0, 80.0, 10
+		)
+		val result3 = findOutOfBounds(
+			u101, -10.0, 79.0, 9
+		)
+		assertEquals(listOf(9), result1)
+		assertEquals(0, result2.size)
+		assertEquals(listOf(9, 100), result3)
+	}
+
+	@Test
+	fun testEndArg() {
+		val result1 = findOutOfBounds(
+			u101, -20.0, 79.0, 0, 100
+		)
+		val result2 = findOutOfBounds(
+			u101, -20.0, 79.0, 0, 101
+		)
+		val result3 = findOutOfBounds(
+			u101, -19.0, 70.0, 0, 92
+		)
+		assertEquals(0, result1.size)
+		assertEquals(100, result2[0])
+		assertEquals(listOf(0, 91), result3)
+	}
+
+	@Test
+	fun testSublistSearch() {
+		val result1 = findOutOfBounds(
+			u101, -10.0, 70.0, 9, 92
+		)
+		val result2 = findOutOfBounds(
+			u101, -10.0, 70.0, 10, 92
+		)
+		val result3 = findOutOfBounds(
+			u101, -10.0, 70.0, 9, 91
+		)
+		assertEquals(listOf(9, 91), result1)
+		assertEquals(91, result2[0])
+		assertEquals(9, result3[0])
+	}
+
+	@Test
+	fun testSplitSublistSearch() {
+		val results = Array<Deferred<List<Int>>?>(4) { null }
+		runBlocking {
+			for (i in 0 until 4) {
+				val startIdx = i * 25
+				val endIdx = if (i == 3)
+					101 else startIdx + 25
+				results[i] = async {
+					findOutOfBounds(
+						u101, 10.0, 50.0,
+						startIdx, endIdx
+					)
+				}
+			}
+			assertEquals(25, results[0]!!.await().size)
+			assertEquals(5, results[1]!!.await().size)
+			assertEquals(4, results[2]!!.await().size)
+			assertEquals(26, results[3]!!.await().size)
+		}
 	}
 
 }
