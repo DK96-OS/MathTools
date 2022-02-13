@@ -53,7 +53,12 @@ object IntList {
 		return indices ?: emptyList()
 	}
 
-	/** Find indices of elements outside of the given range */
+	/** Find indices of elements outside of the given range
+	 * @param list A List of values to search in
+	 * @param range The range of values to ignore
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements out of range */
 	fun findOutOfRange(
 		list: List<Int>,
 		range: IntRange,
@@ -61,13 +66,14 @@ object IntList {
 		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty()
-		    || range.first == Int.MIN_VALUE && range.last == Int.MAX_VALUE
+		    || range.first > range.last
+		    || range.first == Int.MIN_VALUE
+		    && range.last == Int.MAX_VALUE
 		) return emptyList()
 		// If end is greater than list size, use list size
 		val lastIndex = if (list.size < end)
 			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		// todo: Likely need to test case where range is single valued
 		for (idx in start .. lastIndex)
 			if (list[idx] !in range) {
 				if (indices == null)
