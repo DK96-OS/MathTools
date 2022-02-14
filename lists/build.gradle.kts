@@ -1,5 +1,6 @@
 plugins {
 	kotlin("jvm")
+	id("jacoco")
 }
 
 configure<PublishingExtension> {
@@ -47,4 +48,8 @@ tasks.test {
 			mergeReruns.set(true)
 		}
 	}
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
 }
