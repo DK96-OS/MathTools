@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test
 
 /** Testing the GreaterThan function on Long Lists
  * Developed by DK96-OS : 2022 */
-class LongListGreaterThanTest {
+class LongListFindGreaterThanTest {
 
 	private val u101 = toLong(uniform101)
 
 	/** Greater Than works on single item and empty lists */
 	@Test
-	fun testFindGreaterThanSingleItem() {
+	fun testSingleItem() {
 		assertEquals(
 			0, findGreaterThan(
 				listOf(5L), 5L
@@ -37,11 +37,11 @@ class LongListGreaterThanTest {
 	}
 
 	@Test
-	fun testFindGreaterThanMaxValue() {
+	fun testMaxValue() {
 		assertEquals(
-			1, findGreaterThan(
+			listOf(0), findGreaterThan(
 				listOf(Long.MAX_VALUE), 2
-			).size
+			)
 		)
 		// Max Value Limit
 		assertEquals(
