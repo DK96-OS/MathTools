@@ -12,7 +12,8 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import kotlin.math.roundToInt
 
-/** Testing the Greater Than function for Double typed Lists */
+/** Testing the Greater Than function for Double typed Lists
+ * @author DK96-OS : 2022 */
 class DoubleListFindGreaterThanTest {
 
     private val u101 = toDouble(uniform101)

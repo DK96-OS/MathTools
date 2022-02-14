@@ -3,7 +3,7 @@ package mathtools.lists
 import java.math.BigInteger
 
 /** Functions of Long typed Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object LongList {
 
     /** Find all elements greater than the limit

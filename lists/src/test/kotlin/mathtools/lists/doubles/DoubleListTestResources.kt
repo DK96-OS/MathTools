@@ -1,5 +1,7 @@
 package mathtools.lists.doubles
 
+/** Provider of Double List data samples for testing
+ * @author DK96-OS : 2022 */
 object DoubleListTestResources {
 
     internal const val smallListFactor = 100.101

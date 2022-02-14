@@ -3,7 +3,7 @@ package mathtools.lists
 import java.math.BigDecimal
 
 /** Functions of Double typed Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object DoubleList {
 
     /** Find indices of elements greater than the limit

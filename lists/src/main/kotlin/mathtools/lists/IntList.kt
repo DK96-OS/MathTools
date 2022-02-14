@@ -4,7 +4,7 @@ import java.math.BigInteger
 import kotlin.math.roundToLong
 
 /** Functions of Integer typed Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object IntList {
 
 	/** Find all elements greater than the limit
