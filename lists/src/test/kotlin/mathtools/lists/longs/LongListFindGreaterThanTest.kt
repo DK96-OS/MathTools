@@ -7,12 +7,20 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing the GreaterThan function on Long Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 class LongListFindGreaterThanTest {
 
 	private val u101 = toLong(uniform101)
 
-	/** Greater Than works on single item and empty lists */
+	@Test
+	fun testEmptyList() {
+		assertEquals(
+			0, findGreaterThan(
+				emptyList(), 5L
+			).size
+		)
+	}
+
 	@Test
 	fun testSingleItem() {
 		assertEquals(
@@ -21,18 +29,9 @@ class LongListFindGreaterThanTest {
 			).size
 		)
 		assertEquals(
-			1, findGreaterThan(
+			listOf(0), findGreaterThan(
 				listOf(5L), 4L
-			).size
-		)
-	}
-
-	@Test
-	fun testEmptyList() {
-		assertEquals(
-			0, findGreaterThan(
-				emptyList(), 5L
-			).size
+			)
 		)
 	}
 
@@ -49,6 +48,32 @@ class LongListFindGreaterThanTest {
 				listOf(Long.MAX_VALUE), Long.MAX_VALUE
 			).size
 		)
+	}
+
+	@Test
+	fun testStartArg() {
+		val res = Array<List<Int>?>(2) { null }
+		res[0] = findGreaterThan(
+			u101, 78, 90
+		)
+		res[1] = findGreaterThan(
+			u101, 78, 100
+		)
+		assertEquals(listOf(99, 100), res[0])
+		assertEquals(listOf(100), res[1])
+	}
+
+	@Test
+	fun testEndArg() {
+		val res = Array<List<Int>?>(2) { null }
+		res[0] = findGreaterThan(
+			u101, 78, 0, 105
+		)
+		res[1] = findGreaterThan(
+			u101, 78, 0, 100
+		)
+		assertEquals(listOf(99, 100), res[0])
+		assertEquals(listOf(99), res[1])
 	}
 
 	@Test
