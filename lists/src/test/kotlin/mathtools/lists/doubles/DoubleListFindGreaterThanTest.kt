@@ -88,14 +88,15 @@ class DoubleListFindGreaterThanTest {
 
     @Test
     fun testStartArg() {
-        val result1 = findGreaterThan(
+        val res = Array<List<Int>?>(2) { null }
+        res[0] = findGreaterThan(
             u101, 78.5, 90
         )
-        val result2 = findGreaterThan(
+        res[1] = findGreaterThan(
             u101, 78.5, 100
         )
-        assertEquals(listOf(99, 100), result1)
-        assertEquals(listOf(100), result2)
+        assertEquals(listOf(99, 100), res[0])
+        assertEquals(listOf(100), res[1])
     }
 
     @Test
@@ -112,14 +113,15 @@ class DoubleListFindGreaterThanTest {
 
     @Test
     fun testSublistSearch() {
-        val result1 = findGreaterThan(
-            u101, 77.5, 99, 101
+        val res = Array<List<Int>?>(2) { null }
+        res[0] = findGreaterThan(
+            u101, 77.5, 95, 100
         )
-        val result2 = findGreaterThan(
-            u101, 77.5, 99, 100
+        res[1] = findGreaterThan(
+            u101.reversed(), 77.5, 1, 5
         )
-        assertEquals(listOf(99, 100), result1)
-        assertEquals(listOf(99), result2)
+        assertEquals(listOf(98, 99), res[0])
+        assertEquals(listOf(1, 2), res[1])
     }
 
     @Test
@@ -141,14 +143,15 @@ class DoubleListFindGreaterThanTest {
     }
 
     @RepeatedTest(2)
-    fun testRandomized() {
+    fun testShuffledList() {
+        val shuffledList = u101.shuffled()
         val result = findGreaterThan(
-            u101.shuffled(), 75.0
+            shuffledList, 75.0
         )
         assertEquals(5, result.size)
         assertEquals(
             (76..80).toList(),
-            result.map { u101[it].roundToInt() }.sorted()
+            result.map { shuffledList[it].roundToInt() }.sorted()
         )
     }
 

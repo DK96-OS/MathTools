@@ -202,23 +202,23 @@ class DoubleListFindOutOfBoundsTest {
 
 	@Test
 	fun testSplitSublistSearch() {
-		val results = Array<Deferred<List<Int>>?>(4) { null }
 		runBlocking {
-			for (i in 0 until 4) {
-				val startIdx = i * 25
-				val endIdx = if (i == 3)
-					101 else startIdx + 25
+			// Split search into 4 coroutines
+			val results = Array<Deferred<List<Int>>?>(4) { null }
+			val indexRangePairs = listOf(
+				0 to 24, 25 to 50, 51 to 75, 76 to 100,
+			)
+			for (i in 0 until 4)
 				results[i] = async {
 					findOutOfBounds(
 						u101, 10.0, 50.0,
-						startIdx, endIdx
+						indexRangePairs[i].first, indexRangePairs[i].second + 1
 					)
 				}
-			}
 			assertEquals(25, results[0]!!.await().size)
 			assertEquals(5, results[1]!!.await().size)
-			assertEquals(4, results[2]!!.await().size)
-			assertEquals(26, results[3]!!.await().size)
+			assertEquals(5, results[2]!!.await().size)
+			assertEquals(25, results[3]!!.await().size)
 		}
 	}
 
