@@ -13,14 +13,25 @@ class DoubleListFindLessThanTest {
 	private val u101 = toDouble(uniform101)
 
 	@Test
-	fun testSingleItem() {}
-
-	@Test
 	fun testEmptyList() {
 		assertEquals(
 			0, findLessThan(
-				emptyList<Double>(), 10.0,
+				emptyList(), 10.0,
 			).size
+		)
+	}
+
+	@Test
+	fun testSingleItem() {
+		assertEquals(
+			0, findLessThan(
+				listOf(5.5), 5.5
+			).size
+		)
+		assertEquals(
+			listOf(0), findLessThan(
+				listOf(5.5), 5.51
+			)
 		)
 	}
 
