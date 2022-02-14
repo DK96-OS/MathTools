@@ -7,7 +7,12 @@ import kotlin.math.roundToLong
  * Developed by DK96-OS : 2022 */
 object IntList {
 
-	/** Find all elements greater than the limit */
+	/** Find all elements greater than the limit
+	 * @param list A List of values to search in
+	 * @param limit The lowest value that will be ignored
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements above limit */
 	fun findGreaterThan(
 		list: List<Int>,
 		limit: Int,
@@ -30,7 +35,12 @@ object IntList {
 		return indices ?: emptyList()
 	}
 
-	/** Find indices of elements less than the limit */
+	/** Find indices of elements less than the limit
+	 * @param list A List of values to search in
+	 * @param limit The greatest value that will be ignored
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements below limit */
 	fun findLessThan(
 		list: List<Int>,
 		limit: Int,
