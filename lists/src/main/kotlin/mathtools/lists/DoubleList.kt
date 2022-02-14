@@ -18,8 +18,10 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || limit == Double.POSITIVE_INFINITY
+            || limit.isNaN()
+        ) return emptyList()
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
@@ -47,8 +49,10 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || limit == Double.NEGATIVE_INFINITY
+            || limit.isNaN()
+        ) return emptyList()
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
