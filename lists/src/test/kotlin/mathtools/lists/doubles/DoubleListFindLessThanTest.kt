@@ -84,15 +84,19 @@ class DoubleListFindLessThanTest {
 
 	@Test
 	fun testEndArg() {
-		val res = Array<List<Int>?>(2) { null }
+		val res = Array<List<Int>?>(3) { null }
 		res[0] = findLessThan(
 			u101, -17.5, 0, 6
 		)
 		res[1] = findLessThan(
 			u101, -17.5, 0, 2
 		)
+		res[2] = findLessThan(
+			u101, -17.5, 0, 105
+		)
 		assertEquals(listOf(0, 1, 2), res[0])
 		assertEquals(listOf(0, 1), res[1])
+		assertEquals(listOf(0, 1, 2), res[2])
 	}
 
 	@Test

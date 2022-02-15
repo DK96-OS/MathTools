@@ -43,47 +43,43 @@ class DoubleListFindGreaterThanTest {
 
     @Test
     fun testMaxValue() {
-        var result = findGreaterThan(
+        val res = Array<List<Int>?>(2) { null }
+        res[0] = findGreaterThan(
             maxValueList, Double.MAX_VALUE
         )
-        assertEquals(emptyList<Double>(), result)
-        result = findGreaterThan(
+        res[1] = findGreaterThan(
             maxValueList, Double.MAX_VALUE * 0.99999999
         )
-        assertEquals(1, result.size)
-        assertEquals(0, result[0])
+        assertEquals(emptyList<Double>(), res[0])
+        assertEquals(listOf(0), res[1])
     }
 
     @Test
     fun testNaN() {
-        var result = findGreaterThan(
+        val res = Array<List<Int>?>(2) { null }
+        res[0] = findGreaterThan(
             nanValueList, 3.9
         )
-        assertEquals(1, result.size)
-        assertEquals(4, result[0])
-        result = findGreaterThan(
+        res[1] = findGreaterThan(
             nanValueList, 1.9
         )
-        assertEquals(2, result.size)
-        assertEquals(2, result[0])
-        assertEquals(4, result[1])
+        assertEquals(listOf(4), res[0])
+        assertEquals(listOf(2, 4), res[1])
     }
 
     /** Finds positive infinity, not negative */
     @Test
     fun testInfinity() {
-        val positiveResult = findGreaterThan(
-            positiveInfiniteList, 3.9
+        assertEquals(
+            listOf(3, 4), findGreaterThan(
+                positiveInfiniteList, 3.9
+            )
         )
-        assertEquals(2, positiveResult.size)
-        assertEquals(3, positiveResult[0])
-        assertEquals(4, positiveResult[1])
-        // Negative Infinity
-        val negativeResult = findGreaterThan(
-            negativeInfiniteList, 3.9
+        assertEquals(
+            listOf(4), findGreaterThan(
+                negativeInfiniteList, 3.9
+            )
         )
-        assertEquals(1, negativeResult.size)
-        assertEquals(4, negativeResult[0])
     }
 
     @Test
@@ -101,14 +97,14 @@ class DoubleListFindGreaterThanTest {
 
     @Test
     fun testEndArg() {
-        val result1 = findGreaterThan(
-            u101, 78.5, 0, 101
+        val res1 = findGreaterThan(
+            u101, 78.5, 0, 105
         )
-        val result2 = findGreaterThan(
+        val res2 = findGreaterThan(
             u101, 78.5, 0, 100
         )
-        assertEquals(listOf(99, 100), result1)
-        assertEquals(listOf(99), result2)
+        assertEquals(listOf(99, 100), res1)
+        assertEquals(listOf(99), res2)
     }
 
     @Test
@@ -126,32 +122,32 @@ class DoubleListFindGreaterThanTest {
 
     @Test
     fun testBadIndexArgs() {
-        val results = Array<List<Int>?>(3) { null }
-        results[0] = findGreaterThan(
+        val res = Array<List<Int>?>(3) { null }
+        res[0] = findGreaterThan(
             u101, 77.5, 99, 99
         )
-        results[1] = findGreaterThan(
+        res[1] = findGreaterThan(
             u101, 77.5, 99, 98
         )
-        results[2] = findGreaterThan(
+        res[2] = findGreaterThan(
             u101, 77.5, -1, 98
         )
         assertEquals(
             listOf(0, 0, 0),
-            results.map { it?.size }
+            res.map { it?.size }
         )
     }
 
     @RepeatedTest(2)
     fun testShuffledList() {
         val shuffledList = u101.shuffled()
-        val result = findGreaterThan(
+        val res = findGreaterThan(
             shuffledList, 75.0
         )
-        assertEquals(5, result.size)
+        assertEquals(5, res.size)
         assertEquals(
             (76..80).toList(),
-            result.map { shuffledList[it].roundToInt() }.sorted()
+            res.map { shuffledList[it].roundToInt() }.sorted()
         )
     }
 
