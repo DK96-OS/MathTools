@@ -1,7 +1,7 @@
 package mathtools.lists.objects
 
 /** Sorting related Group operations
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object ObjectList {
 
     /** Remove and return the items in the list that match the selector.

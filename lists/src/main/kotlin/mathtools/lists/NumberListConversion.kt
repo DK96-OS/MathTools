@@ -1,7 +1,7 @@
 package mathtools.lists
 
-/** Convert Numbered List Types
- * Developed by DK96-OS : 2022 */
+/** Converts Numbered List Types
+ * @author DK96-OS : 2022 */
 object NumberListConversion {
 
 	fun toDouble(list: List<Number>)

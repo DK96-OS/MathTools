@@ -1,12 +1,16 @@
 package mathtools.lists.longs
 
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import mathtools.lists.LongList.findOutOfRange
 import mathtools.lists.NumberListConversion.toLong
 import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/** Testing DoubleList's findOutOfRange function */
+/** Testing LongList findOutOfRange function
+ * @author DK96-OS : 2022 */
 class LongListFindOutOfRangeTest {
 
 	private val u101 = toLong(uniform101)
@@ -91,6 +95,77 @@ class LongListFindOutOfRangeTest {
 				u101, -200L .. -100
 			)
 		)
+	}
+
+	@Test
+	fun testStartArg() {
+		val result1 = findOutOfRange(
+			u101, -10 .. 80L, 9
+		)
+		val result2 = findOutOfRange(
+			u101, -10 .. 80L, 10
+		)
+		val result3 = findOutOfRange(
+			u101, -10 .. 79L, 9
+		)
+		assertEquals(listOf(9), result1)
+		assertEquals(0, result2.size)
+		assertEquals(listOf(9, 100), result3)
+	}
+
+	@Test
+	fun testEndArg() {
+		val result1 = findOutOfRange(
+			u101, -20 .. 79L, 0, 100
+		)
+		val result2 = findOutOfRange(
+			u101, -20 ..79L, 0, 105
+		)
+		val result3 = findOutOfRange(
+			u101, -19 .. 70L, 0, 92
+		)
+		assertEquals(0, result1.size)
+		assertEquals(100, result2[0])
+		assertEquals(listOf(0, 91), result3)
+	}
+
+	@Test
+	fun testSublistSearch() {
+		val res = Array<List<Int>?>(3) { null }
+		res[0] = findOutOfRange(
+			u101, -10 .. 70L, 9, 92
+		)
+		res[1] = findOutOfRange(
+			u101, -10 .. 70L, 10, 92
+		)
+		res[2] = findOutOfRange(
+			u101, -10 .. 70L, 9, 91
+		)
+		assertEquals(listOf(9, 91), res[0])
+		assertEquals(listOf(91), res[1])
+		assertEquals(listOf(9), res[2])
+	}
+
+	@Test
+	fun testSplitSublistSearch() {
+		runBlocking {
+			val results = Array<Deferred<List<Int>>?>(4) { null }
+			val indexRangePairs = listOf(
+				0 to 24, 25 to 50, 51 to 75, 76 to 101
+			)
+			for (i in 0 until 4)
+				results[i] = async {
+					findOutOfRange(
+						u101, 10 .. 50L,
+						indexRangePairs[i].first,
+						indexRangePairs[i].second + 1,
+					)
+				}
+			assertEquals(25, results[0]!!.await().size)
+			assertEquals(5, results[1]!!.await().size)
+			assertEquals(5, results[2]!!.await().size)
+			assertEquals(25, results[3]!!.await().size)
+		}
 	}
 
 }

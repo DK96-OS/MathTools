@@ -3,20 +3,30 @@ package mathtools.lists
 import java.math.BigDecimal
 
 /** Functions of Double typed Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object DoubleList {
 
     /** Find indices of elements greater than the limit
+     * @param list A List of values to search in
+     * @param limit The lowest value that will be ignored
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements above limit */
     fun findGreaterThan(
         list: List<Double>,
         limit: Double,
         start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || limit == Double.POSITIVE_INFINITY
+            || limit.isNaN()
+        ) return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start .. lastIndex) {
             if (list[idx] > limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -28,16 +38,26 @@ object DoubleList {
     }
 
     /** Find indices of elements less than the limit
+     * @param list A List of values to search in
+     * @param limit The greatest value that will be ignored
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements below limit */
     fun findLessThan(
         list: List<Double>,
         limit: Double,
         start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty())
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || limit == Double.NEGATIVE_INFINITY
+            || limit.isNaN()
+        ) return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start .. lastIndex) {
             if (list[idx] < limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -49,17 +69,29 @@ object DoubleList {
     }
 
     /** Find indices of elements outside of the specified boundaries
+     * @param list A List of values to search in
+     * @param lowerBound The lower limit of the boundary
+     * @param upperBound The upper limit of the boundary
+     * @param start The start of the range of indices to check (inclusive)
+     * @param end The end of the range of indices to check (exclusive)
      * @return Indices of elements out of bounds */
     fun findOutOfBounds(
         list: List<Double>,
         lowerBound: Double,
         upperBound: Double,
-        start: Int = 0
+        start: Int = 0,
+        end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty() || lowerBound > upperBound)
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || lowerBound.isNaN()
+            || upperBound.isNaN()
+            || lowerBound > upperBound
+        ) return emptyList()
+        // If end is greater than list size, use list size
+        val lastIndex = if (list.size < end)
+            list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start until list.size) {
+        for (idx in start .. lastIndex) {
             val item = list[idx]
             if (item < lowerBound || upperBound < item) {
                 if (indices == null)
