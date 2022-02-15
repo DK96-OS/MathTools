@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing the IntList FindLessThan function
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 class IntListFindLessThanTest {
 
 	private val u101 = toInt(uniform101)

@@ -9,7 +9,7 @@ import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/** Testing DoubleList's findOutOfRange function
+/** Testing LongList findOutOfRange function
  * @author DK96-OS : 2022 */
 class LongListFindOutOfRangeTest {
 
