@@ -7,10 +7,19 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing the IntList FindGreaterThan function
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 class IntListFindGreaterThanTest {
 
 	private val u101 = toInt(uniform101)
+
+	@Test
+	fun testEmptyList() {
+		assertEquals(
+			0, findGreaterThan(
+				emptyList(), 5
+			).size
+		)
+	}
 
 	@Test
 	fun testSingleItem() {
@@ -27,20 +36,11 @@ class IntListFindGreaterThanTest {
 	}
 
 	@Test
-	fun testEmptyList() {
+	fun testMaxValue() {
 		assertEquals(
-			0, findGreaterThan(
-				emptyList(), 5
-			).size
-		)
-	}
-
-	@Test
-	fun testFindGreaterThanMaxValue() {
-		assertEquals(
-			1, findGreaterThan(
+			listOf(0), findGreaterThan(
 				listOf(Int.MAX_VALUE), 2
-			).size
+			)
 		)
 		// Max Value Limit
 		assertEquals(
@@ -48,6 +48,61 @@ class IntListFindGreaterThanTest {
 				listOf(Int.MAX_VALUE), Int.MAX_VALUE
 			).size
 		)
+	}
+
+	@Test
+	fun testStartArg() {
+		val res = Array<List<Int>?>(4) { null }
+		res[0] = findGreaterThan(
+			u101, 77, 96
+		)
+		res[1] = findGreaterThan(
+			u101, 77, 99
+		)
+		res[2] = findGreaterThan(
+			u101, 77, 120
+		)
+		res[3] = findGreaterThan(
+			u101, 77, -1
+		)
+		assertEquals(listOf(98, 99, 100), res[0])
+		assertEquals(listOf(99, 100), res[1])
+		assertEquals(0, res[2]?.size)
+		assertEquals(0, res[3]?.size)
+	}
+
+	@Test
+	fun testEndArg() {
+		val res = Array<List<Int>?>(4) { null }
+		res[0] = findGreaterThan(
+			u101, -17, 0, 6
+		)
+		res[1] = findGreaterThan(
+			u101, -17, 0, 5
+		)
+		res[2] = findGreaterThan(
+			u101, -17, 0, -1
+		)
+		res[3] = findGreaterThan(
+			u101, 77, 0, 120
+		)
+		assertEquals(listOf(4, 5), res[0])
+		assertEquals(listOf(4), res[1])
+		assertEquals(0, res[2]?.size)
+		assertEquals(listOf(98, 99, 100), res[3])
+	}
+
+	@Test
+	fun testSublistSearch() {
+		val res = Array<List<Int>?>(2) { null }
+		res[0] = findGreaterThan(
+			u101, -17, 4, 6
+		)
+		res[1] = findGreaterThan(
+			u101, 77, 95, 100
+		)
+		assertEquals(listOf(4, 5), res[0])
+		assertEquals(listOf(98, 99), res[1])
 	}
 
 	@Test
