@@ -1,5 +1,7 @@
 package mathtools.lists.doubles
 
+/** Provider of Double List data samples for testing
+ * @author DK96-OS : 2022 */
 object DoubleListTestResources {
 
     internal const val smallListFactor = 100.101
@@ -15,17 +17,6 @@ object DoubleListTestResources {
         get() = Array(1_000) {
             medListFactor * (it + 1)
         }.toMutableList()
-
-    internal const val largeListFactor = 5_000_00_000.500543
-    /** A list with 150_000 elements */
-    internal val largeList: MutableList<Double>
-        get() = Array(150_000) {
-            largeListFactor * (it + 1)
-        }.toMutableList()
-
-    /** A list containing a single element 5.0 */
-    internal val singleItemList: MutableList<Double>
-        get() = mutableListOf(5.0)
 
     /** A list containing the max Double value */
     internal val maxValueList: MutableList<Double>

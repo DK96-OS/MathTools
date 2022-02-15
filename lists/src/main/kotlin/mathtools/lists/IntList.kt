@@ -4,19 +4,28 @@ import java.math.BigInteger
 import kotlin.math.roundToLong
 
 /** Functions of Integer typed Lists
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object IntList {
 
-	/** Find all elements greater than the limit */
+	/** Find all elements greater than the limit
+	 * @param list A List of values to search in
+	 * @param limit The lowest value that will be ignored
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements above limit */
 	fun findGreaterThan(
 		list: List<Int>,
 		limit: Int,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty() || limit == Int.MAX_VALUE)
 			return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		for (idx in start .. lastIndex)
 			if (list[idx] > limit) {
 				if (indices == null)
 					indices = arrayListOf(idx)
@@ -26,16 +35,25 @@ object IntList {
 		return indices ?: emptyList()
 	}
 
-	/** Find indices of elements less than the limit */
+	/** Find indices of elements less than the limit
+	 * @param list A List of values to search in
+	 * @param limit The greatest value that will be ignored
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements below limit */
 	fun findLessThan(
 		list: List<Int>,
 		limit: Int,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty() || limit == Int.MIN_VALUE)
 			return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		for (idx in start .. lastIndex)
 			if (list[idx] < limit) {
 				if (indices == null)
 					indices = arrayListOf(idx)
@@ -45,17 +63,28 @@ object IntList {
 		return indices ?: emptyList()
 	}
 
-	/** Find indices of elements outside of the given range */
+	/** Find indices of elements outside of the given range
+	 * @param list A List of values to search in
+	 * @param range The range of values to ignore
+	 * @param start The start of the range of indices to check (inclusive)
+	 * @param end The end of the range of indices to check (exclusive)
+	 * @return Indices of elements out of range */
 	fun findOutOfRange(
 		list: List<Int>,
 		range: IntRange,
 		start: Int = 0,
+		end: Int = list.size,
 	) : List<Int> {
 		if (start < 0 || list.isEmpty()
-		    || range.first == Int.MIN_VALUE && range.last == Int.MAX_VALUE
+		    || range.first > range.last
+		    || range.first == Int.MIN_VALUE
+		    && range.last == Int.MAX_VALUE
 		) return emptyList()
+		// If end is greater than list size, use list size
+		val lastIndex = if (list.size < end)
+			list.size - 1 else end - 1
 		var indices: ArrayList<Int>? = null
-		for (idx in start until list.size)
+		for (idx in start .. lastIndex)
 			if (list[idx] !in range) {
 				if (indices == null)
 					indices = arrayListOf(idx)
