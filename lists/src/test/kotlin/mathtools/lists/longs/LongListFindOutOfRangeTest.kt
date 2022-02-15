@@ -151,14 +151,14 @@ class LongListFindOutOfRangeTest {
 		runBlocking {
 			val results = Array<Deferred<List<Int>>?>(4) { null }
 			val indexRangePairs = listOf(
-				0 to 24, 25 to 50, 51 to 74, 75 to 101
+				0 to 24, 25 to 50, 51 to 75, 76 to 101
 			)
 			for (i in 0 until 4)
 				results[i] = async {
 					findOutOfRange(
 						u101, 10 .. 50L,
 						indexRangePairs[i].first,
-						indexRangePairs[i].second,
+						indexRangePairs[i].second + 1,
 					)
 				}
 			assertEquals(25, results[0]!!.await().size)

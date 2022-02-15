@@ -85,24 +85,13 @@ object LongList {
             list.size - 1 else end - 1
         // Container for discovered indices
         var indices: ArrayList<Int>? = null
-        if (range.first == range.last) {
-            for (idx in start .. lastIndex) {
-                val item = list[idx]
-                if (item != range.first)
-                    if (indices == null)
-                        indices = arrayListOf(idx)
-                    else
-                        indices.add(idx)
-            }
-        } else {
-            for (idx in start .. lastIndex) {
-                val item = list[idx]
-                if (item < range.first || range.last < item) {
-                    if (indices == null)
-                        indices = arrayListOf(idx)
-                    else
-                        indices.add(idx)
-                }
+        for (idx in start .. lastIndex) {
+            val item = list[idx]
+            if (item < range.first || range.last < item) {
+                if (indices == null)
+                    indices = arrayListOf(idx)
+                else
+                    indices.add(idx)
             }
         }
         return indices ?: emptyList()
