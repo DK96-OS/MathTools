@@ -82,8 +82,11 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty() || lowerBound > upperBound)
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || lowerBound.isNaN()
+            || upperBound.isNaN()
+            || lowerBound > upperBound
+        ) return emptyList()
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
