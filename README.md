@@ -1,12 +1,19 @@
-## MathTools
+## MathTools ![Build and Test](https://github.com/DK96-OS/MathTools/actions/workflows/build_and_test.yml/badge.svg?event=push) ![Code Coverage](https://github.com/DK96-OS/MathTools/actions/workflows/code_coverage.yml/badge.svg?event=push)
+
 Software Tools for Applied Mathematics are categorized into these modules:
 
+### Lists
+* Number-type list operations
+
 ### Numbers
-* Provides statistics on sets of numbers
-* Prime Number caching and factoring operations
+* Prime Number caches and factoring operations
+
+### Statistics
+* Analyze normal distributions
+* Find and remove outliers
 
 ### Systems
-* Perform a series of independent measurements on a system
 * Parabolic system solution on an interval
+This module will likely be removed.
 ____
 For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)!
