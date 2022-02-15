@@ -119,7 +119,7 @@ class LongListFindOutOfRangeTest {
 			u101, -20 .. 79L, 0, 100
 		)
 		val result2 = findOutOfRange(
-			u101, -20 ..79L, 0, 101
+			u101, -20 ..79L, 0, 105
 		)
 		val result3 = findOutOfRange(
 			u101, -19 .. 70L, 0, 92
@@ -131,39 +131,40 @@ class LongListFindOutOfRangeTest {
 
 	@Test
 	fun testSublistSearch() {
-		val result1 = findOutOfRange(
+		val res = Array<List<Int>?>(3) { null }
+		res[0] = findOutOfRange(
 			u101, -10 .. 70L, 9, 92
 		)
-		val result2 = findOutOfRange(
+		res[1] = findOutOfRange(
 			u101, -10 .. 70L, 10, 92
 		)
-		val result3 = findOutOfRange(
+		res[2] = findOutOfRange(
 			u101, -10 .. 70L, 9, 91
 		)
-		assertEquals(listOf(9, 91), result1)
-		assertEquals(91, result2[0])
-		assertEquals(9, result3[0])
+		assertEquals(listOf(9, 91), res[0])
+		assertEquals(listOf(91), res[1])
+		assertEquals(listOf(9), res[2])
 	}
 
 	@Test
 	fun testSplitSublistSearch() {
-		val results = Array<Deferred<List<Int>>?>(4) { null }
 		runBlocking {
-			for (i in 0 until 4) {
-				val startIdx = i * 25
-				val endIdx = if (i == 3)
-					101 else startIdx + 25
+			val results = Array<Deferred<List<Int>>?>(4) { null }
+			val indexRangePairs = listOf(
+				0 to 24, 25 to 50, 51 to 74, 75 to 101
+			)
+			for (i in 0 until 4)
 				results[i] = async {
 					findOutOfRange(
 						u101, 10 .. 50L,
-						startIdx, endIdx
+						indexRangePairs[i].first,
+						indexRangePairs[i].second,
 					)
 				}
-			}
 			assertEquals(25, results[0]!!.await().size)
 			assertEquals(5, results[1]!!.await().size)
-			assertEquals(4, results[2]!!.await().size)
-			assertEquals(26, results[3]!!.await().size)
+			assertEquals(5, results[2]!!.await().size)
+			assertEquals(25, results[3]!!.await().size)
 		}
 	}
 

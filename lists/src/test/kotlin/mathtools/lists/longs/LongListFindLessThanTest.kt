@@ -95,6 +95,7 @@ class LongListFindLessThanTest {
 		assertEquals(listOf(1, 2), res[0])
 		assertEquals(listOf(98, 99), res[1])
 	}
+
 	@Test
 	fun testBadIndexArgs() {
 		val res = Array<List<Int>?>(3) { null }

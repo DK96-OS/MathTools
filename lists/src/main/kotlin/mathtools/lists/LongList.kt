@@ -18,8 +18,9 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.size < end || limit == Long.MAX_VALUE)
-            return emptyList()
+        if (start < 0 || list.isEmpty()
+            || limit == Long.MAX_VALUE
+        ) return emptyList()
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
