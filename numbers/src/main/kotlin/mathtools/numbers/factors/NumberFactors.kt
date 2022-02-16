@@ -15,6 +15,17 @@ object NumberFactors {
 		return lowest != 0L && lowest > 1
 	}
 
+	/** Determines whether a number contains a factor of 2
+	 * @param number the Number to check
+	 * @return True if number is divisible by 2 */
+	fun isProductOf2(
+		number: Int,
+	) : Boolean {
+		val lowest = number.takeLowestOneBit()
+		// If the lowest one bit is greater than 1, it is even
+		return lowest != 0 && lowest > 1
+	}
+
 	/** Determines whether a number contains a factor of 5
 	 * @param number the Number to check
 	 * @return True if the number is divisible by 5 */

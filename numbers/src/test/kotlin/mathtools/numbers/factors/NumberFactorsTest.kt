@@ -15,27 +15,46 @@ class NumberFactorsTest {
 	@Test
 	fun testProductOf2() {
 		assertEquals(false, isProductOf2(0))
-		for (n in 1 .. 65 step 2)
+		assertEquals(false, isProductOf2(0L))
+		for (n in 1 .. 65 step 2) {
+			assertEquals(false, isProductOf2(n))
 			assertEquals(false, isProductOf2(n.toLong()))
-		for (n in 2 .. 66 step 2)
+		}
+		for (n in 2 .. 66 step 2) {
+			assertEquals(true, isProductOf2(n))
 			assertEquals(true, isProductOf2(n.toLong()))
+		}
 	}
 
 	@Test
 	fun testProductOf2Negative() {
-		for (n in 1 .. 65 step 2)
+		for (n in 1 .. 65 step 2) {
+			assertEquals(false, isProductOf2(-n))
 			assertEquals(false, isProductOf2(-n.toLong()))
-		for (n in 2 .. 66 step 2)
+		}
+		for (n in 2 .. 66 step 2) {
+			assertEquals(true, isProductOf2(-n))
 			assertEquals(true, isProductOf2(-n.toLong()))
+		}
 	}
 
 	@Test
 	fun testProductOf2Large() {
 		val lowerBound = Long.MAX_VALUE - 100
-		for (n in Long.MAX_VALUE downTo lowerBound step 2)
+		for (n in Long.MAX_VALUE downTo lowerBound step 2) {
 			assertEquals(false, isProductOf2(n))
-		for (n in Long.MAX_VALUE - 1 downTo lowerBound step 2)
+		}
+		for (n in Long.MAX_VALUE - 1 downTo lowerBound step 2) {
 			assertEquals(true, isProductOf2(n))
+		}
+		// Int
+		val lowerBoundInt = Int.MAX_VALUE - 100
+		for (n in Int.MAX_VALUE downTo lowerBoundInt step 2) {
+			assertEquals(false, isProductOf2(n))
+		}
+		for (n in Int.MAX_VALUE - 1 downTo lowerBoundInt step 2) {
+			assertEquals(true, isProductOf2(n))
+		}
 	}
 
 	@Test
