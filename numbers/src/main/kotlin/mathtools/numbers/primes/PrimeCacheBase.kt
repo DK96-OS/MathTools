@@ -1,5 +1,7 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.factors.NumberFactors.isProductOf2
+
 /** Common to Prime Number Caches */
 abstract class PrimeCacheBase(
 	/** The highest index that this Cache can store */
@@ -27,26 +29,31 @@ abstract class PrimeCacheBase(
 	abstract fun clear()
 
     /** Skip checking if 2 is a factor, assume number is odd */
-    private fun quickIsPrime(number: Int): Boolean {
-        var prevPrime = 2L
+    private fun quickIsPrime(
+	    number: Int,
+    ) : Boolean? {
+        var prevPrime = 2
         for (i in 1 .. 15) {
-            val testPrime = initArray[i]
+            val testPrime = initArray[i].toInt()
             if (number % testPrime == 0) return false
             if (testPrime * prevPrime > number) return true
-            prevPrime = testPrime.toLong()
+            prevPrime = testPrime
         }
-        for (i in 16 .. indexRange.last) {
+        for (i in 16 .. maxIndex) {
             val testPrime = getPrime(i)
             if (number % testPrime == 0) return false
             if (testPrime * prevPrime > number) return true
-            prevPrime = testPrime.toLong()
+            prevPrime = testPrime
         }
-        return true
+        return null
     }
 
-    /** Determine if this number is prime.
-     * Zero is considered prime */
-    fun isPrime(number: Int): Boolean {
+    /** Determine if a number is prime. Zero and one are prime.
+     * @param number The number to check for prime status
+     * @return True if it is a prime, false if not. Null if undetermined. */
+    fun isPrime(
+	    number: Int,
+    ) : Boolean? {
         when {
             // Basic Primes: 0, 1, 2, 3
             number in 0 .. 3 -> return true
@@ -54,10 +61,9 @@ abstract class PrimeCacheBase(
             number < 0 -> return isPrime(-number)
             // Check if it is in the initial prime array
             number <= initArray.last() -> {
-                return number.toByte() in initArray
+	            return initArray.binarySearch(number.toByte(), 2) > 0
             }
-            // Check if it is even
-            number % 2 == 0 -> return false
+	        isProductOf2(number) -> return false
         }
         // Check current cache size, and maximum prime number
         val cacheIndex = highestCachedIndex()
@@ -77,14 +83,22 @@ abstract class PrimeCacheBase(
             // The given number is still larger than the break condition
             availablePrimes = (maxIndex - cacheIndex).coerceAtMost(48)
         }
-        throw IllegalStateException("Inconsistent State")
+        return null
     }
 
     /** Find the next prime using the given number as a starting point
       * @param testNum The first number to test for prime status */
-    internal fun findPrime(testNum: Int): Int? {
-        for (n in testNum .. maxValue step 2)
-            if (quickIsPrime(n)) return n
+    internal fun findPrime(
+	    testNum: Int
+    ) : Int? {
+	    if (testNum <= 0) return null
+        for (n in testNum .. maxValue step 2) {
+	        when (quickIsPrime(n)) {
+				true -> return n
+		        null -> return null
+		        else -> {}
+	        }
+        }
         return null
     }
 
