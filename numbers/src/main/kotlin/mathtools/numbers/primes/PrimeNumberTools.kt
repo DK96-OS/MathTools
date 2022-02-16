@@ -1,7 +1,9 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.factors.NumberFactors.divideOutFactor
+
 /** Container for PrimeNumber functions
- * Developed by DK96-OS : 2018 - 2021 */
+ * @author DK96-OS : 2018 - 2021 */
 object PrimeNumberTools {
 
 	/** This master prime cache provides a reference for other sets */
@@ -31,7 +33,7 @@ object PrimeNumberTools {
 		var checkPrime = getPrime(primeIdx)
 		var composite = product
 		while (limit in checkPrime until composite) {
-			composite = reduceByFactor(checkPrime, composite)
+			composite = divideOutFactor(checkPrime, composite)
 			checkPrime = getPrime(++primeIdx)
 		}
 		composite > limit
@@ -46,7 +48,7 @@ object PrimeNumberTools {
         var testPrime = getPrime(primeIdx)
         var composite = product
         while (limit in testPrime until composite) {
-            composite = reduceByFactor(testPrime, composite)
+            composite = divideOutFactor(testPrime, composite)
             testPrime = getPrime(++primeIdx)
         }
         while (testPrime in (limit + 1) .. composite) {
@@ -56,17 +58,6 @@ object PrimeNumberTools {
         return null
     }
 
-    /** Reduces the composite by the given factor repeatedly
-     * @param factor The factor to reduce
-     * @param composite The composite number to be reduced if it contains factor
-     * @return The reduced or unreduced composite number */
-    fun reduceByFactor(factor: Int, composite: Long)
-    : Long = if (composite % factor == 0L) {
-        var reduced = composite / factor
-        while (reduced % factor == 0L) { reduced /= factor }
-        reduced
-    } else composite
-	
 	/** Try to divide the product by all primes in the index range.
 	 * @param primeIndexRange The range of prime number indices to try
 	 * @param product Assumed to be a product of prime numbers
@@ -75,7 +66,7 @@ object PrimeNumberTools {
 		var composite: Long = product
 		for (primeIdx in primeIndexRange) {
 			val testPrime = getPrime(primeIdx)
-			composite = reduceByFactor(testPrime, composite)
+			composite = divideOutFactor(testPrime, composite)
 			if (composite < testPrime) break
 		}
 		return if (composite <= 1L) null else composite
@@ -86,7 +77,7 @@ object PrimeNumberTools {
 	 * @param maxPrime The maximum prime factor to be removed */
 	fun reduceByPrimes(product: Long, maxPrime: Long): Long? {
 		if (product <= maxPrime || maxPrime <= 1) return null
-		var composite: Long = reduceByFactor(2, product)
+		var composite: Long = divideOutFactor(2, product)
 		var primeIdx = 1
 		var testPrime: Int = 3	// getPrime(idx) currently returns Int
 		while (
@@ -94,7 +85,7 @@ object PrimeNumberTools {
 			testPrime <= maxPrime && primeIdx <= shortPrimes.maxIndex
 		) {
 			testPrime = getPrime(primeIdx++)
-			composite = reduceByFactor(testPrime, composite)
+			composite = divideOutFactor(testPrime, composite)
 		}
 		return if (composite <= 1L || composite <= testPrime)
 			null else composite

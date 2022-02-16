@@ -27,4 +27,33 @@ object NumberFactors {
 		return s == 5 || s == 0 && length > 0
 	}
 
+	/** Divides a factor from a number repeatedly
+	 * @param factor The factor to divide with
+	 * @param number The composite number to be reduced if it contains the factor
+	 * @return The reduced or unreduced composite number */
+	fun divideOutFactor(
+		factor: Int,
+		number: Long,
+	) : Long {
+		// Convert factor to Long once
+		val lFactor = when {
+			// These factors are invalid, or won't do anything
+			factor in -1 .. 1 -> return number
+			// Invert negative factors
+			factor < 0 -> -factor.toLong()
+			else -> factor.toLong()
+		}
+		// Divide and check
+		var reduced = number / lFactor
+		return if (reduced * lFactor == number) {
+			// Try reducing by another factor
+			var newReduced = reduced / lFactor
+			while (newReduced * lFactor == reduced && reduced !in -1 .. 1) {
+				reduced = newReduced
+				newReduced = reduced / lFactor
+			}
+			reduced
+		} else number
+	}
+
 }
