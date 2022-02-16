@@ -1,7 +1,9 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.primes.PrimeNumberTools.checkForPrimeFactorAboveLimit
+import mathtools.numbers.primes.PrimeNumberTools.divideOutSmallPrimes
 import mathtools.numbers.primes.PrimeNumberTools.getFirstPrimeAboveLimit
-import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimes
+import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimeRange
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -32,17 +34,11 @@ class PrimeNumberToolsTest {
 
     @Test
     fun testPrimeFactorLimitCheck() {
-    	assertEquals(false, PrimeNumberTools.checkForPrimeFactorAboveLimit(40, 11))
-    	assertEquals(false, PrimeNumberTools.checkForPrimeFactorAboveLimit(39, 13))
+    	assertEquals(false, checkForPrimeFactorAboveLimit(40, 11))
+    	assertEquals(false, checkForPrimeFactorAboveLimit(39, 13))
     	
-    	assertEquals(true, PrimeNumberTools.checkForPrimeFactorAboveLimit(34, 11))
-    	assertEquals(true, PrimeNumberTools.checkForPrimeFactorAboveLimit(39, 11))
-    }
-    
-    @Test
-    fun obtainHighPrimeNumbers() {
-    	for (i in 20 .. 3000 step 50)
-    		println("Idx: $i, Prime: ${PrimeNumberTools.getPrime(i)}")
+    	assertEquals(true, checkForPrimeFactorAboveLimit(34, 11))
+    	assertEquals(true, checkForPrimeFactorAboveLimit(39, 11))
     }
 
 	@Test
@@ -67,24 +63,68 @@ class PrimeNumberToolsTest {
 	}
 
 	@Test
+	fun testFirstPrimeAboveLimitInvalid() {
+		// Null when product is 1 or zero
+		assertEquals(null, getFirstPrimeAboveLimit(-1, 5))
+		assertEquals(null, getFirstPrimeAboveLimit(0, 5))
+		assertEquals(null, getFirstPrimeAboveLimit(1, 5))
+	}
+
+	@Test
 	fun testReduceByPrimes() {
-		assertEquals(2, reduceByPrimes(1..2, 30))
-		assertEquals(4, reduceByPrimes(1..5, 60))
-		assertEquals(12, reduceByPrimes(2..2, 60))
+		assertEquals(2, reduceByPrimeRange(1..2, 30))
+		assertEquals(4, reduceByPrimeRange(1..5, 60))
+		assertEquals(12, reduceByPrimeRange(2..2, 60))
 	}
 
 	@Test
 	fun testReduceByPrimesNegative() {
-		assertEquals(-2, reduceByPrimes(1..2, -30))
-		assertEquals(-4, reduceByPrimes(1..2, -60))
-		assertEquals(-12, reduceByPrimes(2..3, -60))
+		assertEquals(-2, reduceByPrimeRange(1..2, -30))
+		assertEquals(-4, reduceByPrimeRange(1..2, -60))
+		assertEquals(-12, reduceByPrimeRange(2..3, -60))
+	}
+
+	@Test
+	fun testReduceByPrimesIndivisibleProduct() {
+		assertEquals(null, reduceByPrimeRange(1..3, -1))
+		assertEquals(null, reduceByPrimeRange(1..3, 0))
+		assertEquals(null, reduceByPrimeRange(1..3, 1))
 	}
 
 	@Test
 	fun testReduceByPrimesInvalidRange() {
-		assertEquals(null, reduceByPrimes(-3..-1, -30))
-		assertEquals(null, reduceByPrimes(-3..5, -60))
-		assertEquals(null, reduceByPrimes(-1..0, -60))
+		// Negative valued ranges are ignored
+		assertEquals(null, reduceByPrimeRange(-3..-1, -30))
+		// The invalid region of the range is ignored
+		assertEquals(null, reduceByPrimeRange(-3..3, -60))
+		// Invalid region is ignored
+		assertEquals(-15, reduceByPrimeRange(-1..0, -60))
+	}
+
+	@Test
+	fun testReduceByPrimesReversedRange() {
+		assertEquals(4, reduceByPrimeRange(2..1, 60))
+		assertEquals(-4, reduceByPrimeRange(2..1, -60))
+	}
+
+	@Test
+	fun testDivideOutSmallPrimes() {
+		assertEquals(25, divideOutSmallPrimes(100, 2))
+		assertEquals(25, divideOutSmallPrimes(100, 3))
+		assertEquals(25, divideOutSmallPrimes(100, 4))
+		assertEquals(null, divideOutSmallPrimes(100, 5))
+		//
+		assertEquals(11, divideOutSmallPrimes(77, 7))
+		assertEquals(11, divideOutSmallPrimes(77, 9))
+		assertEquals(17, divideOutSmallPrimes(68, 13))
+		//
+		assertEquals(null, divideOutSmallPrimes(50, 43))
+	}
+
+	@Test
+	fun testDivideOutSmallPrimesNegative() {
+		assertEquals(null, divideOutSmallPrimes(-50, 43))
+		assertEquals(null, divideOutSmallPrimes(-100, 5))
 	}
 
 }

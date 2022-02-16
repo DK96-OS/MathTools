@@ -1,6 +1,7 @@
 package mathtools.numbers.primes
 
 import mathtools.numbers.factors.NumberFactors.divideOutFactor
+import mathtools.numbers.factors.NumberFactors.isProductOf2
 
 /** Container for PrimeNumber functions
  * @author DK96-OS : 2018 - 2021 */
@@ -49,6 +50,7 @@ object PrimeNumberTools {
 	    product: Long,
 	    limit: Long,
     ) : Long? {
+	    // check arguments
 	    when {
 			limit < 2 -> return null
 		    product in -1..1 -> return null
@@ -72,7 +74,7 @@ object PrimeNumberTools {
 	 * @param primeIndexRange The range of prime number indices to try
 	 * @param product Assumed to be a product of prime numbers
 	 * @return Remaining product after all divisions attempted, or null if 1 */
-	fun reduceByPrimes(
+	fun reduceByPrimeRange(
 		primeIndexRange: IntRange,
 		product: Long
 	) : Long? {
@@ -80,7 +82,7 @@ object PrimeNumberTools {
 		when {
 			// range is reversed
 			primeIndexRange.last < primeIndexRange.first ->
-				return reduceByPrimes(
+				return reduceByPrimeRange(
 					primeIndexRange.last .. primeIndexRange.first,
 					product
 				)
@@ -88,7 +90,7 @@ object PrimeNumberTools {
 			primeIndexRange.first < 0 -> {
 				if (primeIndexRange.last < 0) return null
 				// If range ends in valid region, reduce in valid region
-				return reduceByPrimes(
+				return reduceByPrimeRange(
 					0 .. primeIndexRange.last,
 					product
 				)
@@ -97,7 +99,7 @@ object PrimeNumberTools {
 			product in -1 .. 1 -> return null
 			// Product is negative
 			product < 0 -> {
-				val result = reduceByPrimes(primeIndexRange, -product)
+				val result = reduceByPrimeRange(primeIndexRange, -product)
 				return if (result != null) -result else null
 			}
 		}
@@ -115,23 +117,38 @@ object PrimeNumberTools {
 	
     /** Remove any prime factors less than or equal to the maximum
 	 * @param product Assumed product of a set of prime numbers
-	 * @param maxPrime The maximum prime factor to be removed */
-	fun reduceByPrimes(
+	 * @param maxPrime The maximum prime factor to be removed
+     * @return A number containing only primes greater than maxPrime, or null */
+	fun divideOutSmallPrimes(
 	    product: Long,
 	    maxPrime: Long
     ) : Long? {
-		if (product <= maxPrime || maxPrime <= 1) return null
-		var composite: Long = divideOutFactor(2, product)
-		var primeIdx = 1
-		var testPrime: Int = 3	// getPrime(idx) currently returns Int
-		while (
-			testPrime <= composite &&
-			testPrime <= maxPrime && primeIdx <= shortPrimes.maxIndex
-		) {
-			testPrime = getPrime(primeIdx++)
-			composite = divideOutFactor(testPrime, composite)
+	    // check arguments
+	    when {
+			maxPrime < 2 -> return null
+			product in -1 .. 1 -> return null
+		    product < 0 -> return divideOutSmallPrimes(-product, maxPrime)
+		    product <= maxPrime -> return null
 		}
-		return if (composite <= 1L || composite <= testPrime)
+	    // check efficiently for factors of 2
+		var composite: Long = if (isProductOf2(product))
+			divideOutFactor(2, product) else product
+	    // check next prime factor
+		var primeIdx = 1
+		var testPrime = 3	// getPrime(idx) currently returns Int
+	    while (
+			testPrime <= composite
+			&& testPrime <= maxPrime
+			&& primeIdx < shortPrimes.maxIndex
+		) {
+			composite = divideOutFactor(testPrime, composite)
+		    // Validate the next prime before overwriting
+		    val nextPrime = getPrime(++primeIdx)
+		    if (nextPrime >= composite) break
+		    testPrime = nextPrime
+		}
+		// If composite became 1, it was completely divided
+	    return if (composite <= 1L || composite <= testPrime)
 			null else composite
 	}
 	
