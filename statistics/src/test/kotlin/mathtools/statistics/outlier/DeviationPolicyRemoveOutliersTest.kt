@@ -155,9 +155,9 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size - 5, data.size)
 		assertEquals(5, removed.size)
-		// Removed are sorted in descending order, in this case
+		// Removed are in same order as outliers were found in
 		for (i in 0 until 5)
-			assertEquals(80.0 - i, removed[i])
+			assertEquals(76.0 + i, removed[i])
 	}
 
 	@Test
@@ -168,9 +168,9 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size - 5, data.size)
 		assertEquals(5, removed.size)
-		// Removed are sorted in descending order, in this case
+		// Removed are in same order as outliers were found in
 		for (i in 0 until 5)
-			assertEquals(80L - i, removed[i])
+			assertEquals(76L + i, removed[i])
 	}
 
 	@Test
@@ -181,9 +181,9 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size - 5, data.size)
 		assertEquals(5, removed.size)
-		// Removed are sorted in descending order, in this case
+		// Removed are in same order as outliers were found in
 		for (i in 0 until 5)
-			assertEquals(-16.0 - i, removed[i])
+			assertEquals(-20.0 + i, removed[i])
 	}
 
 	@Test
@@ -194,9 +194,9 @@ class DeviationPolicyRemoveOutliersTest {
 		)
 		assertEquals(uniform101.size - 5, data.size)
 		assertEquals(5, removed.size)
-		// Removed are sorted in descending order, in this case
+		// Removed are sorted in same order as outliers were found
 		for (i in 0 until 5)
-			assertEquals(-16L - i, removed[i])
+			assertEquals(-20L + i, removed[i])
 	}
 
 }
