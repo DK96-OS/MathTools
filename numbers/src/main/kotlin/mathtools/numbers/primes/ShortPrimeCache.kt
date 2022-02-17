@@ -60,22 +60,19 @@ open class ShortPrimeCache : PrimeCacheBase(
 	} else false
 
 	override fun consolidate(add: Int): Int {
+		if (add <= 0) throw IllegalArgumentException()
 		val prevSize = arraySize + queueSize
 		if (prevSize + add > indexRange.last + 1) return -1
 		val oldArray = shortArray
-		if (add == 0) shortArray = ShortArray(prevSize) {
-			if (it < oldArray.size) oldArray[it] else shortQueue.removeFirst()
-		} else {
-			var prev = (shortQueue.lastOrNull() ?: oldArray.last()).toInt()
-			shortArray = ShortArray(prevSize + add) {
-				if (it < oldArray.size) oldArray[it]
-				else if (it < prevSize) shortQueue.removeFirst()
-				else {
-					val newPrime = findPrime(prev + 2) ?:
-						throw IllegalStateException("Next Prime not found")
-					prev = newPrime
-					newPrime.toShort()
-				}
+		var prev = (shortQueue.lastOrNull() ?: oldArray.last()).toInt()
+		shortArray = ShortArray(prevSize + add) {
+			if (it < oldArray.size) oldArray[it]
+			else if (it < prevSize) shortQueue.removeFirst()
+			else {
+				val newPrime = findPrime(prev + 2)
+				        ?: throw IllegalStateException("Next Prime not found")
+				prev = newPrime
+				newPrime.toShort()
 			}
 		}
 		return shortArray.last().toInt()
