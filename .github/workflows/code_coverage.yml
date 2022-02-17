@@ -37,3 +37,10 @@ jobs:
             /home/runner/work/MathTools/MathTools/statistics/build/jacocoReport/
           retention-days: 90
         timeout-minutes: 1
+      - name: JaCoCo Verification
+        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        if: success() || failure()
+        with:
+          gradle-version: 7.4
+          arguments: jacocoTestCoverageVerification --warn
+        timeout-minutes: 4

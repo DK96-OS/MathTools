@@ -3,21 +3,23 @@ package mathtools.lists.objects
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.RepeatedTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import kotlin.random.Random
 
 /** Testing the ObjectList Functions
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 class ObjectListTest {
 
-    class SampleData(
+    private inner class SampleData(
         val groupId: Int, val r: Float,
     )
 
     private lateinit var source: MutableList<SampleData>
     
-    @BeforeEach fun setup() {
+    @BeforeEach
+    fun testSetup() {
         // Start with 1 one and 2 twos, and so forth
         source = arrayListOf(
 	        SampleData(1, 45f),
@@ -31,7 +33,7 @@ class ObjectListTest {
 
     @ParameterizedTest
     @ValueSource(booleans = [true, false]) 
-    fun testGroupSort(presortUsed:Boolean) {
+    fun testGroupSort(presortUsed: Boolean) {
         var prevSourceSize = source.size
         for (index in 1 until 10) {
             val group = ObjectList.extractFrom(source, presortUsed) {
@@ -43,7 +45,7 @@ class ObjectListTest {
         }
     }
 
-    @RepeatedTest(3)
+    @Test
     fun testUnsortedGroupSort() {
         source.shuffle()    // Randomize the order of the initial dataset
         var prevSourceSize = source.size

@@ -45,11 +45,7 @@ open class BytePrimeCache : PrimeCacheBase(
 		else if (queueSize + primesRequired > 8)
 		    consolidate(primesRequired) > 0
 		else {		// Add to queue
-			var prevPrime = (
-				byteQueue.lastOrNull() ?: (
-				    byteArray?.last() ?: initArray[15]
-				).toUByte()
-			).toInt()
+			var prevPrime = getPrime(highestCachedIndex())
 			var testN = prevPrime + 2
 			while (primesRequired > 0) {
 				val prime = findPrime(testN) ?: break
@@ -64,31 +60,25 @@ open class BytePrimeCache : PrimeCacheBase(
 	} else false
 
 	override fun consolidate(add: Int): Int {
+		if (add <= 0) throw IllegalArgumentException()
 		val prevSize = arraySize + queueSize
 		if (prevSize + add > indexRange.last + 1) return -1
 		val oldArray = byteArray
-		if (add == 0) byteArray = ByteArray(prevSize) {
-			if (it < (oldArray?.size ?: 0)) oldArray!![it]
-			else byteQueue.removeFirst().toByte()
-		} else {
-			var prev: Int = (
-			    byteQueue.lastOrNull() ?: (
-			        oldArray?.last() ?: initArray[15]
-			    ).toUByte()
-			 ).toInt()
-			byteArray = ByteArray(prevSize + add) {
-				when {
-					it < (oldArray?.size ?: 0) -> oldArray!![it]
-					it < prevSize -> byteQueue.removeFirst().toByte()
-					else -> {
-						prev = findPrime(prev + 2)
-							?: throw IllegalStateException("Next prime not found")
-						prev.toUByte().toByte()
-					}
+		var prev: Int = getPrime(highestCachedIndex())
+		byteArray = ByteArray(prevSize + add) {
+			when {
+				it < (oldArray?.size ?: 0) -> oldArray!![it]
+				it < prevSize -> byteQueue.removeFirst().toByte()
+				else -> {
+					prev = findPrime(prev + 2)
+					       ?: throw IllegalStateException("Next prime not found")
+					prev.toByte()
 				}
 			}
 		}
-		return byteArray!!.last().toUByte().toInt()
+		val highestPrime = byteArray!!.last()
+		return if (highestPrime > -1)
+			highestPrime.toInt() else 256 + highestPrime
 	}
 
     override fun clear() {

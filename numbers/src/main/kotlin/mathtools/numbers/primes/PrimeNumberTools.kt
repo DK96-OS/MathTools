@@ -1,7 +1,10 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.factors.NumberFactors.divideOutFactor
+import mathtools.numbers.factors.NumberFactors.isProductOf2
+
 /** Container for PrimeNumber functions
- * Developed by DK96-OS : 2018 - 2021 */
+ * @author DK96-OS : 2018 - 2021 */
 object PrimeNumberTools {
 
 	/** This master prime cache provides a reference for other sets */
@@ -25,13 +28,15 @@ object PrimeNumberTools {
     /** Whether this Product/Prime contains a prime number greater than the limit
      * @param product The product to test
      * @param limit The maximum prime number allowed */
-	fun checkForPrimeFactorAboveLimit(product: Long, limit: Long)
-	: Boolean = if (limit < product) {
+	fun checkForPrimeFactorAboveLimit(
+	    product: Long,
+	    limit: Long,
+    ) : Boolean = if (limit < product) {
 		var primeIdx = 0
 		var checkPrime = getPrime(primeIdx)
 		var composite = product
 		while (limit in checkPrime until composite) {
-			composite = reduceByFactor(checkPrime, composite)
+			composite = divideOutFactor(checkPrime, composite)
 			checkPrime = getPrime(++primeIdx)
 		}
 		composite > limit
@@ -41,12 +46,21 @@ object PrimeNumberTools {
      * @param product The product to search in
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
-    fun getFirstPrimeAboveLimit(product: Long, limit: Long): Long? {
+    fun getFirstPrimeAboveLimit(
+	    product: Long,
+	    limit: Long,
+    ) : Long? {
+	    // check arguments
+	    when {
+			limit < 2 -> return null
+		    product in -1..1 -> return null
+		    product < 0 -> return getFirstPrimeAboveLimit(-product, limit)
+		}
         var primeIdx = 0
         var testPrime = getPrime(primeIdx)
         var composite = product
         while (limit in testPrime until composite) {
-            composite = reduceByFactor(testPrime, composite)
+            composite = divideOutFactor(testPrime, composite)
             testPrime = getPrime(++primeIdx)
         }
         while (testPrime in (limit + 1) .. composite) {
@@ -56,47 +70,85 @@ object PrimeNumberTools {
         return null
     }
 
-    /** Reduces the composite by the given factor repeatedly
-     * @param factor The factor to reduce
-     * @param composite The composite number to be reduced if it contains factor
-     * @return The reduced or unreduced composite number */
-    fun reduceByFactor(factor: Int, composite: Long)
-    : Long = if (composite % factor == 0L) {
-        var reduced = composite / factor
-        while (reduced % factor == 0L) { reduced /= factor }
-        reduced
-    } else composite
-	
 	/** Try to divide the product by all primes in the index range.
 	 * @param primeIndexRange The range of prime number indices to try
 	 * @param product Assumed to be a product of prime numbers
 	 * @return Remaining product after all divisions attempted, or null if 1 */
-	fun reduceByPrimes(primeIndexRange: IntRange, product: Long): Long? {
+	fun reduceByPrimeRange(
+		primeIndexRange: IntRange,
+		product: Long
+	) : Long? {
+		// check arguments
+		when {
+			// range is reversed
+			primeIndexRange.last < primeIndexRange.first ->
+				return reduceByPrimeRange(
+					primeIndexRange.last .. primeIndexRange.first,
+					product
+				)
+			// range starts below 0
+			primeIndexRange.first < 0 -> {
+				if (primeIndexRange.last < 0) return null
+				// If range ends in valid region, reduce in valid region
+				return reduceByPrimeRange(
+					0 .. primeIndexRange.last,
+					product
+				)
+			}
+			// Product is indivisible
+			product in -1 .. 1 -> return null
+			// Product is negative
+			product < 0 -> {
+				val result = reduceByPrimeRange(primeIndexRange, -product)
+				return if (result != null) -result else null
+			}
+		}
+		// Do reduction
 		var composite: Long = product
 		for (primeIdx in primeIndexRange) {
 			val testPrime = getPrime(primeIdx)
-			composite = reduceByFactor(testPrime, composite)
+			composite = divideOutFactor(testPrime, composite)
+			// If the composite is less than the test factor, done
 			if (composite < testPrime) break
 		}
-		return if (composite <= 1L) null else composite
+		return if (composite <= 1L)
+			null else composite
 	}
 	
     /** Remove any prime factors less than or equal to the maximum
 	 * @param product Assumed product of a set of prime numbers
-	 * @param maxPrime The maximum prime factor to be removed */
-	fun reduceByPrimes(product: Long, maxPrime: Long): Long? {
-		if (product <= maxPrime || maxPrime <= 1) return null
-		var composite: Long = reduceByFactor(2, product)
-		var primeIdx = 1
-		var testPrime: Int = 3	// getPrime(idx) currently returns Int
-		while (
-			testPrime <= composite &&
-			testPrime <= maxPrime && primeIdx <= shortPrimes.maxIndex
-		) {
-			testPrime = getPrime(primeIdx++)
-			composite = reduceByFactor(testPrime, composite)
+	 * @param maxPrime The maximum prime factor to be removed
+     * @return A number containing only primes greater than maxPrime, or null */
+	fun divideOutSmallPrimes(
+	    product: Long,
+	    maxPrime: Long
+    ) : Long? {
+	    // check arguments
+	    when {
+			maxPrime < 2 -> return null
+			product in -1 .. 1 -> return null
+		    product < 0 -> return divideOutSmallPrimes(-product, maxPrime)
+		    product <= maxPrime -> return null
 		}
-		return if (composite <= 1L || composite <= testPrime)
+	    // check efficiently for factors of 2
+		var composite: Long = if (isProductOf2(product))
+			divideOutFactor(2, product) else product
+	    // check next prime factor
+		var primeIdx = 1
+		var testPrime = 3	// getPrime(idx) currently returns Int
+	    while (
+			testPrime <= composite
+			&& testPrime <= maxPrime
+			&& primeIdx < shortPrimes.maxIndex
+		) {
+			composite = divideOutFactor(testPrime, composite)
+		    // Validate the next prime before overwriting
+		    val nextPrime = getPrime(++primeIdx)
+		    if (nextPrime >= composite) break
+		    testPrime = nextPrime
+		}
+		// If composite became 1, it was completely divided
+	    return if (composite <= 1L || composite <= testPrime)
 			null else composite
 	}
 	

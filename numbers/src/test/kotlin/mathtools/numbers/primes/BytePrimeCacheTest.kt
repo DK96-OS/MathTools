@@ -3,13 +3,14 @@ package mathtools.numbers.primes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 /** Testing the Byte PrimeCache class, for primes less than 128 */
 class BytePrimeCacheTest {
     companion object {
-        val primeList: List<Int> = listOf<Int>(
+        val primeList: List<Int> = listOf(
             2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
             73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149,
             151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227,
@@ -100,4 +101,31 @@ class BytePrimeCacheTest {
             cache.clear()
         }
     }
+
+    @Test
+    fun testPrimeTooLargeForCache() {
+        val cache = BytePrimeCache()
+        assertThrows<IllegalStateException> {
+            cache.getPrime(cache.maxIndex + 5)
+        }
+    }
+
+    @Test
+    fun testUByteConversions() {
+        val positiveByte = 127
+        val negativeByte = 128
+        assertEquals(127, positiveByte.toByte().toInt())
+        assertEquals(-128, negativeByte.toByte().toInt())
+        assertEquals(-128, negativeByte.toUByte().toByte().toInt())
+        //
+        val nByte2 = (-120).toByte()
+        assertEquals("-120", nByte2.toString())
+        val uByte2 = nByte2.toUByte()
+        val uByte2Result = 128 + (128 + nByte2)
+        assertEquals(
+            uByte2.toString(), uByte2Result.toString()
+        )
+        assertEquals("136", uByte2.toInt().toString())
+    }
+
 }

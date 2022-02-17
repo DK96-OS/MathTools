@@ -9,8 +9,10 @@ object ObjectList {
       *  @param presorted If the list is sorted according to selector, ie. the matches are all in one consecutive index range in the list.
       *  @param selector The condition to test for determining a match
       *  @return A new MutableList containing matching items or null if no matches were found */
-    inline fun <T> extractFrom(
-        list:MutableList<T>, presorted:Boolean=false, selector: (T) -> Boolean
+    fun <T> extractFrom(
+        list: MutableList<T>,
+        presorted: Boolean = false,
+        selector: (T) -> Boolean
     ) : MutableList<T>? {
         var i = list.indexOfFirst { selector(it) }
         if (i < 0) return null

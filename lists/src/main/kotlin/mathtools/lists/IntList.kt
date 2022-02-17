@@ -94,19 +94,24 @@ object IntList {
 		return indices ?: emptyList()
 	}
 
-	/** Remove and return items from the mutable list at the given indices */
+	/** Remove and return ints from a mutable list at given indices
+	 * @param list The list of values to remove from
+	 * @param indices The list of indices to be removed
+	 * @return List of removed items, in same order as indices */
 	fun removeByIndices(
-		list: MutableList<Long>,
+		list: MutableList<Int>,
 		indices: List<Int>,
-	) : List<Long> = when {
-		indices.isEmpty() -> emptyList()
-		else -> ArrayList<Long>().apply {
-			for (i in indices.size - 1 downTo 0) {
-				val listIndex = indices[i]
-				if (listIndex in list.indices)
-					add(list.removeAt(listIndex))
-			}
-		}
+	) : List<Int> {
+		if (list.isEmpty() || indices.isEmpty())
+			return emptyList()
+		val valid = indices.filter { it in list.indices }
+		if (valid.isEmpty())
+			return emptyList()
+		val result = valid.map { list[it] }
+		val sorted = valid.sortedDescending()
+		for (i in sorted.indices)
+			list.removeAt(sorted[i])
+		return result
 	}
 
 	/** Calculate a large sum */
