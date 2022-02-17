@@ -1,18 +1,22 @@
 package mathtools.numbers.strict
 
-import kotlin.random.Random
-
 /** Data Structure for integer restricted to fixed range
  * @author DK96-OS : 2019 - 2022 */
 class RestrictedInt(
     number: Int,
     max: Int,
     min: Int = 1,
-    var isIncreasing: Boolean = true
+    isIncreasing: Boolean = true
 ) {
-    val range: IntRange = min .. max
+    val range: IntRange = when {
+        min <= max -> min .. max
+        else -> max .. min
+    }
 
     var value: Int = number.coerceIn(range)
+        private set
+
+    var isIncreasing: Boolean = isIncreasing
         private set
 
     constructor(
@@ -53,10 +57,10 @@ class RestrictedInt(
                 if (initRange.last in range)
                     initRange.random()
                 else
-                    Random.nextInt(initRange.first, range.last + 1)
+                    (initRange.first .. range.last).random()
             }
             initRange.last in range ->
-                Random.nextInt(range.first, initRange.last + 1)
+                (range.first .. initRange.last).random()
             else -> range.random()
         }
         return value

@@ -69,6 +69,17 @@ class RestrictedDigitTest {
 	}
 
 	@Test
+	fun testCompareTo() {
+		val d = RestrictedDigit(4)
+		assertEquals(true, d > 0)
+		assertEquals(true, d > -9)
+		assertEquals(true, d < 9)
+		assertEquals(0, d.compareTo(4))
+		assertEquals(-1, d.compareTo(5))
+		assertEquals(1, d.compareTo(3))
+	}
+
+	@Test
 	fun testToString() {
 		val d = RestrictedDigit(7)
 		assertEquals("7", d.toString())
