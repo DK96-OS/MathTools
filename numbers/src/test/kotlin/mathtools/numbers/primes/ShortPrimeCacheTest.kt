@@ -3,6 +3,7 @@ package mathtools.numbers.primes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
@@ -22,7 +23,8 @@ class ShortPrimeCacheTest {
     	assertEquals(349, primeList[69])
     */
 
-	@Test fun testIsPrime() {
+	@Test
+	fun testIsPrime() {
 		val cache = ShortPrimeCache()
 		for (n in 2 until primeList.last())
 			assertEquals(n in primeList, cache.isPrime(n))
@@ -32,7 +34,8 @@ class ShortPrimeCacheTest {
 		}
 	}
 	
-	@Test fun testGetPrimeDecreasing() {
+	@Test
+	fun testGetPrimeDecreasing() {
 		val cache = ShortPrimeCache()
 		for (i in primeList.size - 1 downTo 0) {
 			assertEquals(primeList[i], cache.getPrime(i))
@@ -93,6 +96,14 @@ class ShortPrimeCacheTest {
 				val rand = cache.getPrime(cache.shortIndexRange.random())
 				assertEquals(true, cache.isPrime(rand))
 			}
+		}
+	}
+
+	@Test
+	fun testPrimeTooLargeForCache() {
+		val cache = ShortPrimeCache()
+		assertThrows<IllegalStateException> {
+			cache.getPrime(cache.maxIndex + 5)
 		}
 	}
 
