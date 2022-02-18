@@ -1,5 +1,6 @@
 package mathtools.numbers.format
 
+import mathtools.numbers.factors.IntOperations
 import kotlin.math.roundToInt
 
 /** Handling Percentage Values and Formatting
@@ -17,7 +18,7 @@ object Percentages {
 		f in 0f .. 1f -> if (decimalsAllowed <= (0).toByte())
 			(f * 100).roundToInt().toString().plus("%")
 		else if (decimalsAllowed in 1 .. 7) {
-			val shift = NumberFormatter.tenShift(1, decimalsAllowed.toInt())
+			val shift = IntOperations.tenShift(1, decimalsAllowed.toInt())
 			val rounded = (f * 100 * shift).roundToInt().toFloat()
 			(rounded / shift).toString().plus("%")
 		} else throw IllegalArgumentException("Invalid Decimal count")
