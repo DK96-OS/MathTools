@@ -53,10 +53,14 @@ object IntOperations {
 	) : Pair<Int, Int> {
 		when {
 			power < 0 -> return x to power
+			power == 0 -> return 1 to 0
 			x < 2 -> return when (x) {
-				in 0 .. 1 -> x to 0
-				-1 -> if (isProductOf2(power))
-					1 to 0 else -1 to 0
+				1 -> 1 to 0
+				0 -> 0 to 0
+				-1 -> when {
+					isProductOf2(power) -> 1 to 0
+					else -> -1 to 0
+				}
 				else -> {
 					val (product, remaining) = exponent(-x, power)
 					if (isProductOf2(power - remaining))
@@ -65,19 +69,18 @@ object IntOperations {
 						-product to remaining
 				}
 			}
-			power == 0 -> return 1 to 0
 			power == 1 -> return x to 0
 		}
 		val longX = x.toLong()
 		var product = longX * longX
 		// check for overflow
-		if (product !in x .. Int.MAX_VALUE)
+		if (product <= x || Int.MAX_VALUE < product)
 			return x to power
 		if (power == 2)
 			return product.toInt() to 0
 		for (e in 2 until power) {
 			val next = product * longX
-			if (next !in x .. Int.MAX_VALUE) {
+			if (next <= x || Int.MAX_VALUE < next) {
 				// Integer Overflow
 				return product.toInt() to power - e
 			}

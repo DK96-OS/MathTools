@@ -1,4 +1,4 @@
-package mathtools.numbers.format
+package mathtools.numbers.factors
 
 import mathtools.numbers.factors.IntOperations.exponent
 import mathtools.numbers.factors.IntOperations.tenShift
@@ -123,7 +123,16 @@ class IntOperationsTest {
 		assertEquals(0 to 0, exponent(0, 5))
 		//
 		assertEquals(1 to 0, exponent(6, 0))
+		assertEquals(1 to 0, exponent(-6, 0))
 		assertEquals(6 to 0, exponent(6, 1))
+	}
+
+	@Test
+	fun testExponentNegativeOneX() {
+		assertEquals(1 to 0, exponent(-1, 0))
+		assertEquals(-1 to 0, exponent(-1, 1))
+		assertEquals(1 to 0, exponent(-1, 2))
+		assertEquals(-1 to 0, exponent(-1, 3))
 	}
 
 	@Test
@@ -156,6 +165,15 @@ class IntOperationsTest {
 	fun testExponentNegativePower() {
 		for (pwr in -1 downTo -10)
 			assertEquals(2 to pwr, exponent(2, pwr))
+	}
+
+	@Test
+	fun testExponentNegativeX() {
+		assertEquals(1 to 0, exponent(-2, 0))
+		assertEquals(-2 to 0, exponent(-2, 1))
+		assertEquals(4 to 0, exponent(-2, 2))
+		assertEquals(-8 to 0, exponent(-2, 3))
+		assertEquals(16 to 0, exponent(-2, 4))
 	}
 
 }
