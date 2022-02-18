@@ -47,6 +47,7 @@ object StringPackager {
     /** Pack a short integer into a character */
     fun packShort(s: Short)
         : Char = s.toUShort().toInt().toChar()
+    //todo: Workaround UShort conversion
 
     /** Pack an unsigned short integer into a character */
     fun packUShort(s: UShort)
@@ -55,6 +56,7 @@ object StringPackager {
     /** Unpack a short integer from a character */
     fun unpackShort(c: Char)
         : Short = c.code.toUShort().toShort()
+    //todo: Workaround UShort conversion
 
     /** Pack N 32-bit float numbers into a string of length 2N */
     fun packFloats(
