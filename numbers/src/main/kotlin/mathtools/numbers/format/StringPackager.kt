@@ -61,14 +61,13 @@ object StringPackager {
         vararg floats: Float
     ) : String = when (floats.size) {
         1 -> packFloat(floats[0])
-        in 2..256 -> buildString {
+        else -> buildString {
             for (f in floats) {
                 val i = f.toBits()
                 append(i.toChar())
                 append(i.ushr(16).toChar())
             }
         }
-        else -> throw IllegalArgumentException()
     }
 
     /** Pack a 32-bit float into a String of length 2 */
