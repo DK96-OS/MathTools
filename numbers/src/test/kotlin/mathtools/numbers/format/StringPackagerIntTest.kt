@@ -43,7 +43,7 @@ class StringPackagerIntTest {
 			val packed = packShort(s)
 			val uPacked = packUShort(uShort)
 			// Both versions should be the same
-			assertEquals(packed, uPacked)
+			assertEquals(packed.code, uPacked.code)
 			//
 			assertEquals(s, unpackShort(packed))
 			assertEquals(uShort, unpackShort(uPacked).toUShort())
