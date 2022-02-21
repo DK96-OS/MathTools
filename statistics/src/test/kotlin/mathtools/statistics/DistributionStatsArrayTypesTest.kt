@@ -1,13 +1,13 @@
 package mathtools.statistics
 
-import mathtools.statistics.DistributionCharacteristics.Companion.process
+import mathtools.statistics.DistributionStats.Companion.process
 import mathtools.statistics.testdata.UniformTestDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /** Testing DistributionCharacteristics on Number Array types */
-class DistributionCharacteristicsArrayTypesTest {
+class DistributionStatsArrayTypesTest {
 
     private lateinit var byteArray: ByteArray
     private lateinit var shortArray: ShortArray
@@ -60,7 +60,7 @@ class DistributionCharacteristicsArrayTypesTest {
         verify(process(doubleArray))
     }
 
-    private fun verify(dc: DistributionCharacteristics?) {
+    private fun verify(dc: DistributionStats?) {
         assertEquals(true, dc != null)
         // Property Values
         assertEquals(-20.0, dc!!.min)

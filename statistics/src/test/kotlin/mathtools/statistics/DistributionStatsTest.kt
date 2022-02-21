@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /** Testing various data sets */
-class DistributionCharacteristicsTest {
+class DistributionStatsTest {
 
     @Test
     fun testUniformDistribution() {
         val uniData = listOf(
             25f, 26f, 27f, 28f, 29f, 30f, 31f, 32f, 33f, 34f, 35f
         )
-        DistributionCharacteristics.process(uniData)!!.run {
+        DistributionStats.process(uniData)!!.run {
             assertEquals(30.0, mean, 0.000_001)
             assertEquals(3.31, standardDeviation, 0.01)
             assertEquals(25.0, min)
@@ -33,7 +33,7 @@ class DistributionCharacteristicsTest {
         for (i in 101 .. 199)
             repeat(200 - i) { mtnData.add(i.toLong()) }
         //
-        DistributionCharacteristics.process(mtnData)!!.run {
+        DistributionStats.process(mtnData)!!.run {
             assertEquals(100.0, mean, 0.001)
             assertEquals(40.82, standardDeviation, 0.01)
             assertEquals(1.0, min)
@@ -52,7 +52,7 @@ class DistributionCharacteristicsTest {
         for (i in 1 .. 19)
             repeat(i) { skewData.add(i.toLong()) }
         //
-        DistributionCharacteristics.process(skewData)!!.run {
+        DistributionStats.process(skewData)!!.run {
             assertEquals(13.0, mean, 0.001)
             assertEquals(4.59, standardDeviation, 0.01)
             assertEquals(1.0, min)
@@ -69,13 +69,13 @@ class DistributionCharacteristicsTest {
     fun testEmptyList() {
         assertEquals(
             null,
-            DistributionCharacteristics.process(emptyList())
+            DistributionStats.process(emptyList())
         )
     }
 
     @Test
     fun testSingleList() {
-        DistributionCharacteristics.process(
+        DistributionStats.process(
 	        listOf(24L)
         )!!.apply {
             assertEquals(24.0, mean)

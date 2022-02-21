@@ -1,6 +1,6 @@
 package mathtools.statistics.testdata
 
-import mathtools.statistics.DistributionCharacteristics.Companion.process
+import mathtools.statistics.DistributionStats.Companion.process
 import mathtools.statistics.testdata.LargeTestDataSource.large123
 import mathtools.statistics.testdata.LargeTestDataSource.large123DC
 import mathtools.statistics.testdata.LargeTestDataSource.large123Sum

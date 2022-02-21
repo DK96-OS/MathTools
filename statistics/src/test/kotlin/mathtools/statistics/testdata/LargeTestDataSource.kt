@@ -1,6 +1,6 @@
 package mathtools.statistics.testdata
 
-import mathtools.statistics.DistributionCharacteristics
+import mathtools.statistics.DistributionStats
 
 /** A Source for Large TestData lists
  * Developed by DK96-OS : 2022 */
@@ -32,7 +32,7 @@ object LargeTestDataSource {
 		}
 	}.toList() }
 
-	val large123DC = DistributionCharacteristics(
+	val large123DC = DistributionStats(
 		123.0, 1.5811651830568505,
 		120, 126
 	)
@@ -63,7 +63,7 @@ object LargeTestDataSource {
 		}
 	}.toList() }
 
-	val large32760DC = DistributionCharacteristics(
+	val large32760DC = DistributionStats(
 		32760.0, 1.5126994751837317,
 		32757, 32763
 	)

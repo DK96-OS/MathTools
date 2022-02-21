@@ -1,6 +1,6 @@
 package mathtools.statistics.outlier
 
-import mathtools.statistics.DistributionCharacteristics
+import mathtools.statistics.DistributionStats
 
 /** Describes the way that outliers are identified
  * Developed by DK96-OS : 2022 */
@@ -11,9 +11,9 @@ interface OutlierPolicy {
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list */
     fun removeOutliersDouble(
-        mutableList: MutableList<Double>,
-        distribution: DistributionCharacteristics,
-        maxOutliers: UByte = 2u,
+	    mutableList: MutableList<Double>,
+	    distribution: DistributionStats,
+	    maxOutliers: UByte = 2u,
     ) : List<Double>
 
     /** Remove outliers from the unsorted list
@@ -27,9 +27,9 @@ interface OutlierPolicy {
     /** Remove outliers from the unsorted list
      * @return The outliers that were removed, or empty list */
     fun removeOutliersLong(
-        mutableList: MutableList<Long>,
-        distribution: DistributionCharacteristics,
-        maxOutliers: UByte = 2u,
+	    mutableList: MutableList<Long>,
+	    distribution: DistributionStats,
+	    maxOutliers: UByte = 2u,
     ) : List<Long>
 
     /** Remove outliers from the unsorted list
@@ -54,8 +54,8 @@ interface OutlierPolicy {
     /** Find the outliers in the unsorted Array
      * @return The indices of the outliers, or empty list */
     fun identifyOutliers(
-        array: DoubleArray,
-        distribution: DistributionCharacteristics,
+	    array: DoubleArray,
+	    distribution: DistributionStats,
     ) : List<Int>
 
     /** Find the outliers in the unsorted Array
@@ -69,8 +69,8 @@ interface OutlierPolicy {
     /** Find the outliers in the unsorted Array
      * @return The indices of the outliers, or empty list */
     fun identifyOutliers(
-        array: LongArray,
-        distribution: DistributionCharacteristics,
+	    array: LongArray,
+	    distribution: DistributionStats,
     ) : List<Int>
 
     /** Find the outliers in the unsorted Array
