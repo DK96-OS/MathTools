@@ -1,6 +1,6 @@
 package mathtools.statistics.testdata
 
-import mathtools.statistics.DistributionCharacteristics
+import mathtools.statistics.DistributionStats
 
 /** Uniform Data Collections
  * Developed by DK96-OS : 2022 */
@@ -29,7 +29,7 @@ object UniformTestDataSource {
 		}.toList()
 	}
 
-	val uniform101DC = DistributionCharacteristics(
+	val uniform101DC = DistributionStats(
 		30.0, 29.300_170_647_967_224,
 		-20.0, 80.0
 	)

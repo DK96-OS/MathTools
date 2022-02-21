@@ -5,7 +5,7 @@ import mathtools.statistics.Statistics.calculateSDev
 
 /** The key statistical parameters of a distribution
  * Developed by DK96-OS : 2022 */
-class DistributionCharacteristics internal constructor(
+class DistributionStats internal constructor(
     val mean: Double,
     val standardDeviation: Double,
     val min: Double,
@@ -24,7 +24,7 @@ class DistributionCharacteristics internal constructor(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as DistributionCharacteristics
+        other as DistributionStats
 
         if (mean != other.mean) return false
         if (standardDeviation != other.standardDeviation) return false
@@ -53,12 +53,12 @@ class DistributionCharacteristics internal constructor(
         /** Determine the DistributionCharacteristics of the given List */
         inline fun <reified T : Number> process(
             list: List<T>
-        ) : DistributionCharacteristics? {
+        ) : DistributionStats? {
             when (list.size) {
                 0 -> return null
                 1 -> {
                     val first = list[0]
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         first.toDouble(), 0.0, first, first
                     )
                 }
@@ -68,7 +68,7 @@ class DistributionCharacteristics internal constructor(
             when (list.first()) {
                 is Float -> {
                     val typedList = list as List<Float>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!
@@ -76,7 +76,7 @@ class DistributionCharacteristics internal constructor(
                 }
                 is Double -> {
                     val typedList = list as List<Double>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!! as Number,
                         typedList.maxOrNull()!!
@@ -84,7 +84,7 @@ class DistributionCharacteristics internal constructor(
                 }
                 is Long -> {
                     val typedList = list as List<Long>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!
@@ -92,7 +92,7 @@ class DistributionCharacteristics internal constructor(
                 }
                 is Int -> {
                     val typedList = list as List<Int>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!
@@ -100,7 +100,7 @@ class DistributionCharacteristics internal constructor(
                 }
                 is Short -> {
                     val typedList = list as List<Short>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!
@@ -108,7 +108,7 @@ class DistributionCharacteristics internal constructor(
                 }
                 is Byte -> {
                     val typedList = list as List<Byte>
-                    return DistributionCharacteristics(
+                    return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!
@@ -120,49 +120,49 @@ class DistributionCharacteristics internal constructor(
         }
 
         fun process(array: ByteArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: ShortArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: IntArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: LongArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: FloatArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: DoubleArray)
-            : DistributionCharacteristics? = if (array.size <= 2)
+            : DistributionStats? = if (array.size <= 2)
             null
-        else DistributionCharacteristics(
+        else DistributionStats(
 	        calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )

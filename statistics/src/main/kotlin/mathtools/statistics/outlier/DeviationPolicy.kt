@@ -2,7 +2,7 @@ package mathtools.statistics.outlier
 
 import mathtools.lists.DoubleList
 import mathtools.lists.LongList
-import mathtools.statistics.DistributionCharacteristics
+import mathtools.statistics.DistributionStats
 import kotlin.math.roundToLong
 
 /** An outlier policy that considers an element an outlier
@@ -35,7 +35,7 @@ class DeviationPolicy(
     }
 
     /** Obtain the outlier boundary values */
-    private val DistributionCharacteristics.bounds
+    private val DistributionStats.bounds
         : Pair<Double, Double> get() {
         val upperBound = valueAtDeviation(maxDeviations)
         val lowerBound = valueAtDeviation(-maxDeviations)
@@ -43,9 +43,9 @@ class DeviationPolicy(
     }
 
     override fun removeOutliersDouble(
-        mutableList: MutableList<Double>,
-        distribution: DistributionCharacteristics,
-        maxOutliers: UByte,
+	    mutableList: MutableList<Double>,
+	    distribution: DistributionStats,
+	    maxOutliers: UByte,
     ) : List<Double> {
         if (maxOutliers < 1u) return emptyList()
         return when {
@@ -105,9 +105,9 @@ class DeviationPolicy(
     }
 
     override fun removeOutliersLong(
-        mutableList: MutableList<Long>,
-        distribution: DistributionCharacteristics,
-        maxOutliers: UByte
+	    mutableList: MutableList<Long>,
+	    distribution: DistributionStats,
+	    maxOutliers: UByte
     ) : List<Long> {
 	    if (maxOutliers < 1u) return emptyList()
         return when {
@@ -168,7 +168,7 @@ class DeviationPolicy(
 
     override fun identifyOutliers(
         array: DoubleArray,
-        distribution: DistributionCharacteristics
+        distribution: DistributionStats
     ) : List<Int> = when {
         upperOutliers && lowerOutliers -> {
             val (lowerBound, upperBound) = distribution.bounds
@@ -193,7 +193,7 @@ class DeviationPolicy(
 
     override fun identifyOutliers(
         array: LongArray,
-        distribution: DistributionCharacteristics
+        distribution: DistributionStats
     ) : List<Int> = when {
         upperOutliers && lowerOutliers -> {
             val (b0, b1) = distribution.bounds

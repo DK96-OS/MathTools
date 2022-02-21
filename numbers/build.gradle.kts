@@ -9,7 +9,7 @@ configure<PublishingExtension> {
 		register<MavenPublication>("gpr") {
 			groupId = "io.github.dk96-os"
 			artifactId = "numbers"
-			version = "0.1"
+			version = "0.2"
 			from(components["java"])
 		}
 	}

@@ -7,7 +7,7 @@ import mathtools.lists.NumberListConversion.toInt
 import mathtools.lists.NumberListConversion.toLong
 import mathtools.lists.NumberListConversion.toShort
 import mathtools.lists.listSum
-import mathtools.statistics.DistributionCharacteristics.Companion.process
+import mathtools.statistics.DistributionStats.Companion.process
 import mathtools.statistics.testdata.LargeTestDataSource.large123
 import mathtools.statistics.testdata.LargeTestDataSource.large123DC
 import mathtools.statistics.testdata.LargeTestDataSource.large123Sum
