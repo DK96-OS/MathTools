@@ -67,4 +67,34 @@ object NumberFactors {
 		} else number
 	}
 
+	/** Count the power of a factor in a composite number.
+	 *  Ignores negative signs.
+	 * @param factor The factor to check for
+	 * @param composite The number to check in
+	 * @return The power of factor in the composite */
+	fun countFactor(
+		factor: Int,
+		composite: Long,
+	) : Int {
+		// validate factor
+		if (factor < 0) return countFactor(-factor, composite)
+		else if (factor == 0 || factor == 1) return 0
+		// validate composite
+		if (composite < 0) return countFactor(factor, -composite)
+		else if (composite == 0L || composite == 1L) return 0
+		// cast to long once
+		val longF = factor.toLong()
+		var remainder = composite / longF
+		// check
+		val reverse = remainder * longF
+		if (reverse < composite) return 0
+		// iterate
+		var counter = 1
+		while (remainder > 1 && remainder % longF == 0L) {
+			remainder /= longF
+			counter++
+		}
+		return counter
+	}
+
 }
