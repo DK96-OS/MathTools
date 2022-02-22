@@ -8,20 +8,6 @@ import kotlin.math.sqrt
 
 /* The Mean value functions */
 
-/** Calculate the mean value of an 8 bit Byte Array */
-fun calculateMean(array: ByteArray)
-    : Double = if (array.isEmpty())
-    0.0
-else array.sum().toDouble() / array.size
-    // todo: Use Double to count the sum
-
-/** Calculate the mean value of a 16 bit Short Array */
-fun calculateMean(array: ShortArray)
-    : Double = if (array.isEmpty())
-    0.0
-else array.sum().toDouble() / array.size
-    // todo: Use Double to count the sum
-
 /** Calculate the mean value of a 32 bit Integer Array */
 fun calculateMean(array: IntArray)
     : Double = if (array.isEmpty())
@@ -54,7 +40,7 @@ else array.sum().toDouble() / array.size
 
 /** Calculate the standard deviation of an 8 bit Byte Array */
 fun calculateSDev(
-    array: ByteArray, mean: Double = calculateMean(array)
+    array: ByteArray, mean: Double = ArrayStatistics.calculateMean(array)
 ) : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
@@ -67,7 +53,7 @@ fun calculateSDev(
 
 /** Calculate the standard deviation of a 16 bit Short Array */
 fun calculateSDev(
-    array: ShortArray, mean: Double = calculateMean(array)
+    array: ShortArray, mean: Double = ArrayStatistics.calculateMean(array)
 ) : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
