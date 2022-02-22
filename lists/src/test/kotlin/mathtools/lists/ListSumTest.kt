@@ -1,11 +1,6 @@
 package mathtools.lists
 
-import mathtools.lists.NumberListConversion.toByte
-import mathtools.lists.NumberListConversion.toDouble
-import mathtools.lists.NumberListConversion.toFloat
-import mathtools.lists.NumberListConversion.toInt
-import mathtools.lists.NumberListConversion.toLong
-import mathtools.lists.NumberListConversion.toShort
+import mathtools.lists.NumberListConversion.*
 import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
