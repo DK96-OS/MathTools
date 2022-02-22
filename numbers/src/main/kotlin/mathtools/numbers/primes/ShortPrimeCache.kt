@@ -1,7 +1,7 @@
 package mathtools.numbers.primes
 
-/** A cache for small prime numbers, within Short range
-   *  Developed by DK96-OS : 2021 */
+/** An array-based cache for Prime Numbers in the 16-bit integer range
+ * @author DK96-OS : 2021 */
 open class ShortPrimeCache : PrimeCacheBase(
 	maxIndex = MAX_INDEX,
 	maxValue = MAX_PRIME,
