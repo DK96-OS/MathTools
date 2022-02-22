@@ -3,8 +3,8 @@ package mathtools.numbers.primes
 /** A Lookup Table for Prime Numbers within the UByte Range, up to 251
    *  Developed by DK96-OS : 2021 */
 open class BytePrimeCache : PrimeCacheBase(
-	maxIndex = 53,  // This is the Index of the prime number 251
-	maxValue = UByte.MAX_VALUE.toInt(),
+	maxIndex = MAX_INDEX,  // This is the Index of the prime number 251
+	maxValue = MAX_PRIME,
 ) {
 	private var byteArray: ByteArray? = null
 	private val byteQueue = ArrayList<UByte>(8)
@@ -13,7 +13,7 @@ open class BytePrimeCache : PrimeCacheBase(
 	internal val queueSize: Int get() = byteQueue.size
 
     override fun highestCachedIndex()
-	: Int = 15 + (byteArray?.size ?: 0) + byteQueue.size
+		: Int = 15 + (byteArray?.size ?: 0) + byteQueue.size
 
     override fun getPrime(idx: Int): Int = when {
         idx < 16 -> initArray[idx].toInt()
@@ -85,4 +85,11 @@ open class BytePrimeCache : PrimeCacheBase(
         byteQueue.clear()
         byteArray = null
     }
+
+	companion object {
+		/** The largest index that can be stored */
+		const val MAX_INDEX: Int = 53
+		/** The largest prime value that can be stored */
+		const val MAX_PRIME: Int = 251
+	}
 }
