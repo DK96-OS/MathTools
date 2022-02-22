@@ -89,8 +89,8 @@ open class ShortPrimeCache : PrimeCacheBase(
 
 	companion object {
 		/** The largest index that can be stored */
-		const val MAX_INDEX: Int = 3020
+		const val MAX_INDEX: Int = 3511
 		/** The largest prime value that can be stored */
-		const val MAX_PRIME: Int = Short.MAX_VALUE.toInt()
+		const val MAX_PRIME: Int = 32749
 	}
 }
