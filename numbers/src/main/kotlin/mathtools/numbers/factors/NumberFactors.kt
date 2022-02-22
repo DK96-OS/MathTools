@@ -4,27 +4,29 @@ package mathtools.numbers.factors
  * @author DK96-OS : 2022 */
 object NumberFactors {
 
+	@Deprecated(
+		"Moved to BitFactors class",
+		ReplaceWith("isProductOf2", "mathtools.numbers.factors.BitFactoring"),
+		level = DeprecationLevel.WARNING
+	)
 	/** Determines whether a number contains a factor of 2
 	 * @param number the Number to check
 	 * @return True if number is divisible by 2 */
 	fun isProductOf2(
 		number: Long,
-	) : Boolean {
-		val lowest = number.takeLowestOneBit()
-		// If the lowest one bit is greater than 1, it is even
-		return lowest != 0L && lowest > 1
-	}
+	) : Boolean = BitFactoring.isProductOf2(number)
 
+	@Deprecated(
+		"Moved to BitFactors class",
+		ReplaceWith("isProductOf2", "mathtools.numbers.factors.BitFactoring"),
+		level = DeprecationLevel.WARNING
+	)
 	/** Determines whether a number contains a factor of 2
 	 * @param number the Number to check
 	 * @return True if number is divisible by 2 */
 	fun isProductOf2(
 		number: Int,
-	) : Boolean {
-		val lowest = number.takeLowestOneBit()
-		// If the lowest one bit is greater than 1, it is even
-		return lowest != 0 && lowest > 1
-	}
+	) : Boolean = BitFactoring.isProductOf2(number)
 
 	/** Determines whether a number contains a factor of 5
 	 * @param number the Number to check

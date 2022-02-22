@@ -1,6 +1,6 @@
 package mathtools.numbers.primes
 
-import mathtools.numbers.factors.NumberFactors.isProductOf2
+import mathtools.numbers.factors.BitFactoring.isProductOf2
 
 /** Common to Prime Number Caches */
 abstract class PrimeCacheBase(
