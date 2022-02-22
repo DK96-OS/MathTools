@@ -17,7 +17,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Double> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((double) number);
+            newList.add(number.doubleValue());
         }
         return newList;
     }
@@ -30,7 +30,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Float> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((float) number);
+            newList.add(number.floatValue());
         }
         return newList;
     }
@@ -43,7 +43,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Long> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((long) number);
+            newList.add(number.longValue());
         }
         return newList;
     }
@@ -56,7 +56,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Integer> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((int) number);
+            newList.add(number.intValue());
         }
         return newList;
     }
@@ -69,7 +69,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Short> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((short) number);
+            newList.add(number.shortValue());
         }
         return newList;
     }
@@ -82,7 +82,7 @@ public class NumberListConversion {
     ) {
         ArrayList<Byte> newList = new ArrayList<>();
         for (Number number : list) {
-            newList.add((byte) number);
+            newList.add(number.byteValue());
         }
         return newList;
     }
