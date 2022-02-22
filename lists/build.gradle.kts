@@ -1,6 +1,7 @@
 plugins {
 	kotlin("jvm")
 	id("jacoco")
+	id("org.jetbrains.dokka") version "1.6.10"
 }
 
 configure<PublishingExtension> {
@@ -31,7 +32,7 @@ dependencies {
 }
 
 sourceSets.main {
-	java.srcDirs("src/main/kotlin")
+	java.srcDirs("src/main/java", "src/main/kotlin")
 }
 
 tasks.test {
