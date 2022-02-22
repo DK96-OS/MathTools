@@ -4,6 +4,13 @@ plugins {
 	id("org.jetbrains.dokka") version "1.6.10"
 }
 
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+	withJavadocJar()
+	withSourcesJar()
+}
+
 configure<PublishingExtension> {
 	publications {
 		register<MavenPublication>("gpr") {
