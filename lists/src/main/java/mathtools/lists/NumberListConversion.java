@@ -5,7 +5,7 @@ import java.util.List;
 
 /** Converts Numbered List Types
  * @author DK96-OS : 2022 */
-public class NumberListConversion {
+public final class NumberListConversion {
 
     private NumberListConversion() {}
 
