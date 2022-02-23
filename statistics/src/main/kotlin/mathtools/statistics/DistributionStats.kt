@@ -131,7 +131,8 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-            ArrayStatistics.calculateMean(array), calculateSDev(array),
+            ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
             array.minOrNull()!!, array.maxOrNull()!!
         )
 
@@ -139,7 +140,8 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
@@ -147,7 +149,8 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 

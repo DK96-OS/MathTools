@@ -3,24 +3,8 @@ package mathtools.statistics
 import kotlin.math.sqrt
 
 /* This file contains Statistics functions for Number Arrays
-    Including: CalculateMean, CalculateSDev
 */
-
 /* The Mean value functions */
-
-/** Calculate the mean value of a 32 bit Integer Array */
-fun calculateMean(array: IntArray)
-    : Double = if (array.isEmpty())
-    0.0
-else array.sum().toDouble() / array.size
-    // todo: Use Double to count the sum
-
-/** Calculate the mean value of a 64 bit Long Array */
-fun calculateMean(array: LongArray)
-    : Double = if (array.isEmpty())
-    0.0
-else array.sum().toDouble() / array.size
-    // todo: Use double to count the sum
 
 /** Calculate the mean value of a 64 bit Double Array */
 fun calculateMean(array: DoubleArray)
@@ -66,7 +50,7 @@ fun calculateSDev(
 
 /** Calculate the standard deviation of a 32 bit Int Array */
 fun calculateSDev(
-    array: IntArray, mean: Double = calculateMean(array)
+    array: IntArray, mean: Double = ArrayStatistics.calculateMean(array)
 ) : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
@@ -79,7 +63,8 @@ fun calculateSDev(
 
 /** Calculate the standard deviation of a 64 bit Long Array */
 fun calculateSDev(
-    array: LongArray, mean: Double = calculateMean(array)
+    array: LongArray,
+    mean: Double = ArrayStatistics.calculateMean(array)
 ) : Double {
     if (array.size < 3) return 0.0
     var varianceSum = 0.0
