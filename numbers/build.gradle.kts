@@ -12,6 +12,10 @@ java {
 	withSourcesJar()
 }
 
+tasks.named("sourcesJar", org.gradle.api.tasks.bundling.Jar::class) {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 configure<PublishingExtension> {
 	publications {
 		register<MavenPublication>("gpr") {
