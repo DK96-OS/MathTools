@@ -50,6 +50,46 @@ class ShortPrimeCacheTest {
 		for (i in 0 until primeList.size step rate)
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
+
+	@Test
+	fun testSpecificPrimes() {
+		val cache = ShortPrimeCache()
+		assertEquals(547, cache.getPrime(100))
+		assertEquals(661, cache.getPrime(120))
+		assertEquals(811, cache.getPrime(140))
+		assertEquals(947, cache.getPrime(160))
+		assertEquals(1087, cache.getPrime(180))
+		assertEquals(1229, cache.getPrime(200))
+		assertEquals(1993, cache.getPrime(300))
+		assertEquals(2131, cache.getPrime(320))
+		assertEquals(2293, cache.getPrime(340))
+		assertEquals(2437, cache.getPrime(360))
+		assertEquals(2621, cache.getPrime(380))
+		assertEquals(2749, cache.getPrime(400))
+		assertEquals(5801, cache.getPrime(760))
+		assertEquals(7001, cache.getPrime(900))
+		assertEquals(7211, cache.getPrime(920))
+		assertEquals(7727, cache.getPrime(980))
+	}
+
+	@Test
+	fun testShort() {
+		println("Short: ${Short.MAX_VALUE}")
+	}
+
+	@Test
+	fun testMaxIndex() {
+		val cache = ShortPrimeCache()
+		val testIndices = mutableListOf(
+			1000, 2000, 3000, 3090, 3490,
+			3510, 3511
+		)
+		for (i in testIndices) {
+			val prime = cache.getPrime(i)
+			println("Query($i) => $prime")
+		}
+	}
+
 /*
 	@Test fun testCacheExpansionSlow() {
 		val cache = ShortPrimeCache()

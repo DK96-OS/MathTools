@@ -1,17 +1,18 @@
 package mathtools.numbers.primes
 
-/** A cache for small prime numbers, within Short range
-   *  Developed by DK96-OS : 2021 */
+/** An array-based cache for Prime Numbers in the 16-bit integer range
+ * @author DK96-OS : 2021 */
 open class ShortPrimeCache : PrimeCacheBase(
-	maxIndex = 3020, 
-	maxValue = Short.MAX_VALUE.toInt(),
+	maxIndex = MAX_INDEX,
+	maxValue = MAX_PRIME,
 ) {
 	/** Rely on BytePrimeCache for smallest primes */
 	private val byteCache = BytePrimeCache()
 	
 	/** The range of indexed prime numbers serviced by this cache
 		*  note: maximum index must be less than the index of 32767.  */
-	val shortIndexRange: IntRange = byteCache.maxIndex + 1 .. maxIndex
+	internal val shortIndexRange
+		: IntRange = BytePrimeCache.MAX_INDEX + 1 .. maxIndex
 
 	/** Storage for short primes */
 	private var shortArray: ShortArray = shortArrayOf(
@@ -23,7 +24,7 @@ open class ShortPrimeCache : PrimeCacheBase(
 	private val queueSize: Int get() = shortQueue.size
 
 	override fun highestCachedIndex()
-	: Int = byteCache.maxIndex + shortArray.size + shortQueue.size
+		: Int = BytePrimeCache.MAX_INDEX + shortArray.size + shortQueue.size
 
 	override fun getPrime(idx: Int): Int {
 		val shortIndex = idx - shortIndexRange.first
@@ -84,5 +85,12 @@ open class ShortPrimeCache : PrimeCacheBase(
 		    257, 263, 269, 271, 277, 281, 283, 293,
 		)
 		byteCache.clear()
+	}
+
+	companion object {
+		/** The largest index that can be stored */
+		const val MAX_INDEX: Int = 3511
+		/** The largest prime value that can be stored */
+		const val MAX_PRIME: Int = 32749
 	}
 }

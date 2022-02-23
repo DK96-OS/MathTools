@@ -89,7 +89,7 @@ abstract class PrimeCacheBase(
     /** Find the next prime using the given number as a starting point
       * @param testNum The first number to test for prime status */
     internal fun findPrime(
-	    testNum: Int
+	    testNum: Int,
     ) : Int? {
 	    if (testNum <= 0) return null
         for (n in testNum .. maxValue step 2) {
