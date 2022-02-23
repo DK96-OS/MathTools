@@ -1,6 +1,18 @@
 plugins {
 	kotlin("jvm")
 	id("jacoco")
+	id("org.jetbrains.dokka") version "1.6.10"
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+	withJavadocJar()
+	withSourcesJar()
+}
+
+tasks.named("sourcesJar", org.gradle.api.tasks.bundling.Jar::class) {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 configure<PublishingExtension> {
@@ -33,7 +45,7 @@ dependencies {
 }
 
 sourceSets.main {
-	java.srcDirs("src/main/kotlin")
+	java.srcDirs("src/main/java", "src/main/kotlin")
 }
 
 tasks.test {

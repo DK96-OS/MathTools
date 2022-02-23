@@ -4,7 +4,7 @@ import mathtools.lists.listSum
 import kotlin.math.sqrt
 
 /** Key Statistics Functions
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 object Statistics {
 
 	/** Return true once every x times this function is called */

@@ -1,7 +1,7 @@
 package mathtools.numbers.factors
 
+import mathtools.numbers.factors.BitFactoring.isProductOf2
 import mathtools.numbers.factors.NumberFactors.divideOutFactor
-import mathtools.numbers.factors.NumberFactors.isProductOf2
 import mathtools.numbers.factors.NumberFactors.isProductOf5
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -11,32 +11,6 @@ import org.junit.jupiter.params.provider.ValueSource
 /** Testing the Number Factors static functions
  * @author DK96-OS : 2022 */
 class NumberFactorsTest {
-
-	@Test
-	fun testProductOf2() {
-		assertEquals(false, isProductOf2(0))
-		assertEquals(false, isProductOf2(0L))
-		for (n in 1 .. 65 step 2) {
-			assertEquals(false, isProductOf2(n))
-			assertEquals(false, isProductOf2(n.toLong()))
-		}
-		for (n in 2 .. 66 step 2) {
-			assertEquals(true, isProductOf2(n))
-			assertEquals(true, isProductOf2(n.toLong()))
-		}
-	}
-
-	@Test
-	fun testProductOf2Negative() {
-		for (n in 1 .. 65 step 2) {
-			assertEquals(false, isProductOf2(-n))
-			assertEquals(false, isProductOf2(-n.toLong()))
-		}
-		for (n in 2 .. 66 step 2) {
-			assertEquals(true, isProductOf2(-n))
-			assertEquals(true, isProductOf2(-n.toLong()))
-		}
-	}
 
 	@Test
 	fun testProductOf2Large() {

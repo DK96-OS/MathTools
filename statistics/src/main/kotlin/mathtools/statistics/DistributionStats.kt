@@ -4,7 +4,7 @@ import mathtools.statistics.Statistics.calculateMean
 import mathtools.statistics.Statistics.calculateSDev
 
 /** The key statistical parameters of a distribution
- * Developed by DK96-OS : 2022 */
+ * @author DK96-OS : 2022 */
 class DistributionStats internal constructor(
     val mean: Double,
     val standardDeviation: Double,
@@ -123,7 +123,7 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
+	        ArrayStatistics.calculateMean(array), calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
@@ -131,15 +131,17 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+            ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
+            array.minOrNull()!!, array.maxOrNull()!!
         )
 
         fun process(array: IntArray)
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 
@@ -147,7 +149,8 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
 	        array.minOrNull()!!, array.maxOrNull()!!
         )
 

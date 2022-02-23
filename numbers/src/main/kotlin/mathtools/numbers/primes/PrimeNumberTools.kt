@@ -1,14 +1,14 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.factors.BitFactoring.isProductOf2
 import mathtools.numbers.factors.NumberFactors.divideOutFactor
-import mathtools.numbers.factors.NumberFactors.isProductOf2
 
 /** Container for PrimeNumber functions
  * @author DK96-OS : 2018 - 2021 */
 object PrimeNumberTools {
 
 	/** This master prime cache provides a reference for other sets */
-	private val shortPrimes = ShortPrimeCache()		// Short Max Value: 32767
+	private val shortPrimes = ShortPrimeCache()
 
 	/** Obtain a prime number by it's index, starting at index 0 -> 2 */
 	fun getPrime(idx: Int): Int = when (idx) {
