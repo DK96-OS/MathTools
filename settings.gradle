@@ -23,4 +23,5 @@ include(
 	":numbers",
 	":statistics",
 	":systems",
+	"generators",
 )
