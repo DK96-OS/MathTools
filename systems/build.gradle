@@ -1,6 +1,6 @@
 plugins {
-	kotlin("jvm")
-	kotlin("plugin.serialization") version "1.6.10"
+    id "org.jetbrains.kotlin.jvm"
+	id "org.jetbrains.kotlin.plugin.serialization" version "1.6.10"
 }
 
 dependencies {
@@ -33,9 +33,9 @@ tasks.test {
         events("passed", "failed") // not including "skipped"
     }
     reports {
-    	junitXml.apply {
-    		isOutputPerTestCase = true
-    		mergeReruns.set(true)
+    	junitXml {
+    		outputPerTestCase = true
+    		mergeReruns = true
     	}
     }
 }
