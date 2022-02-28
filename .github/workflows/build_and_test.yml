@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       checks: write
@@ -20,7 +20,7 @@ jobs:
       packages: read
     strategy:
       matrix:
-        java: [ '11', '16' ]
+        java: [ '11', '17' ]
     name: Java ${{ matrix.java }} Build
     steps:
     - uses: actions/checkout@v2
@@ -47,7 +47,7 @@ jobs:
       with:
         name: JVM${{ matrix.java }}-Tests
         path: |
-          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
+          /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
       timeout-minutes: 1
     - name: Upload JavaDocs
@@ -56,6 +56,7 @@ jobs:
       with:
         name: JavaDocs-${{ matrix.java }}
         path: |
+          /home/runner/work/MathTools/MathTools/generators/build/dokka/
           /home/runner/work/MathTools/MathTools/lists/build/dokka/
           /home/runner/work/MathTools/MathTools/numbers/build/dokka/
           /home/runner/work/MathTools/MathTools/statistics/build/dokka/

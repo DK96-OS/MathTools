@@ -1,6 +1,5 @@
 plugins {
 	id "org.jetbrains.kotlin.jvm"
-	id "test-report-aggregation"
 	id "jacoco"
 	id "org.jetbrains.dokka" version "1.6.10"
 }
@@ -67,9 +66,6 @@ tasks.test {
     		mergeReruns = true
     	}
     }
-	doLast {
-		tasks.testAggregateTestReport
-	}
 }
 
 tasks.jacocoTestReport {
@@ -89,8 +85,4 @@ tasks.jacocoTestCoverageVerification {
 			}
 		}
 	}
-}
-
-tasks.check {
-	dependsOn tasks.testAggregateTestReport
 }
