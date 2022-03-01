@@ -9,11 +9,11 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        mavenCentral()
-        google()
-    }
-	tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+	repositories {
+		mavenCentral()
+		google()
+	}
+	tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 		kotlinOptions {
 			jvmTarget = "11"
 		}
@@ -21,8 +21,8 @@ allprojects {
 }
 
 subprojects {
-	apply(plugin = "maven-publish")
-	configure<PublishingExtension> {
+	apply plugin: "maven-publish"
+	publishing {
 		repositories {
 			maven {
 				name = "GitHubPackages"
