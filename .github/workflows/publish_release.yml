@@ -24,6 +24,18 @@ jobs:
           gradle-version: 7.4
           arguments: check --warn
         timeout-minutes: 7
+      - name: Generate JavaDoc
+        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        with:
+          gradle-version: 7.4
+          arguments: dokkaJavadoc --warn
+        timeout-minutes: 3
+      - name: Generate Markdown
+        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        with:
+          gradle-version: 7.4
+          arguments: dokkaGfm --warn
+        timeout-minutes: 3
       - name: Publish Packages
         uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
         with:
@@ -32,3 +44,15 @@ jobs:
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload JavaDoc and Markdown
+        uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: JavaDocs-${{ matrix.java }}
+          path: |
+            /home/runner/work/MathTools/MathTools/generators/build/dokka/
+            /home/runner/work/MathTools/MathTools/lists/build/dokka/
+            /home/runner/work/MathTools/MathTools/numbers/build/dokka/
+            /home/runner/work/MathTools/MathTools/statistics/build/dokka/
+          retention-days: 60
+        timeout-minutes: 1
