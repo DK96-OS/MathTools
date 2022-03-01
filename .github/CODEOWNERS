@@ -15,3 +15,4 @@ README.md	@dk96-os
 gradle/ @dk96-os
 build.gradle* @dk96-os
 settings.gradle* @dk96-os
+dependencies.gradle* @dk96-os
