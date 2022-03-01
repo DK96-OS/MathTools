@@ -6,11 +6,13 @@
  
 pluginManagement {
 	plugins {
-		kotlin("jvm") version "1.6.10"
+		id "org.jetbrains.kotlin.jvm" version "1.6.10"
 	}
 	repositories {
 		google()
-	    maven(url = "https://plugins.gradle.org/m2/")
+	    maven {
+			url = "https://plugins.gradle.org/m2/"
+		}
 	    mavenCentral()
 	    gradlePluginPortal()
 	}
@@ -21,4 +23,5 @@ include(
 	":numbers",
 	":statistics",
 	":systems",
+	"generators",
 )

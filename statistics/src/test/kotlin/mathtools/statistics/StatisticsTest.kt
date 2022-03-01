@@ -1,5 +1,6 @@
 package mathtools.statistics
 
+import com.google.common.math.Stats
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
@@ -13,6 +14,20 @@ class StatisticsTest {
 		val list = mutableListOf(100f, 110f, 190f, 200f)
 		assertEquals(150.0, Statistics.calculateMean(list), 0.01)
 		assertEquals(52.0, Statistics.calculateSDev(list), 1.0)
+	}
+
+	@Test
+	fun testCompareGuava() {
+		val list = mutableListOf(100f, 110f, 190f, 200f)
+		//
+		val mean = Stats.meanOf(list)
+		val stats = Stats.of(list)
+		assertEquals(150.0, mean)
+		assertEquals(
+			52.0,
+			stats.sampleStandardDeviation(),
+			1.0
+		)
 	}
   
  	@RepeatedTest(3) fun testOneIn2To9Probability() {
@@ -44,7 +59,7 @@ class StatisticsTest {
 		assertEquals(0.2, mean, 0.015)
 		assertEquals(0.0015, sDev, 0.0009)
 	}
-  
+
     @Tag("slow")
 	@RepeatedTest(2) fun testOneIn5000Distribution() {
 		val measurements = measureOneIn(5000, 10_000L, 8)
@@ -53,6 +68,10 @@ class StatisticsTest {
 		assertEquals(0.02, mean, 0.002)
 		assertEquals(0.000_3, sDev, 0.000_29)
 		println("Standard Deviation: $sDev")
+		// Add Guava comparison
+		val stats = Stats.of(measurements)
+		assertEquals(0.02, stats.mean(), 0.002)
+		assertEquals(0.000_3, stats.sampleStandardDeviation(), 0.000_29)
 	}
   
   /** Runs the Statistics OneIn( x ) function N times.

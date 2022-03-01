@@ -1,8 +1,9 @@
 plugins {
-	kotlin("jvm")
-	id("jacoco")
-	id("org.jetbrains.dokka") version "1.6.10"
+	id "org.jetbrains.kotlin.jvm"
+	id "jacoco"
+	id "org.jetbrains.dokka" version "1.6.10"
 }
+apply from: "../dependencies.gradle"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_11
@@ -11,23 +12,23 @@ java {
 	withSourcesJar()
 }
 
-tasks.named("sourcesJar", org.gradle.api.tasks.bundling.Jar::class) {
+tasks.sourcesJar {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
-configure<PublishingExtension> {
+publishing {
 	publications {
-		register<MavenPublication>("gpr") {
+		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
-			artifactId = "statistics"
+			artifactId = "lists"
 			version = "0.3"
-			from(components["java"])
+			from components.java
 		}
 	}
 }
 
 dependencies {
-	implementation(project(":lists"))
+	api guava
 
 	// Align versions of all Kotlin components
 	implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -57,19 +58,19 @@ tasks.test {
 		events("passed", "failed") // not including "skipped"
 	}
 	reports {
-		junitXml.apply {
-			isOutputPerTestCase = true
-			mergeReruns.set(true)
+		junitXml {
+			outputPerTestCase = true
+			mergeReruns = true
 		}
 	}
 }
 
 tasks.jacocoTestReport {
-	dependsOn(tasks.test)
+	dependsOn tasks.test
 	reports {
-		xml.required.set(false)
-		csv.required.set(false)
-		html.outputLocation.set(layout.buildDirectory.dir("jacocoReport"))
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir("jacocoReport")
 	}
 }
 
