@@ -3,7 +3,7 @@ package mathtools.lists;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Converts Numbered List Types
+/** Converts Numbered List Types - No validation of conversion accuracy
  * @author DK96-OS : 2022 */
 public final class NumberListConversion {
 
