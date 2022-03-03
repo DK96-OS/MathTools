@@ -4,127 +4,159 @@ import mathtools.numbers.primes.PrimeNumberTools.checkForPrimeFactorAboveLimit
 import mathtools.numbers.primes.PrimeNumberTools.divideOutSmallPrimes
 import mathtools.numbers.primes.PrimeNumberTools.getFirstPrimeAboveLimit
 import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimeRange
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /** Testing the Prime Number tools object */
 class PrimeNumberToolsTest {
-	
-	private val primeList: List<Int> = arrayListOf<Int>(
-    	2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 
-    	73, 79, 83, 89, 97, 101, 103, 107, 109, 113,
-    )
 
-	@AfterEach fun tearDown() {
-        PrimeNumberTools.clearCache()
+	/** A cache is required by all function calls */
+	private lateinit var cache: ShortPrimeCache
+
+	@BeforeEach
+	fun testSetup() {
+		cache = ShortPrimeCache()
 	}
 
     @Test
-    fun testGetPrimeIncreasingByOne() {
-    	for (idx in primeList.indices)
-        	assertEquals(primeList[idx], PrimeNumberTools.getPrime(idx))
-    }
-    
-    @Test
-    fun testGetPrimeDecreasingByOne() {
-    	for (idx in primeList.size - 1 downTo 0)
-    		assertEquals(primeList[idx], PrimeNumberTools.getPrime(idx))
-    }
-
-    @Test
     fun testPrimeFactorLimitCheck() {
-    	assertEquals(false, checkForPrimeFactorAboveLimit(40, 11))
-    	assertEquals(false, checkForPrimeFactorAboveLimit(39, 13))
-    	
-    	assertEquals(true, checkForPrimeFactorAboveLimit(34, 11))
-    	assertEquals(true, checkForPrimeFactorAboveLimit(39, 11))
+		assertFalse(
+			checkForPrimeFactorAboveLimit(40, 11, cache))
+    	assertFalse(
+			checkForPrimeFactorAboveLimit(39, 13, cache))
+		//
+    	assertTrue(
+			checkForPrimeFactorAboveLimit(34, 11, cache))
+    	assertTrue(
+			checkForPrimeFactorAboveLimit(39, 11, cache))
     }
 
 	@Test
 	fun testFirstPrimeAboveLimit() {
-		assertEquals(null, getFirstPrimeAboveLimit(5000, 71))
-		assertEquals(null, getFirstPrimeAboveLimit(5000, 5))
-		assertEquals(5, getFirstPrimeAboveLimit(5000, 4))
-		assertEquals(5, getFirstPrimeAboveLimit(5000, 4))
-		assertEquals(7, getFirstPrimeAboveLimit(49, 6))
-		assertEquals(null, getFirstPrimeAboveLimit(49, 7))
+		assertNull(
+			getFirstPrimeAboveLimit(5000, 71, cache))
+		assertNull(
+			getFirstPrimeAboveLimit(5000, 5, cache))
+		assertEquals(
+			5,
+			getFirstPrimeAboveLimit(5000, 4, cache))
+		assertEquals(
+			5,
+			getFirstPrimeAboveLimit(5000, 4, cache))
+		assertEquals(
+			7,
+			getFirstPrimeAboveLimit(49, 6, cache))
+		assertNull(
+			getFirstPrimeAboveLimit(49, 7, cache))
 	}
 
 	@Test
 	fun testFirstPrimeAboveLimitNegative() {
 		// Ignore negative sign on product
-		assertEquals(null, getFirstPrimeAboveLimit(-5000, 71))
-		assertEquals(5, getFirstPrimeAboveLimit(-5000, 4))
-		assertEquals(7, getFirstPrimeAboveLimit(-49, 6))
+		assertNull(
+			getFirstPrimeAboveLimit(-5000, 71, cache))
+		assertEquals(
+			5,
+			getFirstPrimeAboveLimit(-5000, 4, cache))
+		assertEquals(
+			7,
+			getFirstPrimeAboveLimit(-49, 6, cache))
 		// Null when limit is negative
-		assertEquals(null, getFirstPrimeAboveLimit(-5000, -4))
-		assertEquals(null, getFirstPrimeAboveLimit(-49, -6))
+		assertNull(
+			getFirstPrimeAboveLimit(-5000, -4, cache))
+		assertNull(
+			getFirstPrimeAboveLimit(-49, -6, cache))
 	}
 
 	@Test
 	fun testFirstPrimeAboveLimitInvalid() {
 		// Null when product is 1 or zero
-		assertEquals(null, getFirstPrimeAboveLimit(-1, 5))
-		assertEquals(null, getFirstPrimeAboveLimit(0, 5))
-		assertEquals(null, getFirstPrimeAboveLimit(1, 5))
+		assertNull(
+			getFirstPrimeAboveLimit(-1, 5, cache))
+		assertNull(
+			getFirstPrimeAboveLimit(0, 5, cache))
+		assertNull(
+			getFirstPrimeAboveLimit(1, 5, cache))
 	}
 
 	@Test
 	fun testReduceByPrimes() {
-		assertEquals(2, reduceByPrimeRange(1..2, 30))
-		assertEquals(4, reduceByPrimeRange(1..5, 60))
-		assertEquals(12, reduceByPrimeRange(2..2, 60))
+		assertEquals(
+			2, reduceByPrimeRange(1..2, 30, cache))
+		assertEquals(
+			4, reduceByPrimeRange(1..5, 60, cache))
+		assertEquals(
+			12, reduceByPrimeRange(2..2, 60, cache))
 	}
 
 	@Test
 	fun testReduceByPrimesNegative() {
-		assertEquals(-2, reduceByPrimeRange(1..2, -30))
-		assertEquals(-4, reduceByPrimeRange(1..2, -60))
-		assertEquals(-12, reduceByPrimeRange(2..3, -60))
+		assertEquals(
+			-2, reduceByPrimeRange(1..2, -30, cache))
+		assertEquals(
+			-4, reduceByPrimeRange(1..2, -60, cache))
+		assertEquals(
+			-12, reduceByPrimeRange(2..3, -60, cache))
 	}
 
 	@Test
 	fun testReduceByPrimesIndivisibleProduct() {
-		assertEquals(null, reduceByPrimeRange(1..3, -1))
-		assertEquals(null, reduceByPrimeRange(1..3, 0))
-		assertEquals(null, reduceByPrimeRange(1..3, 1))
+		assertNull(
+			reduceByPrimeRange(1..3, -1, cache))
+		assertNull(
+			reduceByPrimeRange(1..3, 0, cache))
+		assertNull(
+			reduceByPrimeRange(1..3, 1, cache))
 	}
 
 	@Test
 	fun testReduceByPrimesInvalidRange() {
 		// Negative valued ranges are ignored
-		assertEquals(null, reduceByPrimeRange(-3..-1, -30))
+		assertNull(
+			reduceByPrimeRange(-3..-1, -30, cache))
 		// The invalid region of the range is ignored
-		assertEquals(null, reduceByPrimeRange(-3..3, -60))
+		assertNull(
+			reduceByPrimeRange(-3..3, -60, cache))
 		// Invalid region is ignored
-		assertEquals(-15, reduceByPrimeRange(-1..0, -60))
+		assertEquals(
+			-15, reduceByPrimeRange(-1..0, -60, cache))
 	}
 
 	@Test
 	fun testReduceByPrimesReversedRange() {
-		assertEquals(4, reduceByPrimeRange(2..1, 60))
-		assertEquals(-4, reduceByPrimeRange(2..1, -60))
+		assertEquals(
+			4, reduceByPrimeRange(2..1, 60, cache))
+		assertEquals(
+			-4, reduceByPrimeRange(2..1, -60, cache))
 	}
 
 	@Test
 	fun testDivideOutSmallPrimes() {
-		assertEquals(25, divideOutSmallPrimes(100, 2))
-		assertEquals(25, divideOutSmallPrimes(100, 3))
-		assertEquals(25, divideOutSmallPrimes(100, 4))
-		assertEquals(null, divideOutSmallPrimes(100, 5))
+		assertEquals(
+			25, divideOutSmallPrimes(100, 2, cache))
+		assertEquals(
+			25, divideOutSmallPrimes(100, 3, cache))
+		assertEquals(
+			25, divideOutSmallPrimes(100, 4, cache))
+		assertNull(
+			divideOutSmallPrimes(100, 5, cache))
 		//
-		assertEquals(11, divideOutSmallPrimes(77, 7))
-		assertEquals(11, divideOutSmallPrimes(77, 9))
-		assertEquals(17, divideOutSmallPrimes(68, 13))
+		assertEquals(
+			11, divideOutSmallPrimes(77, 7, cache))
+		assertEquals(
+			11, divideOutSmallPrimes(77, 9, cache))
+		assertEquals(
+			17, divideOutSmallPrimes(68, 13, cache))
 		//
-		assertEquals(null, divideOutSmallPrimes(50, 43))
+		assertNull(
+			divideOutSmallPrimes(50, 43, cache))
 	}
 
 	@Test
 	fun testDivideOutSmallPrimesNegative() {
-		assertEquals(null, divideOutSmallPrimes(-50, 43))
-		assertEquals(null, divideOutSmallPrimes(-100, 5))
+		assertNull(divideOutSmallPrimes(-50, 43, cache))
+		assertNull(divideOutSmallPrimes(-100, 5, cache))
 	}
 
 }

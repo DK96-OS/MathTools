@@ -7,37 +7,20 @@ import mathtools.numbers.factors.NumberFactors.divideOutFactor
  * @author DK96-OS : 2018 - 2021 */
 object PrimeNumberTools {
 
-	/** This master prime cache provides a reference for other sets */
-	private val shortPrimes = ShortPrimeCache()
-
-	/** Obtain a prime number by it's index, starting at index 0 -> 2 */
-	fun getPrime(idx: Int): Int = when (idx) {
-		in shortPrimes.indexRange -> try {
-			shortPrimes.getPrime(idx)
-		} catch (e: OutOfMemoryError) {
-			shortPrimes.clear()
-			-1
-		}
-		else -> throw IllegalArgumentException(
-			"Prime Number too high for given cache.")
-	}
-
-	/** Clear all cached prime numbers */
-	fun clearCache() { shortPrimes.clear()}
-
     /** Whether this Product/Prime contains a prime number greater than the limit
      * @param product The product to test
      * @param limit The maximum prime number allowed */
 	fun checkForPrimeFactorAboveLimit(
 	    product: Long,
 	    limit: Long,
+		cache: PrimeCacheBase,
     ) : Boolean = if (limit < product) {
 		var primeIdx = 0
-		var checkPrime = getPrime(primeIdx)
+		var checkPrime = cache.getPrime(primeIdx)
 		var composite = product
 		while (limit in checkPrime until composite) {
 			composite = divideOutFactor(checkPrime, composite)
-			checkPrime = getPrime(++primeIdx)
+			checkPrime = cache.getPrime(++primeIdx)
 		}
 		composite > limit
     } else false
@@ -49,19 +32,22 @@ object PrimeNumberTools {
     fun getFirstPrimeAboveLimit(
 	    product: Long,
 	    limit: Long,
+		cache: PrimeCacheBase,
     ) : Long? {
 	    // check arguments
 	    when {
 			limit < 2 -> return null
 		    product in -1..1 -> return null
-		    product < 0 -> return getFirstPrimeAboveLimit(-product, limit)
+		    product < 0 -> return getFirstPrimeAboveLimit(
+				-product, limit, cache
+			)
 		}
         var primeIdx = 0
-        var testPrime = getPrime(primeIdx)
+        var testPrime = cache.getPrime(primeIdx)
         var composite = product
         while (limit in testPrime until composite) {
             composite = divideOutFactor(testPrime, composite)
-            testPrime = getPrime(++primeIdx)
+            testPrime = cache.getPrime(++primeIdx)
         }
         while (testPrime in (limit + 1) .. composite) {
             if (composite % testPrime == 0L) return testPrime.toLong()
@@ -76,7 +62,8 @@ object PrimeNumberTools {
 	 * @return Remaining product after all divisions attempted, or null if 1 */
 	fun reduceByPrimeRange(
 		primeIndexRange: IntRange,
-		product: Long
+		product: Long,
+		cache: PrimeCacheBase,
 	) : Long? {
 		// check arguments
 		when {
@@ -84,7 +71,8 @@ object PrimeNumberTools {
 			primeIndexRange.last < primeIndexRange.first ->
 				return reduceByPrimeRange(
 					primeIndexRange.last .. primeIndexRange.first,
-					product
+					product,
+					cache
 				)
 			// range starts below 0
 			primeIndexRange.first < 0 -> {
@@ -92,21 +80,24 @@ object PrimeNumberTools {
 				// If range ends in valid region, reduce in valid region
 				return reduceByPrimeRange(
 					0 .. primeIndexRange.last,
-					product
+					product,
+					cache
 				)
 			}
 			// Product is indivisible
 			product in -1 .. 1 -> return null
 			// Product is negative
 			product < 0 -> {
-				val result = reduceByPrimeRange(primeIndexRange, -product)
+				val result = reduceByPrimeRange(
+					primeIndexRange, -product, cache
+				)
 				return if (result != null) -result else null
 			}
 		}
 		// Do reduction
 		var composite: Long = product
 		for (primeIdx in primeIndexRange) {
-			val testPrime = getPrime(primeIdx)
+			val testPrime = cache.getPrime(primeIdx)
 			composite = divideOutFactor(testPrime, composite)
 			// If the composite is less than the test factor, done
 			if (composite < testPrime) break
@@ -121,13 +112,16 @@ object PrimeNumberTools {
      * @return A number containing only primes greater than maxPrime, or null */
 	fun divideOutSmallPrimes(
 	    product: Long,
-	    maxPrime: Long
+	    maxPrime: Long,
+		cache: PrimeCacheBase,
     ) : Long? {
 	    // check arguments
 	    when {
 			maxPrime < 2 -> return null
 			product in -1 .. 1 -> return null
-		    product < 0 -> return divideOutSmallPrimes(-product, maxPrime)
+		    product < 0 -> return divideOutSmallPrimes(
+				-product, maxPrime, cache
+			)
 		    product <= maxPrime -> return null
 		}
 	    // check efficiently for factors of 2
@@ -139,11 +133,11 @@ object PrimeNumberTools {
 	    while (
 			testPrime <= composite
 			&& testPrime <= maxPrime
-			&& primeIdx < shortPrimes.maxIndex
+			&& primeIdx < cache.maxIndex
 		) {
 			composite = divideOutFactor(testPrime, composite)
 		    // Validate the next prime before overwriting
-		    val nextPrime = getPrime(++primeIdx)
+		    val nextPrime = cache.getPrime(++primeIdx)
 		    if (nextPrime >= composite) break
 		    testPrime = nextPrime
 		}
