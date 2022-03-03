@@ -33,7 +33,7 @@ dependencies {
 	api project(":statistics")
 	api project(":numbers")
 
-	compileClasspath lombok
+	compileOnly lombok
 	annotationProcessor lombok
 	api guava
 
