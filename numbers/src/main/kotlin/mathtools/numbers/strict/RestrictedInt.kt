@@ -2,7 +2,7 @@ package mathtools.numbers.strict
 
 /** Data Structure for integer restricted to fixed range
  * @author DK96-OS : 2019 - 2022 */
-class RestrictedInt(
+open class RestrictedInt(
     number: Int,
     max: Int,
     min: Int = 1,
@@ -26,7 +26,7 @@ class RestrictedInt(
     ) : this(number, range.last, range.first, isIncreasing)
 
     /** Increases or Decreases by 1 based on state */
-    fun inc(): Int {
+    open fun inc(): Int {
         if (isIncreasing) {
             if (value >= range.last) {
                 isIncreasing = false
@@ -42,14 +42,14 @@ class RestrictedInt(
     }
 
     /** Returns the current value, then increments */
-    fun getAndInc(): Int {
+    open fun getAndInc(): Int {
         val n0 = value
         inc()
         return n0
     }
 
     /** Randomly select any number in the given range or  */
-    fun randomize(initRange: IntRange? = null): Int {
+    open fun randomize(initRange: IntRange? = null): Int {
         value = when {
             initRange == null -> range.random()
             initRange.first > initRange.last -> range.random()
@@ -67,7 +67,7 @@ class RestrictedInt(
     }
 
     /** Set the current value exactly, or to the closest end of the range. */
-    fun trySetN(n: Int) {
+    open fun trySetN(n: Int) {
         value = n.coerceIn(range.first, range.last)
     }
 

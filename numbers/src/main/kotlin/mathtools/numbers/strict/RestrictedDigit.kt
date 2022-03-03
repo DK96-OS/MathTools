@@ -4,7 +4,7 @@ import kotlin.random.Random
 
 /** A digit that counts up to a maximum value, and then resets to minimum
  * @author DK96-OS : 2019 - 2022 */
-class RestrictedDigit(
+open class RestrictedDigit(
     digit: Byte = 1,
     minimumValue: Byte = 0,
     maximumValue: Byte = 9,
@@ -17,7 +17,7 @@ class RestrictedDigit(
         private set
 
     /** Increments the digit. Returns whether the loop has reset */
-    fun inc(): Boolean = if (digit >= maximum) {
+    open fun inc(): Boolean = if (digit >= maximum) {
         digit = minimum
         true
     } else {
@@ -25,7 +25,7 @@ class RestrictedDigit(
         false
     }
 
-    fun randomize(): Byte {
+    open fun randomize(): Byte {
         digit = Random.nextInt(minimum.toInt(), maximum + 1).toByte()
         return digit
     }
