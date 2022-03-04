@@ -20,21 +20,39 @@ public class IntCounter32000 implements IntCounterInterface {
     public IntCounter32000(
             int startValue, int endValue
     ) {
-        int diff = endValue - startValue;
-        if (diff < 0)
-            throw new IllegalArgumentException("");
+        boolean isValid = startValue < endValue;
+        if (endValue == Integer.MAX_VALUE) {
+            if (startValue < 1) isValid = false;
+        } else if (startValue == Integer.MIN_VALUE) {
+            if (endValue > -1) isValid = false;
+        }
+        int diff = endValue - (startValue - 1);
+        if (diff < 0) isValid = false;
+        if (!isValid) throw new IllegalArgumentException(
+                "Value Range too wide: (" + startValue + ", " + endValue + " )"
+        );
         mStartValue = startValue;
         mArray = new short[diff];
+    }
+
+    /** Obtain the array index of the given value */
+    private int indexOf(
+            int value
+    ) {
+        int diff = value - mStartValue;
+        // Ensure value is within valid range
+        if (diff < 0 || diff >= mArray.length)
+            return -1;
+        return diff;
     }
 
     @Override
     public boolean count(
             int value
     ) {
-        int diff = value - mStartValue;
+        int diff = indexOf(value);
         // Ensure value is within valid range
-        if (diff < 0 || diff >= mArray.length)
-            return false;
+        if (diff < 0) return false;
         // Increment, return false if overflow occurs
         return ++mArray[diff] > 0;
     }
@@ -64,5 +82,25 @@ public class IntCounter32000 implements IntCounterInterface {
     /** Obtain the Counter Array
      * @return The internal array for this counter */
     short[] getValueArray() { return mArray; }
+
+    /** Increase the count of a specific value by a given amount
+     * @param value The value to count a set number of times
+     * @param count The number to add to the value's count
+     * @return True if the operation was successful */
+    public boolean countBy(
+            int value,
+            short count
+    ) {
+        int diff = indexOf(value);
+        // Ensure value and number is within valid range
+        if (diff < 0 || count < 1)
+            return false;
+        int sum = ((int) mArray[diff]) + count;
+        // return false if overflow occurs
+        if (sum > Short.MAX_VALUE)
+            return false;
+        mArray[diff] = (short) sum;
+        return true;
+    }
 
 }
