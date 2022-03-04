@@ -37,9 +37,6 @@ public class IntCounter32000Test {
             mCounter = new IntCounter32000(20, 19);
         });
         assertThrows(IllegalArgumentException.class, () -> {
-            mCounter = new IntCounter32000(20, 20);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
             mCounter = new IntCounter32000(Integer.MIN_VALUE, 1);
         });
         assertThrows(IllegalArgumentException.class, () -> {

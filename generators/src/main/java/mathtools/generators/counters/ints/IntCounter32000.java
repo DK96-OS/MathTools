@@ -20,7 +20,7 @@ public class IntCounter32000 implements IntCounterInterface {
     public IntCounter32000(
             int startValue, int endValue
     ) {
-        boolean isValid = startValue < endValue;
+        boolean isValid = startValue <= endValue;
         if (endValue == Integer.MAX_VALUE) {
             if (startValue < 1) isValid = false;
         } else if (startValue == Integer.MIN_VALUE) {
