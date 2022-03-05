@@ -1,6 +1,6 @@
 package mathtools.numbers.factors
 
-import mathtools.numbers.factors.NumberFactors.isProductOf2
+import mathtools.numbers.factors.BitFactoring.isProductOf2
 
 /** Functions that operate on 32-bit Integers
  * @author DK96-OS : 2020 - 2022 */

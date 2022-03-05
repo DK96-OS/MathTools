@@ -10,7 +10,7 @@ public final class BitFactoring {
      * @param number the Number to check
      * @return True if number is divisible by 2 */
     public static boolean isProductOf2(
-            long number
+            final long number
     ) {
         return (number & -number) > 1;
     }
@@ -19,7 +19,7 @@ public final class BitFactoring {
      * @param number the Number to check
      * @return True if number is divisible by 2 */
     public static boolean isProductOf2(
-            int number
+            final int number
     ) {
         return (number & -number) > 1;
     }

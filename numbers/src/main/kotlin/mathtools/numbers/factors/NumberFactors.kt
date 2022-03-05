@@ -5,9 +5,10 @@ package mathtools.numbers.factors
 object NumberFactors {
 
 	@Deprecated(
-		"Moved to BitFactors class",
-		ReplaceWith("isProductOf2", "mathtools.numbers.factors.BitFactoring"),
-		level = DeprecationLevel.WARNING
+		"Moved to BitFactoring",
+		ReplaceWith(expression = "BitFactoring.isProductOf2(number)",
+			"mathtools.numbers.factors.BitFactoring"),
+		level = DeprecationLevel.ERROR
 	)
 	/** Determines whether a number contains a factor of 2
 	 * @param number the Number to check
@@ -17,9 +18,10 @@ object NumberFactors {
 	) : Boolean = BitFactoring.isProductOf2(number)
 
 	@Deprecated(
-		"Moved to BitFactors class",
-		ReplaceWith("isProductOf2", "mathtools.numbers.factors.BitFactoring"),
-		level = DeprecationLevel.WARNING
+		"Moved to BitFactoring",
+		ReplaceWith("BitFactoring.isProductOf2(number)",
+			"mathtools.numbers.factors.BitFactoring"),
+		level = DeprecationLevel.ERROR
 	)
 	/** Determines whether a number contains a factor of 2
 	 * @param number the Number to check
