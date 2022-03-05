@@ -6,28 +6,33 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import mathtools.numbers.strict.IntRange;
+
 /** 32-bit Integer Counter that can count up to 32767
- *  Up to (2^31 - 1) consecutive integer values can be counted together
+ *  Up to [IntCounter32000.MAX_RANGE_SIZE] consecutive integer values can be counted together
  * @author DK96-OS : 2022 */
-public class IntCounter32000 implements IntCounterInterface {
+public class IntCounter32000 implements IntCounterInterface, IntRange {
 
     /** The maximum number of unique integers that can be counted */
     public static final int MAX_RANGE_SIZE = 500_000;
 
-    /** The lowest value in the range to be counted */
-    final int mStartValue;
+    /** The lowest value in the range */
+    private final int mStartValue;
+
+    /** The highest value in the range */
+    private final int mLastValue;
 
     /** Array containing counts */
     private final short[] mArray;
 
-    /** Valid ranges are positive, and contain up to Integer.MaxValue numbers
+    /** Valid ranges are positive, and contain up to [IntCounter32000.MAX_RANGE_SIZE] numbers
      * @param startValue The first value in the range being counted
      * @param endValue The last value in the range being counted */
     public IntCounter32000(
             final int startValue,
             final int endValue
     ) {
-        final int size; // A negative size will cause an Exception
+        final int size; // A negative size will cause an Exception later on
         // Range must be positive
         if (startValue > endValue) size = -1;
         // When Range contains Max Value
@@ -42,25 +47,21 @@ public class IntCounter32000 implements IntCounterInterface {
                 size = 1 + (endValue - Integer.MIN_VALUE);
         } else
             size = endValue - (startValue - 1);
-        // Really Large Ranges are not supported
+        // Validate Range Size
         if (size < 1 || MAX_RANGE_SIZE < size
         ) throw new IllegalArgumentException(
                 "Range too wide: (" + startValue + ", " + endValue + " )"
         );
         mStartValue = startValue;
+        mLastValue = endValue;
         mArray = new short[size];
     }
 
-    /** Obtain the array index of the given value */
-    private int indexOf(
-            final int value
-    ) {
-        final int diff = value - mStartValue;
-        // Ensure value is within valid range
-        if (diff < 0 || diff >= mArray.length)
-            return -1;
-        return diff;
-    }
+    @Override
+    public int getStartValue() { return mStartValue; }
+
+    @Override
+    public int getLastValue() { return mLastValue; }
 
     @Override
     public boolean count(

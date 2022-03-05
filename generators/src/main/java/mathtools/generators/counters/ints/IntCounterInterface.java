@@ -8,7 +8,7 @@ public interface IntCounterInterface {
      * @param value The value that will be counted
      * @return True if the value was able to be counted */
     boolean count(
-            int value
+            final int value
     );
 
 }
