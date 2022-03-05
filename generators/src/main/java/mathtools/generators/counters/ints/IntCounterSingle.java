@@ -19,7 +19,11 @@ public class IntCounterSingle implements IntCounterInterface {
     public boolean count(
             final int value
     ) {
-        return value == mValue && ++mCount > 0;
+        if (value == mValue) {
+            if (++mCount > 0) return true;
+            --mCount;
+        }
+        return false;
     }
 
     /** Obtain the value that is being counted */
