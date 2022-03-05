@@ -17,16 +17,24 @@ public class IntCounter32000 implements IntCounterInterface {
     /** Array containing counts */
     private final short[] mArray;
 
+    /** Valid ranges are positive, and contain up to Integer.MaxValue numbers
+     * @param startValue The first value in the range being counted
+     * @param endValue The last value in the range being counted */
     public IntCounter32000(
-            int startValue, int endValue
+            final int startValue,
+            final int endValue
     ) {
+        // Range is positive, contains at least one value
         boolean isValid = startValue <= endValue;
+        // Range containing Max Value
         if (endValue == Integer.MAX_VALUE) {
             if (startValue < 1) isValid = false;
+        // Range containing Min Value
         } else if (startValue == Integer.MIN_VALUE) {
             if (endValue > -1) isValid = false;
         }
-        int diff = endValue - (startValue - 1);
+        final int diff = endValue - (startValue - 1);
+        // Ranges larger than Integer.MaxValue are not supported
         if (diff < 0) isValid = false;
         if (!isValid) throw new IllegalArgumentException(
                 "Value Range too wide: (" + startValue + ", " + endValue + " )"
@@ -37,9 +45,9 @@ public class IntCounter32000 implements IntCounterInterface {
 
     /** Obtain the array index of the given value */
     private int indexOf(
-            int value
+            final int value
     ) {
-        int diff = value - mStartValue;
+        final int diff = value - mStartValue;
         // Ensure value is within valid range
         if (diff < 0 || diff >= mArray.length)
             return -1;
@@ -48,13 +56,13 @@ public class IntCounter32000 implements IntCounterInterface {
 
     @Override
     public boolean count(
-            int value
+            final int value
     ) {
-        int diff = indexOf(value);
+        final int index = indexOf(value);
         // Ensure value is within valid range
-        if (diff < 0) return false;
+        if (index < 0) return false;
         // Increment, return false if overflow occurs
-        return ++mArray[diff] > 0;
+        return ++mArray[index] > 0;
     }
 
     /** Obtain the count for the given value
@@ -62,12 +70,12 @@ public class IntCounter32000 implements IntCounterInterface {
      * @return The current count for the value, or null if value out of bounds */
     @Nullable
     public Short getCountOf(
-            int value
+            final int value
     ) {
-        int diff = value - mStartValue;
-        if (diff < 0 || diff >= mArray.length)
-            return null;
-        return mArray[diff];
+        final int index = indexOf(value);
+        // Ensure valid index
+        if (index < 0) return null;
+        return mArray[index];
     }
 
     /** Get the Count of all values as a List
@@ -88,18 +96,20 @@ public class IntCounter32000 implements IntCounterInterface {
      * @param count The number to add to the value's count
      * @return True if the operation was successful */
     public boolean countBy(
-            int value,
-            short count
+            final int value,
+            final short count
     ) {
-        int diff = indexOf(value);
-        // Ensure value and number is within valid range
-        if (diff < 0 || count < 1)
-            return false;
-        int sum = ((int) mArray[diff]) + count;
+        // Must count by positive number
+        if (count < 1) return false;
+        // Ensure value index is within valid range
+        final int index = indexOf(value);
+        if (index < 0) return false;
+        //
+        final int sum = ((int) mArray[index]) + count;
         // return false if overflow occurs
         if (sum > Short.MAX_VALUE)
             return false;
-        mArray[diff] = (short) sum;
+        mArray[index] = (short) sum;
         return true;
     }
 
