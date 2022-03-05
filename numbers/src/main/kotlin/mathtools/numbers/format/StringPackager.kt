@@ -5,16 +5,17 @@ package mathtools.numbers.format
 object StringPackager {
 
     /** Pack two Bytes into a Char */
+    @Deprecated(
+        "Moved to NumberSerializer",
+        ReplaceWith(
+            "NumberSerializer.packBytes(b0, b1)",
+            "mathtools.numbers.format.NumberSerializer"),
+        DeprecationLevel.WARNING
+    )
     fun packBytes(
         b0: Byte,
         b1: Byte,
-    ) : Char {
-        val first = if (b0 > -1)
-            b0.toInt() else 256 + b0
-        val second = if (b1 > -1)
-            b1.toInt() else 256 + b1
-        return (first.shl(8) + second).toChar()
-    }
+    ) : Char = NumberSerializer.packBytes(b0, b1)
 
     /** Pack two UBytes into a Char */
     fun packUBytes(
@@ -45,9 +46,15 @@ object StringPackager {
         : UByte = c.code.toUByte()
 
     /** Pack a short integer into a character */
+    @Deprecated(
+        "Moved to NumberSerializer",
+        ReplaceWith(
+            "NumberSerializer.packShort(s)",
+            "mathtools.numbers.format.NumberSerializer"),
+        DeprecationLevel.WARNING
+    )
     fun packShort(s: Short)
-        : Char = if (s < 0)
-            (s + 65536).toChar() else s.toInt().toChar()
+        : Char = NumberSerializer.packShort(s)
 
     /** Pack an unsigned short integer into a character */
     fun packUShort(s: UShort)
