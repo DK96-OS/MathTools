@@ -72,7 +72,7 @@ object StringPackager {
     fun packFloats(
         vararg floats: Float
     ) : String = when (floats.size) {
-        1 -> packFloat(floats[0])
+        1 -> NumberSerializer.packFloat(floats[0])
         else -> buildString {
             for (f in floats) {
                 val i = f.toBits()
@@ -83,13 +83,16 @@ object StringPackager {
     }
 
     /** Pack a 32-bit float into a String of length 2 */
+    @Deprecated(
+        "Moved to NumberSerializer",
+        ReplaceWith(
+            "NumberSerializer.packFloat(f)",
+            "mathtools.numbers.format.NumberSerializer"),
+        DeprecationLevel.WARNING
+    )
     fun packFloat(
         f: Float
-    ) : String = buildString {
-        val i = f.toBits()
-        append(i.toChar())
-        append(i.ushr(16).toChar())
-    }
+    ) : String = NumberSerializer.packFloat(f)
 
     /** Unpack a 32-bit float from two 16-bit characters */
     fun unpackFloat(

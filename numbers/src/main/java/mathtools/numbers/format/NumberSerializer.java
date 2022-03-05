@@ -1,5 +1,7 @@
 package mathtools.numbers.format;
 
+import javax.annotation.Nonnull;
+
 /** Encode Numbers into Strings and characters
  * @author DK96-OS : 2021 - 2022 */
 public final class NumberSerializer {
@@ -26,6 +28,20 @@ public final class NumberSerializer {
             final short value
     ) {
         return value < 0 ? (char) (value + 65536) : (char) value;
+    }
+
+    /** Pack a 32-bit Float into a String of length 2
+     * @param value The Float to be serialized
+     * @return A String of length 2 */
+    @Nonnull
+    public static String packFloat(
+            final float value
+    ) {
+        final int i = Float.floatToIntBits(value);
+        return String.valueOf(new char[] {
+                (char) i,
+                (char) (i >>> 16)
+        });
     }
 
 }
