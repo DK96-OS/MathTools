@@ -32,30 +32,41 @@ public final class IntCounter32000Test {
     }
 
     @Test
-    void testConstructorInvalidArgs() {
+    void testInvalidConstructorArgs() {
         // Reversed Range
         assertThrows(IllegalArgumentException.class,
                 () -> new IntCounter32000(20, 19));
         // Range Starts at Min, contains more than Max numbers
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(Integer.MIN_VALUE, 1));
+                () -> new IntCounter32000(Integer.MIN_VALUE, -1));
+        // Range Ends at Max, contains more than Max numbers
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(0, Integer.MAX_VALUE));
         // Range contains all Integer values
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(
-                        Integer.MIN_VALUE, Integer.MAX_VALUE
-                )
-        );
+                () -> new IntCounter32000(Integer.MIN_VALUE, Integer.MAX_VALUE));
     }
 
     @Test
-    void testConstructorValidArgs() {
-        mCounter = new IntCounter32000(Integer.MIN_VALUE, -1);
+    void testValidConstructorMaxValue() {
+        final int start = Integer.MAX_VALUE - (IntCounter32000.MAX_RANGE_SIZE - 1);
+        mCounter = new IntCounter32000(start, Integer.MAX_VALUE);
         assertTrue(
-                mCounter.count(Integer.MIN_VALUE));
+                mCounter.count(Integer.MAX_VALUE));
         assertTrue(
-                mCounter.count(-1));
+                mCounter.count(start));
         assertFalse(
                 mCounter.count(0));
+        assertFalse(
+                mCounter.count(start - 1));
+    }
+
+    @Test
+    void testInvalidConstructorLargeValues() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(Integer.MIN_VALUE, -2));
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(1, Integer.MAX_VALUE));
     }
 
     @Test
@@ -134,6 +145,8 @@ public final class IntCounter32000Test {
                 mCounter.countBy(4, Short.MAX_VALUE));
         assertFalse(
                 mCounter.count(4));
+        assertEquals(
+                Short.MAX_VALUE, mCounter.getCountOf(4));
     }
 
 }

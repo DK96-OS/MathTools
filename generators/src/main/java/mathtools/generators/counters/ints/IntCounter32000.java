@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
  * @author DK96-OS : 2022 */
 public class IntCounter32000 implements IntCounterInterface {
 
+    /** The maximum number of unique integers that can be counted */
+    public static final int MAX_RANGE_SIZE = 500_000;
+
     /** The lowest value in the range to be counted */
     final int mStartValue;
 
@@ -24,23 +27,28 @@ public class IntCounter32000 implements IntCounterInterface {
             final int startValue,
             final int endValue
     ) {
-        // Range is positive, contains at least one value
-        boolean isValid = startValue <= endValue;
-        // Range containing Max Value
-        if (endValue == Integer.MAX_VALUE) {
-            if (startValue < 1) isValid = false;
-        // Range containing Min Value
+        final int size; // A negative size will cause an Exception
+        // Range must be positive
+        if (startValue > endValue) size = -1;
+        // When Range contains Max Value
+        else if (endValue == Integer.MAX_VALUE) {
+            if (startValue < 1) size = -1;
+            else
+                size = Integer.MAX_VALUE - (startValue - 1);
+        // When Range contains Min Value
         } else if (startValue == Integer.MIN_VALUE) {
-            if (endValue > -1) isValid = false;
-        }
-        final int diff = endValue - (startValue - 1);
-        // Ranges larger than Integer.MaxValue are not supported
-        if (diff < 0) isValid = false;
-        if (!isValid) throw new IllegalArgumentException(
-                "Value Range too wide: (" + startValue + ", " + endValue + " )"
+            if (endValue > -2) size = -1;
+            else
+                size = 1 + (endValue - Integer.MIN_VALUE);
+        } else
+            size = endValue - (startValue - 1);
+        // Really Large Ranges are not supported
+        if (size < 1 || MAX_RANGE_SIZE < size
+        ) throw new IllegalArgumentException(
+                "Range too wide: (" + startValue + ", " + endValue + " )"
         );
         mStartValue = startValue;
-        mArray = new short[diff];
+        mArray = new short[size];
     }
 
     /** Obtain the array index of the given value */
@@ -62,7 +70,10 @@ public class IntCounter32000 implements IntCounterInterface {
         // Ensure value is within valid range
         if (index < 0) return false;
         // Increment, return false if overflow occurs
-        return ++mArray[index] > 0;
+        if (++mArray[index] > 0)
+            return true;
+        --mArray[index];
+        return false;
     }
 
     /** Obtain the count for the given value
