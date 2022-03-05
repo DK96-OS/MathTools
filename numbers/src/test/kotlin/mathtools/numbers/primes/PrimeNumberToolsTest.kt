@@ -5,22 +5,18 @@ import mathtools.numbers.primes.PrimeNumberTools.divideOutSmallPrimes
 import mathtools.numbers.primes.PrimeNumberTools.getFirstPrimeAboveLimit
 import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimeRange
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ArgumentsSource
 
-/** Testing the Prime Number tools object */
+/** Testing [PrimeNumberTools] static functions
+ * @author DK96-OS : 2018 - 2022 */
 class PrimeNumberToolsTest {
 
-	/** A cache is required by all function calls */
-	private lateinit var cache: ShortPrimeCache
-
-	@BeforeEach
-	fun testSetup() {
-		cache = ShortPrimeCache()
-	}
-
-    @Test
-    fun testPrimeFactorLimitCheck() {
+    @ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+    fun testPrimeFactorLimitCheck(
+		cache: PrimeCacheBase
+    ) {
 		assertFalse(
 			checkForPrimeFactorAboveLimit(40, 11, cache))
     	assertFalse(
@@ -32,8 +28,11 @@ class PrimeNumberToolsTest {
 			checkForPrimeFactorAboveLimit(39, 11, cache))
     }
 
-	@Test
-	fun testFirstPrimeAboveLimit() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testFirstPrimeAboveLimit(
+		cache: PrimeCacheBase
+	) {
 		assertNull(
 			getFirstPrimeAboveLimit(5000, 71, cache))
 		assertNull(
@@ -51,8 +50,11 @@ class PrimeNumberToolsTest {
 			getFirstPrimeAboveLimit(49, 7, cache))
 	}
 
-	@Test
-	fun testFirstPrimeAboveLimitNegative() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testFirstPrimeAboveLimitNegative(
+		cache: PrimeCacheBase
+	) {
 		// Ignore negative sign on product
 		assertNull(
 			getFirstPrimeAboveLimit(-5000, 71, cache))
@@ -69,8 +71,11 @@ class PrimeNumberToolsTest {
 			getFirstPrimeAboveLimit(-49, -6, cache))
 	}
 
-	@Test
-	fun testFirstPrimeAboveLimitInvalid() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testFirstPrimeAboveLimitInvalid(
+		cache: PrimeCacheBase
+	) {
 		// Null when product is 1 or zero
 		assertNull(
 			getFirstPrimeAboveLimit(-1, 5, cache))
@@ -80,8 +85,11 @@ class PrimeNumberToolsTest {
 			getFirstPrimeAboveLimit(1, 5, cache))
 	}
 
-	@Test
-	fun testReduceByPrimes() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testReduceByPrimes(
+		cache: PrimeCacheBase
+	) {
 		assertEquals(
 			2, reduceByPrimeRange(1..2, 30, cache))
 		assertEquals(
@@ -90,8 +98,11 @@ class PrimeNumberToolsTest {
 			12, reduceByPrimeRange(2..2, 60, cache))
 	}
 
-	@Test
-	fun testReduceByPrimesNegative() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testReduceByPrimesNegative(
+		cache: PrimeCacheBase
+	) {
 		assertEquals(
 			-2, reduceByPrimeRange(1..2, -30, cache))
 		assertEquals(
@@ -100,8 +111,11 @@ class PrimeNumberToolsTest {
 			-12, reduceByPrimeRange(2..3, -60, cache))
 	}
 
-	@Test
-	fun testReduceByPrimesIndivisibleProduct() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testReduceByPrimesIndivisibleProduct(
+		cache: PrimeCacheBase
+	) {
 		assertNull(
 			reduceByPrimeRange(1..3, -1, cache))
 		assertNull(
@@ -110,8 +124,11 @@ class PrimeNumberToolsTest {
 			reduceByPrimeRange(1..3, 1, cache))
 	}
 
-	@Test
-	fun testReduceByPrimesInvalidRange() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testReduceByPrimesInvalidRange(
+		cache: PrimeCacheBase
+	) {
 		// Negative valued ranges are ignored
 		assertNull(
 			reduceByPrimeRange(-3..-1, -30, cache))
@@ -123,16 +140,22 @@ class PrimeNumberToolsTest {
 			-15, reduceByPrimeRange(-1..0, -60, cache))
 	}
 
-	@Test
-	fun testReduceByPrimesReversedRange() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testReduceByPrimesReversedRange(
+		cache: PrimeCacheBase
+	) {
 		assertEquals(
 			4, reduceByPrimeRange(2..1, 60, cache))
 		assertEquals(
 			-4, reduceByPrimeRange(2..1, -60, cache))
 	}
 
-	@Test
-	fun testDivideOutSmallPrimes() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testDivideOutSmallPrimes(
+		cache: PrimeCacheBase
+	) {
 		assertEquals(
 			25, divideOutSmallPrimes(100, 2, cache))
 		assertEquals(
@@ -153,8 +176,11 @@ class PrimeNumberToolsTest {
 			divideOutSmallPrimes(50, 43, cache))
 	}
 
-	@Test
-	fun testDivideOutSmallPrimesNegative() {
+	@ParameterizedTest
+	@ArgumentsSource(PrimeCacheArgumentProvider::class)
+	fun testDivideOutSmallPrimesNegative(
+		cache: PrimeCacheBase
+	) {
 		assertNull(divideOutSmallPrimes(-50, 43, cache))
 		assertNull(divideOutSmallPrimes(-100, 5, cache))
 	}

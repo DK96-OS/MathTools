@@ -4,7 +4,7 @@ import mathtools.numbers.factors.BitFactoring.isProductOf2
 import mathtools.numbers.factors.NumberFactors.divideOutFactor
 
 /** Container for PrimeNumber functions
- * @author DK96-OS : 2018 - 2021 */
+ * @author DK96-OS : 2018 - 2022 */
 object PrimeNumberTools {
 
     /** Whether this Product/Prime contains a prime number greater than the limit
@@ -29,7 +29,15 @@ object PrimeNumberTools {
      * @param product The product to search in
      * @param limit The maximum prime factor that is allowed
      * @return The smallest prime factor above the limit, or null  */
-    fun getFirstPrimeAboveLimit(
+	@Deprecated(
+		message = "Moved to PrimeFactoring",
+		replaceWith = ReplaceWith(
+			"firstPrimeAbove",
+			"mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove"
+		),
+		level = DeprecationLevel.WARNING
+	)
+	fun getFirstPrimeAboveLimit(
 	    product: Long,
 	    limit: Long,
 		cache: PrimeCacheBase,
