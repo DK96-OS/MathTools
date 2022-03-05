@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /** Testing the [IntCounter32000]
  * @author DK96-OS : 2022 */
-public class IntCounter32000Test {
+public final class IntCounter32000Test {
 
     private IntCounter32000 mCounter;
 
@@ -25,7 +25,7 @@ public class IntCounter32000Test {
             for (int j = 0; j < 10; j++)
                 assertTrue(mCounter.count(i));
         }
-        short[] result = mCounter.getValueArray();
+        final short[] result = mCounter.getValueArray();
         for (int i = 0; i < 11; i++) {
             assertEquals(10, result[i]);
         }
@@ -33,15 +33,29 @@ public class IntCounter32000Test {
 
     @Test
     void testConstructorInvalidArgs() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            mCounter = new IntCounter32000(20, 19);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            mCounter = new IntCounter32000(Integer.MIN_VALUE, 1);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            mCounter = new IntCounter32000(Integer.MIN_VALUE, Integer.MAX_VALUE);
-        });
+        // Reversed Range
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(20, 19));
+        // Range Starts at Min, contains more than Max numbers
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(Integer.MIN_VALUE, 1));
+        // Range contains all Integer values
+        assertThrows(IllegalArgumentException.class,
+                () -> new IntCounter32000(
+                        Integer.MIN_VALUE, Integer.MAX_VALUE
+                )
+        );
+    }
+
+    @Test
+    void testConstructorValidArgs() {
+        mCounter = new IntCounter32000(Integer.MIN_VALUE, -1);
+        assertTrue(
+                mCounter.count(Integer.MIN_VALUE));
+        assertTrue(
+                mCounter.count(-1));
+        assertFalse(
+                mCounter.count(0));
     }
 
     @Test
@@ -102,7 +116,6 @@ public class IntCounter32000Test {
                 mCounter.countBy(-11, (short) 200));
         assertFalse(
                 mCounter.countBy(0, (short) 200));
-
     }
 
     @Test
@@ -112,6 +125,15 @@ public class IntCounter32000Test {
                 mCounter.getCountOf(0));
         assertNull(
                 mCounter.getCountOf(20));
+    }
+
+    @Test
+    void testCountOverflow() {
+        mCounter = new IntCounter32000(1, 8);
+        assertTrue(
+                mCounter.countBy(4, Short.MAX_VALUE));
+        assertFalse(
+                mCounter.count(4));
     }
 
 }
