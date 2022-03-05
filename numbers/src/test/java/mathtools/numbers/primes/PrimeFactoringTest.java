@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -34,7 +35,7 @@ public final class PrimeFactoringTest {
 
     @ParameterizedTest
     @ArgumentsSource(PrimeCacheArgumentProvider.class)
-    void testFirstPrimeAboveNegativeArgs(
+    void testFirstPrimeAboveArgsNegative(
             final PrimeCacheBase cache
     ) {
         // Check negative inputs
@@ -47,6 +48,30 @@ public final class PrimeFactoringTest {
                 firstPrimeAbove(5000, -4, cache));
         assertNull(
                 firstPrimeAbove(-49, -6, cache));
+    }
+
+    @Test
+    void testFirstPrimeAboveArgsMinValue() {
+        PrimeCacheBase cache = new ShortPrimeCache();
+        assertNull(
+                firstPrimeAbove(Long.MIN_VALUE, 200, cache));
+    }
+
+    @Test
+    void testFirstPrimeAboveArgsProductBaseCases() {
+        PrimeCacheBase cache = new BytePrimeCache();
+        assertNull(
+                firstPrimeAbove(2, 2, cache));
+        assertNull(
+                firstPrimeAbove(2, 10, cache));
+        assertNull(
+                firstPrimeAbove(1, 10, cache));
+        assertNull(
+                firstPrimeAbove(0, 10, cache));
+        assertNull(
+                firstPrimeAbove(-1, 10, cache));
+        assertNull(
+                firstPrimeAbove(-2, 2, cache));
     }
 
 }

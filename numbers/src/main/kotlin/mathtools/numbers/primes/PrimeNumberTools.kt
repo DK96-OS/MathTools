@@ -32,8 +32,8 @@ object PrimeNumberTools {
 	@Deprecated(
 		message = "Moved to PrimeFactoring",
 		replaceWith = ReplaceWith(
-			"firstPrimeAbove",
-			"mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove"
+			"PrimeFactoring.firstPrimeAbove(product, limit, cache)",
+			"mathtools.numbers.primes.PrimeFactoring"
 		),
 		level = DeprecationLevel.WARNING
 	)
@@ -41,28 +41,7 @@ object PrimeNumberTools {
 	    product: Long,
 	    limit: Long,
 		cache: PrimeCacheBase,
-    ) : Long? {
-	    // check arguments
-	    when {
-			limit < 2 -> return null
-		    product in -1..1 -> return null
-		    product < 0 -> return getFirstPrimeAboveLimit(
-				-product, limit, cache
-			)
-		}
-        var primeIdx = 0
-        var testPrime = cache.getPrime(primeIdx)
-        var composite = product
-        while (limit in testPrime until composite) {
-            composite = divideOutFactor(testPrime, composite)
-            testPrime = cache.getPrime(++primeIdx)
-        }
-        while (testPrime in (limit + 1) .. composite) {
-            if (composite % testPrime == 0L) return testPrime.toLong()
-            else testPrime += 2
-        }
-        return null
-    }
+    ) : Long? = PrimeFactoring.firstPrimeAbove(product, limit, cache)
 
 	/** Try to divide the product by all primes in the index range.
 	 * @param primeIndexRange The range of prime number indices to try
