@@ -1,0 +1,63 @@
+package mathtools.numbers.primes;
+
+import mathtools.numbers.factors.BitFactoring;
+import mathtools.numbers.factors.NumberFactors;
+
+/** Functions that help factor numbers by primes
+ * @author DK96-OS : 2022 */
+public final class PrimeFactoring {
+
+    private PrimeFactoring() {}
+
+    /** Obtain lowest Prime Number Factor that is greater than the limit
+     * @param product The product to check for prime factors
+     * @param limit The maximum value of any prime number that can be allowed
+     * @param cache A PrimeCacheBase instance for obtaining Prime Numbers
+     * @return The first prime number above limit, or null if none found */
+    public static Long firstPrimeAbove(
+            long product,
+            final long limit,
+            final PrimeCacheBase cache
+    ) throws IllegalArgumentException {
+        // Validate Arguments
+        if (limit < 2 || product < 3 && -3 < product )
+            return null;
+        // Handle negative products
+        if (product < 0) {
+            if (product == Long.MIN_VALUE)
+                return null;
+            else
+                product = -product;
+        }
+        // Eliminate 2 if possible - use efficient bit factor method
+        if (BitFactoring.isProductOf2(product)) {
+            product = NumberFactors.INSTANCE.divideOutFactor(2, product);
+        }
+        final int maxIndex = cache.getMaxIndex();
+        //
+        for (int primeIndex = 1; primeIndex <= maxIndex; primeIndex++) {
+            // Obtain the next prime from cache
+            final int testPrime = cache.getPrime(primeIndex);
+            // If the test prime is above limit
+            if (limit < testPrime) {
+                // Check if test prime divides the product
+                if (product % testPrime == 0)
+                    return (long) testPrime;
+            } else {
+                // Try to reduce the product by factoring
+                final long factoredProduct = NumberFactors.INSTANCE.divideOutFactor(
+                        testPrime, product
+                );
+                // If the product was factored
+                if (factoredProduct != product) {
+                    // If the product is now below the limit
+                    if (factoredProduct <= limit)
+                        return null;
+                    product = factoredProduct;
+                }
+            }
+        }
+        return null;
+    }
+
+}
