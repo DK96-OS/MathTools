@@ -2,6 +2,9 @@ package mathtools.generators.elements.ints;
 
 import com.google.common.math.IntMath;
 
+import java.security.SecureRandom;
+import java.util.Random;
+
 /** A generator element that produces integers in a specific range.
  * Has a theoretical uniform probability of producing any integer in the range.
  * @author DK96-OS : 2022 */
@@ -19,7 +22,10 @@ public class IntRangeElement implements IntElementInterface {
      * When negative, integers are generated until one in range appears. */
     private int mBound;
 
-    /** Validates start and end values, will reverse them to produce positive range
+    private final Random mRandom;
+
+    /** Constructs with given IntRange parameters, and SecureRandom generator
+     * Validates start and end values, will reverse them to produce positive range
      * @param start The first value in the range
      * @param end The last value in the range */
     public IntRangeElement(
@@ -34,22 +40,44 @@ public class IntRangeElement implements IntElementInterface {
             mEnd = start;
         }
         mBound = calculateBound(mStart, mEnd);
+        mRandom = new SecureRandom();
+    }
+
+    /** Constructs with given IntRange parameters, and RNG of choice
+     * Validates start and end values, will reverse them to produce positive range
+     * @param start The first value in the range
+     * @param end The last value in the range
+     * @param random The RNG to use */
+    IntRangeElement(
+            final int start,
+            final int end,
+            final Random random
+    ) {
+        if (start <= end) {
+            mStart = start;
+            mEnd = end;
+        } else {
+            mStart = end;
+            mEnd = start;
+        }
+        mBound = calculateBound(mStart, mEnd);
+        mRandom = random;
     }
 
     @Override
     public int generate() {
         if (2 < mBound)
-            return mStart + random.nextInt(mBound);
+            return mStart + mRandom.nextInt(mBound);
         switch (mBound) {
-            case 0: return mStart == mEnd ? mStart : random.nextInt();
+            case 0: return mStart == mEnd ? mStart : mRandom.nextInt();
             case 1: case 2:
-                return random.nextBoolean() ? mStart : mEnd;
+                return mRandom.nextBoolean() ? mStart : mEnd;
         }
         // Bound is negative
-        int trial = random.nextInt();
+        int trial = mRandom.nextInt();
         byte counter = 0;
         while (!(mStart <= trial && trial <= mEnd)) {
-            trial = random.nextInt();
+            trial = mRandom.nextInt();
             if (++counter > 31) break;
         }
         return trial;
