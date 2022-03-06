@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mathtools.generators.counters.ints.IntCounter32000;
 import mathtools.generators.counters.ints.IntGeneratorCounter;
 
@@ -36,7 +38,7 @@ public final class IntRangeElementGeneratedValuesTest {
         assertEquals(
                 16, results.size());
         assertTrue(
-                isNonEmpty(results));
+                allNonZero(results));
     }
 
     @Test
@@ -50,7 +52,7 @@ public final class IntRangeElementGeneratedValuesTest {
         assertEquals(
                 16, results.size());
         assertTrue(
-                isNonEmpty(results));
+                allNonZero(results));
     }
 
     @Test
@@ -68,11 +70,12 @@ public final class IntRangeElementGeneratedValuesTest {
         assertEquals(
                 16, results.size());
         assertTrue(
-                isNonEmpty(results));
+                allNonZero(results));
     }
 
-    private boolean isNonEmpty(
-            List<Integer> list
+    /** Verifies that all Integer in this list are non-zero */
+    private static boolean allNonZero(
+            @Nonnull final List<Integer> list
     ) {
         for (int i = 0; i < list.size(); i++) {
             if (0 == list.get(i)) return false;
