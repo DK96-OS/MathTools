@@ -51,8 +51,8 @@ class DistributionStats internal constructor(
 
     companion object {
         /** Determine the DistributionCharacteristics of the given List */
-        inline fun <reified T : Number> process(
-            list: List<T>
+        fun <T : Number> process(
+            list: List<T>,
         ) : DistributionStats? {
             when (list.size) {
                 0 -> return null
@@ -114,8 +114,7 @@ class DistributionStats internal constructor(
                         typedList.maxOrNull()!!
                     )
                 }
-                else -> throw IllegalArgumentException(
-                    "Invalid Data Type Received: ${T::class.java.name}")
+                else -> throw IllegalArgumentException("Invalid Data Type")
             }
         }
 
