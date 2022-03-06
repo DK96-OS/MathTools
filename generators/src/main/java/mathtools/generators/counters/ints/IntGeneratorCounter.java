@@ -9,7 +9,11 @@ import mathtools.generators.elements.ints.IntElementInterface;
 public class IntGeneratorCounter {
 
     private final IntElementInterface mGenerator;
+
     private final IntCounter mCounter;
+
+    /** The last value that was generated */
+    private Integer mPrevValue = null;
 
     private Integer mInvalidValue = null;
 
@@ -21,23 +25,42 @@ public class IntGeneratorCounter {
         mCounter = counter;
     }
 
-    /** Run the [IntElementInterface] a number of times,
+    /** Run the Integer Generator Element a number of times,
      *  counting the outcomes using [IntCounterInterface]
-     * @param n The number of times to generate from the [IntElementInterface]
-     * @return True if the [IntCounterInterface] counted all values successfully
+     * @param nValues The number of values to generate
+     * @return True if the [IntCounter] counted all values successfully
      */
-    public boolean countGeneratedValues(int n) {
-        for (int i = 0; i < n; i++) {
-            final int value = mGenerator.generate();
+    public boolean countGeneratedValues(
+            final int nValues
+    ) {
+        // Remove any invalid value that may be stored
+        mInvalidValue = null;
+        // Validate count argument
+        if (nValues < 1) return false;
+        // Initialization required before the loop
+        int value = mGenerator.generate();
+        // If the Counter rejects this value
+        if (!mCounter.count(value)) {
+            mInvalidValue = value;
+            return false;
+        }
+        for (int i = 1; i < nValues; i++) {
+            value = mGenerator.generate();
             if (!mCounter.count(value)) {
                 mInvalidValue = value;
-                return false;
+                break;
             }
         }
+        mPrevValue = value; // The last value that was generated is saved
         return true;
     }
 
     @Nullable
     public Integer getRejectedValue() { return mInvalidValue; }
+
+    @Nullable
+    public Integer getPreviousValue() { return mPrevValue; }
+
+    public IntCounter getCounter() { return mCounter; }
 
 }
