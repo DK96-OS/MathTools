@@ -6,12 +6,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import mathtools.numbers.strict.IntRange;
-
 /** 32-bit Integer Counter that can count up to 127
  *  Up to [IntCounter127.MAX_RANGE_SIZE] consecutive integer values can be counted together
  * @author DK96-OS : 2022 */
-public class IntCounter127 implements IntCounterInterface, IntRange {
+public class IntCounter127 implements IntRangeCounter {
 
     /** The maximum number of unique integers that can be counted */
     public static final int MAX_RANGE_SIZE = 1_000_000;

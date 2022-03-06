@@ -17,7 +17,7 @@ import mathtools.generators.elements.ints.IntRangeElement;
  * @author DK96-OS : 2022 */
 public final class IntGeneratorCounterTest {
 
-    private IntCounterInterface mCounter;
+    private IntCounter mCounter;
     private IntElementInterface mGenerator;
     private IntGeneratorCounter mGC;
 

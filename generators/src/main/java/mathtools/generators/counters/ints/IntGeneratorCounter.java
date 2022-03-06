@@ -9,13 +9,13 @@ import mathtools.generators.elements.ints.IntElementInterface;
 public class IntGeneratorCounter {
 
     private final IntElementInterface mGenerator;
-    private final IntCounterInterface mCounter;
+    private final IntCounter mCounter;
 
     private Integer mInvalidValue = null;
 
     public IntGeneratorCounter(
-            IntElementInterface generator,
-            IntCounterInterface counter
+            final IntElementInterface generator,
+            final IntCounter counter
     ) {
         mGenerator = generator;
         mCounter = counter;
@@ -28,7 +28,7 @@ public class IntGeneratorCounter {
      */
     public boolean countGeneratedValues(int n) {
         for (int i = 0; i < n; i++) {
-            int value = mGenerator.generate();
+            final int value = mGenerator.generate();
             if (!mCounter.count(value)) {
                 mInvalidValue = value;
                 return false;

@@ -2,7 +2,7 @@ package mathtools.generators.counters.ints;
 
 /** Counts the number of times a specific value occurs
  * @author DK96-OS : 2022 */
-public class IntCounterSingle implements IntCounterInterface {
+public class IntCounterSingle implements IntCounter {
 
     protected final int mValue;
 

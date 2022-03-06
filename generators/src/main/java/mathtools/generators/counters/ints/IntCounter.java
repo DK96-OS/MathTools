@@ -2,7 +2,7 @@ package mathtools.generators.counters.ints;
 
 /** Can Count 32-bit Integer values
  * @author DK96-OS : 2022 */
-public interface IntCounterInterface {
+public interface IntCounter {
 
     /** Increase the count associated with this value
      * @param value The value that will be counted
