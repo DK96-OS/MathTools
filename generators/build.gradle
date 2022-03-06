@@ -1,8 +1,7 @@
 plugins {
-	id "org.jetbrains.kotlin.jvm"
+	id "java-library"
 	id "test-report-aggregation"
 	id "jacoco"
-	id "org.jetbrains.dokka" version "1.6.10"
 }
 apply from: "../dependencies.gradle"
 
@@ -33,17 +32,7 @@ dependencies {
 	api project(":statistics")
 	api project(":numbers")
 
-	compileOnly lombok
-	annotationProcessor lombok
 	api guava
-
-	// Align versions of all Kotlin components
-	implementation platform("org.jetbrains.kotlin:kotlin-bom")
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-	// Coroutine support
-	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-	testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
 
 	// JUnit 5
 	testImplementation platform("org.junit:junit-bom:5.7.2")
@@ -53,7 +42,7 @@ dependencies {
 }
 
 sourceSets.main {
-	java.srcDirs("src/main/java", "src/main/kotlin")
+	java.srcDirs("src/main/java")
 }
 
 tasks.test {
