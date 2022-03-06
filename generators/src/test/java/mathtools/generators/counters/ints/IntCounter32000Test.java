@@ -19,15 +19,15 @@ public final class IntCounter32000Test {
     void testCleanup() { mCounter = null; }
 
     @Test
-    void test0To10() {
-        mCounter = new IntCounter32000(0, 10);
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 10; j++)
+    void test0To9() {
+        mCounter = new IntCounter32000(0, 9);
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 2; j++)
                 assertTrue(mCounter.count(i));
         }
         final short[] result = mCounter.getValueArray();
-        for (int i = 0; i < 11; i++) {
-            assertEquals(10, result[i]);
+        for (int i = 0; i < 10; i++) {
+            assertEquals(2, result[i]);
         }
     }
 
