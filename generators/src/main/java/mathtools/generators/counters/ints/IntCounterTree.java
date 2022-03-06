@@ -34,7 +34,7 @@ public final class IntCounterTree implements IntRangeCounter {
 
     @Override
     public int getLastValue() {
-        return mRight.getStartValue();
+        return mRight.getLastValue();
     }
 
     @Override
