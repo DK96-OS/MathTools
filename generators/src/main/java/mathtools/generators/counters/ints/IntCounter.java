@@ -1,5 +1,7 @@
 package mathtools.generators.counters.ints;
 
+import java.util.List;
+
 /** Can Count 32-bit Integer values
  * @author DK96-OS : 2022 */
 public interface IntCounter {
@@ -10,5 +12,9 @@ public interface IntCounter {
     boolean count(
             final int value
     );
+
+    /** Obtain a List of all counts, in ascending order of corresponding value
+     * @return A List containing the counts of each value */
+    List<Integer> toList();
 
 }

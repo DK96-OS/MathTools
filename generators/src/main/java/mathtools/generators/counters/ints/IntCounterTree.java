@@ -1,5 +1,9 @@
 package mathtools.generators.counters.ints;
 
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 /** A tree of [IntRangeCounter] instances
@@ -45,6 +49,15 @@ public final class IntCounterTree implements IntRangeCounter {
             return mLeft.count(value);
         else
             return mRight.count(value);
+    }
+
+    @Override
+    public List<Integer> toList() {
+        return ImmutableList
+                .<Integer>builder()
+                .addAll(mLeft.toList())
+                .addAll(mRight.toList())
+                .build();
     }
 
 }

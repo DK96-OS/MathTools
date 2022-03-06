@@ -1,5 +1,7 @@
 package mathtools.generators.counters.ints;
 
+import java.util.List;
+
 /** Counts the number of times a specific value occurs
  * @author DK96-OS : 2022 */
 public class IntCounterSingle implements IntCounter {
@@ -24,6 +26,13 @@ public class IntCounterSingle implements IntCounter {
             --mCount;
         }
         return false;
+    }
+
+    @Override
+    public List<Integer> toList() {
+        return List.of(
+                mCount > Integer.MAX_VALUE ? -1 : (int) mCount
+        );
     }
 
     /** Obtain the value that is being counted */
