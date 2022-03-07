@@ -6,11 +6,11 @@ object ByteArrayExtensions {
 
 	/** Clears any nonzero elements in the Array */
 	fun ByteArray.clear() {
-		val zero: Byte = 0
-		val first = indexOfFirst { it != zero }
-		if (first > -1)
-			for (i in first until size)
-				if (this[i] != (0).toByte()) set(i, 0)
+		ByteArrayExt.clear(this)
 	}
+
+	/** Determines whether this array contains only non-zero elements */
+	fun ByteArray.isNonZero()
+		: Boolean = ByteArrayExt.allNonZero(this)
 
 }
