@@ -42,11 +42,11 @@ public final class ByteArrayExt {
             @Nonnull final byte[] array
     ) {
         if (array.length < 5) switch (array.length) {
-            case 0: return Collections.emptyList();
-            case 1: return List.of(array[0]);
-            case 2: return List.of(array[0], array[1]);
-            case 3: return List.of(array[0], array[1], array[2]);
             case 4: return List.of(array[0], array[1], array[2], array[3]);
+            case 3: return List.of(array[0], array[1], array[2]);
+            case 2: return List.of(array[0], array[1]);
+            case 1: return List.of(array[0]);
+            default: return Collections.emptyList();
         }
         final ArrayList<Byte> list = new ArrayList<>(array.length);
         for (byte i : array) list.add(i);
