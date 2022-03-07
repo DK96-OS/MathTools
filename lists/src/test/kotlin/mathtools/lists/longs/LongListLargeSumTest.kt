@@ -11,6 +11,9 @@ import java.math.BigInteger
  * @author DK96-OS : 2022 */
 class LongListLargeSumTest {
 
+	private val limit = Long.MAX_VALUE / 2
+	private val bigLimit = BigInteger.valueOf(limit)
+
 	@Test
 	fun testU101() {
 		val data = toLong(uniform101)
@@ -28,6 +31,31 @@ class LongListLargeSumTest {
 		maxLong *= BigInteger.valueOf(5000)
 		assertEquals(
 			maxLong, largeSum(data)
+		)
+	}
+
+	@Test
+	fun testSmallLists() {
+		assertEquals(
+			BigInteger.ZERO, largeSum(emptyList()))
+		//
+		assertEquals(
+			bigLimit, largeSum(listOf(limit)))
+		//
+		assertEquals(
+			bigLimit.multiply(BigInteger.TWO),
+			largeSum(listOf(limit, limit))
+		)
+	}
+
+	@Test
+	fun testNegativeValues() {
+		val value = -(limit + 1) / 2
+		val array = Array(8) { value }
+		//
+		assertEquals(
+			BigInteger.valueOf(value).multiply(BigInteger.valueOf(8)),
+			largeSum(array.toList())
 		)
 	}
 
