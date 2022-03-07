@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 /** Testing the IntegerArray extension functions
@@ -19,8 +20,7 @@ public final class IntArrayExtTest {
         if (size < 0 || size > 200_000_000)
             throw new IllegalArgumentException();
         final int[] array = new int[size];
-        for (int i = 0; i < size; i++)
-            array[i] = startVal + i;
+        Arrays.fill(array, startVal);
         return array;
     }
 
@@ -32,10 +32,8 @@ public final class IntArrayExtTest {
         final List<Integer> list = IntArrayExt.toList(
                 newArray(arraySize, 4)
         );
-        for (int i = 0; i < arraySize; i++) {
-            assertEquals(
-                    (int) (i + 4), list.get(i));
-        }
+        for (int i = 0; i < arraySize; i++)
+            assertEquals(4, list.get(i));
     }
 
     @Test

@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.List;
 
 /** Testing the LongArray extension functions
@@ -25,9 +26,7 @@ public final class LongArrayExtTest {
         if (size < 0 || size > 200_000_000)
             throw new IllegalArgumentException();
         final long[] array = new long[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = startVal + i;
-        }
+        Arrays.fill(array, startVal);
         return array;
     }
 
@@ -40,8 +39,7 @@ public final class LongArrayExtTest {
                 newArray(arraySize, 4)
         );
         for (int i = 0; i < arraySize; i++)
-            assertEquals(
-                    i + 4, list.get(i));
+            assertEquals(4, list.get(i));
     }
 
     @Test
@@ -49,7 +47,8 @@ public final class LongArrayExtTest {
         final long[] array = newArray(8, Integer.MAX_VALUE);
         assertEquals(
                 BigInteger.valueOf(8L * Integer.MAX_VALUE),
-                LongArrayExt.sum(array));
+                LongArrayExt.sum(array)
+        );
     }
 
     @Test
@@ -63,7 +62,7 @@ public final class LongArrayExtTest {
 
     @Test
     void testSumOfHalfMaxValues() {
-        final long halfMax = (Long.MAX_VALUE - 1) / 2;
+        final long halfMax = (Long.MAX_VALUE - 3) / 2;
         final long[] array = newArray(8, halfMax);
         assertEquals(
                 eight.multiply(BigInteger.valueOf(halfMax)),

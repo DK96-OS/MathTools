@@ -12,8 +12,6 @@ import java.util.List;
  * @author DK96-OS : 2022 */
 public final class ShortArrayExtTest {
 
-    private static final short ZERO = 0;
-
     private static short[] newArray(
             final int size,
             final short startVal
