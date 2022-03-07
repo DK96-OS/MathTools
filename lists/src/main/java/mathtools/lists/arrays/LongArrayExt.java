@@ -22,16 +22,19 @@ public final class LongArrayExt {
     public static BigInteger sum(
             @NotNull long[] array
     ) {
-        long limit = Long.MAX_VALUE / 2;
+        final long limit = Long.MAX_VALUE / 2;
         BigInteger sum = BigInteger.ZERO;
         long minorSum = 0;
         for (long next : array) {
+            // values over limit get converted to BigInt immediately
             if (next >= limit)
                 sum = sum.add(BigInteger.valueOf(next));
+            // the smaller sum can handle this value
             else if (minorSum < limit)
                 minorSum += next;
+            // see if the addition overflows
             else {
-                long trySum = minorSum + next;
+                final long trySum = minorSum + next;
                 // check for overflow
                 if (trySum > minorSum)  // No overflow
                     minorSum = trySum;
