@@ -2,17 +2,17 @@ package mathtools.lists.arrays
 
 import java.util.*
 
-/** Convenient ByteArray methods
+/** Convenient ShortArray methods
  * @author DK96-OS : 2022 */
-object ByteArrayExtensions {
+object ShortArrayExtensions {
 
 	/** Clears any nonzero elements in the Array */
-	fun ByteArray.clear() {
+	fun ShortArray.clear() {
 		Arrays.fill(this, 0)
 	}
 
 	/** Determines whether this array contains only non-zero elements */
-	fun ByteArray.isNonZero()
-		: Boolean = ByteArrayExt.allNonZero(this)
+	fun ShortArray.isNonZero()
+		: Boolean = ShortArrayExt.allNonZero(this)
 
 }
