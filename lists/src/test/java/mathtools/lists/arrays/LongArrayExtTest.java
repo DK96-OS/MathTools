@@ -70,4 +70,24 @@ public final class LongArrayExtTest {
         );
     }
 
+    @Test
+    void testSumOfQuarterMaxValues() {
+        final long quarterMax = ((Long.MAX_VALUE / 2) + 1) / 2;
+        final long[] array = newArray(8, quarterMax);
+        assertEquals(
+                eight.multiply(BigInteger.valueOf(quarterMax)),
+                LongArrayExt.sum(array)
+        );
+    }
+
+    @Test
+    void testSumOfNegativeValues() {
+        final long quarterMax = -((Long.MAX_VALUE / 2) + 1) / 2;
+        final long[] array = newArray(8, quarterMax);
+        assertEquals(
+                eight.multiply(BigInteger.valueOf(quarterMax)),
+                LongArrayExt.sum(array)
+        );
+    }
+
 }
