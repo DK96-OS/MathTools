@@ -2,6 +2,7 @@ package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -35,6 +36,13 @@ public final class IntArrayExtTest {
             assertEquals(
                     (int) (i + 4), list.get(i));
         }
+    }
+
+    @Test
+    void testSum() {
+        final int[] array = newArray(10, Short.MAX_VALUE);
+        assertEquals(
+                10 * Short.MAX_VALUE, IntArrayExt.sum(array));
     }
 
 }

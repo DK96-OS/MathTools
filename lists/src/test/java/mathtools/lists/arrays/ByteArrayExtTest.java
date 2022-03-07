@@ -2,6 +2,7 @@ package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -38,6 +39,13 @@ public final class ByteArrayExtTest {
             assertEquals(
                     (byte) (i + 4), list.get(i));
         }
+    }
+
+    @Test
+    void testSum() {
+        final byte[] array = newArray(10, (byte) 7);
+        assertEquals(
+                70, ByteArrayExt.sum(array));
     }
 
 }
