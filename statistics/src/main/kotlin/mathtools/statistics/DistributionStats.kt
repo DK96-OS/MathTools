@@ -123,8 +123,10 @@ class DistributionStats internal constructor(
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        ArrayStatistics.calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
+	        array.minOrNull()!!,
+            array.maxOrNull()!!
         )
 
         fun process(array: ShortArray)
@@ -133,7 +135,8 @@ class DistributionStats internal constructor(
         else DistributionStats(
             ArrayStatistics.calculateMean(array),
             calculateSDev(array),
-            array.minOrNull()!!, array.maxOrNull()!!
+            array.minOrNull()!!,
+            array.maxOrNull()!!
         )
 
         fun process(array: IntArray)
@@ -142,7 +145,8 @@ class DistributionStats internal constructor(
         else DistributionStats(
 	        ArrayStatistics.calculateMean(array),
             calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+	        array.minOrNull()!!,
+            array.maxOrNull()!!
         )
 
         fun process(array: LongArray)
@@ -151,23 +155,29 @@ class DistributionStats internal constructor(
         else DistributionStats(
 	        ArrayStatistics.calculateMean(array),
             calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+	        array.minOrNull()!!,
+            array.maxOrNull()!!
         )
 
         fun process(array: FloatArray)
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
+	        array.minOrNull()!!,
+            array.maxOrNull()!!
         )
 
         fun process(array: DoubleArray)
             : DistributionStats? = if (array.size <= 2)
             null
         else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
+	        ArrayStatistics.calculateMean(array),
+            calculateSDev(array),
+	        array.minOrNull()!!,
+            array.maxOrNull()!!
         )
     }
+
 }
