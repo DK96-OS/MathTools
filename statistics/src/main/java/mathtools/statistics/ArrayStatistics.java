@@ -1,9 +1,8 @@
 package mathtools.statistics;
 
-import com.google.common.math.Stats;
-
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import mathtools.lists.arrays.ByteArrayExt;
@@ -75,8 +74,15 @@ public final class ArrayStatistics {
             return 0.0;
         else {
             double sum = 0.0;
+            int infiniteNumbers = 0;    // Count numbers removed from sum
             for (float f : array) {
                 if (Float.isFinite(f)) sum += f;
+                else
+                    infiniteNumbers++;
+            }
+            if (infiniteNumbers > 0) {
+                final int finiteNumbers = array.length - infiniteNumbers;
+                return (finiteNumbers < 2) ? sum : (sum / finiteNumbers);
             }
             return sum / array.length;
         }
@@ -90,7 +96,30 @@ public final class ArrayStatistics {
     public static double calculateMean(
             @NotNull double[] array
     ) {
-        return (array.length < 1) ? 0.0 : Stats.meanOf(array);
+        if (array.length < 1)
+            return 0.0;
+        else {
+            BigDecimal sum = BigDecimal.ZERO;
+            int infiniteNumbers = 0;
+            for (double d : array) {
+                if (Double.isFinite(d))
+                    sum = sum.add(BigDecimal.valueOf(d));
+                else
+                    infiniteNumbers++;
+            }
+            if (infiniteNumbers > 0) {
+                final int finiteNumbers = array.length - infiniteNumbers;
+                if (finiteNumbers < 2)
+                    return sum.doubleValue();
+                else
+                    return sum.divide(
+                        BigDecimal.valueOf(finiteNumbers)
+                    ).doubleValue();
+            }
+            return sum.divide(
+                    BigDecimal.valueOf(array.length)
+            ).doubleValue();
+        }
     }
 
 }
