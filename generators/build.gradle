@@ -83,10 +83,17 @@ tasks.jacocoTestReport {
 }
 
 tasks.jacocoTestCoverageVerification {
+	dependsOn tasks.test
 	violationRules {
+		failOnViolation = true
 		rule {
 			limit {
-				minimum = "0.8".toBigDecimal()
+				counter = "INSTRUCTION"
+				minimum = 0.9
+			}
+			limit {
+				counter = "BRANCH"
+				minimum = 0.8
 			}
 		}
 	}
