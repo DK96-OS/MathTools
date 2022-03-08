@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import mathtools.lists.BigIntSumBuffer;
+
 /** Methods for operating on a long array
  * @author DK96-OS : 2022 */
 public final class LongArrayExt {
@@ -22,31 +24,12 @@ public final class LongArrayExt {
     public static BigInteger sum(
             @NotNull long[] array
     ) {
-        final long limit = Long.MAX_VALUE / 2;
-        BigInteger sum = BigInteger.ZERO;
-        long minorSum = 0;
-        for (long next : array) {
-            // values over limit get converted to BigInt immediately
-            if (next >= limit)
-                sum = sum.add(BigInteger.valueOf(next));
-            // the smaller sum can handle this value
-            else if (minorSum < limit)
-                minorSum += next;
-            // see if the addition overflows
-            else {
-                final long trySum = minorSum + next;
-                // check for overflow
-                if (trySum > minorSum)  // No overflow
-                    minorSum = trySum;
-                else {
-                    sum = sum.add(BigInteger.valueOf(minorSum));
-                    minorSum = next;
-                }
-            }
-        }
-        if (minorSum != 0L)
-            sum = sum.add(BigInteger.valueOf(minorSum));
-        return sum;
+        if (array.length == 0) return BigInteger.ZERO;
+        else if (array.length == 1) return BigInteger.valueOf(array[0]);
+        //
+        final BigIntSumBuffer buffer = new BigIntSumBuffer();
+        for (long next : array) buffer.add(next);
+        return buffer.getSum();
     }
 
     /** Create a List from the values in an array */

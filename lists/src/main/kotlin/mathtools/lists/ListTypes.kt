@@ -16,14 +16,10 @@ fun <T : Number> listSum(
         for (i in floatList.indices) sum += floatList[i]
         sum
     }
-    is Long -> LongList.largeSum(list as List<Long>)
-        .toDouble()
-    is Int -> {
-        val intList = list as List<Int>
-        var sum = 0L
-        for (i in intList.indices) sum += intList[i]
-        sum.toDouble()
-    }
+    is Long ->
+        LongList.largeSum(list as List<Long>).toDouble()
+    is Int ->
+        IntList.largeSum(list as List<Int>).toDouble()
     is Short -> {
         val shortList = list as List<Short>
         var sum = 0L
