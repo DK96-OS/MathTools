@@ -97,4 +97,12 @@ public final class BigIntSumBuffer {
         }
     }
 
+    /** Set the long buffer value - for testing purposes
+     * @param number The number to set the buffer value to */
+    void setLongBuffer(
+            final long number
+    ) {
+        mBuffer = number;
+    }
+
 }

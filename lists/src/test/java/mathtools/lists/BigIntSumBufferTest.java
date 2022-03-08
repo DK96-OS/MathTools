@@ -9,7 +9,15 @@ import java.math.BigInteger;
 
 /** Testing [BigIntSumBuffer]
  * @author DK96-OS : 2022 */
-public class BigIntSumBufferTest {
+public final class BigIntSumBufferTest {
+
+    private static final BigInteger bigIntMax =
+            BigInteger.valueOf(Integer.MAX_VALUE);
+
+    private static final BigInteger bigLongMax =
+            BigInteger.valueOf(Long.MAX_VALUE);
+    private static final BigInteger bigLongMin =
+            BigInteger.valueOf(Long.MIN_VALUE);
 
     private BigIntSumBuffer mBuffer;
 
@@ -46,7 +54,6 @@ public class BigIntSumBufferTest {
         mBuffer.add(-2);
         assertEquals(
                 BigInteger.TWO.negate(), mBuffer.getSum());
-        System.out.println("Hi");
         //
         mBuffer.add(Integer.MIN_VALUE + 2);
         assertEquals(
@@ -58,29 +65,67 @@ public class BigIntSumBufferTest {
         final int largeInt = Integer.MAX_VALUE - 5;
         final BigInteger largeIntBig = BigInteger.valueOf(largeInt);
         //
-        mBuffer.add(largeInt);
-        assertEquals(
-                largeIntBig, mBuffer.getSum());
+        for (int i = 0; i < 10; i++) mBuffer.add(largeInt);
         //
-        mBuffer.add(largeInt);
         assertEquals(
-                largeIntBig.multiply(BigInteger.TWO), mBuffer.getSum());
+                largeIntBig.multiply(BigInteger.TEN),
+                mBuffer.getSum()
+        );
     }
 
     @Test
-    void testAddingNumbers() {
-        final long belowLimit = (Long.MAX_VALUE - 3) / 2;
+    void testLongsAndIntegers() {
+        final long belowLimit = BigIntSumBuffer.longLimit - 1;
         final BigInteger belowLimitBig = BigInteger.valueOf(belowLimit);
         //
         mBuffer.add(belowLimit);
-        assertEquals(
-                belowLimitBig, mBuffer.getSum());
-        //
+        mBuffer.add(belowLimit);
         mBuffer.add(Integer.MAX_VALUE);
+        //
         assertEquals(
-                belowLimitBig.add(BigInteger.valueOf(Integer.MAX_VALUE)),
+                belowLimitBig.multiply(BigInteger.TWO).add(bigIntMax),
                 mBuffer.getSum()
         );
+    }
+
+    @Test
+    void testIntegerNearLimit() {
+        mBuffer.setLongBuffer(
+                BigIntSumBuffer.intLimit);
+        mBuffer.add(
+                Integer.MAX_VALUE);
+        assertEquals(
+                bigLongMax, mBuffer.getSum());
+    }
+
+    @Test
+    void testNegativeIntegerNearLimit() {
+        mBuffer.setLongBuffer(
+                BigIntSumBuffer.intLimitNegative);
+        mBuffer.add(
+                Integer.MIN_VALUE);
+        assertEquals(
+                bigLongMin, mBuffer.getSum());
+    }
+
+    @Test
+    void testIntegerOverflow() {
+        mBuffer.setLongBuffer(
+                BigIntSumBuffer.intLimit + 1);
+        mBuffer.add(
+                Integer.MAX_VALUE);
+        assertEquals(
+                bigLongMax.add(BigInteger.ONE), mBuffer.getSum());
+    }
+
+    @Test
+    void testNegativeIntegerOverflow() {
+        mBuffer.setLongBuffer(
+                BigIntSumBuffer.intLimitNegative - 1);
+        mBuffer.add(
+                Integer.MIN_VALUE);
+        assertEquals(
+                bigLongMin.subtract(BigInteger.ONE), mBuffer.getSum());
     }
 
 }
