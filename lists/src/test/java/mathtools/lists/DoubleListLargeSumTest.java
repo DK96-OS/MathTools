@@ -53,4 +53,22 @@ public final class DoubleListLargeSumTest {
         );
     }
 
+    @Test
+    void testNegativeValues() {
+        final double max = -Double.MAX_VALUE;
+        final BigDecimal bigMax = BigDecimal.valueOf(max);
+        assertEquals(
+                0, bigMax.compareTo(
+                        DoubleList.INSTANCE.largeSum(List.of(max))
+                )
+        );
+        final List<Double> list = new ArrayList<>();
+        for (int i = 0; i< 10; i++) list.add(max);
+        assertEquals(
+                0, bigMax.multiply(BigDecimal.TEN).compareTo(
+                        DoubleList.INSTANCE.largeSum(list)
+                )
+        );
+    }
+
 }
