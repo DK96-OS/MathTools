@@ -123,35 +123,18 @@ object DoubleList {
         return result
     }
 
-    /** Calculate a large sum.
-     * Note: Result may depend on order of elements in list */
+    /** Calculate a large sum
+     * @param list The values to add in the sum
+     * @return A BigDecimal containing the sum of all values */
     fun largeSum(
         list: List<Double>,
     ) : BigDecimal {
-        val limit: Double = Double.MAX_VALUE / 2
         var sum: BigDecimal = BigDecimal.ZERO
-        var minorSum = 0.0
         for (idx in list.indices) {
             val next = list[idx]
-            when {
-                // Next is over limit, just add
-                next >= limit -> sum += BigDecimal.valueOf(next)
-                // Minor sum below limit, safe to add next
-                minorSum < limit -> minorSum += next
-                else -> {
-                    val trySum = minorSum + next
-                    // Check for overflow
-                    if (trySum > minorSum) { // No overflow
-                        minorSum = trySum
-                    } else {
-                        sum += BigDecimal.valueOf(minorSum)
-                        minorSum = next
-                    }
-                }
-            }
+            if (next != 0.0)
+                sum = sum.add(BigDecimal.valueOf(next))
         }
-        if (minorSum > 0)
-            sum += BigDecimal.valueOf(minorSum)
         return sum
     }
 

@@ -1,7 +1,6 @@
 package mathtools.lists
 
 import java.math.BigInteger
-import kotlin.math.roundToLong
 
 /** Functions of Integer typed Lists
  * @author DK96-OS : 2022 */
@@ -118,28 +117,13 @@ object IntList {
 	fun largeSum(
 		list: List<Int>,
 	) : BigInteger {
-		val limit: Long = (Long.MAX_VALUE * 0.96f).roundToLong()
-		var sum: BigInteger = BigInteger.ZERO
-		var minorSum = 0L
-		for (idx in list.indices) {
-			val next = list[idx]
-			when {
-				// Minor sum below limit, safe to add next
-				minorSum < limit -> minorSum += next
-				else -> {
-					val trySum: Long = minorSum + next
-					// Check for overflow
-					if (trySum > minorSum) minorSum = trySum // No overflow
-					else {
-						sum += BigInteger.valueOf(minorSum)
-						minorSum = next.toLong()
-					}
-				}
-			}
+		if (list.size < 2) return when (list.size) {
+			1 -> BigInteger.valueOf(list[0].toLong())
+			else -> BigInteger.ZERO
 		}
-		if (minorSum != 0L)
-			sum += BigInteger.valueOf(minorSum)
-		return sum
+		val buffer = BigIntSumBuffer()
+		for (i in list) buffer.add(i)
+		return buffer.sum
 	}
 
 }

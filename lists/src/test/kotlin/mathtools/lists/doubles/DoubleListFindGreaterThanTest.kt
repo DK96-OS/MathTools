@@ -121,7 +121,19 @@ class DoubleListFindGreaterThanTest {
     }
 
     @Test
-    fun testBadIndexArgs() {
+    fun testInvalidLimitArgs() {
+        assertEquals(
+            emptyList<Int>(),
+            findGreaterThan(u101, Double.POSITIVE_INFINITY)
+        )
+        assertEquals(
+            emptyList<Int>(),
+            findGreaterThan(u101, Double.NaN)
+        )
+    }
+
+    @Test
+    fun testInvalidIndexArgs() {
         val res = Array<List<Int>?>(3) { null }
         res[0] = findGreaterThan(
             u101, 77.5, 99, 99

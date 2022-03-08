@@ -121,31 +121,13 @@ object LongList {
     fun largeSum(
         list: List<Long>,
     ) : BigInteger {
-        val limit: Long = Long.MAX_VALUE / 2
-        var sum: BigInteger = BigInteger.ZERO
-        var minorSum = 0L
-        for (idx in list.indices) {
-            val next = list[idx]
-            when {
-                // Next is over limit, just add
-                next >= limit -> sum += BigInteger.valueOf(next)
-                // Minor sum below limit, safe to add next
-                minorSum < limit -> minorSum += next
-                else -> {
-                    val trySum = minorSum + next
-                    // Check for overflow
-                    if (trySum > minorSum) { // No overflow
-                        minorSum = trySum
-                    } else {
-                        sum += BigInteger.valueOf(minorSum)
-                        minorSum = next
-                    }
-                }
-            }
+        if (list.size < 2) return when (list.size) {
+            1 -> BigInteger.valueOf(list[0]);
+            else -> BigInteger.ZERO;
         }
-        if (minorSum != 0L)
-            sum += BigInteger.valueOf(minorSum)
-        return sum
+        val buffer = BigIntSumBuffer()
+        for (idx in list.indices) buffer.add(list[idx])
+        return buffer.sum
     }
 
 }
