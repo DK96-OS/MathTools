@@ -81,11 +81,23 @@ class DoubleListFindOutOfBoundsTest {
 	}
 
 	@Test
-	fun testBadArguments() {
+	fun testInvalidArguments() {
 		// Reversed Bounds
 		assertEquals(
 			0, findOutOfBounds(
 				u101, 60.0, 40.0
+			).size
+		)
+		// Upper Bound is NaN
+		assertEquals(
+			0, findOutOfBounds(
+				u101, 10.0, Double.NaN,
+			).size
+		)
+		// Lower Bound is NaN
+		assertEquals(
+			0, findOutOfBounds(
+				u101, Double.NaN, 20.0
 			).size
 		)
 	}
