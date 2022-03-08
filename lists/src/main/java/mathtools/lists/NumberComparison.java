@@ -9,9 +9,10 @@ public final class NumberComparison {
     /** Determine if a Number and a Byte are equivalent
      * @param n The Number to compare
      * @param b The byte to compare
-     * @return True if n can be converted exactly to b */
+     * @return Whether the number can be converted without loss */
     public static boolean isEquivalent(
-            Number n, byte b
+            final Number n,
+            final byte b
     ) {
         if (n instanceof Byte)
             return n.equals(b);
@@ -37,9 +38,13 @@ public final class NumberComparison {
             return nStr.equals(String.valueOf(b));
     }
 
-    /**  */
+    /** Determine if a Number and a Short are equivalent
+     * @param n The Number to compare
+     * @param s The short to compare
+     * @return Whether the number can be converted without loss */
     public static boolean isEquivalent(
-            Number n, short s
+            final Number n,
+            final short s
     ) {
         if (n instanceof Short)
             return n.equals(s);
