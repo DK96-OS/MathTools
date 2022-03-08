@@ -9,23 +9,25 @@ public final class BigIntSumBuffer {
 
     /** The limit for when a long will be added directly to BigInteger */
     public static final long longLimit = Long.MAX_VALUE / 2;
-    public static final long longLimitNegative = -longLimit;
+    public static final long longLimitNegative = Long.MIN_VALUE / 2;
 
     /** The integer limit is much higher */
     public static final long intLimit = Long.MAX_VALUE - Integer.MAX_VALUE;
-    public static final long intLimitNegative = -intLimit;
+    public static final long intLimitNegative = Long.MIN_VALUE - Integer.MIN_VALUE;
 
     /** The BigInteger part of the sum */
     private BigInteger mSum = BigInteger.ZERO;
 
     /** The primitive number type part of the sum */
-    private long mBuffer = 0;
+    private long mBuffer = 0L;
 
     /** Obtain the current sum
      * @return A BigInteger containing the sum of all numbers added */
     public BigInteger getSum() {
-        if (mBuffer != 0L)
+        if (mBuffer != 0L) {
             mSum = mSum.add(BigInteger.valueOf(mBuffer));
+            mBuffer = 0L;
+        }
         return mSum;
     }
 
