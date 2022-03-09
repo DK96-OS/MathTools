@@ -83,7 +83,7 @@ class DeviationPolicy(
                             .sorted()
                     )
             }
-            lowerOutliers -> {
+            else -> {   // Lower Outliers
                 val outlierIdx = DoubleList.findLessThan(
                     mutableList,
                     distribution.valueAtDeviation(-maxDeviations)
@@ -100,7 +100,6 @@ class DeviationPolicy(
                             .sorted()
                     )
             }
-            else -> emptyList()
         }
     }
 
@@ -145,7 +144,7 @@ class DeviationPolicy(
                             .sorted()
                     )
             }
-            lowerOutliers -> {
+            else -> {   // Lower Outliers
                 val outlierIdx = LongList.findLessThan(
                     mutableList,
                     distribution.valueAtDeviation(-maxDeviations).roundToLong()
@@ -162,7 +161,6 @@ class DeviationPolicy(
                             .sorted()
                     )
             }
-            else -> throw IllegalStateException()
         }
     }
 
@@ -182,13 +180,12 @@ class DeviationPolicy(
 		        if (upperBound < d) index else null
 	        }.filterNotNull()
         }
-        lowerOutliers -> {
+        else -> {   // Lower Outliers
             val lowerBound = distribution.valueAtDeviation(-maxDeviations)
 	        array.mapIndexed { index, d ->
 		        if (d < lowerBound) index else null
 	        }.filterNotNull()
         }
-        else -> throw IllegalStateException()
     }
 
     override fun identifyOutliers(
@@ -209,13 +206,12 @@ class DeviationPolicy(
 		        if (upperBound < d) index else null
 	        }.filterNotNull()
         }
-        lowerOutliers -> {
+        else -> {   // Lower Outliers
             val lowerBound = distribution.valueAtDeviation(-maxDeviations)
 	        array.mapIndexed { index, d ->
 		        if (d < lowerBound) index else null
 	        }.filterNotNull()
         }
-        else -> throw IllegalStateException()
     }
 
 }

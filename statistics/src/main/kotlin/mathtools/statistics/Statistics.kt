@@ -16,7 +16,8 @@ object Statistics {
 		else -> throw IllegalArgumentException()
 	}
 
-	/** Calculate the mean (average) value of the elements in a Number List */
+	/** Calculate the mean (average) value of the elements in a Number List
+	 * 	 */
     fun <T : Number> calculateMean(
 	    list: List<T>
     ) : Double = when (list.size) {
@@ -42,41 +43,5 @@ object Statistics {
         }
         return sqrt(varianceSum / (list.size - 1))
     }
-
-	/* Deprecated Functions */
-
-	/** Sums the numbers in the list and divides by the count */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateMean(list)"),
-	    level = DeprecationLevel.ERROR)
-	fun calculateMeanLong(
-		list: List<Long>
-	) : Float = if (list.isEmpty()) 0f else list.sum() / list.size.toFloat()
-
-    @Deprecated(
-	    message = "Use the common List Number functions",
-        replaceWith = ReplaceWith("calculateMean(list)"),
-        level = DeprecationLevel.ERROR)
-	fun calculateMeanFloat(list:List<Float>)
-	: Float = if (list.isEmpty()) 0f else list.sum() / list.size.toFloat()
-
-	/** Compute the Standard Deviation for a list of Long */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateSDev"),
-        level = DeprecationLevel.ERROR)
-	fun calculateStandardDeviation(
-		list:List<Long>, mean:Float = calculateMean(list).toFloat())
-    : Float = calculateSDev(list, mean.toDouble()).toFloat()
-
-	/** Compute the Standard Deviation for a list of Float */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateSDev"),
-	    level = DeprecationLevel.ERROR)
-	fun calculateStandardDevFloat(
-		list:List<Float>, mean:Float = calculateMean(list).toFloat())
-    : Float = calculateSDev(list, mean.toDouble()).toFloat()
 
 }
