@@ -2,46 +2,37 @@ plugins {
 	id "org.jetbrains.kotlin.jvm"
 	id "test-report-aggregation"
 	id "jacoco"
-	id "org.jetbrains.dokka" version "1.6.10"
 }
 apply from: "../dependencies.gradle"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_11
 	targetCompatibility = JavaVersion.VERSION_11
-	withJavadocJar()
-	withSourcesJar()
+	//withJavadocJar()
+	//withSourcesJar()
 }
 
 tasks.sourcesJar {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
-
+/*
 publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.3"
+			version = "0.4"
 			from components.java
 		}
 	}
 }
-
+*/
 dependencies {
 	api project(":lists")
 	api project(":statistics")
 	api project(":numbers")
 
 	api guava
-
-	// Align versions of all Kotlin components
-	implementation platform("org.jetbrains.kotlin:kotlin-bom")
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-	// Coroutine support
-	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-	testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
 
 	// JUnit 5
 	testImplementation platform("org.junit:junit-bom:5.7.2")
