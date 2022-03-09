@@ -44,48 +44,4 @@ object Statistics {
         return sqrt(varianceSum / (list.size - 1))
     }
 
-	/* Deprecated Functions */
-
-	/** Calculate mean value of a list
-	 * 	May lose significant precision */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateMean(list)"),
-	    level = DeprecationLevel.ERROR)
-	fun calculateMeanLong(
-		list: List<Long>
-	) : Float = calculateMean(list).toFloat()
-
-	/** Calculate mean value of a list
-	 * 	May lose significant precision */
-    @Deprecated(
-	    message = "Use the common List Number functions",
-        replaceWith = ReplaceWith("calculateMean(list)"),
-        level = DeprecationLevel.ERROR)
-	fun calculateMeanFloat(
-		list: List<Float>
-	) : Float = calculateMean(list).toFloat()
-
-	/** Calculate mean value of a list
-	 * 	May lose significant precision */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateSDev(list, mean)"),
-        level = DeprecationLevel.ERROR)
-	fun calculateStandardDeviation(
-		list: List<Long>,
-		mean: Float = calculateMean(list).toFloat()
-	) : Float = calculateSDev(list, mean.toDouble()).toFloat()
-
-	/** Calculate mean value of a list
-	 * 	May lose significant precision */
-	@Deprecated(
-	    message = "Use the common List Number functions",
-	    replaceWith = ReplaceWith("calculateSDev(list, mean)"),
-	    level = DeprecationLevel.ERROR)
-	fun calculateStandardDevFloat(
-		list: List<Float>,
-		mean: Float = calculateMean(list).toFloat()
-	) : Float = calculateSDev(list, mean.toDouble()).toFloat()
-
 }
