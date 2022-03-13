@@ -32,7 +32,6 @@ jobs:
         with:
           name: JaCoCo Reports
           path: |
-            /home/runner/work/MathTools/MathTools/generators/build/jacocoReport/
             /home/runner/work/MathTools/MathTools/lists/build/jacocoReport/
             /home/runner/work/MathTools/MathTools/numbers/build/jacocoReport/
             /home/runner/work/MathTools/MathTools/statistics/build/jacocoReport/

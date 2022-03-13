@@ -1,8 +1,5 @@
 package mathtools.lists.doubles
 
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import mathtools.lists.DoubleList.findOutOfBounds
 import mathtools.lists.NumberListConversion.toDouble
 import mathtools.lists.testdata.ListDataSource.uniform101
@@ -81,11 +78,23 @@ class DoubleListFindOutOfBoundsTest {
 	}
 
 	@Test
-	fun testBadArguments() {
+	fun testInvalidArguments() {
 		// Reversed Bounds
 		assertEquals(
 			0, findOutOfBounds(
 				u101, 60.0, 40.0
+			).size
+		)
+		// Upper Bound is NaN
+		assertEquals(
+			0, findOutOfBounds(
+				u101, 10.0, Double.NaN,
+			).size
+		)
+		// Lower Bound is NaN
+		assertEquals(
+			0, findOutOfBounds(
+				u101, Double.NaN, 20.0
 			).size
 		)
 	}
@@ -202,24 +211,20 @@ class DoubleListFindOutOfBoundsTest {
 
 	@Test
 	fun testSplitSublistSearch() {
-		runBlocking {
-			// Split search into 4 coroutines
-			val res = Array<Deferred<List<Int>>?>(4) { null }
-			val indexRangePairs = listOf(
-				0 to 24, 25 to 50, 51 to 75, 76 to 100,
+		val res = Array<List<Int>?>(4) { null }
+		// Split search into 4 parts
+		val indexRangePairs = listOf(
+			0 to 24, 25 to 50, 51 to 75, 76 to 100,
+		)
+		for (i in 0 until 4)
+			res[i] = findOutOfBounds(
+				u101, 10.0, 50.0,
+				indexRangePairs[i].first, indexRangePairs[i].second + 1
 			)
-			for (i in 0 until 4)
-				res[i] = async {
-					findOutOfBounds(
-						u101, 10.0, 50.0,
-						indexRangePairs[i].first, indexRangePairs[i].second + 1
-					)
-				}
-			assertEquals(25, res[0]!!.await().size)
-			assertEquals(5, res[1]!!.await().size)
-			assertEquals(5, res[2]!!.await().size)
-			assertEquals(25, res[3]!!.await().size)
-		}
+		assertEquals(25, res[0]!!.size)
+		assertEquals(5, res[1]!!.size)
+		assertEquals(5, res[2]!!.size)
+		assertEquals(25, res[3]!!.size)
 	}
 
 }

@@ -1,20 +1,20 @@
 package mathtools.lists.arrays
 
-import mathtools.lists.arrays.ByteArrayExtensions.clear
-import mathtools.lists.arrays.ByteArrayExtensions.isNonZero
+import mathtools.lists.arrays.ShortArrayExtensions.clear
+import mathtools.lists.arrays.ShortArrayExtensions.isNonZero
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.util.*
 
-/** Testing ByteArray methods
+/** Testing ShortArray methods
  * @author DK96-OS : 2022 */
-class ByteArrayExtensionsTest {
+class ShortArrayExtensionsTest {
 
-	private val zero: Byte = (0).toByte()
+	private val zero: Short = (0).toShort()
 
 	@Test
 	fun testClearArray() {
-		val array = ByteArray(8) { it.toByte() }
+		val array = ShortArray(8) { it.toShort() }
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -29,7 +29,7 @@ class ByteArrayExtensionsTest {
 
 	@Test
 	fun testClearArrayEmpty() {
-		val array = ByteArray(8)
+		val array = ShortArray(8)
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -37,7 +37,7 @@ class ByteArrayExtensionsTest {
 
 	@Test
 	fun testNonZero() {
-		val array = ByteArray(8)
+		val array = ShortArray(8)
 		assertFalse(array.isNonZero())
 		Arrays.fill(array, 5)
 		assertTrue(array.isNonZero())

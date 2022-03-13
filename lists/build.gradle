@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.3"
+			version = "0.4"
 			from components.java
 		}
 	}
@@ -35,8 +35,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	// Coroutine support
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
-	testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+	//implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+	//testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
 
 	// JUnit 5
 	testImplementation(platform("org.junit:junit-bom:5.7.2"))
@@ -75,10 +75,17 @@ tasks.jacocoTestReport {
 }
 
 tasks.jacocoTestCoverageVerification {
+	dependsOn tasks.test
 	violationRules {
+		failOnViolation = true
 		rule {
 			limit {
-				minimum = "0.8".toBigDecimal()
+				counter = "INSTRUCTION"
+				minimum = 0.9
+			}
+			limit {
+				counter = "BRANCH"
+				minimum = 0.8
 			}
 		}
 	}

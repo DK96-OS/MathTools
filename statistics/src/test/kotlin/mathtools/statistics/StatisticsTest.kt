@@ -1,19 +1,52 @@
 package mathtools.statistics
 
 import com.google.common.math.Stats
+import mathtools.statistics.Statistics.calculateMean
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.RepeatedTest
-import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
-/** Test the Statistics functions */
+/** Test the Statistics functions
+ * @author DK96-OS : 2022 */
 class StatisticsTest {
 
-    @Tag("fast")
-	@Test fun checkStatisticsOfList() {
+	@Test
+	fun testMeanEmptyList() {
+		assertEquals(0.0, calculateMean(emptyList()))
+	}
+
+	@Test
+	fun testMeanSingleValue() {
+		assertEquals(
+			8.0, calculateMean(listOf<Byte>(8)))
+		assertEquals(
+			8.0, calculateMean(listOf<Short>(8)))
+		assertEquals(
+			8.0, calculateMean(listOf(8)))
+		assertEquals(
+			8.0, calculateMean(listOf(8L)))
+		// Decimals
+		assertEquals(
+			8.2, calculateMean(listOf(8.2f)), 0.000001)
+		assertEquals(
+			8.2, calculateMean(listOf(8.2)), 0.000001)
+	}
+
+	@Test
+	fun testMeanSmallList() {
 		val list = mutableListOf(100f, 110f, 190f, 200f)
-		assertEquals(150.0, Statistics.calculateMean(list), 0.01)
-		assertEquals(52.0, Statistics.calculateSDev(list), 1.0)
+		assertEquals(
+			150.0, calculateMean(list), 0.0001)
+		assertEquals(
+			52.281, Statistics.calculateSDev(list), 0.001)
+	}
+
+	@Test
+	fun testMeanNegativeValues() {
+		val list = mutableListOf(-100f, -110f, -190f, -200f)
+		assertEquals(
+			-150.0, calculateMean(list), 0.0001)
+		assertEquals(
+			52.281, Statistics.calculateSDev(list), 0.001)
 	}
 
 	@Test
@@ -28,72 +61,6 @@ class StatisticsTest {
 			stats.sampleStandardDeviation(),
 			1.0
 		)
-	}
-  
- 	@RepeatedTest(3) fun testOneIn2To9Probability() {
-		val n = 100_000L
-		assertEquals(50f, checkPercentage(2, n), 0.5f)
-		assertEquals(33.33f, checkPercentage(3, n), 0.5f)
-		assertEquals(25.00f, checkPercentage(4, n), 0.5f)
-		assertEquals(20.00f, checkPercentage(5, n), 0.5f)
-		assertEquals(16.67f, checkPercentage(6, n), 0.5f)
-		assertEquals(14.28f, checkPercentage(7, n), 0.5f)
-		assertEquals(12.50f, checkPercentage(8, n), 0.5f)
-		assertEquals(11.11f, checkPercentage(9, n), 0.5f)
-	}
-	
-	@RepeatedTest(3) fun testOneIn20To100Probability() {
-		val n = 100_000L
-		assertEquals(5.0f, checkPercentage(20, n), 0.4f)
-		assertEquals(4.0f, checkPercentage(25, n), 0.4f)
-		assertEquals(2.5f, checkPercentage(40, n), 0.35f)
-		assertEquals(2.0f, checkPercentage(50, n), 0.35f)
-		assertEquals(1.0f, checkPercentage(100, n), 0.35f)
-	}
-	
-	@Tag("slow")
-	@RepeatedTest(3) fun testOneIn500Distribution() {
-		val measurements = measureOneIn(500, 20_000L)
-		val mean = Statistics.calculateMean(measurements)
-		val sDev = Statistics.calculateSDev(measurements, mean)
-		assertEquals(0.2, mean, 0.015)
-		assertEquals(0.0015, sDev, 0.0009)
-	}
-
-    @Tag("slow")
-	@RepeatedTest(2) fun testOneIn5000Distribution() {
-		val measurements = measureOneIn(5000, 10_000L, 8)
-		val mean = Statistics.calculateMean(measurements)
-		val sDev = Statistics.calculateSDev(measurements, mean)
-		assertEquals(0.02, mean, 0.002)
-		assertEquals(0.000_3, sDev, 0.000_29)
-		println("Standard Deviation: $sDev")
-		// Add Guava comparison
-		val stats = Stats.of(measurements)
-		assertEquals(0.02, stats.mean(), 0.002)
-		assertEquals(0.000_3, stats.sampleStandardDeviation(), 0.000_29)
-	}
-  
-  /** Runs the Statistics OneIn( x ) function N times.
-      * N must end in a zero; it must be integer divisible by 10   */
-	private fun checkPercentage(x: Int, N: Long): Float {
-		var trueCount = 0
-		for (i in 0 until N) if (Statistics.oneIn(x)) trueCount++
-		return trueCount * 100f / N
-	}
-  
-	/** Create a list of Measurements for OneIn output Statistics
-	 * @param x The input to oneIn.
-	 * @param nFactor A factor in determining the number of trials per measurement
-	 * @param measurements The number of times to measure the percentage independently */
-	private fun measureOneIn(
-		x: Int, nFactor: Long = 25_000L, 
-		measurements: Int = 10,
-	): List<Float> {
-		val newList = ArrayList<Float>(measurements)
-		for (n in 0 until measurements)
-			newList.add(checkPercentage(x, x * nFactor))
-		return newList
 	}
  
 }

@@ -50,8 +50,9 @@ class DistributionStats internal constructor(
     }
 
     companion object {
-        /** Determine the DistributionCharacteristics of the given List */
-        inline fun <reified T : Number> process(
+        /** Obtain the [DistributionStats] of a Number List
+         * @return A DistributionStats instance, or null if list is empty */
+        fun <T : Number> process(
             list: List<T>
         ) : DistributionStats? {
             when (list.size) {
@@ -115,59 +116,34 @@ class DistributionStats internal constructor(
                     )
                 }
                 else -> throw IllegalArgumentException(
-                    "Invalid Data Type Received: ${T::class.java.name}")
+                    "Unsupported Number Type"
+                )
             }
         }
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: ByteArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-	        ArrayStatistics.calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: ShortArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-            ArrayStatistics.calculateMean(array),
-            calculateSDev(array),
-            array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: IntArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-	        ArrayStatistics.calculateMean(array),
-            calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: LongArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-	        ArrayStatistics.calculateMean(array),
-            calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: FloatArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
 
+        /** Obtain the [DistributionStats] of an array */
         fun process(array: DoubleArray)
-            : DistributionStats? = if (array.size <= 2)
-            null
-        else DistributionStats(
-	        calculateMean(array), calculateSDev(array),
-	        array.minOrNull()!!, array.maxOrNull()!!
-        )
+            : DistributionStats? = DistributionStatistics.process(array)
     }
+
 }

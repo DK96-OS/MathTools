@@ -1,11 +1,8 @@
 package mathtools.statistics
 
-import mathtools.lists.NumberListConversion.toByte
-import mathtools.lists.NumberListConversion.toDouble
-import mathtools.lists.NumberListConversion.toFloat
-import mathtools.lists.NumberListConversion.toInt
-import mathtools.lists.NumberListConversion.toLong
-import mathtools.lists.NumberListConversion.toShort
+import com.google.common.primitives.UnsignedInteger
+import com.google.common.primitives.UnsignedLong
+import mathtools.lists.NumberListConversion.*
 import mathtools.lists.listSum
 import mathtools.statistics.DistributionStats.Companion.process
 import mathtools.statistics.testdata.LargeTestDataSource.large123
@@ -19,6 +16,7 @@ import mathtools.statistics.testdata.UniformTestDataSource.uniform101DC
 import mathtools.statistics.testdata.UniformTestDataSource.uniform101Sum
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 /** Testing the Number types supported by Statistics */
 class NumberTypeTest {
@@ -78,6 +76,16 @@ class NumberTypeTest {
         assert(large32760DC == process(large32760))
         runOnListTypes(large32760, 2) {
             assert(large32760DC == process(it))
+        }
+    }
+
+    @Test
+    fun testUnsupportedNumberType() {
+        assertThrows<IllegalArgumentException> {
+            process(listOf(UnsignedInteger.valueOf(-7)))
+        }
+        assertThrows<IllegalArgumentException> {
+            process(listOf(UnsignedLong.valueOf(-7)))
         }
     }
 

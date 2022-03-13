@@ -1,8 +1,5 @@
 package mathtools.lists.longs
 
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import mathtools.lists.LongList.findOutOfRange
 import mathtools.lists.NumberListConversion.toLong
 import mathtools.lists.testdata.ListDataSource.uniform101
@@ -148,24 +145,21 @@ class LongListFindOutOfRangeTest {
 
 	@Test
 	fun testSplitSublistSearch() {
-		runBlocking {
-			val results = Array<Deferred<List<Int>>?>(4) { null }
-			val indexRangePairs = listOf(
-				0 to 24, 25 to 50, 51 to 75, 76 to 101
+		val results = Array<List<Int>?>(4) { null }
+		// Split search into 4 parts
+		val indexRangePairs = listOf(
+			0 to 24, 25 to 50, 51 to 75, 76 to 101
+		)
+		for (i in 0 until 4)
+			results[i] = findOutOfRange(
+				u101, 10 .. 50L,
+				indexRangePairs[i].first,
+				indexRangePairs[i].second + 1,
 			)
-			for (i in 0 until 4)
-				results[i] = async {
-					findOutOfRange(
-						u101, 10 .. 50L,
-						indexRangePairs[i].first,
-						indexRangePairs[i].second + 1,
-					)
-				}
-			assertEquals(25, results[0]!!.await().size)
-			assertEquals(5, results[1]!!.await().size)
-			assertEquals(5, results[2]!!.await().size)
-			assertEquals(25, results[3]!!.await().size)
-		}
+		assertEquals(25, results[0]!!.size)
+		assertEquals(5, results[1]!!.size)
+		assertEquals(5, results[2]!!.size)
+		assertEquals(25, results[3]!!.size)
 	}
 
 }
