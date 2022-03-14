@@ -14,16 +14,7 @@ object PrimeNumberTools {
 	    product: Long,
 	    limit: Long,
 		cache: PrimeCacheBase,
-    ) : Boolean = if (limit < product) {
-		var primeIdx = 0
-		var checkPrime = cache.getPrime(primeIdx)
-		var composite = product
-		while (limit in checkPrime until composite) {
-			composite = divideOutFactor(checkPrime, composite)
-			checkPrime = cache.getPrime(++primeIdx)
-		}
-		composite > limit
-    } else false
+    ) : Boolean = PrimeFactoring.hasPrimeAbove(product, limit, cache)
 
     /** Obtain lowest Prime Number Factor that is greater than the limit
      * @param product The product to search in

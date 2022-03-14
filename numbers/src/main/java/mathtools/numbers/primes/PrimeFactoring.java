@@ -1,6 +1,10 @@
 package mathtools.numbers.primes;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import mathtools.numbers.factors.BitFactoring;
+import mathtools.numbers.factors.Factoring;
 import mathtools.numbers.factors.NumberFactors;
 
 /** Functions that help factor numbers by primes
@@ -9,15 +13,18 @@ public final class PrimeFactoring {
 
     private PrimeFactoring() {}
 
-    /** Obtain lowest Prime Number Factor that is greater than the limit
+    /** Obtain lowest Prime Number Factor that is greater than the limit.
+     *  First, checks all primes below limit and divides them from the product.
+     *
      * @param product The product to check for prime factors
      * @param limit The maximum value of any prime number that can be allowed
      * @param cache A PrimeCacheBase instance for obtaining Prime Numbers
      * @return The first prime number above limit, or null if none found */
+    @Nullable
     public static Long firstPrimeAbove(
             long product,
             final long limit,
-            final PrimeCacheBase cache
+            @Nonnull final PrimeCacheBase cache
     ) throws IllegalArgumentException {
         // Validate Arguments
         if (limit < 2 || product < 3 && -3 < product )
@@ -58,6 +65,25 @@ public final class PrimeFactoring {
             }
         }
         return null;
+    }
+
+    public static boolean hasPrimeAbove(
+            long product,
+            final long limit,
+            @Nonnull final PrimeCacheBase cache
+    ) {
+        if (limit >= product) return false;
+        if (BitFactoring.isProductOf2(product)) {
+            product = Factoring.divideOutFactor(product, 2);
+        }
+        int primeIdx = 1;
+        int testPrime = cache.getPrime(primeIdx);
+        while (testPrime <= limit) {
+            product = Factoring.divideOutFactor(product, testPrime);
+            if (product <= limit) return false;
+            testPrime = cache.getPrime(++primeIdx);
+        }
+        return true;
     }
 
 }
