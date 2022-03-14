@@ -10,6 +10,14 @@ object PrimeNumberTools {
     /** Whether this Product/Prime contains a prime number greater than the limit
      * @param product The product to test
      * @param limit The maximum prime number allowed */
+	@Deprecated(
+			message = "Moved to PrimeFactoring",
+			replaceWith = ReplaceWith(
+					"PrimeFactoring.hasPrimeAbove(product, limit, cache)",
+					"mathtools.numbers.primes.PrimeFactoring"
+			),
+			level = DeprecationLevel.WARNING
+	)
 	fun checkForPrimeFactorAboveLimit(
 	    product: Long,
 	    limit: Long,

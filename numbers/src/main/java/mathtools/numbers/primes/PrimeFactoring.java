@@ -67,20 +67,24 @@ public final class PrimeFactoring {
         return null;
     }
 
+    /** Determine if number contains prime above limit
+     * @param number The number to check
+     * @param limit The maximum prime number allowed
+     * @return Whether number contains a prime factor above the limit */
     public static boolean hasPrimeAbove(
-            long product,
+            long number,
             final long limit,
             @Nonnull final PrimeCacheBase cache
     ) {
-        if (limit >= product) return false;
-        if (BitFactoring.isProductOf2(product)) {
-            product = Factoring.divideOutFactor(product, 2);
+        if (limit >= number) return false;
+        if (BitFactoring.isProductOf2(number)) {
+            number = Factoring.divideOutFactor(number, 2);
         }
         int primeIdx = 1;
         int testPrime = cache.getPrime(primeIdx);
         while (testPrime <= limit) {
-            product = Factoring.divideOutFactor(product, testPrime);
-            if (product <= limit) return false;
+            number = Factoring.divideOutFactor(number, testPrime);
+            if (number <= limit) return false;
             testPrime = cache.getPrime(++primeIdx);
         }
         return true;
