@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 
 import mathtools.numbers.factors.BitFactoring;
 import mathtools.numbers.factors.Factoring;
-import mathtools.numbers.factors.NumberFactors;
 
 /** Functions that help factor numbers by primes
  * @author DK96-OS : 2022 */
@@ -14,31 +13,30 @@ public final class PrimeFactoring {
     private PrimeFactoring() {}
 
     /** Obtain lowest Prime Number Factor that is greater than the limit.
-     *  First, checks all primes below limit and divides them from the product.
-     *
-     * @param product The product to check for prime factors
+     *  Checks all primes below limit and divides them from the number.
+     * @param number The number to check for prime factors
      * @param limit The maximum value of any prime number that can be allowed
      * @param cache A PrimeCacheBase instance for obtaining Prime Numbers
      * @return The first prime number above limit, or null if none found */
     @Nullable
     public static Long firstPrimeAbove(
-            long product,
+            long number,
             final long limit,
             @Nonnull final PrimeCacheBase cache
     ) throws IllegalArgumentException {
         // Validate Arguments
-        if (limit < 2 || product < 3 && -3 < product )
+        if (limit < 2 || number < 3 && -3 < number )
             return null;
         // Handle negative products
-        if (product < 0) {
-            if (product == Long.MIN_VALUE)
+        if (number < 0) {
+            if (number == Long.MIN_VALUE)
                 return null;
             else
-                product = -product;
+                number = -number;
         }
         // Eliminate 2 if possible - use efficient bit factor method
-        if (BitFactoring.isProductOf2(product)) {
-            product = NumberFactors.INSTANCE.divideOutFactor(2, product);
+        if (BitFactoring.isProductOf2(number)) {
+            number = Factoring.divideOutFactor(number, 2);
         }
         final int maxIndex = cache.getMaxIndex();
         //
@@ -47,20 +45,20 @@ public final class PrimeFactoring {
             final int testPrime = cache.getPrime(primeIndex);
             // If the test prime is above limit
             if (limit < testPrime) {
-                // Check if test prime divides the product
-                if (product % testPrime == 0)
+                // Check if test prime divides the number
+                if (number % testPrime == 0)
                     return (long) testPrime;
             } else {
-                // Try to reduce the product by factoring
-                final long factoredProduct = NumberFactors.INSTANCE.divideOutFactor(
-                        testPrime, product
+                // Try to reduce the number by factoring
+                final long factoredProduct = Factoring.divideOutFactor(
+                        number, testPrime
                 );
-                // If the product was factored
-                if (factoredProduct != product) {
-                    // If the product is now below the limit
+                // If the number was factored
+                if (factoredProduct != number) {
+                    // If the number is now below the limit
                     if (factoredProduct <= limit)
                         return null;
-                    product = factoredProduct;
+                    number = factoredProduct;
                 }
             }
         }
