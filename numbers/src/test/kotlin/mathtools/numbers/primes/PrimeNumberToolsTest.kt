@@ -1,10 +1,11 @@
 package mathtools.numbers.primes
 
-import mathtools.numbers.primes.PrimeNumberTools.checkForPrimeFactorAboveLimit
 import mathtools.numbers.primes.PrimeNumberTools.divideOutSmallPrimes
-import mathtools.numbers.primes.PrimeNumberTools.getFirstPrimeAboveLimit
 import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimeRange
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ArgumentsSource
 
@@ -18,14 +19,14 @@ class PrimeNumberToolsTest {
 		cache: PrimeCacheBase
     ) {
 		assertFalse(
-			checkForPrimeFactorAboveLimit(40, 11, cache))
+			PrimeFactoring.hasPrimeAbove(40, 11, cache))
     	assertFalse(
-			checkForPrimeFactorAboveLimit(39, 13, cache))
+			PrimeFactoring.hasPrimeAbove(39, 13, cache))
 		//
     	assertTrue(
-			checkForPrimeFactorAboveLimit(34, 11, cache))
+			PrimeFactoring.hasPrimeAbove(34, 11, cache))
     	assertTrue(
-			checkForPrimeFactorAboveLimit(39, 11, cache))
+			PrimeFactoring.hasPrimeAbove(39, 11, cache))
     }
 
 	@ParameterizedTest
@@ -34,20 +35,20 @@ class PrimeNumberToolsTest {
 		cache: PrimeCacheBase
 	) {
 		assertNull(
-			getFirstPrimeAboveLimit(5000, 71, cache))
+			PrimeFactoring.firstPrimeAbove(5000, 71, cache))
 		assertNull(
-			getFirstPrimeAboveLimit(5000, 5, cache))
+			PrimeFactoring.firstPrimeAbove(5000, 5, cache))
 		assertEquals(
 			5,
-			getFirstPrimeAboveLimit(5000, 4, cache))
+			PrimeFactoring.firstPrimeAbove(5000, 4, cache))
 		assertEquals(
 			5,
-			getFirstPrimeAboveLimit(5000, 4, cache))
+			PrimeFactoring.firstPrimeAbove(5000, 4, cache))
 		assertEquals(
 			7,
-			getFirstPrimeAboveLimit(49, 6, cache))
+			PrimeFactoring.firstPrimeAbove(49, 6, cache))
 		assertNull(
-			getFirstPrimeAboveLimit(49, 7, cache))
+			PrimeFactoring.firstPrimeAbove(49, 7, cache))
 	}
 
 	@ParameterizedTest
@@ -57,18 +58,18 @@ class PrimeNumberToolsTest {
 	) {
 		// Ignore negative sign on product
 		assertNull(
-			getFirstPrimeAboveLimit(-5000, 71, cache))
+			PrimeFactoring.firstPrimeAbove(-5000, 71, cache))
 		assertEquals(
 			5,
-			getFirstPrimeAboveLimit(-5000, 4, cache))
+			PrimeFactoring.firstPrimeAbove(-5000, 4, cache))
 		assertEquals(
 			7,
-			getFirstPrimeAboveLimit(-49, 6, cache))
+			PrimeFactoring.firstPrimeAbove(-49, 6, cache))
 		// Null when limit is negative
 		assertNull(
-			getFirstPrimeAboveLimit(-5000, -4, cache))
+			PrimeFactoring.firstPrimeAbove(-5000, -4, cache))
 		assertNull(
-			getFirstPrimeAboveLimit(-49, -6, cache))
+			PrimeFactoring.firstPrimeAbove(-49, -6, cache))
 	}
 
 	@ParameterizedTest
@@ -78,11 +79,11 @@ class PrimeNumberToolsTest {
 	) {
 		// Null when product is 1 or zero
 		assertNull(
-			getFirstPrimeAboveLimit(-1, 5, cache))
+			PrimeFactoring.firstPrimeAbove(-1, 5, cache))
 		assertNull(
-			getFirstPrimeAboveLimit(0, 5, cache))
+			PrimeFactoring.firstPrimeAbove(0, 5, cache))
 		assertNull(
-			getFirstPrimeAboveLimit(1, 5, cache))
+			PrimeFactoring.firstPrimeAbove(1, 5, cache))
 	}
 
 	@ParameterizedTest
