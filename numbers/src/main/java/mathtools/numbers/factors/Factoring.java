@@ -11,7 +11,7 @@ public final class Factoring {
      * @param factor The factor to try dividing with
      * @return The reduced number, or the number itself if no divisions succeeded */
     public static long divideOutFactor(
-            final long number,
+            long number,
             final int factor
     ) {
         // These factors are invalid, or won't do anything
@@ -20,17 +20,13 @@ public final class Factoring {
         final long lFactor = factor < 0 ? -factor : factor;
         // Divide and check
         long reduced = number / lFactor;
-        if (reduced * lFactor == number) {
-            // Try reducing by another factor
-            long newReduced = reduced / lFactor;
-            while (newReduced * lFactor == reduced) {
-                reduced = newReduced;
-                if (reduced < 2) break;
-                newReduced = reduced / lFactor;
-            }
-            return reduced;
-        } else
-            return number;
+        while (reduced * lFactor == number) {
+            // Update and check again
+            number = reduced;
+            if (number < 2) break;
+            reduced /= lFactor;
+        }
+        return number;
     }
 
     /** Reduce by dividing with a factor until a remainder occurs
@@ -58,7 +54,7 @@ public final class Factoring {
             // Update and check again
             number = reduced;
             if (number < factor) break;
-            reduced = number / factor;
+            reduced /= factor;
         }
         return number;
     }
