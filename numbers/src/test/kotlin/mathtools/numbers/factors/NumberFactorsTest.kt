@@ -5,8 +5,6 @@ import mathtools.numbers.factors.NumberFactors.divideOutFactor
 import mathtools.numbers.factors.NumberFactors.isProductOf5
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.ValueSource
 
 /** Testing the Number Factors static functions
  * @author DK96-OS : 2022 */
@@ -77,35 +75,10 @@ class NumberFactorsTest {
 	}
 
 	@Test
-	fun testDivideOutFactorNegative() {
-		assertEquals(3, divideOutFactor(-2, 6))
-		assertEquals(3, divideOutFactor(-2, 24))
-		assertEquals(3, divideOutFactor(-2, 48))
-		assertEquals(15, divideOutFactor(-2, 30))
-	}
-
-	@Test
-	fun testDivideOutFactorNegativeNumber() {
-		assertEquals(-3, divideOutFactor(-2, -6))
-		assertEquals(-3, divideOutFactor(-2, -24))
-		assertEquals(-3, divideOutFactor(-2, -48))
-		assertEquals(-15, divideOutFactor(-2, -30))
-	}
-
-	@Test
 	fun testDivideOutFactorInvalid() {
 		assertEquals(300, divideOutFactor(1, 300))
 		assertEquals(300, divideOutFactor(0, 300))
 		assertEquals(300, divideOutFactor(-1, 300))
-	}
-
-	@ParameterizedTest
-	@ValueSource(ints = [2, 3, 5, 7, 11, 13, 17])
-	fun testDivideOutFactorLarge(factor: Int) {
-		assertEquals(353, divideOutFactor(factor, 353))
-		assertEquals(2909, divideOutFactor(factor, 2909))
-		assertEquals(7211, divideOutFactor(factor, 7211))
-		assertEquals(9013, divideOutFactor(factor, 9013))
 	}
 
 }
