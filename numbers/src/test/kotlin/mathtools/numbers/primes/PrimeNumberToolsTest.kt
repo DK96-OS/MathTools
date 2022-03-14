@@ -1,6 +1,5 @@
 package mathtools.numbers.primes
 
-import mathtools.numbers.primes.PrimeNumberTools.divideOutSmallPrimes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
@@ -83,40 +82,6 @@ class PrimeNumberToolsTest {
 			PrimeFactoring.firstPrimeAbove(0, 5, cache))
 		assertNull(
 			PrimeFactoring.firstPrimeAbove(1, 5, cache))
-	}
-
-	@ParameterizedTest
-	@ArgumentsSource(PrimeCacheArgumentProvider::class)
-	fun testDivideOutSmallPrimes(
-		cache: PrimeCacheBase
-	) {
-		assertEquals(
-			25, divideOutSmallPrimes(100, 2, cache))
-		assertEquals(
-			25, divideOutSmallPrimes(100, 3, cache))
-		assertEquals(
-			25, divideOutSmallPrimes(100, 4, cache))
-		assertNull(
-			divideOutSmallPrimes(100, 5, cache))
-		//
-		assertEquals(
-			11, divideOutSmallPrimes(77, 7, cache))
-		assertEquals(
-			11, divideOutSmallPrimes(77, 9, cache))
-		assertEquals(
-			17, divideOutSmallPrimes(68, 13, cache))
-		//
-		assertNull(
-			divideOutSmallPrimes(50, 43, cache))
-	}
-
-	@ParameterizedTest
-	@ArgumentsSource(PrimeCacheArgumentProvider::class)
-	fun testDivideOutSmallPrimesNegative(
-		cache: PrimeCacheBase
-	) {
-		assertNull(divideOutSmallPrimes(-50, 43, cache))
-		assertNull(divideOutSmallPrimes(-100, 5, cache))
 	}
 
 }
