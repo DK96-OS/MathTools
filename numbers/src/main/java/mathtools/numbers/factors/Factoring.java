@@ -18,12 +18,17 @@ public final class Factoring {
         if (-1 <= factor && factor <= 1) return number;
         // Convert factor to Long once
         final long lFactor = factor < 0 ? -factor : factor;
+        // Whether the input number was negative
+        final boolean isNegativeNumber = number < 0;
         // Divide and check
         long reduced = number / lFactor;
         while (reduced * lFactor == number) {
             // Update and check again
             number = reduced;
-            if (number < 2) break;
+            if (isNegativeNumber) {
+                if (number > -2) break;
+            } else
+                if (number < lFactor) break;
             reduced /= lFactor;
         }
         return number;
@@ -37,6 +42,8 @@ public final class Factoring {
             long number,
             long factor
     ) {
+        // Whether the input number is negative
+        final boolean isNegativeNumber = number < 0;
         // Invert negative factors
         if (factor < 0) {
             // Protect against Min Value
@@ -46,14 +53,22 @@ public final class Factoring {
             }
             factor = -factor;
         }
-        // These factors won't do anything
-        if (factor > number || factor < 2) return number;
+        // Check cases where nothing will happen
+        if (factor < 2) return number;
+        // Check if factor has greater magnitude than number
+        if (isNegativeNumber) {
+            if (number > -factor) return number;
+        } else
+            if (number < factor) return number;
         // Divide and check
         long reduced = number / factor;
         while (reduced * factor == number) {
             // Update and check again
             number = reduced;
-            if (number < factor) break;
+            if (isNegativeNumber) {
+                if (number > -2) break;
+            } else
+                if (number < factor) break;
             reduced /= factor;
         }
         return number;
