@@ -4,9 +4,8 @@ package mathtools.numbers.factors
  * @author DK96-OS : 2022 */
 object NumberFactors {
 
-	@Deprecated(
-		"Moved to BitFactoring",
-		ReplaceWith(expression = "BitFactoring.isProductOf2(number)",
+	@Deprecated("Moved to BitFactoring",
+		ReplaceWith("BitFactoring.isProductOf2(number)",
 			"mathtools.numbers.factors.BitFactoring"),
 		level = DeprecationLevel.ERROR
 	)
@@ -17,8 +16,7 @@ object NumberFactors {
 		number: Long,
 	) : Boolean = BitFactoring.isProductOf2(number)
 
-	@Deprecated(
-		"Moved to BitFactoring",
+	@Deprecated("Moved to BitFactoring",
 		ReplaceWith("BitFactoring.isProductOf2(number)",
 			"mathtools.numbers.factors.BitFactoring"),
 		level = DeprecationLevel.ERROR
@@ -46,6 +44,9 @@ object NumberFactors {
 	 * @param factor The factor to divide with
 	 * @param number The composite number to be reduced if it contains the factor
 	 * @return The reduced or unreduced composite number */
+	@Deprecated("Moved to Factoring",
+		ReplaceWith("Factoring.divideOutFactor(number, factor)")
+	)
 	fun divideOutFactor(
 		factor: Int,
 		number: Long,
