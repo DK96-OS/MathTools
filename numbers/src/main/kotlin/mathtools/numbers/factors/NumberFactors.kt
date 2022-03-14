@@ -4,30 +4,6 @@ package mathtools.numbers.factors
  * @author DK96-OS : 2022 */
 object NumberFactors {
 
-	@Deprecated("Moved to BitFactoring",
-		ReplaceWith("BitFactoring.isProductOf2(number)",
-			"mathtools.numbers.factors.BitFactoring"),
-		level = DeprecationLevel.ERROR
-	)
-	/** Determines whether a number contains a factor of 2
-	 * @param number the Number to check
-	 * @return True if number is divisible by 2 */
-	fun isProductOf2(
-		number: Long,
-	) : Boolean = BitFactoring.isProductOf2(number)
-
-	@Deprecated("Moved to BitFactoring",
-		ReplaceWith("BitFactoring.isProductOf2(number)",
-			"mathtools.numbers.factors.BitFactoring"),
-		level = DeprecationLevel.ERROR
-	)
-	/** Determines whether a number contains a factor of 2
-	 * @param number the Number to check
-	 * @return True if number is divisible by 2 */
-	fun isProductOf2(
-		number: Int,
-	) : Boolean = BitFactoring.isProductOf2(number)
-
 	/** Determines whether a number contains a factor of 5
 	 * @param number the Number to check
 	 * @return True if the number is divisible by 5 */
