@@ -85,14 +85,16 @@ public final class PrimeChecker {
 	}
 
 	/** Checks the factors in the static array.
-	 *  Note: Skips checking if 2 is a factor, use BitFactoring for 2
+	 *  Note: Skips checking if 2 is a factor, use [BitFactoring] for 2
 	 * @param number The number to check for prime status
 	 * @return True if none of the primes in static array are factors */
 	static boolean staticIsPrime(
 		final int number
 	) {
-		int prevPrime = 2;
-		// Check static array for factors
+		// In the range [-3, 3] all are prime
+		if (number < 4) return number > -4 || staticIsPrime(-number);
+		// Check static array for factor
+		int prevPrime = 2;  // Assume 2 has already been checked
 		for (int i = 1; i < 16; i++) {
 			final byte testPrime = initArray[i];
 			if (number % testPrime == 0) return false;
