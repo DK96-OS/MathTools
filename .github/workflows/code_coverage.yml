@@ -23,7 +23,7 @@ jobs:
       - name: Run JaCoCo Test Report
         uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: jacocoTestReport --warn
         timeout-minutes: 4
       - name: Upload Tests Results
@@ -40,6 +40,6 @@ jobs:
       - name: JaCoCo Verification
         uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: jacocoTestCoverageVerification --warn
         timeout-minutes: 4
