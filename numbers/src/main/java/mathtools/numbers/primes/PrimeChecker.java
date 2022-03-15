@@ -40,10 +40,15 @@ public final class PrimeChecker {
 		}
 		// check the bits for an even number
 		if (BitFactoring.isProductOf2(number)) return false;
-		// try dividing by all primes in static array
+		// check all primes in static array
 		if (!staticIsPrime(number)) return false;
-		//
-		return cacheIsPrime(number, cache);
+		// check all primes in the cache
+		try {
+			return cacheIsPrime(number, cache);
+		} catch (IllegalArgumentException e) {
+			// If not prime, has large prime factors
+			return true;
+		}
 	}
 
 	/** Find the next prime
@@ -69,8 +74,9 @@ public final class PrimeChecker {
 		2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
 	};
 
-	/** Get a prime number from the static array
-	 * @param index The prime number index. Must be less than 16
+	/** Get a prime number from the static array.
+	 *  The static array contains primes from 2 to 53.
+	 * @param index The prime number index. Must be less than 16.
 	 * @return A prime number from a static array */
 	static int getStaticPrime(
 		final int index
@@ -90,6 +96,7 @@ public final class PrimeChecker {
 		for (int i = 1; i < 16; i++) {
 			final byte testPrime = initArray[i];
 			if (number % testPrime == 0) return false;
+			//
 			if (testPrime * prevPrime > number) return true;
 			prevPrime = testPrime;
 		}
@@ -97,7 +104,7 @@ public final class PrimeChecker {
 	}
 
 	/** Checks the factors in the cache
-	 *  Note: Assumes the static array has been checked
+	 *  Note: Assumes the static array has already been checked
 	 * @param number The number to check for prime status
 	 * @param cache The prime number cache to use
 	 * @return False if number is definitely not prime, true if prime */
@@ -114,7 +121,7 @@ public final class PrimeChecker {
 			if (testPrime * prevPrime > number) return true;
 			prevPrime = testPrime;
 		}
-
+		// Need to test more primes to be sure, but cache is exhausted
 		throw new IllegalArgumentException("Number is too high for this cache");
 	}
 
