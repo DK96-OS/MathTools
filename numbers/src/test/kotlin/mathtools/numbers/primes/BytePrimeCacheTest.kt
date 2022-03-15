@@ -1,5 +1,7 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.primes.PrimeChecker.findPrime
+import mathtools.numbers.primes.PrimeChecker.isPrime
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
@@ -27,7 +29,7 @@ class BytePrimeCacheTest {
         assertEquals(0, cache.arraySize)
         assertEquals(0, cache.queueSize)
         // Highest Index is from the static array
-        assertEquals(15, cache.highestCachedIndex())
+        assertEquals(15, cache.highestCachedIndex)
     }
     
     @Test fun testFindPrime() {
@@ -36,7 +38,7 @@ class BytePrimeCacheTest {
             val prevPrime = primeList[idx - 1]
             val expectedPrime = primeList[idx]
             assertEquals(
-                expectedPrime, cache.findPrime(prevPrime + 2))
+                expectedPrime, findPrime(prevPrime + 2, cache))
             cache.clear()
         }
     }
@@ -46,10 +48,10 @@ class BytePrimeCacheTest {
         val cache = BytePrimeCache()
         for (n in 2 .. primeList.last())
             assertEquals(
-                n in primeList, cache.isPrime(n), "Failed to identify: $n")
+                n in primeList, isPrime(n, cache), "Failed to identify: $n")
         for (n in primeList.last() downTo 2) {
             cache.clear()
-            assertEquals(n in primeList, cache.isPrime(n))
+            assertEquals(n in primeList, isPrime(n, cache))
         }
     }
 
@@ -62,7 +64,7 @@ class BytePrimeCacheTest {
     @Test
     fun testCacheQueue() {
         val cache = BytePrimeCache()
-        val initialSize = cache.highestCachedIndex() + 1
+        val initialSize = cache.highestCachedIndex + 1
         // The first prime beyond the initial list is accessed
         assertEquals(
             primeList[initialSize], cache.getPrime(initialSize))

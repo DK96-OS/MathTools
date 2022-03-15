@@ -1,5 +1,6 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.primes.PrimeChecker.findPrime
 import mathtools.statistics.Statistics
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -22,7 +23,7 @@ class PrimeCachePerformanceTest {
         var foundPrime: Int? = null
         for (i in 0 until nDataPoints) {
             timeList.add(measureNanoTime {
-                foundPrime = cache.findPrime(startNumber)
+                foundPrime = findPrime(startNumber, cache)
             })
             cache.clear()
         }
