@@ -22,7 +22,7 @@ public final class PrimeFactoring {
     public static Long firstPrimeAbove(
             long number,
             final long limit,
-            @Nonnull final PrimeCacheBase cache
+            @Nonnull final PrimeCacheInterface cache
     ) throws IllegalArgumentException {
         // Validate Arguments
         if (limit < 2 || number < 3 && -3 < number )
@@ -72,7 +72,7 @@ public final class PrimeFactoring {
     public static boolean hasPrimeAbove(
             long number,
             final long limit,
-            @Nonnull final PrimeCacheBase cache
+            @Nonnull final PrimeCacheInterface cache
     ) {
         if (limit >= number) return false;
         if (BitFactoring.isProductOf2(number)) {

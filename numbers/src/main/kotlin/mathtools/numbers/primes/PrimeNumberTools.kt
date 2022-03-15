@@ -21,7 +21,7 @@ object PrimeNumberTools {
 	fun checkForPrimeFactorAboveLimit(
 	    product: Long,
 	    limit: Long,
-		cache: PrimeCacheBase,
+		cache: PrimeCacheInterface,
     ) : Boolean = PrimeFactoring.hasPrimeAbove(product, limit, cache)
 
     /** Obtain lowest Prime Number Factor that is greater than the limit
@@ -39,7 +39,7 @@ object PrimeNumberTools {
 	fun getFirstPrimeAboveLimit(
 	    product: Long,
 	    limit: Long,
-		cache: PrimeCacheBase,
+		cache: PrimeCacheInterface,
     ) : Long? = PrimeFactoring.firstPrimeAbove(product, limit, cache)
 
 	/** Try to divide the product by all primes in the index range.
@@ -49,7 +49,7 @@ object PrimeNumberTools {
 	fun reduceByPrimeRange(
 		primeIndexRange: IntRange,
 		product: Long,
-		cache: PrimeCacheBase,
+		cache: PrimeCacheInterface,
 	) : Long? {
 		// check arguments
 		when {
@@ -99,7 +99,7 @@ object PrimeNumberTools {
 	fun divideOutSmallPrimes(
 	    product: Long,
 	    maxPrime: Long,
-		cache: PrimeCacheBase,
+		cache: PrimeCacheInterface,
     ) : Long? {
 	    // check arguments
 	    when {
