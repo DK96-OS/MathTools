@@ -19,27 +19,27 @@ jobs:
           java-version: '11'
           distribution: 'zulu'
       - name: Check Build
-        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: check --warn
         timeout-minutes: 7
       - name: Generate JavaDoc
-        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: dokkaJavadoc --warn
         timeout-minutes: 3
       - name: Generate Markdown
-        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: dokkaGfm --warn
         timeout-minutes: 3
       - name: Publish Packages
-        uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
         with:
-          gradle-version: 7.4
+          gradle-version: 7.4.1
           arguments: publish --warn
         if: success()
         env:
