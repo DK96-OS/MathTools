@@ -1,21 +1,27 @@
 package mathtools.numbers.primes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove;
+import static mathtools.numbers.primes.PrimeFactoring.hasPrimeAbove;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import javax.annotation.Nonnull;
+
 /** Testing [PrimeFactoring] functions
  * @author DK96-OS : 2022 */
 public final class PrimeFactoringTest {
 
+    private final PrimeCacheInterface cache = new BytePrimeCache();
+
     @ParameterizedTest
     @ArgumentsSource(PrimeCacheArgumentProvider.class)
     void testFirstPrimeAbove(
-            final PrimeCacheBase cache
+            @Nonnull final PrimeCacheInterface cache
     ) {
         assertEquals(
                 7, firstPrimeAbove(49, 6, cache));
@@ -36,7 +42,7 @@ public final class PrimeFactoringTest {
     @ParameterizedTest
     @ArgumentsSource(PrimeCacheArgumentProvider.class)
     void testFirstPrimeAboveArgsNegative(
-            final PrimeCacheBase cache
+            @Nonnull final PrimeCacheInterface cache
     ) {
         // Check negative inputs
         assertEquals(
@@ -52,14 +58,14 @@ public final class PrimeFactoringTest {
 
     @Test
     void testFirstPrimeAboveArgsMinValue() {
-        PrimeCacheBase cache = new ShortPrimeCache();
+        PrimeCacheInterface cache = new ShortPrimeCache();
         assertNull(
                 firstPrimeAbove(Long.MIN_VALUE, 200, cache));
     }
 
     @Test
     void testFirstPrimeAboveArgsProductBaseCases() {
-        PrimeCacheBase cache = new BytePrimeCache();
+        PrimeCacheInterface cache = new BytePrimeCache();
         assertNull(
                 firstPrimeAbove(2, 2, cache));
         assertNull(
@@ -72,6 +78,22 @@ public final class PrimeFactoringTest {
                 firstPrimeAbove(-1, 10, cache));
         assertNull(
                 firstPrimeAbove(-2, 2, cache));
+    }
+
+    @Test
+    void testHasPrimeGreaterLimit() {
+        assertFalse(
+            hasPrimeAbove(29, 29, cache));
+        assertFalse(
+            hasPrimeAbove(29, 31, cache));
+    }
+
+    @Test
+    void testHasPrimeNegativeLimit() {
+        assertFalse(
+            hasPrimeAbove(29, -29, cache));
+        assertFalse(
+            hasPrimeAbove(29, -31, cache));
     }
 
 }

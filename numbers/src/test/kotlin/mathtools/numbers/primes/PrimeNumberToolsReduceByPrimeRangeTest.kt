@@ -13,7 +13,7 @@ class PrimeNumberToolsReduceByPrimeRangeTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testReduceByPrimesInvalidRange(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		// Negative valued ranges are ignored
 		assertNull(
@@ -29,7 +29,7 @@ class PrimeNumberToolsReduceByPrimeRangeTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testReduceByPrimesReversedRange(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		assertEquals(
 			4, reduceByPrimeRange(2..1, 60, cache))
@@ -40,7 +40,7 @@ class PrimeNumberToolsReduceByPrimeRangeTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testReduceByPrimesIndivisibleProduct(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		assertNull(
 			reduceByPrimeRange(1..3, -1, cache))
@@ -53,7 +53,7 @@ class PrimeNumberToolsReduceByPrimeRangeTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testReduceByPrimesNegative(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		assertEquals(
 			-2, reduceByPrimeRange(1..2, -30, cache))
@@ -66,7 +66,7 @@ class PrimeNumberToolsReduceByPrimeRangeTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testReduceByPrimes(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		assertEquals(
 			2, reduceByPrimeRange(1..2, 30, cache))

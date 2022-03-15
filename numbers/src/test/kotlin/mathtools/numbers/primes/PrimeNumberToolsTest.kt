@@ -14,7 +14,7 @@ class PrimeNumberToolsTest {
     @ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
     fun testPrimeFactorLimitCheck(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
     ) {
 		assertFalse(
 			PrimeFactoring.hasPrimeAbove(40, 11, cache))
@@ -30,7 +30,7 @@ class PrimeNumberToolsTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testFirstPrimeAboveLimit(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		assertNull(
 			PrimeFactoring.firstPrimeAbove(5000, 71, cache))
@@ -52,7 +52,7 @@ class PrimeNumberToolsTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testFirstPrimeAboveLimitNegative(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		// Ignore negative sign on product
 		assertNull(
@@ -73,7 +73,7 @@ class PrimeNumberToolsTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider::class)
 	fun testFirstPrimeAboveLimitInvalid(
-		cache: PrimeCacheBase
+		cache: PrimeCacheInterface
 	) {
 		// Null when product is 1 or zero
 		assertNull(

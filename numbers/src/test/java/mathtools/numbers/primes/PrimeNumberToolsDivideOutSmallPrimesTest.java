@@ -15,7 +15,7 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 
 	private final PrimeNumberTools I = PrimeNumberTools.INSTANCE;
 
-	final PrimeCacheBase cache = new BytePrimeCache();
+	final PrimeCacheInterface cache = new BytePrimeCache();
 
 	@Test
 	void testInvalidProduct() {
@@ -50,7 +50,7 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider.class)
 	void testDivideOutSmallPrimes(
-		@Nonnull final PrimeCacheBase cache
+		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertEquals(
 			25, I.divideOutSmallPrimes(100, 2, cache));
@@ -75,7 +75,7 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 	@ParameterizedTest
 	@ArgumentsSource(PrimeCacheArgumentProvider.class)
 	void testDivideOutSmallPrimesNegative(
-		@Nonnull final PrimeCacheBase cache
+		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertNull(I.divideOutSmallPrimes(-50, 43, cache));
 		assertNull(I.divideOutSmallPrimes(-100, 5, cache));
