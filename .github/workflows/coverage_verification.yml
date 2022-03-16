@@ -11,6 +11,7 @@ jobs:
       contents: read
     name: Coverage Verification
     steps:
+    - uses: actions/checkout@v2
     - name: Verify Coverage
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
