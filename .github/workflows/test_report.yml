@@ -1,0 +1,32 @@
+# This workflow runs tests
+
+name: Test
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    name: Test
+
+    steps:
+    - name: Run Tests
+      uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
+      with:
+        gradle-version: 7.4.1
+        arguments: test --continue --info
+      timeout-minutes: 4
+
+    - name: Upload Test Reports
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: Java-${{ matrix.java }}-Tests
+        path: |
+          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
+          /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
+        retention-days: 60
+        if-no-files-found: warn
+      timeout-minutes: 1
