@@ -12,9 +12,11 @@ jobs:
     name: Coverage Verification
     steps:
     - uses: actions/checkout@v2
-    - name: Verify Coverage
-      uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
+    - name: Set up Java
+      uses: actions/setup-java@v2
       with:
-        gradle-version: 7.4.1
-        arguments: jacocoTestCoverageVerification --warn
+        java-version: 11
+        distribution: 'temurin'
+    - name: Verify Coverage
+      run: ./gradlew jacocoTestCoverageVerification --warn
       timeout-minutes: 4
