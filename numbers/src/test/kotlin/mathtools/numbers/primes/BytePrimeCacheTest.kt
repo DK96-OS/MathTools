@@ -3,6 +3,7 @@ package mathtools.numbers.primes
 import mathtools.numbers.primes.PrimeChecker.findPrime
 import mathtools.numbers.primes.PrimeChecker.isPrime
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -20,8 +21,15 @@ class BytePrimeCacheTest {
         )
     }
 
-    @Test fun testInitialization() {
-    	val cache = BytePrimeCache()
+    private lateinit var cache: BytePrimeCache
+
+    @BeforeEach
+    fun testSetup() {
+        cache = BytePrimeCache()
+    }
+
+    @Test
+    fun testInitialization() {
     	// The first 16 prime numbers are a;ways available
         assertEquals(0, cache.arraySize)
         assertEquals(0, cache.queueSize)
@@ -32,8 +40,8 @@ class BytePrimeCacheTest {
         assertEquals(15, cache.highestCachedIndex)
     }
     
-    @Test fun testFindPrime() {
-        val cache = BytePrimeCache()
+    @Test
+    fun testFindPrime() {
         for (idx in 2 until primeList.size) {
             val prevPrime = primeList[idx - 1]
             val expectedPrime = primeList[idx]
@@ -45,7 +53,6 @@ class BytePrimeCacheTest {
 
     @Test
     fun testIsPrime() {
-        val cache = BytePrimeCache()
         for (n in 2 .. primeList.last())
             assertEquals(
                 n in primeList, isPrime(n, cache), "Failed to identify: $n")
@@ -55,8 +62,8 @@ class BytePrimeCacheTest {
         }
     }
 
-	@Test fun testGetPrimeDecreasing() {
-		val cache = BytePrimeCache()
+	@Test
+    fun testGetPrimeDecreasing() {
 		for (i in cache.maxIndex downTo 0) 
 			assertEquals(primeList[i], cache.getPrime(i))
 	}
@@ -86,14 +93,12 @@ class BytePrimeCacheTest {
     @ParameterizedTest
     @ValueSource(ints = [1, 2, 3, 5, 6, 8, 9, 12])
     fun testExpansionRates(rate: Int) {
-        val cache = BytePrimeCache()
         for (i in 0 .. cache.maxIndex step rate)
             assertEquals(primeList[i], cache.getPrime(i))
     }
 	
     @RepeatedTest(3)
     fun testRandomAccess() {
-        val cache = BytePrimeCache()
         val testIndexRange = 10 .. cache.maxIndex
         repeat(200) {
             repeat(cache.maxIndex) {
@@ -106,7 +111,6 @@ class BytePrimeCacheTest {
 
     @Test
     fun testPrimeTooLargeForCache() {
-        val cache = BytePrimeCache()
         assertThrows<IllegalStateException> {
             cache.getPrime(cache.maxIndex + 5)
         }
