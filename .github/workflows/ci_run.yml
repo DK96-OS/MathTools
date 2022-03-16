@@ -1,13 +1,11 @@
 # This workflow tests master branch pushes and pull requests
 
-name: Run CI
-
+name: CI Run
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-    types: [ opened, synchronize ]
 
 jobs:
   build:
