@@ -74,11 +74,26 @@ public final class IntRangeElementCalculateBoundTest {
     @Test
     void testNegativeBounds() {
         // Negative bound is used for ranges larger than Int.MaxValue
-        assert 0 > calculateBound(0, MAX);
-        assert 0 > calculateBound(-10, MAX);
-        assert 0 > calculateBound(-1000, MAX);
-        assert 0 > calculateBound(-1000, MAX - 20);
-        assert 0 > calculateBound(MIN + 2, MAX - 2);
+        assertEquals(
+            (int) (MAX + 1L + 2L * MIN),
+            calculateBound(0, MAX)
+        );
+        assertEquals(
+            (int) (MAX + 11L + 2L * MIN),
+            calculateBound(-10, MAX)
+        );
+        assertEquals(
+            (int) (MAX + 1001L + 2L * MIN),
+            calculateBound(-1000, MAX)
+        );
+        assertEquals(
+            (int) (MAX + 1001L - 20L + 2L * MIN),
+            calculateBound(-1000, MAX - 20)
+        );
+        assertEquals(
+            (int) (2 * (MAX - 1L) + 2L * MIN),
+            calculateBound(MIN + 2, MAX - 2)
+        );
     }
 
 }

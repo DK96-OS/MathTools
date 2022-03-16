@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 /** Testing the IntRange Element class
  * @author DK96-OS : 2022 */
 public final class IntRangeElementTest {
@@ -28,6 +30,11 @@ public final class IntRangeElementTest {
         assertEquals(10, elem.getStart());
         assertEquals(50, elem.getEnd());
         assertEquals(41, elem.getBound());
+        // The alternate constructor with Random inject
+        elem = new IntRangeElement(50, 10, new Random(5));
+        assertEquals(10, elem.getStart());
+        assertEquals(50, elem.getEnd());
+        assertEquals(41, elem.getBound());
     }
 
     @Test
@@ -35,6 +42,17 @@ public final class IntRangeElementTest {
         elem = new IntRangeElement(MIN, MAX);
         assertEquals(MIN, elem.getStart());
         assertEquals(MAX, elem.getEnd());
+    }
+
+    @Test
+    void testConstructorNegativeBound() {
+        elem = new IntRangeElement(0, MAX);
+        assertEquals(0, elem.getStart());
+        assertEquals(MAX, elem.getEnd());
+        assertEquals(
+            (int) (MAX + 1L + 2L * MIN),
+            elem.getBound()
+        );
     }
 
     @Test
@@ -130,14 +148,21 @@ public final class IntRangeElementTest {
 
     @Test
     void testBoundPropertyNegativeValues() {
-        elem = new IntRangeElement(MIN, 0);
-        assertEquals(-1, elem.getBound());
-        //
-        elem = new IntRangeElement(MIN, -1);
-        assertEquals(-1, elem.getBound());
-        //
         elem = new IntRangeElement(0, MAX);
-        assertEquals(-1, elem.getBound());
+        assertEquals(
+            (int) (MAX + 1L + 2L * MIN),
+            elem.getBound()
+        );
+        elem = new IntRangeElement(MIN, 0);
+        assertEquals(
+            (int) (MAX + 2L + 2L * MIN),
+            elem.getBound()
+        );
+        elem = new IntRangeElement(MIN, -1);
+        assertEquals(
+            (int) (MAX + 1L + 2L * MIN),
+            elem.getBound()
+        );
     }
 
 }
