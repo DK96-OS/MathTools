@@ -21,7 +21,7 @@ jobs:
     - uses: actions/setup-java@v2
       with:
         java-version: ${{ matrix.java }}
-        distribution: 'zulu'
+        distribution: 'temurin'
     
     - name: Run Tests
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
