@@ -29,15 +29,15 @@ jobs:
   
   test:
     needs: build
-    uses: ./.github/workflows/test_report
+    uses: ./.github/workflows/test_report.yml
     if: success()
   
   coverage-report:
     needs: test
-    uses: ./.github/workflows/coverage_report
+    uses: ./.github/workflows/coverage_report.yml
     if: success()
   
   verify-coverage:
     needs: test
-    uses: ./.github/workflows/coverage_verification
+    uses: ./.github/workflows/coverage_verification.yml
     if: success()
