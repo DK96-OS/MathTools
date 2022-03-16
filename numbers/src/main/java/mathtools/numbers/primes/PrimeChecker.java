@@ -36,7 +36,8 @@ public final class PrimeChecker {
 				// Primes at index 0, 1 are covered by branches above
 				initArray, 2, 15, (byte) number
 			);
-			return initArray[searchKey] == number;
+			if (-1 < searchKey && searchKey < 16)
+				return initArray[searchKey] == number;
 		}
 		// check the bits for an even number
 		if (BitFactoring.isProductOf2(number)) return false;
@@ -51,7 +52,7 @@ public final class PrimeChecker {
 		}
 	}
 
-	/** Find the next prime
+	/** Find the next prime equal to or greater than testNum
 	 * @param testNum The starting point for looking for new primes
 	 * @param cache The prime number cache to use
 	 * @return The next prime, or null if the cache is not large enough to find the next prime */
@@ -62,8 +63,12 @@ public final class PrimeChecker {
 	) {
 		// If this function isn't being used properly, return null
 		if (testNum < 5 || BitFactoring.isProductOf2(testNum)) return null;
-		//
+		// Additional conditions on this method may include:
+		// - testNum should be greater than the maximum static prime
+		//      Otherwise, not optimized
 		for (; testNum <= cache.getMaxPrime(); testNum += 2) {
+			// The public isPrime method does input validation
+			//    An optimization would skip validation, use private method
 			if (isPrime(testNum, cache)) return testNum;
 		}
 		return null;
@@ -120,6 +125,7 @@ public final class PrimeChecker {
 		for (int i = 16; i <= cache.getMaxIndex(); i++) {
 			final int testPrime = cache.getPrime(i);
 			if (number % testPrime == 0) return false;
+			// Test breaking condition
 			if (testPrime * prevPrime > number) return true;
 			prevPrime = testPrime;
 		}
