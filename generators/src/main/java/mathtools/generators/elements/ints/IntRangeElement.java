@@ -1,7 +1,5 @@
 package mathtools.generators.elements.ints;
 
-import com.google.common.math.IntMath;
-
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -122,12 +120,7 @@ public class IntRangeElement implements IntElementInterface {
             if (start == Integer.MIN_VALUE)
                 return 0;   // Full Range of integers
         }
-        try {
-            final int diff = IntMath.checkedSubtract(end, start);
-            return IntMath.checkedAdd(1, diff);
-        } catch (ArithmeticException e) {
-            return -1;
-        }
+        return end + 1 - start;
     }
 
 }
