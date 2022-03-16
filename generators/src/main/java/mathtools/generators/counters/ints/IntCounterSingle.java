@@ -72,4 +72,9 @@ public class IntCounterSingle implements IntCounter {
             return false;
     }
 
+    /** Reset the counter to zero */
+    public void clear() {
+        mCount = 0;
+    }
+
 }

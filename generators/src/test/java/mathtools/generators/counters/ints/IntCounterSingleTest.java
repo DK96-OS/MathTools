@@ -32,11 +32,15 @@ public final class IntCounterSingleTest {
 
     @Test
     void testCount() {
-        assertTrue(mCounter.count(99));
-        assertTrue(mCounter.count(99));
+        assertTrue(
+            mCounter.count(99));
+        assertTrue(
+            mCounter.count(99));
         //
-        assertFalse(mCounter.count(98));
-        assertFalse(mCounter.count(-99));
+        assertFalse(
+            mCounter.count(98));
+        assertFalse(
+            mCounter.count(-99));
         //
         assertEquals(
                 2, mCounter.getCount());
@@ -105,6 +109,17 @@ public final class IntCounterSingleTest {
                 mCounter.countBy(99, Long.MIN_VALUE));
         assertEquals(
                 0, mCounter.getCount());
+    }
+
+    @Test
+    void testClear() {
+        assertTrue(
+            mCounter.countBy(99, 77));
+        assertEquals(
+            77, mCounter.getCount());
+        mCounter.clear();
+        assertEquals(
+            0, mCounter.getCount());
     }
 
 }
