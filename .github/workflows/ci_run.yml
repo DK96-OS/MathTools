@@ -26,15 +26,18 @@ jobs:
     - name: Build
       run: ./gradlew assemble --info
       timeout-minutes: 4
-    
-    - uses: ./.github/workflows/test_report
-      if: success()
-      timeout-minutes: 2
-
-    - uses: ./.github/workflows/coverage_report
-      if: success()
-      timeout-minutes: 2
-    
-    - uses: ./.github/workflows/coverage_verification
-      if: success()
-      timeout-minutes: 2
+  
+  test:
+    needs: build
+    uses: ./.github/workflows/test_report
+    if: success()
+  
+  coverage-report:
+    needs: test
+    uses: ./.github/workflows/coverage_report
+    if: success()
+  
+  verify-coverage:
+    needs: test
+    uses: ./.github/workflows/coverage_verification
+    if: success()
