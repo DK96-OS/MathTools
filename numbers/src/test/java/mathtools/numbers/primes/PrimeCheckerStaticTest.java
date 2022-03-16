@@ -76,8 +76,26 @@ public final class PrimeCheckerStaticTest {
 	}
 
 	@Test
-	void testIsPrimeTrueBelowSquareLimit() {
-		// The square limit
+	void testIsPrimeLimitations() {
+		// The square limit is the maximum value that can be correctly tested
+		// Up to 53 is safe
+		assertFalse(staticIsPrime(53 * 53));
+		assertFalse(staticIsPrime(53 * 53 * 53));
+		assertFalse(staticIsPrime(53 * 53 * 53));
+		// some values above, because 53 is included
+		assertFalse(staticIsPrime(53 * 59));
+		// Or any other small prime
+		assertFalse(staticIsPrime(41 * 59 * 67));
+	}
+
+	@Test
+	void testIsPrimeFailures() {
+		// These calls are all failures to correctly identify non-primes
+		assertTrue(staticIsPrime(59 * 59));
+		assertTrue(staticIsPrime(61 * 61));
+		assertTrue(staticIsPrime(67 * 67));
+		// Anything containing primes above will fail
+		assertTrue(staticIsPrime(59 * 101));
 	}
 
 }
