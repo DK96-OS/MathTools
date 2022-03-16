@@ -43,55 +43,70 @@ public final class IntRangeElementGeneratedValuesTest {
             throw new IllegalArgumentException();
         // Initialize runner
         runner = new IntGeneratorCounter(
-                new IntRangeElement(startValue, end),
-                new IntCounter32000(startValue, end)
+            new IntRangeElement(startValue, end),
+            new IntCounter32000(startValue, end)
         );
         // Counts will depend on the number of generated values, and
         // the size of the range
         final int targetMeanCount = 100;
         final int nValuesGenerated = 16 * targetMeanCount;
         assertTrue(
-                runner.countGeneratedValues(nValuesGenerated));
+            runner.countGeneratedValues(nValuesGenerated));
         final List<Integer> results = runner.getCounter().toList();
         assertEquals(
-                16, results.size());
+            16, results.size());
         final DistributionStats stats = assertStats(
-                results, 60, 140
+            results, 60, 140
         );
         assertEquals(
-                targetMeanCount, stats.getMean(), 4);
+            targetMeanCount, stats.getMean(), 4);
         assertEquals(
-                10.0, stats.getStandardDeviation(), 3.5);
+            10.0, stats.getStandardDeviation(), 3.5);
     }
 
     @Test
     void testAllIntegersRange() {
         runner = new IntGeneratorCounter(
-                new IntRangeElement(MIN, MAX, provideFixedRNG(MIN)),
-                new IntCounter127(MIN, MIN + 3)
+            new IntRangeElement(MIN, MAX, provideFixedRNG(MIN)),
+            new IntCounter127(MIN, MIN + 3)
         );
         assertTrue(
-                runner.countGeneratedValues(10));
+            runner.countGeneratedValues(10));
         List<Integer> results = runner.getCounter().toList();
         assertEquals(
-                4, results.size());
+            4, results.size());
         assertEquals(
-                10, results.get(0));
-
+            10, results.get(0));
         //
         runner = new IntGeneratorCounter(
-                new IntRangeElement(MIN, MAX, provideFixedRNG(MAX)),
-                new IntCounter127(MAX - 3, MAX)
+            new IntRangeElement(MIN, MAX, provideFixedRNG(MAX)),
+            new IntCounter127(MAX - 3, MAX)
         );
         assertTrue(
-                runner.countGeneratedValues(10));
+            runner.countGeneratedValues(10));
         results = runner.getCounter().toList();
         assertEquals(
-                4, results.size());
+            4, results.size());
         assertEquals(
-                10, results.get(3));
+            10, results.get(3));
     }
 
+    @Test
+    void testOverMaxIntRangeSize() {
+        runner = new IntGeneratorCounter(
+            new IntRangeElement(
+                -1, MAX, provideFixedRNG(9)
+            ),
+            new IntCounter127(-1, 20)
+        );
+        assertTrue(
+            runner.countGeneratedValues(10));
+        IntCounter127 counter = (IntCounter127) runner.getCounter();
+        assertEquals(
+            10, (byte) counter.getCountOf(9));
+    }
+
+    @Nonnull
     private static Random provideFixedRNG(
             final int returnValue
     ) {
