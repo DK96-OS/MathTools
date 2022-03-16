@@ -13,9 +13,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-    strategy:
-      matrix:
-        java: [ '11', '17' ]
     
     name: Build - Java ${{ matrix.java }}
     steps:
@@ -23,7 +20,7 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v2
       with:
-        java-version: ${{ matrix.java }}
+        java-version: 11
         distribution: 'zulu'
     
     - name: Build
