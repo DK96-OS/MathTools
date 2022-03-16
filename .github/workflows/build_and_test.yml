@@ -41,7 +41,7 @@ jobs:
         arguments: check --continue --warn
       timeout-minutes: 4
     - name: Upload Tests Results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
         name: JVM${{ matrix.java }}-Tests
