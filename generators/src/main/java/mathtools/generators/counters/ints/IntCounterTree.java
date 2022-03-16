@@ -25,7 +25,7 @@ public final class IntCounterTree implements IntRangeCounter {
     ) {
         if (left.getLastValue() >= right.getStartValue())
             throw new IllegalArgumentException(
-                    "Invalid sub-tree ranges"
+                "Invalid sub-tree ranges"
             );
         mLeft = left;
         mRight = right;
@@ -52,6 +52,7 @@ public final class IntCounterTree implements IntRangeCounter {
     }
 
     @Override
+    @Nonnull
     public List<Integer> toList() {
         return ImmutableList
                 .<Integer>builder()
