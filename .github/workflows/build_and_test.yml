@@ -14,7 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
       contents: read
       packages: read
     strategy:
@@ -34,6 +33,14 @@ jobs:
         gradle-version: 7.4.1
         arguments: assemble --warn
       timeout-minutes: 4
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '11', '17' ]
+    name: Java ${{ matrix.java }} Test
+    steps:
     - name: Run Tests
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
@@ -48,4 +55,5 @@ jobs:
         path: |
           /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
+        if-no-files-found: error
       timeout-minutes: 1
