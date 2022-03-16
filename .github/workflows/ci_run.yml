@@ -14,7 +14,7 @@ jobs:
       contents: read
       packages: read
     
-    name: Build - Java ${{ matrix.java }}
+    name: CI Run
     steps:
     - uses: actions/checkout@v2
     - name: Set up Java
@@ -24,20 +24,18 @@ jobs:
         distribution: 'temurin'
     
     - name: Build
-      uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-      with:
-        gradle-version: 7.4.1
-        arguments: assemble --info
+      run: |
+        ./gradlew assemble --info
       timeout-minutes: 4
     
-    - uses: ./.github/workflows/test_report
-      if: success()
-      timeout-minutes: 2
+    #- uses: ./.github/workflows/test_report
+    #  if: success()
+    #  timeout-minutes: 2
 
-    - uses: ./.github/workflows/coverage_report
-      if: success()
-      timeout-minutes: 2
+    #- uses: ./.github/workflows/coverage_report
+    #  if: success()
+    #  timeout-minutes: 2
     
-    - uses: ./.github/workflows/coverage_verification
-      if: success()
-      timeout-minutes: 2
+    #- uses: ./.github/workflows/coverage_verification
+    #  if: success()
+    #  timeout-minutes: 2
