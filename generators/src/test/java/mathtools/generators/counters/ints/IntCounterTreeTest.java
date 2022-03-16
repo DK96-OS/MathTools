@@ -17,10 +17,10 @@ public final class IntCounterTreeTest {
         final IntRangeCounter higher = new IntCounter127(10, 17);
         // Reversed
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounterTree(higher, lower));
+            () -> new IntCounterTree(higher, lower));
         // Same counter
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounterTree(higher, higher));
+            () -> new IntCounterTree(higher, higher));
     }
 
     @Test
@@ -30,9 +30,9 @@ public final class IntCounterTreeTest {
         final IntCounterTree tree = new IntCounterTree(lower, higher);
         //
         assertEquals(
-                2, tree.getStartValue());
+            2, tree.getStartValue());
         assertEquals(
-                17, tree.getLastValue());
+            17, tree.getLastValue());
     }
 
     @Test
@@ -43,13 +43,13 @@ public final class IntCounterTreeTest {
         final IntRangeCounter range3 = new IntCounter127(26, 33);
         //
         final IntCounterTree root = new IntCounterTree(
-                new IntCounterTree(range0, range1),
-                new IntCounterTree(range2, range3)
+            new IntCounterTree(range0, range1),
+            new IntCounterTree(range2, range3)
         );
         assertEquals(
-                2, root.getStartValue());
+            2, root.getStartValue());
         assertEquals(
-                33, root.getLastValue());
+            33, root.getLastValue());
         //
         assertTrue(root.count(2));
         assertTrue(root.count(10));

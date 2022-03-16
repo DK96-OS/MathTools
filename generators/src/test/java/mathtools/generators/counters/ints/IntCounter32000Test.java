@@ -35,16 +35,16 @@ public final class IntCounter32000Test {
     void testInvalidConstructorArgs() {
         // Reversed Range
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(20, 19));
+            () -> new IntCounter32000(20, 19));
         // Range Starts at Min, contains more than Max numbers
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(Integer.MIN_VALUE, -1));
+            () -> new IntCounter32000(Integer.MIN_VALUE, -1));
         // Range Ends at Max, contains more than Max numbers
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(0, Integer.MAX_VALUE));
+            () -> new IntCounter32000(0, Integer.MAX_VALUE));
         // Range contains all Integer values
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(Integer.MIN_VALUE, Integer.MAX_VALUE));
+            () -> new IntCounter32000(Integer.MIN_VALUE, Integer.MAX_VALUE));
     }
 
     @Test
@@ -52,21 +52,21 @@ public final class IntCounter32000Test {
         final int start = Integer.MAX_VALUE - (IntCounter32000.MAX_RANGE_SIZE - 1);
         mCounter = new IntCounter32000(start, Integer.MAX_VALUE);
         assertTrue(
-                mCounter.count(Integer.MAX_VALUE));
+            mCounter.count(Integer.MAX_VALUE));
         assertTrue(
-                mCounter.count(start));
+            mCounter.count(start));
         assertFalse(
-                mCounter.count(0));
+            mCounter.count(0));
         assertFalse(
-                mCounter.count(start - 1));
+            mCounter.count(start - 1));
     }
 
     @Test
     void testInvalidConstructorLargeValues() {
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(Integer.MIN_VALUE, -2));
+            () -> new IntCounter32000(Integer.MIN_VALUE, -2));
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter32000(1, Integer.MAX_VALUE));
+            () -> new IntCounter32000(1, Integer.MAX_VALUE));
     }
 
     @Test
@@ -75,78 +75,78 @@ public final class IntCounter32000Test {
         final short thousands = 2000;
         // 32000 / 2000 = 16
         for (int i = 0; i < 16; i++) assertTrue(
-                mCounter.countBy(1, thousands)
+            mCounter.countBy(1, thousands)
         );
         assertEquals(
-                (short) 32000, mCounter.getCountOf(1));
+            (short) 32000, mCounter.getCountOf(1));
         assertFalse(
-                mCounter.countBy(1, thousands));
+            mCounter.countBy(1, thousands));
     }
 
     @Test
     void testCountByInvalidArgs() {
         mCounter = new IntCounter32000(1, 10);
         assertFalse(
-                mCounter.countBy(0, (short) 1));
+            mCounter.countBy(0, (short) 1));
         assertFalse(
-                mCounter.countBy(1, (short) 0));
+            mCounter.countBy(1, (short) 0));
         assertFalse(
-                mCounter.countBy(1, (short) -2));
+            mCounter.countBy(1, (short) -2));
     }
 
     @Test
     void testNegativeRangeCount() {
         mCounter = new IntCounter32000(-10, -1);
         assertTrue(
-                mCounter.count(-10));
+            mCounter.count(-10));
         assertTrue(
-                mCounter.count(-1));
+            mCounter.count(-1));
         assertFalse(
-                mCounter.count(-11));
+            mCounter.count(-11));
         assertFalse(
-                mCounter.count(0));
+            mCounter.count(0));
         // Check Counts
         assertEquals(
-                (short) 1, mCounter.getCountOf(-10));
+            (short) 1, mCounter.getCountOf(-10));
         assertEquals(
-                (short) 1, mCounter.getCountOf(-1));
+            (short) 1, mCounter.getCountOf(-1));
         assertNull(
-                mCounter.getCountOf(-11));
+            mCounter.getCountOf(-11));
         assertNull(
-                mCounter.getCountOf(0));
+            mCounter.getCountOf(0));
     }
 
     @Test
     void testNegativeRangeCountBy() {
         mCounter = new IntCounter32000(-10, -1);
         assertTrue(
-                mCounter.countBy(-10, (short) 200));
+            mCounter.countBy(-10, (short) 200));
         assertTrue(
-                mCounter.countBy(-1, (short) 200));
+            mCounter.countBy(-1, (short) 200));
         assertFalse(
-                mCounter.countBy(-11, (short) 200));
+            mCounter.countBy(-11, (short) 200));
         assertFalse(
-                mCounter.countBy(0, (short) 200));
+            mCounter.countBy(0, (short) 200));
     }
 
     @Test
     void testGetCountOfInvalidArgs() {
         mCounter = new IntCounter32000(1, 10);
         assertNull(
-                mCounter.getCountOf(0));
+            mCounter.getCountOf(0));
         assertNull(
-                mCounter.getCountOf(20));
+            mCounter.getCountOf(20));
     }
 
     @Test
     void testCountOverflow() {
         mCounter = new IntCounter32000(1, 8);
         assertTrue(
-                mCounter.countBy(4, Short.MAX_VALUE));
+            mCounter.countBy(4, Short.MAX_VALUE));
         assertFalse(
-                mCounter.count(4));
+            mCounter.count(4));
         assertEquals(
-                Short.MAX_VALUE, mCounter.getCountOf(4));
+            Short.MAX_VALUE, mCounter.getCountOf(4));
     }
 
 }

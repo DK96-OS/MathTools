@@ -23,46 +23,47 @@ public final class IntGeneratorCounterTest {
     @Test
     void testMismatchedCounter() {
         mGC = new IntGeneratorCounter(
-                new IntRangeElement(1, 1),
-                new IntCounter32000(10, 20)
+            new IntRangeElement(1, 1),
+            new IntCounter32000(10, 20)
         );
         assertFalse(
-                mGC.countGeneratedValues(1));
+            mGC.countGeneratedValues(1));
         assertEquals(
-                1, mGC.getRejectedValue());
+            1, mGC.getRejectedValue());
         assertNull(
-                mGC.getPreviousValue());
+            mGC.getPreviousValue());
     }
 
     @Test
     void testSingleValuedCounter() {
         mGC = new IntGeneratorCounter(
-                new IntRangeElement(10, 10),
-                new IntCounterSingle(10)
+            new IntRangeElement(10, 10),
+            new IntCounterSingle(10)
         );
         assertTrue(
-                mGC.countGeneratedValues(100));
+            mGC.countGeneratedValues(100));
         assertEquals(
-                10, mGC.getPreviousValue());
+            10, mGC.getPreviousValue());
         assertEquals(
-                100, ((IntCounterSingle) mGC.getCounter()).getCount());
+            100, ((IntCounterSingle) mGC.getCounter()).getCount());
     }
 
     @Test
     void testTwoValuedCounter() {
         mGC = new IntGeneratorCounter(
-                new IntRangeElement(10, 11),
-                new IntCounter32000(10, 11)
+            new IntRangeElement(10, 11),
+            new IntCounter32000(10, 11)
         );
         assertTrue(
-                mGC.countGeneratedValues(100));
+            mGC.countGeneratedValues(100));
         final IntCounter32000 counter =
-                (IntCounter32000) mGC.getCounter();
+            (IntCounter32000) mGC.getCounter();
         final Short tenCount = counter.getCountOf(10);
         final Short elevenCount = counter.getCountOf(11);
         assertNotNull(tenCount);
         assertNotNull(elevenCount);
-        assertEquals(100, tenCount + elevenCount);
+        assertEquals(
+            100, tenCount + elevenCount);
         assert 0 < tenCount;
         assert 0 < elevenCount;
     }

@@ -25,9 +25,9 @@ public final class IntCounterSingleTest {
     @Test
     void testConstructor() {
         assertEquals(
-                99, mCounter.getValue());
+            99, mCounter.getValue());
         assertEquals(
-                0, mCounter.getCount());
+            0, mCounter.getCount());
     }
 
     @Test
@@ -43,72 +43,72 @@ public final class IntCounterSingleTest {
             mCounter.count(-99));
         //
         assertEquals(
-                2, mCounter.getCount());
+            2, mCounter.getCount());
         assertEquals(
-                99, mCounter.getValue());
+            99, mCounter.getValue());
     }
 
     @Test
     void testCountOverflow() {
         assertTrue(
-                mCounter.countBy(99, Long.MAX_VALUE));
+            mCounter.countBy(99, Long.MAX_VALUE));
         assertEquals(
-                Long.MAX_VALUE, mCounter.getCount());
+            Long.MAX_VALUE, mCounter.getCount());
         //
         assertFalse(
-                mCounter.count(99));
+            mCounter.count(99));
         //
         assertEquals(
-                Long.MAX_VALUE, mCounter.getCount());
+            Long.MAX_VALUE, mCounter.getCount());
     }
 
     @Test
     void testCountBy() {
         assertTrue(
-                mCounter.countBy(99, 2));
+            mCounter.countBy(99, 2));
         assertEquals(
-                2, mCounter.getCount());
+            2, mCounter.getCount());
         //
         assertTrue(
-                mCounter.countBy(99, 300));
+            mCounter.countBy(99, 300));
         assertEquals(
-                302, mCounter.getCount());
+            302, mCounter.getCount());
         // Does not count values other than 99
         assertFalse(
-                mCounter.countBy(88, 10));
+            mCounter.countBy(88, 10));
     }
 
     @Test
     void testCountByOverflow() {
         // Go to Long.MaxValue
         assertTrue(
-                mCounter.countBy(99, Long.MAX_VALUE));
+            mCounter.countBy(99, Long.MAX_VALUE));
         assertEquals(
-                Long.MAX_VALUE, mCounter.getCount());
+            Long.MAX_VALUE, mCounter.getCount());
         // Any more count operations will fail
         assertFalse(
-                mCounter.countBy(99, 1));
+            mCounter.countBy(99, 1));
         assertFalse(
-                mCounter.countBy(99, 100));
+            mCounter.countBy(99, 100));
         assertFalse(
-                mCounter.countBy(99, Long.MAX_VALUE));
+            mCounter.countBy(99, Long.MAX_VALUE));
         // Count stays at Long.MaxValue
         assertEquals(
-                Long.MAX_VALUE, mCounter.getCount());
+            Long.MAX_VALUE, mCounter.getCount());
     }
 
     @Test
     void testCountByInvalidArgs() {
         // Does not count zero
         assertFalse(
-                mCounter.countBy(99, 0));
+            mCounter.countBy(99, 0));
         assertEquals(
-                0, mCounter.getCount());
+            0, mCounter.getCount());
         // Does not count negative values
         assertFalse(
-                mCounter.countBy(99, Long.MIN_VALUE));
+            mCounter.countBy(99, Long.MIN_VALUE));
         assertEquals(
-                0, mCounter.getCount());
+            0, mCounter.getCount());
     }
 
     @Test

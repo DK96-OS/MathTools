@@ -40,16 +40,16 @@ public final class IntCounter127Test {
     void testInvalidConstructorArgs() {
         // Reversed Range
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(20, 19));
+            () -> new IntCounter127(20, 19));
         // Range Starts at Min, contains more than Max numbers
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(Integer.MIN_VALUE, -1));
+            () -> new IntCounter127(Integer.MIN_VALUE, -1));
         // Range Ends at Max, contains more than Max numbers
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(0, Integer.MAX_VALUE));
+            () -> new IntCounter127(0, Integer.MAX_VALUE));
         // Range contains all Integer values
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(Integer.MIN_VALUE, Integer.MAX_VALUE));
+            () -> new IntCounter127(Integer.MIN_VALUE, Integer.MAX_VALUE));
     }
 
     @Test
@@ -57,37 +57,37 @@ public final class IntCounter127Test {
         final int start = Integer.MAX_VALUE - (IntCounter127.MAX_RANGE_SIZE - 1);
         mCounter = new IntCounter127(start, Integer.MAX_VALUE);
         assertTrue(
-                mCounter.count(Integer.MAX_VALUE));
+            mCounter.count(Integer.MAX_VALUE));
         assertTrue(
-                mCounter.count(start));
+            mCounter.count(start));
         assertFalse(
-                mCounter.count(0));
+            mCounter.count(0));
         assertFalse(
-                mCounter.count(start - 1));
+            mCounter.count(start - 1));
     }
 
     @Test
     void testInvalidConstructorLargeValues() {
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(Integer.MIN_VALUE, -2));
+            () -> new IntCounter127(Integer.MIN_VALUE, -2));
         assertThrows(IllegalArgumentException.class,
-                () -> new IntCounter127(1, Integer.MAX_VALUE));
+            () -> new IntCounter127(1, Integer.MAX_VALUE));
     }
 
     @Test
     void testCountBy() {
         mCounter = new IntCounter127(1, 10);
         assertTrue(
-                mCounter.countBy(1, (byte) 100));
+            mCounter.countBy(1, (byte) 100));
         assertTrue(
-                mCounter.countBy(1, (byte) 27));
+            mCounter.countBy(1, (byte) 27));
         assertEquals(
-                (byte) 127, mCounter.getCountOf(1));
+            (byte) 127, mCounter.getCountOf(1));
         // Now all count operations should fail
         assertFalse(
-                mCounter.countBy(1, (byte) 1));
+            mCounter.countBy(1, (byte) 1));
         assertFalse(
-                mCounter.countBy(1, (byte) 1));
+            mCounter.countBy(1, (byte) 1));
     }
 
     @Test
@@ -95,32 +95,32 @@ public final class IntCounter127Test {
         mCounter = new IntCounter127(1, 10);
         // Value not in range
         assertFalse(
-                mCounter.countBy(0, (byte) 1));
+            mCounter.countBy(0, (byte) 1));
         // count must be non-zero positive number
         assertFalse(
-                mCounter.countBy(1, (byte) 0));
+            mCounter.countBy(1, (byte) 0));
         assertFalse(
-                mCounter.countBy(1, (byte) -2));
+            mCounter.countBy(1, (byte) -2));
     }
 
     @Test
     void testGetCountOfInvalidArgs() {
         mCounter = new IntCounter127(1, 10);
         assertNull(
-                mCounter.getCountOf(0));
+            mCounter.getCountOf(0));
         assertNull(
-                mCounter.getCountOf(20));
+            mCounter.getCountOf(20));
     }
 
     @Test
     void testCountOverflow() {
         mCounter = new IntCounter127(1, 8);
         assertTrue(
-                mCounter.countBy(4, Byte.MAX_VALUE));
+            mCounter.countBy(4, Byte.MAX_VALUE));
         assertFalse(
-                mCounter.count(4));
+            mCounter.count(4));
         assertEquals(
-                Byte.MAX_VALUE, mCounter.getCountOf(4));
+            Byte.MAX_VALUE, mCounter.getCountOf(4));
     }
 
 }
