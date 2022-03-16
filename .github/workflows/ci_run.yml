@@ -1,14 +1,13 @@
-# This workflow will build a Java project with Gradle
-# For more information see:
-# https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+# This workflow tests master branch pushes and pull requests
 
-name: Build and Test
+name: Run CI
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    types: [ opened, synchronize ]
 
 jobs:
   build:
@@ -19,7 +18,7 @@ jobs:
     strategy:
       matrix:
         java: [ '11', '17' ]
-    name: Java ${{ matrix.java }} Build
+    name: Build with Java ${{ matrix.java }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Java
@@ -33,14 +32,18 @@ jobs:
         gradle-version: 7.4.1
         arguments: assemble --warn
       timeout-minutes: 4
+  
   test:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         java: [ '11', '17' ]
-    name: Java ${{ matrix.java }} Test
+    name: Test with Java ${{ matrix.java }}
     steps:
+    - uses: actions/checkout@v2
     - name: Run Tests
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
@@ -53,7 +56,8 @@ jobs:
       with:
         name: JVM${{ matrix.java }}-Tests
         path: |
+          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
           /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
-        if-no-files-found: error
+        if-no-files-found: warn
       timeout-minutes: 1
