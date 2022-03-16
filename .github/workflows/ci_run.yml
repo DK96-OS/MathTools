@@ -33,6 +33,14 @@ jobs:
         arguments: assemble --info
       timeout-minutes: 4
     
-    - name: Test
-      uses: ./.github/workflows/test_report
+    - uses: ./.github/workflows/test_report
+      if: success()
+      timeout-minutes: 5
+
+    - uses: ./.github/workflows/coverage_report
+      if: success()
+      timeout-minutes: 5
+    
+    - uses: ./.github/workflows/coverage_verification
+      if: success()
       timeout-minutes: 5
