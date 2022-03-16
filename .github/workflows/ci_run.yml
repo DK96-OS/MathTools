@@ -28,7 +28,7 @@ jobs:
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
         gradle-version: 7.4.1
-        arguments: assemble --warn
+        arguments: assemble --info
       timeout-minutes: 4
   
   test:
@@ -46,7 +46,7 @@ jobs:
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
         gradle-version: 7.4.1
-        arguments: check --continue --warn
+        arguments: test --continue --info
       timeout-minutes: 4
     - name: Upload Tests Results
       uses: actions/upload-artifact@v3
