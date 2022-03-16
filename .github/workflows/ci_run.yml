@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         java: [ '11', '17' ]
-    name: Build with Java ${{ matrix.java }}
+    
+    name: Build - Java ${{ matrix.java }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Java
@@ -24,38 +25,14 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
-    - name: Assemble from Source Files
+    
+    - name: Build
       uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
       with:
         gradle-version: 7.4.1
         arguments: assemble --info
       timeout-minutes: 4
-  
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    strategy:
-      matrix:
-        java: [ '11', '17' ]
-    name: Test with Java ${{ matrix.java }}
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run Tests
-      uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-      with:
-        gradle-version: 7.4.1
-        arguments: test --continue --info
-      timeout-minutes: 4
-    - name: Upload Tests Results
-      uses: actions/upload-artifact@v3
-      if: success() || failure()
-      with:
-        name: JVM${{ matrix.java }}-Tests
-        path: |
-          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
-          /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
-        retention-days: 60
-        if-no-files-found: warn
-      timeout-minutes: 1
+    
+    - name: Test
+      uses: ./.github/workflows/test_report
+      timeout-minutes: 5
