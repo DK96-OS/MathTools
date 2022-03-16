@@ -1,0 +1,31 @@
+# This workflow creates code coverage reports
+
+name: Coverage Report
+on:
+  workflow_call:
+
+jobs:
+  coverage-report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    name: Code Coverage
+    steps:
+    - name: Run JaCoCo Test Report
+      uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
+      with:
+        gradle-version: 7.4.1
+        arguments: jacocoTestReport --warn
+      timeout-minutes: 4
+    
+    - name: Upload Tests Results
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
+      with:
+        name: Coverage-Report
+        path: |
+          /home/runner/work/MathTools/MathTools/lists/build/jacocoReport/
+          /home/runner/work/MathTools/MathTools/numbers/build/jacocoReport/
+          /home/runner/work/MathTools/MathTools/statistics/build/jacocoReport/
+        retention-days: 60
+      timeout-minutes: 1
