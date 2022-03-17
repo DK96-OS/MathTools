@@ -6,8 +6,8 @@ plugins {
 apply from: "../dependencies.gradle"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_11
-	targetCompatibility = JavaVersion.VERSION_11
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 	withJavadocJar()
 	withSourcesJar()
 }
@@ -15,18 +15,18 @@ java {
 tasks.sourcesJar {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
-/*
+
 publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.4"
+			version = "0.4.1"
 			from components.java
 		}
 	}
 }
-*/
+
 dependencies {
 	api project(":lists")
 	api project(":statistics")
@@ -84,7 +84,7 @@ tasks.jacocoTestCoverageVerification {
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.8
+				minimum = 0.9
 			}
 		}
 	}
