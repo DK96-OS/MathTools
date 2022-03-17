@@ -14,10 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      actions: read
-      checks: write
       contents: read
-      packages: read
     strategy:
       matrix:
         java: [ '11', '17' ]
@@ -30,19 +27,19 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: 'zulu'
     - name: Assemble from Source Files
-      uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+      uses: dk96-os/gradle-build-action@f072fadb5d29e34b7cf590cccb61cb82b4e6311f
       with:
-        gradle-version: 7.4
+        gradle-version: 7.4.1
         arguments: assemble --warn
       timeout-minutes: 4
     - name: Run Tests
-      uses: gradle/gradle-build-action@5a7191522fb1962ef05958018b6bccf6db2fa837
+      uses: dk96-os/gradle-build-action@f072fadb5d29e34b7cf590cccb61cb82b4e6311f
       with:
-        gradle-version: 7.4
+        gradle-version: 7.4.1
         arguments: check --continue --warn
       timeout-minutes: 4
     - name: Upload Tests Results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
         name: JVM${{ matrix.java }}-Tests
