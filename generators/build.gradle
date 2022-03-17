@@ -15,18 +15,18 @@ java {
 tasks.sourcesJar {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
-/*
+
 publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.4"
+			version = "0.4.1"
 			from components.java
 		}
 	}
 }
-*/
+
 dependencies {
 	api project(":lists")
 	api project(":statistics")
@@ -84,7 +84,7 @@ tasks.jacocoTestCoverageVerification {
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.8
+				minimum = 0.9
 			}
 		}
 	}
