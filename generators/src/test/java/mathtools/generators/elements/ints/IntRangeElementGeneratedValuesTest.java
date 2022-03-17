@@ -9,10 +9,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import mathtools.generators.RandomProvider;
 import mathtools.generators.counters.ints.IntCounter127;
 import mathtools.generators.counters.ints.IntCounter32000;
 import mathtools.generators.counters.ints.IntGeneratorCounter;
@@ -56,18 +56,20 @@ public final class IntRangeElementGeneratedValuesTest {
         assertEquals(
             16, results.size());
         final DistributionStats stats = assertStats(
-            results, 60, 140
+            results, 50, 150
         );
         assertEquals(
-            targetMeanCount, stats.getMean(), 4);
+            (double) targetMeanCount, stats.getMean());
         assertEquals(
-            10.0, stats.getStandardDeviation(), 3.5);
+            10.0, stats.getStandardDeviation(), 4.5);
     }
 
     @Test
     void testAllIntegersRange() {
         runner = new IntGeneratorCounter(
-            new IntRangeElement(MIN, MAX, provideFixedRNG(MIN)),
+            new IntRangeElement(
+                MIN, MAX, RandomProvider.fixedValue(MIN)
+            ),
             new IntCounter127(MIN, MIN + 3)
         );
         assertTrue(
@@ -79,7 +81,9 @@ public final class IntRangeElementGeneratedValuesTest {
             10, results.get(0));
         //
         runner = new IntGeneratorCounter(
-            new IntRangeElement(MIN, MAX, provideFixedRNG(MAX)),
+            new IntRangeElement(
+                MIN, MAX, RandomProvider.fixedValue(MAX)
+            ),
             new IntCounter127(MAX - 3, MAX)
         );
         assertTrue(
@@ -95,7 +99,7 @@ public final class IntRangeElementGeneratedValuesTest {
     void testOverMaxIntRangeSize() {
         runner = new IntGeneratorCounter(
             new IntRangeElement(
-                -1, MAX, provideFixedRNG(9)
+                -1, MAX, RandomProvider.fixedValue(9)
             ),
             new IntCounter127(-1, 20)
         );
@@ -106,17 +110,28 @@ public final class IntRangeElementGeneratedValuesTest {
             10, (byte) counter.getCountOf(9));
     }
 
-    @Nonnull
-    private static Random provideFixedRNG(
-            final int returnValue
-    ) {
-        return new Random() {
-            @Override
-            public int nextInt(int bound) { return returnValue; }
+    @Test
+    void testOverMaxIntRangeSizeBadRandom() {
+        IntRangeElement elem = new IntRangeElement(
+            -1, MAX, RandomProvider.fixedValue(-3)
+        );
+        assertEquals(
+            -3, elem.generate());
+    }
 
-            @Override
-            public int nextInt() { return returnValue; }
-        };
+    @Test
+    void testOverMaxIntRangeSizeBadThenGoodRandom() {
+        IntRangeElement elem = new IntRangeElement(
+            -1, MAX, RandomProvider.firstThenSecondValue(-3, 8)
+        );
+        assertEquals(
+            8, elem.generate());
+        // Try with MIN
+        elem = new IntRangeElement(
+            MIN, 5, RandomProvider.firstThenSecondValue(8, 4)
+        );
+        assertEquals(
+            4, elem.generate());
     }
 
     /** Verifies that all Integer in this list are non-zero */
