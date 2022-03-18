@@ -12,7 +12,7 @@ jobs:
     
     strategy:
       matrix:
-        java: [ '11', '17' ]
+        java: [ '8', '11', '17' ]
     
     name: Test - Java ${{ matrix.java }}
 
@@ -25,7 +25,7 @@ jobs:
         cache: 'gradle'
     
     - name: Run Tests
-      run: ./gradlew test --continue --info
+      run: ./gradlew check --continue --info
       timeout-minutes: 4
 
     - name: Upload Test Reports
@@ -33,9 +33,7 @@ jobs:
       if: success() || failure()
       with:
         name: Java-${{ matrix.java }}-Tests
-        path: |
-          /home/runner/work/MathTools/MathTools/numbers/build/reports/tests/unit-test/aggregated-results
-          /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
+        path: /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
-        if-no-files-found: warn
+        if-no-files-found: error
       timeout-minutes: 1
