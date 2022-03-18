@@ -1,4 +1,4 @@
-package mathtools.numbers.factors;
+package mathtools.numbers.structs;
 
 /** A pair of primitive integers
  * @author DK96-OS : 2022 */

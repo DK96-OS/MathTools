@@ -2,6 +2,8 @@ package mathtools.numbers.factors;
 
 import javax.annotation.Nonnull;
 
+import mathtools.numbers.structs.IntPair;
+
 /** Functions that operate on 32-bit Integers
  * @author DK96-OS : 2020 - 2022 */
 public final class IntOperations {

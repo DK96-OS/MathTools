@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+import mathtools.numbers.structs.IntPair;
+
 public final class IntPairTest {
 
 	/** Assert that actual is not null, and it's values match expectations */

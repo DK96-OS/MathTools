@@ -1,7 +1,7 @@
 package mathtools.numbers.primes
 
 import mathtools.numbers.factors.BitFactoring.isProductOf2
-import mathtools.numbers.factors.NumberFactors.divideOutFactor
+import mathtools.numbers.factors.Factoring.divideOutFactor
 
 /** Container for PrimeNumber functions
  * @author DK96-OS : 2018 - 2022 */
@@ -84,7 +84,7 @@ object PrimeNumberTools {
 		var composite: Long = product
 		for (primeIdx in primeIndexRange) {
 			val testPrime = cache.getPrime(primeIdx)
-			composite = divideOutFactor(testPrime, composite)
+			composite = divideOutFactor(composite, testPrime)
 			// If the composite is less than the test factor, done
 			if (composite < testPrime) break
 		}
@@ -121,7 +121,7 @@ object PrimeNumberTools {
 			&& testPrime <= maxPrime
 			&& primeIdx < cache.maxIndex
 		) {
-			composite = divideOutFactor(testPrime, composite)
+			composite = divideOutFactor(composite, testPrime)
 		    // Validate the next prime before overwriting
 		    val nextPrime = cache.getPrime(++primeIdx)
 		    if (nextPrime >= composite) break
