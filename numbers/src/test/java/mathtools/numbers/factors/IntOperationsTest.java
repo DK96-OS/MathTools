@@ -3,7 +3,7 @@ package mathtools.numbers.factors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static mathtools.numbers.factors.IntOperations.exponent;
 import static mathtools.numbers.factors.IntOperations.tenShift;
-import static mathtools.numbers.factors.IntPairTest.assertPairEquals;
+import static mathtools.numbers.structs.IntPairTest.assertPairEquals;
 
 import org.junit.jupiter.api.Test;
 
