@@ -22,4 +22,5 @@ include(
 	":lists",
 	":numbers",
 	":statistics",
+	":generators"
 )

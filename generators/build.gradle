@@ -1,32 +1,32 @@
 plugins {
-	id "org.jetbrains.kotlin.jvm"
+	id "java-library"
 	id "test-report-aggregation"
 	id "jacoco"
 }
 apply from: "../dependencies.gradle"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_11
-	targetCompatibility = JavaVersion.VERSION_11
-	//withJavadocJar()
-	//withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+	withJavadocJar()
+	withSourcesJar()
 }
 
 tasks.sourcesJar {
 	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
-/*
+
 publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.4"
+			version = "0.4.1"
 			from components.java
 		}
 	}
 }
-*/
+
 dependencies {
 	api project(":lists")
 	api project(":statistics")
@@ -42,7 +42,7 @@ dependencies {
 }
 
 sourceSets.main {
-	java.srcDirs("src/main/java", "src/main/kotlin")
+	java.srcDirs("src/main/java")
 }
 
 tasks.test {
@@ -84,7 +84,7 @@ tasks.jacocoTestCoverageVerification {
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.8
+				minimum = 0.9
 			}
 		}
 	}
