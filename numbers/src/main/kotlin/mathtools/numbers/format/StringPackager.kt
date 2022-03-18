@@ -10,51 +10,51 @@ object StringPackager {
         ReplaceWith(
             "NumberSerializer.packBytes(b0, b1)",
             "mathtools.numbers.format.NumberSerializer"),
-        DeprecationLevel.WARNING
     )
     fun packBytes(
         b0: Byte,
         b1: Byte,
-    ) : Char = NumberSerializer.packBytes(b0, b1)
+    ) : Char = NumberSerializer.putBytes(b0, b1)
 
     /** Pack two UBytes into a Char */
     fun packUBytes(
         u0: UByte,
         u1: UByte,
-    ) : Char = (
-        u0.toInt().shl(8) + u1.toInt()
-               ).toChar()
+    ) : Char = NumberSerializer.putBytes(u0.toByte(), u1.toByte())
 
     /** Split a Char in half, and extract two Bytes from it */
     fun unpackBytes(c: Char)
-        : Pair<Byte, Byte> = unpackByte0(c) to c.code.toByte()
+        : Pair<Byte, Byte> = NumberDeserializer.getBytes(c).run {
+        first to second
+    }
 
     /** Unpack 1st of 2 bytes from a character */
+    @Deprecated("Moved to NumberDeserializer")
     fun unpackByte0(c: Char)
-        : Byte = c.code.ushr(8).toByte()
+        : Byte = NumberDeserializer.getByte1(c)
 
     /** Unpack 2nd of 2 bytes from a character */
+    @Deprecated("Moved to NumberDeserializer")
     fun unpackByte1(c: Char)
-        : Byte = c.code.toByte()
+        : Byte = NumberDeserializer.getByte2(c)
 
     /** Unpack 1st of 2 bytes from a character */
     fun unpackUByte0(c: Char)
-        : UByte = c.code.ushr(8).toUByte()
+        : UByte = NumberDeserializer.getByte1(c).toUByte()
 
     /** Unpack 2nd of 2 bytes from a character */
     fun unpackUByte1(c: Char)
-        : UByte = c.code.toUByte()
+        : UByte = NumberDeserializer.getByte2(c).toUByte()
 
     /** Pack a short integer into a character */
     @Deprecated(
         "Moved to NumberSerializer",
         ReplaceWith(
             "NumberSerializer.packShort(s)",
-            "mathtools.numbers.format.NumberSerializer"),
-        DeprecationLevel.WARNING
+            "mathtools.numbers.format.NumberSerializer")
     )
     fun packShort(s: Short)
-        : Char = NumberSerializer.packShort(s)
+        : Char = NumberSerializer.putShort(s)
 
     /** Pack an unsigned short integer into a character */
     fun packUShort(s: UShort)
@@ -69,32 +69,24 @@ object StringPackager {
     }
 
     /** Pack N 32-bit float numbers into a string of length 2N */
+    @Deprecated("Moved to NumberSerializer")
     fun packFloats(
         vararg floats: Float
-    ) : String = when (floats.size) {
-        1 -> NumberSerializer.packFloat(floats[0])
-        else -> buildString {
-            for (f in floats) {
-                val i = f.toBits()
-                append(i.toChar())
-                append(i.ushr(16).toChar())
-            }
-        }
-    }
+    ) : String = NumberSerializer.putFloats(floats)
 
     /** Pack a 32-bit float into a String of length 2 */
     @Deprecated(
         "Moved to NumberSerializer",
         ReplaceWith(
             "NumberSerializer.packFloat(f)",
-            "mathtools.numbers.format.NumberSerializer"),
-        DeprecationLevel.WARNING
+            "mathtools.numbers.format.NumberSerializer")
     )
     fun packFloat(
         f: Float
-    ) : String = NumberSerializer.packFloat(f)
+    ) : String = NumberSerializer.putFloat(f)
 
     /** Unpack a 32-bit float from two 16-bit characters */
+    @Deprecated("Moved to NumberDeserializer")
     fun unpackFloat(
         c1: Char,
         c2: Char,
