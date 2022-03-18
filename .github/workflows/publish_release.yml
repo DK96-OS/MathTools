@@ -12,38 +12,36 @@ jobs:
     permissions:
       contents: read
       packages: write
+    
+    name: Publish Release
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'zulu'
+          distribution: 'temurin'
+          cache: 'gradle'
+        
       - name: Check Build
-        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-        with:
-          gradle-version: 7.4.1
-          arguments: check --warn
+        run: ./gradlew check --warn
         timeout-minutes: 7
+      
       - name: Generate JavaDoc
-        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-        with:
-          gradle-version: 7.4.1
-          arguments: dokkaJavadoc --warn
+        run: ./gradlew dokkaJavadoc --warn
+        if: success()
         timeout-minutes: 3
+      
       - name: Generate Markdown
-        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-        with:
-          gradle-version: 7.4.1
-          arguments: dokkaGfm --warn
+        run: ./gradlew dokkaGfm --warn
+        if: success()
         timeout-minutes: 3
+      
       - name: Publish Packages
-        uses: gradle/gradle-build-action@adcc4faa556bcd969fd48d5b88ec5150aee499fa
-        with:
-          gradle-version: 7.4.1
-          arguments: publish --warn
+        run: ./gradlew publish --warn
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Upload JavaDoc and Markdown
         uses: actions/upload-artifact@v2
         if: success() || failure()
@@ -53,5 +51,6 @@ jobs:
             /home/runner/work/MathTools/MathTools/lists/build/dokka/
             /home/runner/work/MathTools/MathTools/numbers/build/dokka/
             /home/runner/work/MathTools/MathTools/statistics/build/dokka/
+            /home/runner/work/MathTools/MathTools/generators/build/dokka/
           retention-days: 60
         timeout-minutes: 1
