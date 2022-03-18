@@ -8,7 +8,7 @@ open class RestrictedInt(
     min: Int = 1,
     isIncreasing: Boolean = true
 ) {
-    val range: IntRange = when {
+    val range: kotlin.ranges.IntRange = when {
         min <= max -> min .. max
         else -> max .. min
     }
@@ -21,7 +21,7 @@ open class RestrictedInt(
 
     constructor(
         number: Int,
-        range: IntRange,
+        range: kotlin.ranges.IntRange,
         isIncreasing: Boolean = true,
     ) : this(number, range.last, range.first, isIncreasing)
 
@@ -49,7 +49,9 @@ open class RestrictedInt(
     }
 
     /** Randomly select any number in the given range or  */
-    open fun randomize(initRange: IntRange? = null): Int {
+    open fun randomize(
+        initRange: kotlin.ranges.IntRange? = null,
+    ) : Int {
         value = when {
             initRange == null -> range.random()
             initRange.first > initRange.last -> range.random()
