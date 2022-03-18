@@ -140,36 +140,36 @@ public final class FactoringDivideOutFactorTest {
             9013, divideOutFactor(9013, factor));
     }
 
-    // Added Tests from NumberFactors
     @Test
     void testDivideOutFactor2() {
-        assertEquals(1, divideOutFactor(2, 32));
-        assertEquals(3, divideOutFactor(2, 6));
-        assertEquals(3, divideOutFactor(2, 24));
-        assertEquals(3, divideOutFactor(2, 48));
-        assertEquals(15, divideOutFactor(2, 30));
-        assertEquals(375, divideOutFactor(2, 375));
+        assertEquals(1, divideOutFactor(32, 2));
+        assertEquals(3, divideOutFactor(6, 2));
+        assertEquals(3, divideOutFactor(24, 2));
+        assertEquals(3, divideOutFactor(48, 2));
+        assertEquals(15, divideOutFactor(30, 2));
+        assertEquals(375, divideOutFactor(375, 2));
     }
 
     @Test
     void testDivideOutFactor5() {
-        assertEquals(1, divideOutFactor(5, 25));
-        assertEquals(3, divideOutFactor(5, 15));
-        assertEquals(3, divideOutFactor(5, 75));
-        assertEquals(3, divideOutFactor(5, 375));
-        assertEquals(6, divideOutFactor(5, 30));
-        assertEquals(12, divideOutFactor(5, 60));
-        assertEquals(64, divideOutFactor(5, 64));
+        assertEquals(1, divideOutFactor(25, 5));
+        assertEquals(3, divideOutFactor(15, 5));
+        assertEquals(3, divideOutFactor(75, 5));
+        assertEquals(3, divideOutFactor(375, 5));
+        assertEquals(6, divideOutFactor(30, 5));
+        assertEquals(12, divideOutFactor(60, 5));
+        //
+        assertEquals(64, divideOutFactor(64, 5));
     }
 
     @Test
     void testDivideOutFactorInvalid() {
         assertEquals(
-            300, divideOutFactor(1, 300));
+            300, divideOutFactor(300, 1));
         assertEquals(
-            300, divideOutFactor(0, 300));
+            300, divideOutFactor(300, 0));
         assertEquals(
-            300, divideOutFactor(-1, 300));
+            300, divideOutFactor(300, -1));
     }
 
 }
