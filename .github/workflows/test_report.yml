@@ -3,6 +3,8 @@
 name: Test
 on:
   workflow_call:
+  push:
+    branches: [ master ]
 
 jobs:
   test:
@@ -25,7 +27,7 @@ jobs:
         cache: 'gradle'
     
     - name: Run Tests
-      run: ./gradlew check --continue --info
+      run: ./gradlew check --continue --warn
       timeout-minutes: 4
 
     - name: Upload Test Reports
