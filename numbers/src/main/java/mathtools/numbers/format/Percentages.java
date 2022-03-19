@@ -1,6 +1,6 @@
 package mathtools.numbers.format;
 
-import static mathtools.numbers.factors.IntOperations.tenShift;
+import static mathtools.numbers.format.Rounding.round;
 
 import javax.annotation.Nonnull;
 
@@ -11,42 +11,31 @@ public final class Percentages {
 	/** Format a float as a percent string with specific accuracy.
 	 *  Valid outputs are between 0% and 100% - why it is called 'strict'
 	 *  Up to 5 decimal places are allowed.
-	 * @param f Should be within 0f and 1f, otherwise the closest value of 0% or 100% is returned.
-	 * @param decimalsAllowed The number of decimal places to allow in the final string, 0 .. 5 */
+	 * @param number Should be within 0 and 1, otherwise the closest value of 0% or 100% is returned.
+	 * @param decimalsAllowed The number of decimal places to allow in the final string, 0 .. 5
+	 * 	 * @return A string containing a percentage formatted number */
 	@Nonnull
 	public static String strictPercent(
-		final float f,
+		final float number,
 		final byte decimalsAllowed
 	) {
-		if (0.0000001f <= f && f <= 1)
-			return adjust(f * 100f, decimalsAllowed) + "%";
-		else if (f > 1f) return "100%";
-		else return "0%";
+		if (0.000_000_1f <= number && 1 > number)
+			return round(number * 100, decimalsAllowed) + "%";
+		else
+			return (1f <= number) ? "100%" : "0%";
 	}
 
-	/** Percent with no decimals */
+	/** Percent with no decimals
+	 * @param number The number to format, should be within 0 and 1
+	 * @return A string containing a percentage formatted number */
 	@Nonnull
 	public static String strictPercent(
-		final float f
+		final float number
 	) {
-		return strictPercent(f, (byte) 0);
-	}
-
-	private static int adjust(
-		final float number,
-		final int decimals
-	) {
-		if (decimals < 1)
-			return Math.round(number);
-		else if (decimals < 5) {
-			float shift = tenShift(
-				1, decimals
-			);
-			return (int) (Math.round(number * shift) / shift);
-		} else {
-			float shift = tenShift(1, 5);
-			return (int) (Math.round(number * shift) / shift);
-		}
+		if (0.000_000_1f <= number && 1 > number)
+			return Math.round(number * 100) + "%";
+		else
+			return (1f <= number) ? "100%" : "0%";
 	}
 
 }
