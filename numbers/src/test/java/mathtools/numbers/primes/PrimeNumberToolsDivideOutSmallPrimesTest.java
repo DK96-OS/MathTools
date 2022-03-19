@@ -9,6 +9,8 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import javax.annotation.Nonnull;
 
+import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
+
 /** Testing [PrimeNumberTools] DivideOutSmallPrimes method
  * @author DK96-OS : 2022 */
 public final class PrimeNumberToolsDivideOutSmallPrimesTest {

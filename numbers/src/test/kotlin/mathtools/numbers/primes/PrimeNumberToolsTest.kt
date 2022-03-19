@@ -1,5 +1,6 @@
 package mathtools.numbers.primes
 
+import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull

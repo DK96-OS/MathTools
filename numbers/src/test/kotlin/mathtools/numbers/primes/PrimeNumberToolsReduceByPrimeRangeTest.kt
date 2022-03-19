@@ -1,6 +1,7 @@
 package mathtools.numbers.primes
 
 import mathtools.numbers.primes.PrimeNumberTools.reduceByPrimeRange
+import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.params.ParameterizedTest

@@ -12,6 +12,8 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import javax.annotation.Nonnull;
 
+import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
+
 /** Testing [PrimeFactoring] functions
  * @author DK96-OS : 2022 */
 public final class PrimeFactoringTest {
