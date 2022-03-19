@@ -23,19 +23,18 @@ public final class PrimeFactoring {
         @Nonnull final PrimeCacheInterface cache
     ) throws IllegalArgumentException {
         // Validate Arguments
-        if (2 > limit || 3 > number && -3 < number )
-            return null;
-        // Handle negative products
+        if (2 > limit || 3 > number && -3 < number) return null;
+        // Negate negative numbers
         if (0 > number) {
-            if (Long.MIN_VALUE == number)
-                return null;
-            else
-                number = -number;
+            // Protect against MinValue
+            if (Long.MIN_VALUE == number) return null;
+            number = -number;
         }
         // Eliminate 2 if possible - use efficient bit factor method
         if (BitFactoring.isProductOf2(number)) {
             number = Factoring.divideOutFactor(number, 2);
         }
+        // Get the limitations of the cache
         final int maxIndex = cache.getMaxIndex();
         //
         for (int primeIndex = 1; primeIndex <= maxIndex; primeIndex++) {
@@ -44,18 +43,17 @@ public final class PrimeFactoring {
             // If the test prime is above limit
             if (limit < testPrime) {
                 // Check if test prime divides the number
-                if (0 == number % testPrime)
-                    return (long) testPrime;
+                if (0 == number % testPrime) return (long) testPrime;
             } else {
                 // Try to reduce the number by factoring
                 final long factoredProduct = Factoring.divideOutFactor(
-                        number, testPrime
+                    number, testPrime
                 );
                 // If the number was factored
                 if (factoredProduct != number) {
                     // If the number is now below the limit
-                    if (factoredProduct <= limit)
-                        return null;
+                    if (factoredProduct <= limit) return null;
+                    // Update
                     number = factoredProduct;
                 }
             }
@@ -72,10 +70,18 @@ public final class PrimeFactoring {
         final long limit,
         @Nonnull final PrimeCacheInterface cache
     ) {
-        if (limit >= number) return false;
-        if (BitFactoring.isProductOf2(number)) {
-            number = Factoring.divideOutFactor(number, 2);
+        // Flip all negative limits
+        if (0 > limit) {
+            // Protect against MinValue
+            if (Long.MIN_VALUE == limit) return false;
+            return hasPrimeAbove(number, -limit, cache);
         }
+        // Limit is greater than number, there is no checking necessary
+        if (limit >= number) return false;
+        // Remove any factors of 2
+        if (BitFactoring.isProductOf2(number))
+            number = Factoring.divideOutFactor(number, 2);
+        //
         int primeIdx = 1;
         int testPrime = cache.getPrime(primeIdx);
         while (testPrime <= limit) {

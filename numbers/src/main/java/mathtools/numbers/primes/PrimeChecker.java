@@ -19,7 +19,7 @@ public final class PrimeChecker {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		// handle small and negative numbers
-		if (number <= initArray[15]) {
+		if (number <= PrimeChecker.initArray[15]) {
 			// Check for small numbers
 			if (4 > number) {
 				// In prime region centered on zero
@@ -32,10 +32,10 @@ public final class PrimeChecker {
 			// If it is prime, it will be in the static array
 			final int searchKey = Arrays.binarySearch(
 				// Primes at index 0, 1 are covered by branches above
-				initArray, 2, 15, (byte) number
+				PrimeChecker.initArray, 2, 15, (byte) number
 			);
 			if (-1 < searchKey && 16 > searchKey)
-				return initArray[searchKey] == number;
+				return PrimeChecker.initArray[searchKey] == number;
 		}
 		// check the bits for an even number
 		if (BitFactoring.isProductOf2(number)) return false;
@@ -84,7 +84,7 @@ public final class PrimeChecker {
 	static int getStaticPrime(
 		final int index
 	) throws ArrayIndexOutOfBoundsException {
-		return initArray[index];
+		return PrimeChecker.initArray[index];
 	}
 
 	/** Checks the factors in the static array.
@@ -99,7 +99,7 @@ public final class PrimeChecker {
 		// Check static array for factor
 		int prevPrime = 2;  // Assume 2 has already been checked
 		for (int i = 1; 16 > i; i++) {
-			final byte testPrime = initArray[i];
+			final byte testPrime = PrimeChecker.initArray[i];
 			if (0 == number % testPrime) return false;
 			//
 			if (testPrime * prevPrime > number) return true;
@@ -118,9 +118,9 @@ public final class PrimeChecker {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		// Start at the end of the static array
-		int prevPrime = initArray[15];
+		int prevPrime = PrimeChecker.initArray[15];
 		// Check cached values
-		for (int i = 16; i <= cache.getMaxIndex(); i++) {
+		for (int i = 16; i <= cache.getMaxIndex(); ++i) {
 			final int testPrime = cache.getPrime(i);
 			if (0 == number % testPrime) return false;
 			// Test breaking condition

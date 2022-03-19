@@ -55,6 +55,7 @@ public final class PrimeCheckerIsPrimeTest {
 
 	@Test
 	void testMaxValue() {
+		// MaxValue is out of bounds for the BytePrime Cache
 		assertThrows(IllegalArgumentException.class,
 			() -> isPrime(Integer.MAX_VALUE, cache));
 	}
