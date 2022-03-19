@@ -13,7 +13,7 @@ public final class NumberFactors {
 		final String nStr = Long.toString(number);
 		final int length = nStr.length() - 1;
 		final int d = Character.digit(nStr.charAt(length), 10);
-		return d == 5 || d == 0 && length > 0;
+		return 5 == d || 0 == d && 0 < length;
 	}
 
 	/** Count the power of a factor in a composite number.
@@ -26,14 +26,14 @@ public final class NumberFactors {
 		final long composite
 	) {
 		// validate factor
-		if (factor < 0)
+		if (0 > factor)
 			return countFactor(-factor, composite);
-		else if (factor < 2)
+		else if (2 > factor)
 			return 0;
 		// validate composite
-		else if (composite < 0L)
+		else if (0L > composite)
 			return countFactor(factor, -composite);
-		else if (composite < 2)
+		else if (2 > composite)
 			return 0;
 		else {
 			final long longF = factor;    // cast to long once
@@ -45,7 +45,7 @@ public final class NumberFactors {
 				return 0;
 			else {
 				int counter = 1;
-				for(; remainder > 1L && remainder % longF == 0L; ++counter) {
+				for(; 1L < remainder && 0L == remainder % longF; ++counter) {
 					remainder /= longF;
 				}
 				return counter;

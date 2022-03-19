@@ -12,10 +12,10 @@ public final class CompareFactors {
 		final int n1,
 		final int n2
 	) {
-		if (n1 == 0 || n2 == 0) return 1;
-		if (n1 < 0) return gcd(-n1, n2);
-		if (n2 < 0) return gcd(n1, -n2);
-		if (n1 == 1 || n2 == 1) return 1;
+		if (0 == n1 || 0 == n2) return 1;
+		if (0 > n1) return gcd(-n1, n2);
+		if (0 > n2) return gcd(n1, -n2);
+		if (1 == n1 || 1 == n2) return 1;
 		if (n1 == n2) return n1;
 		return (n1 < n2) ? innerGCD(n2, n1) : innerGCD(n1, n2);
 	}
@@ -26,7 +26,7 @@ public final class CompareFactors {
 		final int b
 	) {
 		final int remainder = a % b;
-		return (remainder == 0) ? b : innerGCD(b, remainder);
+		return (0 == remainder) ? b : innerGCD(b, remainder);
 	}
 
 	/** Find the Lowest Common Multiple of two integers.
@@ -38,11 +38,11 @@ public final class CompareFactors {
 		final int n1,
 		final int n2
 	) {
-		if (n1 == 0 || n2 == 0) return 1;
-		if (n1 < 0) return lcm(-n1, n2);
-		if (n2 < 0) return lcm(n1, -n2);
-		if (n1 == 1) return n2;
-		if (n2 == 1 || n1 == n2) return n1;
+		if (0 == n1 || 0 == n2) return 1;
+		if (0 > n1) return lcm(-n1, n2);
+		if (0 > n2) return lcm(n1, -n2);
+		if (1 == n1) return n2;
+		if (1 == n2 || n1 == n2) return n1;
 		//
 		final int gcd = (n1 > n2) ?
 			innerGCD(n1, n2) : innerGCD(n2, n1);
