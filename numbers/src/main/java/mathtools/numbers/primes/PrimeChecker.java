@@ -11,8 +11,6 @@ import mathtools.numbers.factors.BitFactoring;
  * @author DK96-OS : 2022 */
 public final class PrimeChecker {
 
-	private PrimeChecker() {}
-
 	/** Determine if a number is prime. Zero and one are prime.
 	 * @param number The number to check for prime status
 	 * @return Whether the number is a prime, as far as this cache can check */
@@ -23,11 +21,11 @@ public final class PrimeChecker {
 		// handle small and negative numbers
 		if (number <= initArray[15]) {
 			// Check for small numbers
-			if (number < 4) {
+			if (4 > number) {
 				// In prime region centered on zero
-				if (number > -4) return true;
+				if (-4 < number) return true;
 				// Protect against min value
-				else if (number == Integer.MIN_VALUE) return false;
+				else if (Integer.MIN_VALUE == number) return false;
 				// Flip sign to positive
 				else return isPrime(-number, cache);
 			}
@@ -36,7 +34,7 @@ public final class PrimeChecker {
 				// Primes at index 0, 1 are covered by branches above
 				initArray, 2, 15, (byte) number
 			);
-			if (-1 < searchKey && searchKey < 16)
+			if (-1 < searchKey && 16 > searchKey)
 				return initArray[searchKey] == number;
 		}
 		// check the bits for an even number
@@ -62,7 +60,7 @@ public final class PrimeChecker {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		// If this function isn't being used properly, return null
-		if (testNum < 5 || BitFactoring.isProductOf2(testNum)) return null;
+		if (5 > testNum || BitFactoring.isProductOf2(testNum)) return null;
 		// Additional conditions on this method may include:
 		// - testNum should be greater than the maximum static prime
 		//      Otherwise, not optimized
@@ -75,7 +73,7 @@ public final class PrimeChecker {
 	}
 
 	/** The first 16 useful primes */
-	private static final byte[] initArray = new byte[]{
+	private static final byte[] initArray = {
 		2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53,
 	};
 
@@ -97,12 +95,12 @@ public final class PrimeChecker {
 		final int number
 	) {
 		// In the range [-3, 3] all are prime
-		if (number < 4) return number > -4 || staticIsPrime(-number);
+		if (4 > number) return -4 < number || staticIsPrime(-number);
 		// Check static array for factor
 		int prevPrime = 2;  // Assume 2 has already been checked
-		for (int i = 1; i < 16; i++) {
+		for (int i = 1; 16 > i; i++) {
 			final byte testPrime = initArray[i];
-			if (number % testPrime == 0) return false;
+			if (0 == number % testPrime) return false;
 			//
 			if (testPrime * prevPrime > number) return true;
 			prevPrime = testPrime;
@@ -124,7 +122,7 @@ public final class PrimeChecker {
 		// Check cached values
 		for (int i = 16; i <= cache.getMaxIndex(); i++) {
 			final int testPrime = cache.getPrime(i);
-			if (number % testPrime == 0) return false;
+			if (0 == number % testPrime) return false;
 			// Test breaking condition
 			if (testPrime * prevPrime > number) return true;
 			prevPrime = testPrime;
@@ -132,5 +130,7 @@ public final class PrimeChecker {
 		// Need to test more primes to be sure, but cache is exhausted
 		throw new IllegalArgumentException("Number is too high for this cache");
 	}
+
+	private PrimeChecker() {}
 
 }

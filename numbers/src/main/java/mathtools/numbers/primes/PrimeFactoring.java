@@ -10,8 +10,6 @@ import mathtools.numbers.factors.Factoring;
  * @author DK96-OS : 2022 */
 public final class PrimeFactoring {
 
-    private PrimeFactoring() {}
-
     /** Obtain lowest Prime Number Factor that is greater than the limit.
      *  Checks all primes below limit and divides them from the number.
      * @param number The number to check for prime factors
@@ -20,16 +18,16 @@ public final class PrimeFactoring {
      * @return The first prime number above limit, or null if none found */
     @Nullable
     public static Long firstPrimeAbove(
-            long number,
-            final long limit,
-            @Nonnull final PrimeCacheInterface cache
+        long number,
+        final long limit,
+        @Nonnull final PrimeCacheInterface cache
     ) throws IllegalArgumentException {
         // Validate Arguments
-        if (limit < 2 || number < 3 && -3 < number )
+        if (2 > limit || 3 > number && -3 < number )
             return null;
         // Handle negative products
-        if (number < 0) {
-            if (number == Long.MIN_VALUE)
+        if (0 > number) {
+            if (Long.MIN_VALUE == number)
                 return null;
             else
                 number = -number;
@@ -46,7 +44,7 @@ public final class PrimeFactoring {
             // If the test prime is above limit
             if (limit < testPrime) {
                 // Check if test prime divides the number
-                if (number % testPrime == 0)
+                if (0 == number % testPrime)
                     return (long) testPrime;
             } else {
                 // Try to reduce the number by factoring
@@ -70,9 +68,9 @@ public final class PrimeFactoring {
      * @param limit The maximum prime number allowed
      * @return Whether number contains a prime factor above the limit */
     public static boolean hasPrimeAbove(
-            long number,
-            final long limit,
-            @Nonnull final PrimeCacheInterface cache
+        long number,
+        final long limit,
+        @Nonnull final PrimeCacheInterface cache
     ) {
         if (limit >= number) return false;
         if (BitFactoring.isProductOf2(number)) {
@@ -87,5 +85,7 @@ public final class PrimeFactoring {
         }
         return true;
     }
+
+    private PrimeFactoring() {}
 
 }
