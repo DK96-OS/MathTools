@@ -1,5 +1,7 @@
 ## MathTools
-[![CI Run](https://github.com/DK96-OS/MathTools/actions/workflows/ci_run.yml/badge.svg)](https://github.com/DK96-OS/MathTools/actions/workflows/ci_run.yml)
+[![Tests](https://github.com/DK96-OS/MathTools/actions/workflows/test_report.yml/badge.svg?branch=master)](https://github.com/DK96-OS/MathTools/actions/workflows/test_report.yml)
+
+[![Coverage](https://github.com/DK96-OS/MathTools/actions/workflows/coverage_verification.yml/badge.svg?branch=master)](https://github.com/DK96-OS/MathTools/actions/workflows/coverage_verification.yml)
 
 Software Tools for Applied Mathematics are categorized into these modules:
 
