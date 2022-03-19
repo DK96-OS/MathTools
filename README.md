@@ -1,19 +1,28 @@
-## MathTools ![Build and Test](https://github.com/DK96-OS/MathTools/actions/workflows/build_and_test.yml/badge.svg?event=push) ![Code Coverage](https://github.com/DK96-OS/MathTools/actions/workflows/code_coverage.yml/badge.svg?event=push)
+## MathTools
+[![Tests](https://github.com/DK96-OS/MathTools/actions/workflows/test_report.yml/badge.svg?branch=master)](https://github.com/DK96-OS/MathTools/actions/workflows/test_report.yml)
+
+[![Coverage](https://github.com/DK96-OS/MathTools/actions/workflows/coverage_verification.yml/badge.svg?branch=master)](https://github.com/DK96-OS/MathTools/actions/workflows/coverage_verification.yml)
 
 Software Tools for Applied Mathematics are categorized into these modules:
 
 ### Lists
-* Number-type list operations
+* List operations
+* Array operations
+* Emphasis on Number Typed Lists
 
 ### Numbers
-* Prime Number caches and factoring operations
+* Factoring Integers
+* Prime Number caches
+* Number Formatting
+* Restricted Number Types
 
 ### Statistics
-* Analyze normal distributions
-* Find and remove outliers
+* Analyze Distributions
+* Outlier Detection and Removal
 
-### Systems
-* Parabolic system solution on an interval
-This module will likely be removed.
+### Generators
+* Integer Generation Sources
+* Integer Outcome Counters
+
 ____
 For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)!
