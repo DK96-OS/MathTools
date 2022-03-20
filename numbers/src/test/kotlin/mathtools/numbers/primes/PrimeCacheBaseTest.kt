@@ -6,15 +6,22 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 /** Testing the PrimeCacheBase Abstract class
  * @author DK96-OS : 2022 */
 class PrimeCacheBaseTest {
 
+	private lateinit var cache: PrimeCacheInterface
+
+	@BeforeEach
+	fun testSetup() {
+		cache = BytePrimeCache()
+	}
+
 	@Test
 	fun testIsPrime() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertTrue(
 			isPrime(1, cache))
 		assertTrue(
@@ -33,7 +40,6 @@ class PrimeCacheBaseTest {
 
 	@Test
 	fun testIsPrimeNegative() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertTrue(
 			isPrime(-3, cache))
 		assertFalse(
@@ -46,7 +52,6 @@ class PrimeCacheBaseTest {
 
 	@Test
 	fun testIsPrimeMaxProducts() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertTrue(
 			isPrime(251, cache))
 		val maxMinus1 = cache.getPrime(cache.maxIndex - 1)
@@ -59,7 +64,6 @@ class PrimeCacheBaseTest {
 
 	@Test
 	fun testFindPrime() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertEquals(
 			17, findPrime(15, cache))
 		assertEquals(
@@ -72,7 +76,6 @@ class PrimeCacheBaseTest {
 
 	@Test
 	fun testFindPrimeAboveMax() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertNull(
 			findPrime(253, cache))
 		assertNull(
@@ -84,7 +87,6 @@ class PrimeCacheBaseTest {
 
 	@Test
 	fun testFindPrimeNegative() {
-		val cache: PrimeCacheInterface = BytePrimeCache()
 		assertNull(
 			findPrime(-7, cache))
 		assertNull(

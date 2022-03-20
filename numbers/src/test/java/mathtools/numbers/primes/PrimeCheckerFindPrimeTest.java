@@ -8,12 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
 /** Testing [PrimeChecker] FindPrime Static Method
  * @author DK96-OS : 2022 */
 public final class PrimeCheckerFindPrimeTest {
 
 	private final PrimeCacheInterface byteCache = new BytePrimeCache();
 	//private final PrimeCacheInterface shortCache = new ShortPrimeCache();
+
+	private final List<Integer> primeList = PrimeTestDataProvider.getPrimes251();
 
 	@Test
 	void testNumberProductOf2() {
@@ -43,6 +47,19 @@ public final class PrimeCheckerFindPrimeTest {
 			prime + 2,
 			findPrime(prime, byteCache)
 		);
+	}
+
+	@Test
+	void testFindPrimeFromEmptyCache() {
+		for (int idx = 2; idx < primeList.size(); ++idx) {
+			final int prevPrime = primeList.get(idx - 1);
+			final int expectedPrime = primeList.get(idx);
+			assertEquals(
+				expectedPrime,
+				findPrime(prevPrime + 2, byteCache)
+			);
+			byteCache.clear();
+		}
 	}
 
 }

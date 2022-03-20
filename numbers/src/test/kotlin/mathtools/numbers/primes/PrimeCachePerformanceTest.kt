@@ -42,7 +42,7 @@ class PrimeCachePerformanceTest {
         var wasPrime: Boolean? = null
         for (i in 0 until nDataPoints) {
             timeList.add(measureNanoTime {
-                wasPrime = cache.isPrime(target)
+                wasPrime = PrimeChecker.isPrime(target, cache)
             })
             cache.clear()
         }

@@ -1,4 +1,4 @@
-package mathtools.numbers.primes;
+package mathtools.numbers.primes.checker;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,6 +8,9 @@ import static mathtools.numbers.primes.PrimeChecker.isPrime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import mathtools.numbers.primes.BytePrimeCache;
+import mathtools.numbers.primes.PrimeCacheInterface;
 
 /** Testing [PrimeChecker] IsPrime Method
  * @author DK96-OS : 2022 */
