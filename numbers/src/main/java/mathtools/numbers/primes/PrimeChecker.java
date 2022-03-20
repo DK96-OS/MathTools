@@ -41,6 +41,8 @@ public final class PrimeChecker {
 		if (BitFactoring.isProductOf2(number)) return false;
 		// check all primes in static array
 		if (!staticIsPrime(number)) return false;
+		// There is a break condition in static prime check
+		else if (53 * 53 > number) return true;
 		// check all primes in the cache
 		try {
 			return cacheIsPrime(number, cache);
@@ -84,7 +86,7 @@ public final class PrimeChecker {
 	static int getStaticPrime(
 		final int index
 	) throws ArrayIndexOutOfBoundsException {
-		return PrimeChecker.initArray[index];
+		return initArray[index];
 	}
 
 	/** Checks the factors in the static array.
@@ -99,7 +101,7 @@ public final class PrimeChecker {
 		// Check static array for factor
 		int prevPrime = 2;  // Assume 2 has already been checked
 		for (int i = 1; 16 > i; i++) {
-			final byte testPrime = PrimeChecker.initArray[i];
+			final byte testPrime = initArray[i];
 			if (0 == number % testPrime) return false;
 			//
 			if (testPrime * prevPrime > number) return true;
@@ -118,7 +120,7 @@ public final class PrimeChecker {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		// Start at the end of the static array
-		int prevPrime = PrimeChecker.initArray[15];
+		int prevPrime = initArray[15];
 		// Check cached values
 		for (int i = 16; i <= cache.getMaxIndex(); ++i) {
 			final int testPrime = cache.getPrime(i);
