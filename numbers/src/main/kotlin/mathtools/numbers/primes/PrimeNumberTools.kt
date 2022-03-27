@@ -1,7 +1,7 @@
 package mathtools.numbers.primes
 
 import mathtools.numbers.factors.BitFactoring.isProductOf2
-import mathtools.numbers.factors.NumberFactors.divideOutFactor
+import mathtools.numbers.factors.Factoring.divideOutFactor
 
 /** Container for PrimeNumber functions
  * @author DK96-OS : 2018 - 2021 */
@@ -36,7 +36,7 @@ object PrimeNumberTools {
 		var checkPrime = getPrime(primeIdx)
 		var composite = product
 		while (limit in checkPrime until composite) {
-			composite = divideOutFactor(checkPrime, composite)
+			composite = divideOutFactor(composite, checkPrime)
 			checkPrime = getPrime(++primeIdx)
 		}
 		composite > limit
@@ -60,7 +60,7 @@ object PrimeNumberTools {
         var testPrime = getPrime(primeIdx)
         var composite = product
         while (limit in testPrime until composite) {
-            composite = divideOutFactor(testPrime, composite)
+            composite = divideOutFactor(composite, testPrime)
             testPrime = getPrime(++primeIdx)
         }
         while (testPrime in (limit + 1) .. composite) {
@@ -107,7 +107,7 @@ object PrimeNumberTools {
 		var composite: Long = product
 		for (primeIdx in primeIndexRange) {
 			val testPrime = getPrime(primeIdx)
-			composite = divideOutFactor(testPrime, composite)
+			composite = divideOutFactor(composite, testPrime)
 			// If the composite is less than the test factor, done
 			if (composite < testPrime) break
 		}
@@ -141,7 +141,7 @@ object PrimeNumberTools {
 			&& testPrime <= maxPrime
 			&& primeIdx < shortPrimes.maxIndex
 		) {
-			composite = divideOutFactor(testPrime, composite)
+			composite = divideOutFactor(composite, testPrime)
 		    // Validate the next prime before overwriting
 		    val nextPrime = getPrime(++primeIdx)
 		    if (nextPrime >= composite) break
