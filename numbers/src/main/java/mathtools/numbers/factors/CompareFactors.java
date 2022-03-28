@@ -49,4 +49,6 @@ public final class CompareFactors {
 		return n1 * ((long) n2) / gcd;
 	}
 
+	private CompareFactors() {}
+
 }
