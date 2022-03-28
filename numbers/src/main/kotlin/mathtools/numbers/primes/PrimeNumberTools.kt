@@ -132,7 +132,7 @@ object PrimeNumberTools {
 		}
 	    // check efficiently for factors of 2
 		var composite: Long = if (isProductOf2(product))
-			divideOutFactor(2, product) else product
+			divideOutFactor(product, 2) else product
 	    // check next prime factor
 		var primeIdx = 1
 		var testPrime = 3	// getPrime(idx) currently returns Int
