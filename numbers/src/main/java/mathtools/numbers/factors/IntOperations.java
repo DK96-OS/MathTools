@@ -1,5 +1,7 @@
 package mathtools.numbers.factors;
 
+import com.google.common.math.IntMath;
+
 import javax.annotation.Nonnull;
 
 import mathtools.numbers.structs.IntPair;
@@ -58,16 +60,51 @@ public final class IntOperations {
 		}
 	}
 
+	/** Tries to evaluate an exponential term within 32-bit signed int
+	 *  If the term cannot be evaluated, the number of powers remaining are returned as well
+	 * @param base The base factor of the exponent.
+	 * @param power The power of the exponent.
+	 * @return A pair of integers. If the second int is zero, the first is the evaluated term. If
+	the second int is non-zero, this is the power on the exponent that has yet to be evaluated. * */
 	@Nonnull
 	public static IntPair exponent(
+		final int base,
+		int power
+	) {
+		if (0 > power)
+			return new IntPair(base, power);
+		else if (0 == power)
+			return new IntPair(1, 0);
+		else if (2 > base)
+			return negativeExponentBase(base, power);
+		else if (1 == power)
+			return new IntPair(base, 0);
+		else {
+			int product = base;
+			power--;
+			try {
+				product = IntMath.checkedMultiply(product, base);
+				power--;
+				for (; 0 < power; --power) {
+					product = IntMath.checkedMultiply(product, base);
+				}
+				return new IntPair(product, 0);
+			} catch (final ArithmeticException e) {
+				return new IntPair(product, power);
+			}
+		}
+	}
+
+	/** Handles certain exponent function cases
+	 * @param x The base factor of the exponent. Is 1, 0, or negative.
+	 * @param power The power of the exponent. Is greater than 0.
+	 * @return A pair of integer values */
+	@Nonnull
+	private static IntPair negativeExponentBase(
 		final int x,
 		final int power
 	) {
-		if (0 > power)
-			return new IntPair(x, power);
-		else if (0 == power)
-			return new IntPair(1, 0);
-		else if (2 > x) switch(x) {
+		switch (x) {
 			case -1: if (BitFactoring.isProductOf2(power))
 				return new IntPair(1, 0);
 			else
@@ -86,26 +123,6 @@ public final class IntOperations {
 				if (!BitFactoring.isProductOf2(power - remaining))
 					product = -product;
 				return new IntPair(product, remaining);
-		} else if (1 == power)
-			return new IntPair(x, 0);
-		else {
-			final long longX = x;
-			long product = longX * longX;
-			// check for overflow
-			if (product > longX && (long)Integer.MAX_VALUE >= product) {
-				if (2 != power) {
-					for (int e = 2; e < power; ++e) {
-						final long next = product * longX;
-						if (next <= longX || (long) Integer.MAX_VALUE < next) {
-							// Integer Overflow
-							return new IntPair((int) product, power - e);
-						}
-						product = next;
-					}
-				}
-				return new IntPair((int) product, 0);
-			} else
-				return new IntPair(x, power);
 		}
 	}
 

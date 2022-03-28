@@ -5,6 +5,8 @@ import static mathtools.numbers.structs.IntPairTest.assertPairEquals;
 
 import org.junit.jupiter.api.Test;
 
+import mathtools.numbers.structs.IntPair;
+
 /** Testing [IntOperations] Exponent function
  * @author DK96-OS : 2022 */
 public final class IntOperationsExponentTest {
@@ -63,6 +65,8 @@ public final class IntOperationsExponentTest {
 		// Should be 256 ^ 4 = 256 * 256 * 256 * 256 = 4294967296
 		// Instead, 256 ^ 3 = 16777216, with a remaining power of 1
 		assertPairEquals(
+			16777216, 0, exponent(256, 3));
+		assertPairEquals(
 			16777216, 1, exponent(256, 4));
 		// Should be 256 ^ 5
 		// Instead, 256 ^ 3 = 16777216, with a remaining power of 2
@@ -82,16 +86,24 @@ public final class IntOperationsExponentTest {
 
 	@Test
 	void testExponentMaxValue() {
+		final int max = Integer.MAX_VALUE;
+		// Any multiplication will overflow
+		IntPair result = exponent(max, 3);
+		// The power on the remaining exponent is (power - 1)
 		assertPairEquals(
-			214748364, 3, exponent(214748364, 3));
+			max, 2, result);
+		//
+		result = exponent(max, 4);
 		assertPairEquals(
-			2147483647, 4, exponent(Integer.MAX_VALUE, 4));
+			max, 3, result);
 	}
 
 	@Test
 	void testExponentNegativePower() {
 		for (int pwr = -1; pwr >= -10; pwr--)
-			assertPairEquals(2, pwr, exponent(2, pwr));
+			assertPairEquals(
+				2, pwr, exponent(2, pwr)
+			);
 	}
 
 	@Test
