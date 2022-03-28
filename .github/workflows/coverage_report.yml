@@ -31,5 +31,6 @@ jobs:
           /home/runner/work/MathTools/MathTools/lists/build/jacocoReport/
           /home/runner/work/MathTools/MathTools/numbers/build/jacocoReport/
           /home/runner/work/MathTools/MathTools/statistics/build/jacocoReport/
+          /home/runner/work/MathTools/MathTools/generators/build/jacocoReport/
         retention-days: 60
       timeout-minutes: 1

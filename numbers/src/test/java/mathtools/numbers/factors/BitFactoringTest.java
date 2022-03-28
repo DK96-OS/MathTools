@@ -1,14 +1,14 @@
 package mathtools.numbers.factors;
 
-import org.junit.jupiter.api.Test;
-
-import static mathtools.numbers.factors.BitFactoring.isProductOf2;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static mathtools.numbers.factors.BitFactoring.isProductOf2;
+
+import org.junit.jupiter.api.Test;
 
 /** Testing the BitFactoring functions
  * @author DK96-OS : 2022 */
-public class BitFactoringTest {
+public final class BitFactoringTest {
 
     @Test
     void testProductOf2() {
@@ -34,6 +34,24 @@ public class BitFactoringTest {
             assertTrue(isProductOf2(-n));
             assertTrue(isProductOf2((long) -n));
         }
+    }
+
+    @Test
+    void testProductOf2LargeInt() {
+        final int lowerBoundInt = Integer.MAX_VALUE - 100;
+        for (int n = Integer.MAX_VALUE; n >= lowerBoundInt; n -= 2)
+            assertFalse(BitFactoring.isProductOf2(n));
+        for (int n = Integer.MAX_VALUE - 1; n >= lowerBoundInt; n -= 2)
+            assertTrue(BitFactoring.isProductOf2(n));
+    }
+
+    @Test
+    void testProductOf2LargeLong() {
+        final long lowerBound = Long.MAX_VALUE - 100;
+        for (long n = Long.MAX_VALUE; n >= lowerBound; n -= 2)
+            assertFalse(BitFactoring.isProductOf2(n));
+        for (long n = Long.MAX_VALUE - 1; n >= lowerBound; n -= 2)
+            assertTrue(BitFactoring.isProductOf2(n));
     }
 
 }
