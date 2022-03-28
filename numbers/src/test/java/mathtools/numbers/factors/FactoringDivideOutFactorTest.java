@@ -16,16 +16,22 @@ public final class FactoringDivideOutFactorTest {
 
     @Test
     void testIntInvalidFactor() {
-        assertEquals(30, divideOutFactor(30, 0));
-        assertEquals(30, divideOutFactor(30, 1));
-        assertEquals(30, divideOutFactor(30, -1));
+        assertEquals(
+            30, divideOutFactor(30, 0));
+        assertEquals(
+            30, divideOutFactor(30, 1));
+        assertEquals(
+            30, divideOutFactor(30, -1));
     }
 
     @Test
     void testLongInvalidFactor() {
-        assertEquals(30, divideOutFactor(30, 0L));
-        assertEquals(30, divideOutFactor(30, 1L));
-        assertEquals(30, divideOutFactor(30, -1L));
+        assertEquals(
+            30, divideOutFactor(30, 0L));
+        assertEquals(
+            30, divideOutFactor(30, 1L));
+        assertEquals(
+            30, divideOutFactor(30, -1L));
     }
 
     @Test
@@ -72,6 +78,11 @@ public final class FactoringDivideOutFactorTest {
             -20, divideOutFactor(-240, 12L));
         assertEquals(
             -15, divideOutFactor(-30, -2L));
+        // Where number is smaller magnitude than factor
+        assertEquals(
+            -4, divideOutFactor(-4, 12L));
+        assertEquals(
+            -4, divideOutFactor(-4, -12L));
     }
 
     @Test
@@ -142,24 +153,37 @@ public final class FactoringDivideOutFactorTest {
 
     @Test
     void testDivideOutFactor2() {
-        assertEquals(1, divideOutFactor(32, 2));
-        assertEquals(3, divideOutFactor(6, 2));
-        assertEquals(3, divideOutFactor(24, 2));
-        assertEquals(3, divideOutFactor(48, 2));
-        assertEquals(15, divideOutFactor(30, 2));
-        assertEquals(375, divideOutFactor(375, 2));
+        assertEquals(
+            1, divideOutFactor(32, 2));
+        assertEquals(
+            3, divideOutFactor(6, 2));
+        assertEquals(
+            3, divideOutFactor(24, 2));
+        assertEquals(
+            3, divideOutFactor(48, 2));
+        assertEquals(
+            15, divideOutFactor(30, 2));
+        assertEquals(
+            375, divideOutFactor(375, 2));
     }
 
     @Test
     void testDivideOutFactor5() {
-        assertEquals(1, divideOutFactor(25, 5));
-        assertEquals(3, divideOutFactor(15, 5));
-        assertEquals(3, divideOutFactor(75, 5));
-        assertEquals(3, divideOutFactor(375, 5));
-        assertEquals(6, divideOutFactor(30, 5));
-        assertEquals(12, divideOutFactor(60, 5));
+        assertEquals(
+            1, divideOutFactor(25, 5));
+        assertEquals(
+            3, divideOutFactor(15, 5));
+        assertEquals(
+            3, divideOutFactor(75, 5));
+        assertEquals(
+            3, divideOutFactor(375, 5));
+        assertEquals(
+            6, divideOutFactor(30, 5));
+        assertEquals(
+            12, divideOutFactor(60, 5));
         //
-        assertEquals(64, divideOutFactor(64, 5));
+        assertEquals(
+            64, divideOutFactor(64, 5));
     }
 
     @Test
