@@ -109,4 +109,6 @@ public final class IntOperations {
 		}
 	}
 
+	private IntOperations() {}
+
 }
