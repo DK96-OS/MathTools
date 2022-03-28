@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public final class NumberFactorsCountFactorTest {
 	
 	@Test
-	void testFactor2() {
+	void testProductsOf2() {
 		assertEquals(
 			2, countFactor(2, 4));
 		assertEquals(
@@ -20,7 +20,7 @@ public final class NumberFactorsCountFactorTest {
 	}
 	
 	@Test
-	void testFactor5() {
+	void testProductsOf5() {
 		assertEquals(
 			1, countFactor(5, 5));
 		assertEquals(
@@ -39,6 +39,19 @@ public final class NumberFactorsCountFactorTest {
 		//
 		assertEquals(
 			2, countFactor(5, 3050));
+	}
+
+	@Test
+	void testNonProductsOfPrimes() {
+		assertEquals(
+			0, countFactor(2, 81));
+		assertEquals(
+			0, countFactor(2, 125));
+		//
+		assertEquals(
+			0, countFactor(3, 32));
+		assertEquals(
+			0, countFactor(3, 365));
 	}
 
 	@Test
@@ -71,6 +84,11 @@ public final class NumberFactorsCountFactorTest {
 			0, countFactor(0, 12));
 		assertEquals(
 			0, countFactor(1, 12));
+		//
+		assertEquals(
+			0, countFactor(5, 1));
+		assertEquals(
+			0, countFactor(5, 0));
 	}	
 	
 }
