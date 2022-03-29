@@ -40,7 +40,7 @@ class PercentagesTest {
 
 	@Test
 	fun testStrictPercent7Decimal() {
-		// Note that 7 is higher than allowed, coerced down to 5
+		// Note that 7 is higher than allowed, reduced to 5
 		assertEquals("1.0101%", strictPercent(0.010101f, 7))
 		assertEquals("2.57503%", strictPercent(0.02575025f, 7))
 		assertEquals("20.0%", strictPercent(0.200000f, 7))
