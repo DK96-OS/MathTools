@@ -18,73 +18,83 @@ class StringPackagerIntTest {
 
 	@Test
 	fun testPositiveBytes() {
-		for (b0Int in 0 .. Byte.MAX_VALUE) {
+		//
+		for (b0Int in 0 .. Byte.MAX_VALUE step 4) {
 			val b0 = b0Int.toByte()
-			for (b1Int in 0 .. Byte.MAX_VALUE) {
+			//
+			for (b1Int in 0 .. Byte.MAX_VALUE step 4) {
 				val b1 = b1Int.toByte()
 				val packed = packBytes(b0, b1)
-				//
-				val unpackedB0 = unpackByte0(packed)
-				val unpackedB1 = unpackByte1(packed)
+				// Check individual byte unpacking
+				assertEquals(
+					b0, unpackByte0(packed))
+				assertEquals(
+					b1, unpackByte1(packed))
+				// Check pair of bytes unpacked
 				val unpackedPair = unpackBytes(packed)
-				//
-				assertEquals(b0, unpackedB0)
-				assertEquals(b1, unpackedB1)
-				// Check pair function
-				assertEquals(b0, unpackedPair.first)
-				assertEquals(b1, unpackedPair.second)
+				assertEquals(
+					b0, unpackedPair.first)
+				assertEquals(
+					b1, unpackedPair.second)
 			}
 		}
 	}
 
 	@Test
 	fun testNegativeBytes() {
-		for (b0Int in Byte.MIN_VALUE until 0) {
+		for (b0Int in Byte.MIN_VALUE until 0 step 4) {
 			val b0 = b0Int.toByte()
-			for (b1Int in Byte.MIN_VALUE until 0) {
+			for (b1Int in Byte.MIN_VALUE until 0 step 4) {
 				val b1 = b1Int.toByte()
 				val packed = packBytes(b0, b1)
-				//
-				val unpackedB0 = unpackByte0(packed)
-				val unpackedB1 = unpackByte1(packed)
-				val unpackedPair = unpackBytes(packed)
-				//
-				assertEquals(b0, unpackedB0)
-				assertEquals(b1, unpackedB1)
+				// Check individual byte unpacking
+				assertEquals(
+					b0, unpackByte0(packed))
+				assertEquals(
+					b1, unpackByte1(packed))
 				// Check pair function
-				assertEquals(b0, unpackedPair.first)
-				assertEquals(b1, unpackedPair.second)
+				val unpackedPair = unpackBytes(packed)
+				assertEquals(
+					b0, unpackedPair.first)
+				assertEquals(
+					b1, unpackedPair.second)
 			}
 		}
 	}
 
 	@Test
 	fun testPositiveShorts() {
-		for (sInt in 0 .. Short.MAX_VALUE) {
+		for (sInt in 0 .. Short.MAX_VALUE step 500) {
 			val s = sInt.toShort()
 			val uShort = sInt.toUShort()
 			val packed = packShort(s)
 			val uPacked = packUShort(uShort)
 			// Both versions should be the same
-			assertEquals(packed.code, uPacked.code)
+			assertEquals(
+				packed.code, uPacked.code)
 			//
-			assertEquals(s, unpackShort(packed))
-			assertEquals(uShort, unpackShort(uPacked).toUShort())
+			assertEquals(
+				s, unpackShort(packed))
+			assertEquals(
+				uShort, unpackShort(uPacked).toUShort())
 		}
 	}
 
 	@Test
 	fun testNegativeShorts() {
-		for (sInt in Short.MIN_VALUE until 0) {
+		for (sInt in Short.MIN_VALUE until 0 step 500) {
 			val s = sInt.toShort()
 			val uShort = sInt.toUShort()
 			val packed = packShort(s)
 			val uPacked = packUShort(uShort)
 			// Both versions should be the same
-			assertEquals(packed.code, uPacked.code)
+			assertEquals(
+				packed.code, uPacked.code)
 			//
-			assertEquals(s, unpackShort(packed))
-			assertEquals(uShort, unpackShort(uPacked).toUShort())
+			assertEquals(
+				s, unpackShort(packed))
+			assertEquals(
+				uShort, unpackShort(uPacked).toUShort())
 		}
 	}
 
@@ -92,13 +102,15 @@ class StringPackagerIntTest {
 	fun testShortUniqueness() {
 		val map = java.util.HashMap<Char, Boolean>()
 		for (sInt in Short.MIN_VALUE .. Short.MAX_VALUE) {
-			val s = sInt.toShort()
-			val packed = packShort(s)
-			assertNull(map[packed])
+			val packed = packShort(sInt.toShort())
+			assertNull(
+				map[packed])
 			map[packed] = true
 		}
-		assertTrue(map[packShort(25)]!!)
-		assertTrue(map[packShort(-25)]!!)
+		assertTrue(
+			map[packShort(25)]!!)
+		assertTrue(
+			map[packShort(-25)]!!)
 	}
 
 }
