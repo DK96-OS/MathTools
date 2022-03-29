@@ -27,4 +27,6 @@ public final class Rounding {
 		return Math.round(number * shift) / shift;
 	}
 
+	private Rounding() {}
+
 }
