@@ -8,7 +8,23 @@ import org.junit.jupiter.api.Test;
 /** Testing Percentages functions
  * @author DK96-OS : 2022 */
 public final class PercentagesTest {
-	
+
+	@Test
+	public void testStrictPercentOneArg() {
+		assertEquals(
+			"1%", strictPercent(0.01f));
+		assertEquals(
+			"2%", strictPercent(0.02f));
+		assertEquals(
+			"20%", strictPercent(0.2f));
+		assertEquals(
+			"21%", strictPercent(0.21f));
+		assertEquals(
+			"30%", strictPercent(0.3f));
+		assertEquals(
+			"31%", strictPercent(0.31f));
+	}
+
 	@Test
 	public void testStrictPercent() {
 		final byte zero = 0;
@@ -79,6 +95,16 @@ public final class PercentagesTest {
 	}
 
 	@Test
+	public void testStrictPercentOneArgInvalid() {
+		assertEquals(
+			"0%", strictPercent(0f));
+		assertEquals(
+			"0%", strictPercent(-0.01f));
+		assertEquals(
+			"100%", strictPercent(10f));
+	}
+
+	@Test
 	public void testStrictPercentNegative() {
 		final byte zero = 0;
 		assertEquals(
@@ -95,6 +121,16 @@ public final class PercentagesTest {
 			"1%", strictPercent(0.01f, (byte) -1));
 		assertEquals(
 			"3%", strictPercent(0.03f, (byte) -3));
+	}
+
+	@Test
+	public void testStrictPercentOneArgSpecialValues() {
+		assertEquals(
+			"0%", strictPercent(Float.NaN));
+		assertEquals(
+			"100%", strictPercent(Float.POSITIVE_INFINITY));
+		assertEquals(
+			"0%", strictPercent(Float.NEGATIVE_INFINITY));
 	}
 
 	@Test

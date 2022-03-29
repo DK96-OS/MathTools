@@ -42,4 +42,6 @@ public final class Percentages {
 			return (1f <= number) ? "100%" : "0%";
 	}
 
+	private Percentages() {}
+
 }
