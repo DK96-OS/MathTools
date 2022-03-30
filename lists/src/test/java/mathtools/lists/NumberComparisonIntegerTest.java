@@ -134,4 +134,49 @@ public final class NumberComparisonIntegerTest {
 			isEquivalent(-127.0001, -127));
 	}
 
+	@Test
+	void testDecimalLargeFloat() {
+		assertTrue(
+			isEquivalent(123456f, 123456));
+		assertTrue(
+			isEquivalent(1234500f, 1234500));
+	}
+
+	@Test
+	void testDecimalLargeFloatPrecisionLimit() {
+		// the precision here is a challenge
+		// It should return true, but due to imprecision returns false
+		assertFalse(
+			isEquivalent(12345000f, 12345000));
+		//
+		assertFalse(
+			isEquivalent(1234567891f, 1234567891));
+	}
+
+	@Test
+	void testDecimalLargeDouble() {
+		assertTrue(
+			isEquivalent(1234567.0, 1234567));
+		assertTrue(
+			isEquivalent(1234560.0, 1234560));
+		//
+		assertFalse(
+			isEquivalent(1234560.2, 1234560));
+	}
+
+	@Test
+	void testDecimalLargeDoublePrecisionLimit() {
+		// This is where the precision limit is
+		assertFalse(
+			isEquivalent(12345600.0, 12345600));
+		assertFalse(
+			isEquivalent(12345670.0, 12345670));
+		//
+		assertFalse(
+			isEquivalent(1234567890.0, 1234567890));
+		//
+		assertFalse(
+			isEquivalent(123456.2, 123456));
+	}
+
 }

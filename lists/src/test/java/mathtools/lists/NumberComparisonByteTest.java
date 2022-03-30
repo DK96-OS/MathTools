@@ -96,4 +96,12 @@ public final class NumberComparisonByteTest {
 			isEquivalent(-127.0001, (byte) -127));
 	}
 
+	@Test
+	void testDecimalLargeFalse() {
+		assertFalse(
+			isEquivalent(-1234f, (byte) -123));
+		assertFalse(
+			isEquivalent(1234f, (byte) -123));
+	}
+
 }

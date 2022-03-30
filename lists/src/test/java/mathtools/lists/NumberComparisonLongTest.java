@@ -135,7 +135,6 @@ public final class NumberComparisonLongTest {
 			isEquivalent(-0.0001f, -0L));
 		assertFalse(
 			isEquivalent(-0.0001, -0L));
-		//
 	}
 
 	@Test
