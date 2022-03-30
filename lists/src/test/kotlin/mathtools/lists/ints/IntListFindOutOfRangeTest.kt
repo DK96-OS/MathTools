@@ -73,7 +73,9 @@ class IntListFindOutOfRangeTest {
 		val result = findOutOfRange(
 			u101, 0 .. 60,
 		)
-		assertEquals(40, result.size)
+		assertEquals(
+			40, result.size)
+		//
 		for (i in 0 until 20)
 			assertEquals(
 				(-20 + i), u101[result[i]]
@@ -105,9 +107,12 @@ class IntListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -10 .. 79, 9
 		)
-		assertEquals(listOf(9), result1)
-		assertEquals(0, result2.size)
-		assertEquals(listOf(9, 100), result3)
+		assertEquals(
+			listOf(9), result1)
+		assertEquals(
+			0, result2.size)
+		assertEquals(
+			listOf(9, 100), result3)
 	}
 
 	@Test
@@ -121,9 +126,12 @@ class IntListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -19 .. 70, 0, 92
 		)
-		assertEquals(0, result1.size)
-		assertEquals(100, result2[0])
-		assertEquals(listOf(0, 91), result3)
+		assertEquals(
+			0, result1.size)
+		assertEquals(
+			100, result2[0])
+		assertEquals(
+			listOf(0, 91), result3)
 	}
 
 	@Test
@@ -137,9 +145,12 @@ class IntListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -10 .. 70, 9, 91
 		)
-		assertEquals(listOf(9, 91), result1)
-		assertEquals(91, result2[0])
-		assertEquals(9, result3[0])
+		assertEquals(
+			listOf(9, 91), result1)
+		assertEquals(
+			91, result2[0])
+		assertEquals(
+			9, result3[0])
 	}
 
 }
