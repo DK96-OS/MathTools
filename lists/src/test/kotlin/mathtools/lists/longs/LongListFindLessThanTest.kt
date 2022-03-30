@@ -61,14 +61,17 @@ class LongListFindLessThanTest {
 		res[2] = findLessThan(
 			u101, -17, -1
 		)
-		assertEquals(listOf(1, 2), res[0])
-		assertEquals(listOf(2), res[1])
-		assertEquals(0, res[2]?.size)
+		assertEquals(
+			listOf(1, 2), res[0])
+		assertEquals(
+			listOf(2), res[1])
+		assertEquals(
+			0, res[2]?.size)
 	}
 
 	@Test
 	fun testEndArg() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(4) { null }
 		res[0] = findLessThan(
 			u101, -17, 0, 6
 		)
@@ -78,9 +81,17 @@ class LongListFindLessThanTest {
 		res[2] = findLessThan(
 			u101, -17, 0, -1
 		)
-		assertEquals(listOf(0, 1, 2), res[0])
-		assertEquals(listOf(0, 1), res[1])
-		assertEquals(0, res[2]?.size)
+		res[3] = findLessThan(
+			u101, -17, 0, 102
+		)
+		assertEquals(
+			listOf(0, 1, 2), res[0])
+		assertEquals(
+			listOf(0, 1), res[1])
+		assertEquals(
+			0, res[2]?.size)
+		assertEquals(
+			listOf(0, 1, 2), res[3])
 	}
 
 	@Test
@@ -92,8 +103,10 @@ class LongListFindLessThanTest {
 		res[1] = findLessThan(
 			u101.reversed(), -17, 95, 100
 		)
-		assertEquals(listOf(1, 2), res[0])
-		assertEquals(listOf(98, 99), res[1])
+		assertEquals(
+			listOf(1, 2), res[0])
+		assertEquals(
+			listOf(98, 99), res[1])
 	}
 
 	@Test
