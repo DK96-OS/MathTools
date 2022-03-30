@@ -96,9 +96,9 @@ public final class NumberComparison {
     ) {
         // Check whole number types
         if (number instanceof Long)
-            return number.equals((long) primitive);
+            return number.longValue() == (long) primitive;
         else if (number instanceof Integer)
-            return number.equals(primitive);
+            return number.intValue() == primitive;
         else if (number instanceof Short)
             return number.intValue() == primitive;
         else if (number instanceof Byte)

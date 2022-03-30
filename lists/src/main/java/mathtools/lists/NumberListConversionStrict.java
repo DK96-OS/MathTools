@@ -106,7 +106,7 @@ public final class NumberListConversionStrict {
         // Allocate new List
         final ArrayList<Long> newList = new ArrayList<>(list.size());
         for (final Number number : list) {
-            final long value = number.intValue();
+            final long value = number.longValue();
             // Determine if the conversion is lossless
             if (isEquivalent(number, value))
                 newList.add(value);
