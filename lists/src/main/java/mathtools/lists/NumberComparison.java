@@ -103,17 +103,11 @@ public final class NumberComparison {
             return number.intValue() == primitive;
         else if (number instanceof Byte)
             return number.intValue() == primitive;
+        // Check floating point numbers
         // Compare string representations
         final String nStr = number.toString();
         final int dotIndex = nStr.indexOf('.');
-        // Check floating point numbers
         if (0 < dotIndex) {
-            // Check length of number
-            if ('-' == nStr.charAt(0)) {
-                // Max size of a negative int is 11 chars (-2147483647)
-                if (11 < dotIndex) return false;
-                // If positive, then max size is 10 chars (2147483647)
-            } else if (10 < dotIndex) return false;
             // Check decimal place values are blank
             if (nStr.endsWith(".0"))
                 // Check whole number place values equal
@@ -142,17 +136,11 @@ public final class NumberComparison {
             return number.longValue() == primitive;
         else if (number instanceof Byte)
             return number.longValue() == primitive;
+        // Check floating point numbers
         // Compare string representations
         final String nStr = number.toString();
         final int dotIndex = nStr.indexOf('.');
-        // Check floating point numbers
         if (0 < dotIndex) {
-            // Check length of number
-            if ('-' == nStr.charAt(0)) {
-                // Max size of a negative long is 20 chars
-                if (20 < dotIndex) return false;
-                // If positive, then max size is 19 chars
-            } else if (19 < dotIndex) return false;
             // Check decimal place values are blank
             if (nStr.endsWith(".0"))
                 // Check whole number place values equal
