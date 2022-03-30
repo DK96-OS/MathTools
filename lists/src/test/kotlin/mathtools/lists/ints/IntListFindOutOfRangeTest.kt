@@ -5,6 +5,7 @@ import mathtools.lists.NumberListConversion.toInt
 import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.util.*
 
 /** Testing the IntList FindOutOfRange function
  * @author DK96-OS : 2022 */
@@ -107,12 +108,17 @@ class IntListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -10 .. 79, 9
 		)
+		val result4 = findOutOfRange(
+			u101, -10 .. 79, -1
+		)
 		assertEquals(
 			listOf(9), result1)
 		assertEquals(
 			0, result2.size)
 		assertEquals(
 			listOf(9, 100), result3)
+		assertEquals(
+			Collections.emptyList<Int>(), result4)
 	}
 
 	@Test
@@ -132,6 +138,11 @@ class IntListFindOutOfRangeTest {
 			100, result2[0])
 		assertEquals(
 			listOf(0, 91), result3)
+		//
+		assertEquals(
+			2,
+			findOutOfRange(u101, -19 .. 70, 0,  u101.size).size
+		)
 	}
 
 	@Test
@@ -151,6 +162,18 @@ class IntListFindOutOfRangeTest {
 			91, result2[0])
 		assertEquals(
 			9, result3[0])
+	}
+
+	@Test
+	fun testMinAndMaxRange() {
+		assertEquals(
+			listOf(100),
+			findOutOfRange(u101, Int.MIN_VALUE .. 79)
+		)
+		assertEquals(
+			Collections.emptyList<Int>(),
+			findOutOfRange(u101, Int.MIN_VALUE .. Int.MAX_VALUE)
+		)
 	}
 
 }
