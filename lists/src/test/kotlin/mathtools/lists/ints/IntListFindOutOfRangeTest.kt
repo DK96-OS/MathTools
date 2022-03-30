@@ -141,7 +141,7 @@ class IntListFindOutOfRangeTest {
 		//
 		assertEquals(
 			2,
-			findOutOfRange(u101, -19 .. 70, 0,  u101.size).size
+			findOutOfRange(u101, -19 .. 79, 0,  u101.size).size
 		)
 	}
 
