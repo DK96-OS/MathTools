@@ -18,7 +18,8 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (start < 0
+            || list.isEmpty()
             || limit == Long.MAX_VALUE
         ) return emptyList()
         // If end is greater than list size, use list size
@@ -47,8 +48,10 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty() || limit == Long.MIN_VALUE)
-            return emptyList()
+        if (start < 0
+            || list.isEmpty()
+            || limit == Long.MIN_VALUE
+        ) return emptyList()
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
@@ -75,7 +78,8 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (start < 0
+            || list.isEmpty()
             || range.first > range.last
             || range.first == Long.MIN_VALUE
             && range.last == Long.MAX_VALUE
@@ -105,8 +109,9 @@ object LongList {
         list: MutableList<Long>,
         indices: List<Int>,
     ) : List<Long> {
-        if (list.isEmpty() || indices.isEmpty())
-            return emptyList()
+        if (list.isEmpty()
+            || indices.isEmpty()
+        ) return emptyList()
         val valid = indices.filter { it in list.indices }
         if (valid.isEmpty())
             return emptyList()
