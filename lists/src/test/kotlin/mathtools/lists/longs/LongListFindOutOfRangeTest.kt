@@ -106,12 +106,17 @@ class LongListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -10 .. 79L, 9
 		)
+		val result4 = findOutOfRange(
+			u101, -19 .. 79L, -1
+		)
 		assertEquals(
 			listOf(9), result1)
 		assertEquals(
 			0, result2.size)
 		assertEquals(
 			listOf(9, 100), result3)
+		assertEquals(
+			listOf(0, 100), result4)
 	}
 
 	@Test

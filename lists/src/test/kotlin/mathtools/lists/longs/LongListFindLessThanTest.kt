@@ -50,6 +50,15 @@ class LongListFindLessThanTest {
 	}
 
 	@Test
+	fun testLimitMinValue() {
+		assertEquals(
+			0, findLessThan(
+				listOf(45L, Long.MIN_VALUE), Long.MIN_VALUE
+			).size
+		)
+	}
+
+	@Test
 	fun testStartArg() {
 		val res = Array<List<Int>?>(3) { null }
 		res[0] = findLessThan(
