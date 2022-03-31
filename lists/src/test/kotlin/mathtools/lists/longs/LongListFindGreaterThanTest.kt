@@ -60,14 +60,14 @@ class LongListFindGreaterThanTest {
 			u101, 78, 100
 		)
 		res[2] = findGreaterThan(
-			u101, 78, -1
+			u101, 75, -1
 		)
 		assertEquals(
 			listOf(99, 100), res[0])
 		assertEquals(
 			listOf(100), res[1])
 		assertEquals(
-			0, res[2]?.size)
+			5, res[2]?.size)
 	}
 
 	@Test

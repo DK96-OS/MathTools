@@ -82,7 +82,8 @@ class LongListRemoveByIndicesTest {
 		val data = mutableListOf(400L, 500L, Long.MAX_VALUE)
 		val indices = listOf(-1, 400)
 		assertEquals(
-			0, removeByIndices(data, indices))
+			0, removeByIndices(data, indices).size
+		)
 	}
 
 }
