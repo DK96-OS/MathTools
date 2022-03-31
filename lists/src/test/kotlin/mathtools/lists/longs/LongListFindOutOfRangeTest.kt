@@ -5,6 +5,7 @@ import mathtools.lists.NumberListConversion.toLong
 import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.util.*
 
 /** Testing LongList findOutOfRange function
  * @author DK96-OS : 2022 */
@@ -105,9 +106,17 @@ class LongListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -10 .. 79L, 9
 		)
-		assertEquals(listOf(9), result1)
-		assertEquals(0, result2.size)
-		assertEquals(listOf(9, 100), result3)
+		val result4 = findOutOfRange(
+			u101, -19 .. 79L, -1
+		)
+		assertEquals(
+			listOf(9), result1)
+		assertEquals(
+			0, result2.size)
+		assertEquals(
+			listOf(9, 100), result3)
+		assertEquals(
+			listOf(0, 100), result4)
 	}
 
 	@Test
@@ -121,9 +130,12 @@ class LongListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -19 .. 70L, 0, 92
 		)
-		assertEquals(0, result1.size)
-		assertEquals(100, result2[0])
-		assertEquals(listOf(0, 91), result3)
+		assertEquals(
+			0, result1.size)
+		assertEquals(
+			100, result2[0])
+		assertEquals(
+			listOf(0, 91), result3)
 	}
 
 	@Test
@@ -138,9 +150,12 @@ class LongListFindOutOfRangeTest {
 		res[2] = findOutOfRange(
 			u101, -10 .. 70L, 9, 91
 		)
-		assertEquals(listOf(9, 91), res[0])
-		assertEquals(listOf(91), res[1])
-		assertEquals(listOf(9), res[2])
+		assertEquals(
+			listOf(9, 91), res[0])
+		assertEquals(
+			listOf(91), res[1])
+		assertEquals(
+			listOf(9), res[2])
 	}
 
 	@Test
@@ -156,10 +171,26 @@ class LongListFindOutOfRangeTest {
 				indexRangePairs[i].first,
 				indexRangePairs[i].second + 1,
 			)
-		assertEquals(25, results[0]!!.size)
-		assertEquals(5, results[1]!!.size)
-		assertEquals(5, results[2]!!.size)
-		assertEquals(25, results[3]!!.size)
+		assertEquals(
+			25, results[0]!!.size)
+		assertEquals(
+			5, results[1]!!.size)
+		assertEquals(
+			5, results[2]!!.size)
+		assertEquals(
+			25, results[3]!!.size)
+	}
+
+	@Test
+	fun testMinAndMaxRange() {
+		assertEquals(
+			listOf(100),
+			findOutOfRange(u101, Long.MIN_VALUE..79)
+		)
+		assertEquals(
+			Collections.emptyList<Int>(),
+			findOutOfRange(u101, Long.MIN_VALUE..Long.MAX_VALUE)
+		)
 	}
 
 }

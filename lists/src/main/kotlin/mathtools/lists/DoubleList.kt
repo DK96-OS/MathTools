@@ -18,15 +18,19 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (list.isEmpty()
             || limit == Double.POSITIVE_INFINITY
             || limit.isNaN()
         ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
+        //
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex) {
+        for (idx in firstIndex .. lastIndex) {
             if (list[idx] > limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -49,15 +53,19 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (list.isEmpty()
             || limit == Double.NEGATIVE_INFINITY
             || limit.isNaN()
         ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
+        //
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex) {
+        for (idx in firstIndex .. lastIndex) {
             if (list[idx] < limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -82,16 +90,20 @@ object DoubleList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (list.isEmpty()
             || lowerBound.isNaN()
             || upperBound.isNaN()
             || lowerBound > upperBound
         ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
+        //
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex) {
+        for (idx in firstIndex .. lastIndex) {
             val item = list[idx]
             if (item < lowerBound || upperBound < item) {
                 if (indices == null)
@@ -111,13 +123,15 @@ object DoubleList {
         list: MutableList<Double>,
         indices: List<Int>,
     ) : List<Double> {
-        if (list.isEmpty() || indices.isEmpty())
-            return emptyList()
+        // If either input is empty
+        if (list.isEmpty() || indices.isEmpty()) return emptyList()
+        //
         val valid = indices.filter { it in list.indices }
-        if (valid.isEmpty())
-            return emptyList()
+        if (valid.isEmpty()) return emptyList()
+        //
         val result = valid.map { list[it] }
         val sorted = valid.sortedDescending()
+        //
         for (i in sorted.indices)
             list.removeAt(sorted[i])
         return result

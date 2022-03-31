@@ -18,14 +18,18 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (list.isEmpty()
             || limit == Long.MAX_VALUE
         ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
+        //
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex)
+        for (idx in firstIndex .. lastIndex)
             if (list[idx] > limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -47,13 +51,17 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty() || limit == Long.MIN_VALUE)
-            return emptyList()
+        if (list.isEmpty()
+            || limit == Long.MIN_VALUE
+        ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex)
+        for (idx in firstIndex .. lastIndex)
             if (list[idx] < limit) {
                 if (indices == null)
                     indices = arrayListOf(idx)
@@ -75,17 +83,20 @@ object LongList {
         start: Int = 0,
         end: Int = list.size,
     ) : List<Int> {
-        if (start < 0 || list.isEmpty()
+        if (list.isEmpty()
             || range.first > range.last
             || range.first == Long.MIN_VALUE
             && range.last == Long.MAX_VALUE
         ) return emptyList()
+        // If start is smaller than zero, use zero
+        val firstIndex = if (0 > start)
+            0 else start
         // If end is greater than list size, use list size
         val lastIndex = if (list.size < end)
             list.size - 1 else end - 1
         // Container for discovered indices
         var indices: ArrayList<Int>? = null
-        for (idx in start .. lastIndex) {
+        for (idx in firstIndex .. lastIndex) {
             val item = list[idx]
             if (item < range.first || range.last < item) {
                 if (indices == null)
@@ -105,8 +116,9 @@ object LongList {
         list: MutableList<Long>,
         indices: List<Int>,
     ) : List<Long> {
-        if (list.isEmpty() || indices.isEmpty())
-            return emptyList()
+        if (list.isEmpty()
+            || indices.isEmpty()
+        ) return emptyList()
         val valid = indices.filter { it in list.indices }
         if (valid.isEmpty())
             return emptyList()

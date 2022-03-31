@@ -52,15 +52,22 @@ class LongListFindGreaterThanTest {
 
 	@Test
 	fun testStartArg() {
-		val res = Array<List<Int>?>(2) { null }
+		val res = Array<List<Int>?>(3) { null }
 		res[0] = findGreaterThan(
 			u101, 78, 90
 		)
 		res[1] = findGreaterThan(
 			u101, 78, 100
 		)
-		assertEquals(listOf(99, 100), res[0])
-		assertEquals(listOf(100), res[1])
+		res[2] = findGreaterThan(
+			u101, 75, -1
+		)
+		assertEquals(
+			listOf(99, 100), res[0])
+		assertEquals(
+			listOf(100), res[1])
+		assertEquals(
+			5, res[2]?.size)
 	}
 
 	@Test
@@ -75,9 +82,12 @@ class LongListFindGreaterThanTest {
 		res[2] = findGreaterThan(
 			u101, 78, 0, -1
 		)
-		assertEquals(listOf(99, 100), res[0])
-		assertEquals(listOf(99), res[1])
-		assertEquals(0, res[2]?.size)
+		assertEquals(
+			listOf(99, 100), res[0])
+		assertEquals(
+			listOf(99), res[1])
+		assertEquals(
+			0, res[2]?.size)
 	}
 
 	@Test
