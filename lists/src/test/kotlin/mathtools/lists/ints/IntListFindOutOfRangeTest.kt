@@ -109,7 +109,7 @@ class IntListFindOutOfRangeTest {
 			u101, -10 .. 79, 9
 		)
 		val result4 = findOutOfRange(
-			u101, -10 .. 79, -1
+			u101, -19 .. 79, -1
 		)
 		assertEquals(
 			listOf(9), result1)
@@ -118,7 +118,7 @@ class IntListFindOutOfRangeTest {
 		assertEquals(
 			listOf(9, 100), result3)
 		assertEquals(
-			Collections.emptyList<Int>(), result4)
+			listOf(0, 100), result4)
 	}
 
 	@Test

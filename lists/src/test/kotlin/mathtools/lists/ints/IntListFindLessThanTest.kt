@@ -60,22 +60,31 @@ class IntListFindLessThanTest {
 
 	@Test
 	fun testStartArg() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findLessThan(
 			u101, -17, 1
 		)
 		res[1] = findLessThan(
 			u101, -17, 2
 		)
-		res[2] = findLessThan(
-			u101, -17, -1
-		)
 		assertEquals(
 			listOf(1, 2), res[0])
 		assertEquals(
 			listOf(2), res[1])
+	}
+
+	@Test
+	fun testStartArgNegative() {
 		assertEquals(
-			0, res[2]?.size)
+			3, findLessThan(
+				u101, -17, -1
+			).size
+		)
+		assertEquals(
+			3, findLessThan(
+				u101, -17, -1, 98
+			).size
+		)
 	}
 
 	@Test
@@ -120,18 +129,15 @@ class IntListFindLessThanTest {
 
 	@Test
 	fun testBadIndexArgs() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findLessThan(
 			u101, -17, 99, 99
 		)
 		res[1] = findLessThan(
 			u101, -80, 99, 98
 		)
-		res[2] = findLessThan(
-			u101, -17, -1, 98
-		)
 		assertEquals(
-			listOf(0, 0, 0),
+			listOf(0, 0),
 			res.map { it?.size }
 		)
 	}
