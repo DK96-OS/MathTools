@@ -83,6 +83,20 @@ class DoubleListFindLessThanTest {
 	}
 
 	@Test
+	fun testStartArgNegative() {
+		assertEquals(
+			3, findLessThan(
+				u101, -17.5, -1
+			).size
+		)
+		assertEquals(
+			3, findLessThan(
+				u101, -17.5, -1, 3
+			).size
+		)
+	}
+
+	@Test
 	fun testEndArg() {
 		val res = Array<List<Int>?>(3) { null }
 		res[0] = findLessThan(
@@ -94,9 +108,12 @@ class DoubleListFindLessThanTest {
 		res[2] = findLessThan(
 			u101, -17.5, 0, 105
 		)
-		assertEquals(listOf(0, 1, 2), res[0])
-		assertEquals(listOf(0, 1), res[1])
-		assertEquals(listOf(0, 1, 2), res[2])
+		assertEquals(
+			listOf(0, 1, 2), res[0])
+		assertEquals(
+			listOf(0, 1), res[1])
+		assertEquals(
+			listOf(0, 1, 2), res[2])
 	}
 
 	@Test
@@ -108,24 +125,23 @@ class DoubleListFindLessThanTest {
 		res[1] = findLessThan(
 			u101.reversed(), -17.5, 95, 100
 		)
-		assertEquals(listOf(1, 2), res[0])
-		assertEquals(listOf(98, 99), res[1])
+		assertEquals(
+			listOf(1, 2), res[0])
+		assertEquals(
+			listOf(98, 99), res[1])
 	}
 
 	@Test
 	fun testBadIndexArgs() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findLessThan(
 			u101, -17.5, 99, 99
 		)
 		res[1] = findLessThan(
 			u101, -17.5, 99, 98
 		)
-		res[2] = findLessThan(
-			u101, -17.5, -1, 98
-		)
 		assertEquals(
-			listOf(0, 0, 0),
+			listOf(0, 0),
 			res.map { it?.size }
 		)
 	}
@@ -136,7 +152,8 @@ class DoubleListFindLessThanTest {
 		val result = findLessThan(
 			shuffledList, -15.0
 		)
-		assertEquals(5, result.size)
+		assertEquals(
+			5, result.size)
 		assertEquals(
 			(-20 .. -16).toList(),
 			result.map { shuffledList[it].roundToInt() }.sorted()

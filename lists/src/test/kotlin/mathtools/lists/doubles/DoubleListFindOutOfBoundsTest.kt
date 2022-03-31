@@ -154,9 +154,26 @@ class DoubleListFindOutOfBoundsTest {
 		val res3 = findOutOfBounds(
 			u101, -10.0, 79.0, 9
 		)
-		assertEquals(listOf(9), res1)
-		assertEquals(0, res2.size)
-		assertEquals(listOf(9, 100), res3)
+		assertEquals(
+			listOf(9), res1)
+		assertEquals(
+			0, res2.size)
+		assertEquals(
+			listOf(9, 100), res3)
+	}
+
+	@Test
+	fun testStartArgNegative() {
+		assertEquals(
+			6, findOutOfBounds(
+				u101, -17.0, 77.0, -1
+			).size
+		)
+		assertEquals(
+			3, findOutOfBounds(
+				u101, -17.0, 77.0, -1, 91
+			).size
+		)
 	}
 
 	@Test
@@ -170,9 +187,12 @@ class DoubleListFindOutOfBoundsTest {
 		val res3 = findOutOfBounds(
 			u101, -19.0, 70.0, 0, 92
 		)
-		assertEquals(0, res1.size)
-		assertEquals(listOf(100), res2)
-		assertEquals(listOf(0, 91), res3)
+		assertEquals(
+			0, res1.size)
+		assertEquals(
+			listOf(100), res2)
+		assertEquals(
+			listOf(0, 91), res3)
 	}
 
 	@Test
@@ -186,25 +206,25 @@ class DoubleListFindOutOfBoundsTest {
 		val res3 = findOutOfBounds(
 			u101, -10.0, 70.0, 9, 91
 		)
-		assertEquals(listOf(9, 91), res1)
-		assertEquals(91, res2[0])
-		assertEquals(9, res3[0])
+		assertEquals(
+			listOf(9, 91), res1)
+		assertEquals(
+			91, res2[0])
+		assertEquals(
+			9, res3[0])
 	}
 
 	@Test
 	fun testBadIndexArgs() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findOutOfBounds(
 			u101, -10.0, 70.0, 91, 91
 		)
 		res[1] = findOutOfBounds(
 			u101, -10.0, 70.0, 91, 90
 		)
-		res[2] = findOutOfBounds(
-			u101, -10.0, 70.0, -1, 91
-		)
 		assertEquals(
-			listOf(0, 0, 0),
+			listOf(0, 0),
 			res.map { it?.size }
 		)
 	}
@@ -221,10 +241,14 @@ class DoubleListFindOutOfBoundsTest {
 				u101, 10.0, 50.0,
 				indexRangePairs[i].first, indexRangePairs[i].second + 1
 			)
-		assertEquals(25, res[0]!!.size)
-		assertEquals(5, res[1]!!.size)
-		assertEquals(5, res[2]!!.size)
-		assertEquals(25, res[3]!!.size)
+		assertEquals(
+			25, res[0]!!.size)
+		assertEquals(
+			5, res[1]!!.size)
+		assertEquals(
+			5, res[2]!!.size)
+		assertEquals(
+			25, res[3]!!.size)
 	}
 
 }
