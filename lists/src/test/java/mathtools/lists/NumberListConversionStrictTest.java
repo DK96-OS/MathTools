@@ -39,14 +39,18 @@ public final class NumberListConversionStrictTest {
         List<Byte> result = toByteStrict(
             shortList, true
         );
-        assertEquals(1, result.size());
-        assertEquals((byte) 100, result.get(0));
+        assertEquals(
+            1, result.size());
+        assertEquals(
+            (byte) 100, result.get(0));
         // Convert the Int List
         result = toByteStrict(
             intList, true
         );
-        assertEquals(1, result.size());
-        assertEquals((byte) 100, result.get(0));
+        assertEquals(
+            1, result.size());
+        assertEquals(
+            (byte) 100, result.get(0));
     }
 
     @Test
@@ -116,7 +120,8 @@ public final class NumberListConversionStrictTest {
     }
 
     @Test
-    void testLongIgnoreInvalid() {
+    void testLongValid() {
+        // All integers are valid
         List<Long> result = toLongStrict(
             intList, true
         );
@@ -124,7 +129,7 @@ public final class NumberListConversionStrictTest {
             3, result.size());
         assertEquals(
             100L, result.get(0));
-        //
+        // All Longs are valid
         result = toLongStrict(
             longList, true
         );
@@ -132,6 +137,19 @@ public final class NumberListConversionStrictTest {
             4, result.size());
         assertEquals(
             100L, result.get(0));
+    }
+
+    @Test
+    void testLongIgnoreInvalidDecimals() {
+        final List<Long> result = toLongStrict(
+            List.of(2f, 2.5f, 6.0, 7.6), true
+        );
+        assertEquals(
+            2, result.size());
+        assertEquals(
+            2L, result.get(0));
+        assertEquals(
+            6L, result.get(1));
     }
 
     @Test
