@@ -77,4 +77,16 @@ class IntListRemoveByIndicesTest {
 		)
 	}
 
+	@Test
+	fun testInvalidIndicesProvided() {
+		val data = toInt(uniform101)
+		assertEquals(
+			emptyList<Int>(),
+			removeByIndices(data, listOf(-1, 300))
+		)
+		// No items removed
+		assertEquals(
+			uniform101.size, data.size)
+	}
+
 }

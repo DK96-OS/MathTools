@@ -52,7 +52,7 @@ class IntListFindGreaterThanTest {
 
 	@Test
 	fun testStartArg() {
-		val res = Array<List<Int>?>(4) { null }
+		val res = Array<List<Int>?>(3) { null }
 		res[0] = findGreaterThan(
 			u101, 77, 96
 		)
@@ -62,13 +62,21 @@ class IntListFindGreaterThanTest {
 		res[2] = findGreaterThan(
 			u101, 77, 120
 		)
-		res[3] = findGreaterThan(
-			u101, 77, -1
+		assertEquals(
+			listOf(98, 99, 100), res[0])
+		assertEquals(
+			listOf(99, 100), res[1])
+		assertEquals(
+			0, res[2]?.size)
+	}
+
+	@Test
+	fun testStartArgNegative() {
+		assertEquals(
+			3, findGreaterThan(
+				u101, 77, -1
+			).size
 		)
-		assertEquals(listOf(98, 99, 100), res[0])
-		assertEquals(listOf(99, 100), res[1])
-		assertEquals(0, res[2]?.size)
-		assertEquals(0, res[3]?.size)
 	}
 
 	@Test
@@ -86,10 +94,14 @@ class IntListFindGreaterThanTest {
 		res[3] = findGreaterThan(
 			u101, 77, 0, 120
 		)
-		assertEquals(listOf(4, 5), res[0])
-		assertEquals(listOf(4), res[1])
-		assertEquals(0, res[2]?.size)
-		assertEquals(listOf(98, 99, 100), res[3])
+		assertEquals(
+			listOf(4, 5), res[0])
+		assertEquals(
+			listOf(4), res[1])
+		assertEquals(
+			0, res[2]?.size)
+		assertEquals(
+			listOf(98, 99, 100), res[3])
 	}
 
 	@Test
@@ -101,8 +113,10 @@ class IntListFindGreaterThanTest {
 		res[1] = findGreaterThan(
 			u101, 77, 95, 100
 		)
-		assertEquals(listOf(4, 5), res[0])
-		assertEquals(listOf(98, 99), res[1])
+		assertEquals(
+			listOf(4, 5), res[0])
+		assertEquals(
+			listOf(98, 99), res[1])
 	}
 
 	@Test
@@ -113,8 +127,8 @@ class IntListFindGreaterThanTest {
 			).size
 		)
 		assertEquals(
-			0, findGreaterThan(
-				u101, 5, -1
+			5, findGreaterThan(
+				u101, 75, -1
 			).size
 		)
 		assertEquals(

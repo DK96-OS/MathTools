@@ -50,25 +50,46 @@ class LongListFindLessThanTest {
 	}
 
 	@Test
+	fun testLimitMinValue() {
+		assertEquals(
+			0, findLessThan(
+				listOf(45L, Long.MIN_VALUE), Long.MIN_VALUE
+			).size
+		)
+	}
+
+	@Test
 	fun testStartArg() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findLessThan(
 			u101, -17, 1
 		)
 		res[1] = findLessThan(
 			u101, -17, 2
 		)
-		res[2] = findLessThan(
-			u101, -17, -1
+		assertEquals(
+			listOf(1, 2), res[0])
+		assertEquals(
+			listOf(2), res[1])
+	}
+
+	@Test
+	fun testStartArgNegative() {
+		assertEquals(
+			3, findLessThan(
+				u101, -17, -1
+			).size
 		)
-		assertEquals(listOf(1, 2), res[0])
-		assertEquals(listOf(2), res[1])
-		assertEquals(0, res[2]?.size)
+		assertEquals(
+			3, findLessThan(
+				u101, -17, -1, 3
+			).size
+		)
 	}
 
 	@Test
 	fun testEndArg() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(4) { null }
 		res[0] = findLessThan(
 			u101, -17, 0, 6
 		)
@@ -78,9 +99,17 @@ class LongListFindLessThanTest {
 		res[2] = findLessThan(
 			u101, -17, 0, -1
 		)
-		assertEquals(listOf(0, 1, 2), res[0])
-		assertEquals(listOf(0, 1), res[1])
-		assertEquals(0, res[2]?.size)
+		res[3] = findLessThan(
+			u101, -17, 0, 102
+		)
+		assertEquals(
+			listOf(0, 1, 2), res[0])
+		assertEquals(
+			listOf(0, 1), res[1])
+		assertEquals(
+			0, res[2]?.size)
+		assertEquals(
+			listOf(0, 1, 2), res[3])
 	}
 
 	@Test
@@ -92,24 +121,23 @@ class LongListFindLessThanTest {
 		res[1] = findLessThan(
 			u101.reversed(), -17, 95, 100
 		)
-		assertEquals(listOf(1, 2), res[0])
-		assertEquals(listOf(98, 99), res[1])
+		assertEquals(
+			listOf(1, 2), res[0])
+		assertEquals(
+			listOf(98, 99), res[1])
 	}
 
 	@Test
 	fun testBadIndexArgs() {
-		val res = Array<List<Int>?>(3) { null }
+		val res = Array<List<Int>?>(2) { null }
 		res[0] = findLessThan(
 			u101, -17, 99, 99
 		)
 		res[1] = findLessThan(
 			u101, -17, 99, 98
 		)
-		res[2] = findLessThan(
-			u101, -17, -1, 98
-		)
 		assertEquals(
-			listOf(0, 0, 0),
+			listOf(0, 0),
 			res.map { it?.size }
 		)
 	}
