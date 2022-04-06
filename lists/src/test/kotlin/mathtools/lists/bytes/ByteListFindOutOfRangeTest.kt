@@ -132,12 +132,17 @@ class ByteListFindOutOfRangeTest {
 		val result3 = findOutOfRange(
 			u101, -19, 70, 0, 92
 		)
+		val result4 = findOutOfRange(
+			u101, -19, 79, 0, 150
+		)
 		assertEquals(
 			0, result1.size)
 		assertEquals(
 			100, result2[0])
 		assertEquals(
 			listOf(0, 91), result3)
+		assertEquals(
+			listOf(0, 100), result4)
 		//
 		assertEquals(
 			2, findOutOfRange(
