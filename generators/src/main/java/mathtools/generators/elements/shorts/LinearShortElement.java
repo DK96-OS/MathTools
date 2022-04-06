@@ -1,6 +1,13 @@
 package mathtools.generators.elements.shorts;
 
-/** An element with a linearly changing probability
+import java.security.SecureRandom;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+/** An element with a linearly changing probability.
+ *  Max Length (Number of outcomes) = 180
+ *  Max Rate of Change (Linear Slope) = 200
  * @author DK96-OS : 2022 */
 public final class LinearShortElement
 	implements ShortElementInterface {
@@ -9,7 +16,11 @@ public final class LinearShortElement
 
 	private short mRate;
 
-	/** Create a new Linear Short Element
+	private int mLengthStates;
+
+	private final Random mRNG;
+
+	/** Create a new Linear Short Element with SecureRandom RNG
 	 * @param length The number of outcomes
 	 * @param rate The rate of change in probability between outcomes
 	 * @throws IllegalArgumentException if length is negative or zero, or rate is negative or zero
@@ -26,6 +37,30 @@ public final class LinearShortElement
 		//
 		mLength = length;
 		mRate = rate;
+		mLengthStates = countLinearStates(length);
+		mRNG = new SecureRandom();
+	}
+
+	/** Create a new Linear Short Element with a given RNG instance
+	 * @param length The number of outcomes
+	 * @param rate The rate of change in probability between outcomes
+	 * @param rng The Random number generator to use
+	 * @throws IllegalArgumentException if length is negative or zero, or rate is negative or zero
+	 */
+	public LinearShortElement(
+		final short length,
+		final short rate,
+		@Nonnull final Random rng
+	) {    // Validate arguments
+		if (1 > length || 180 < length)
+			throw new IllegalArgumentException("Invalid Length");
+		if (1 > rate || 200 < rate)
+			throw new IllegalArgumentException("Invalid Rate");
+		//
+		mLength = length;
+		mRate = rate;
+		mLengthStates = countLinearStates(length);
+		mRNG = rng;
 	}
 
 	/** Obtain the Range Length, or the number of outcomes */
@@ -45,6 +80,7 @@ public final class LinearShortElement
 		) return false;
 		//
 		mLength = length;
+		mLengthStates = countLinearStates(length);
 		return true;
 	}
 
@@ -71,8 +107,18 @@ public final class LinearShortElement
 
 	@Override
 	public short generate() {
-		// todo:
-		return 0;
+		// Select one of the Element micro-states
+		final int selectedState = mRNG.nextInt(mLengthStates);
+		//
+		int sCounter = mLength - 1;
+		short tCounter = 1;
+		for (;
+		     selectedState > sCounter && mLength > tCounter;
+		     ++tCounter
+		) {
+			sCounter += mLength - tCounter;
+		}
+		return tCounter;
 	}
 
 	/** Calculate the minimum number of Microstates for a Linear element
