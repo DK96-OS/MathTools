@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigInteger
 
-/** Testing the IntList LargeSum function
+/** Testing [ByteList] LargeSum function
  * @author DK96-OS : 2022 */
 class ByteListLargeSumTest {
 

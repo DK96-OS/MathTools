@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 
-/** Testing the IntList FindOutOfRange function
+/** Testing [ByteList] FindOutOfRange function
  * @author DK96-OS : 2022 */
 class ByteListFindOutOfRangeTest {
 

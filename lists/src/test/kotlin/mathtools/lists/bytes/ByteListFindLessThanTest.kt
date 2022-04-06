@@ -6,7 +6,7 @@ import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/** Testing the ByteList FindLessThan function
+/** Testing [ByteList] FindLessThan function
  * @author DK96-OS : 2022 */
 class ByteListFindLessThanTest {
 

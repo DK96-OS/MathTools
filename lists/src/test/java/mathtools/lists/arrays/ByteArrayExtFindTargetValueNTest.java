@@ -7,7 +7,7 @@ import static mathtools.lists.arrays.ByteArrayExtTest.newArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
+/** Testing [ByteArrayExt] FindTargetValueN function
  * @author DK96-OS : 2022 */
 public final class ByteArrayExtFindTargetValueNTest {
 

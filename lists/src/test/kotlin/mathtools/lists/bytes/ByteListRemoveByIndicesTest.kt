@@ -6,7 +6,7 @@ import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-/** Testing IntList RemoveByIndices Function
+/** Testing [ByteList] RemoveByIndices function
  * @author DK96-OS : 2022 */
 class ByteListRemoveByIndicesTest {
 
