@@ -56,7 +56,7 @@ public final class LinearShortElementPerformance {
 	public void compareStateSelectionLarge() {
 		for (int i = 0; trials > i; ++i) {
 			assertEquals(
-				150, mElementLarge.generate());
+				largeLength, mElementLarge.generate());
 		}
 	}
 
