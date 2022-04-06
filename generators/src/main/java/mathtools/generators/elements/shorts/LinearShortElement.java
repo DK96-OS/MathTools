@@ -131,17 +131,33 @@ public final class LinearShortElement
 		if (1 > length) return 0;
 		// Max length is 180
 		if (180 < length) return 16290;
-		// Check for specific lengths
-		switch (length) {
-			case 1: return 1;
-			case 6: return 21;
-			case 20: return 210;
-			case 40: return 820;
-			case 80: return 3240;
-			case 120: return 7260;
-			case 150: return 11325;
-			default: return length + countLinearStates(--length);
+		// Count the states
+		int states;
+		// Split the range of lengths in half
+		if (80 <= length) { // 80+
+			if (150 <= length) { // 150+
+				for (states = 11325; // State count for 150
+				     150 < length;
+				     --length
+				) states += length;
+			} else { // 80 -> 149
+				for (states = 3240;// State count for 80
+				     80 < length;
+				     --length
+				) states += length;
+			}
+		} else if (40 <= length) { // 40 -> 79
+			for (states = 820;   // State count for 40
+			     40 < length;
+			     --length
+			) states += length;
+		} else { // 1 -> 39
+			for (states = 1;
+			     1 < length;
+			     --length
+			) states += length;
 		}
+		return states;
 	}
 
 }
