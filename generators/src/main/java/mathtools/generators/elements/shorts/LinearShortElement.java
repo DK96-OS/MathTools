@@ -18,9 +18,11 @@ public final class LinearShortElement
 		final short length,
 		final short rate
 	) throws IllegalArgumentException {
-		if (1 > length ||
-			1 > rate
-		) throw new IllegalArgumentException();
+		// Validate arguments
+		if (1 > length || 180 < length)
+			throw new IllegalArgumentException("Invalid Length");
+		if (1 > rate || 200 < rate)
+			throw new IllegalArgumentException("Invalid Rate");
 		//
 		mLength = length;
 		mRate = rate;
@@ -38,6 +40,7 @@ public final class LinearShortElement
 		final short length
 	) {
 		if (1 > length ||
+			180 < length ||
 			mLength == length
 		) return false;
 		//
@@ -51,13 +54,14 @@ public final class LinearShortElement
 	}
 
 	/** Sets the rate of change in probability of the element
-	 * @param rate The change in probability between outcomes
+	 * @param rate The change in probability between outcomes. Max 200.
 	 * @return Whether the new value is valid, and has been updated
 	 */
 	public boolean setRate(
 		final short rate
 	) {
 		if (1 > rate ||
+			200 < rate ||
 			mRate == rate
 		) return false;
 		//
