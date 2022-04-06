@@ -1,5 +1,6 @@
 package mathtools.generators.elements.shorts;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +21,9 @@ public final class LinearShortElementTest {
 
 	private static final short initialLength = 6;
 	private static final short initialRate = 1;
+
+	private static final short maxLength = 180;
+	private static final short maxRate = 200;
 
 	@BeforeEach
 	public void testSetup() {
@@ -67,6 +71,21 @@ public final class LinearShortElementTest {
 	}
 
 	@Test
+	public void testConstructorMaxValues() {
+		assertDoesNotThrow(
+			() -> new LinearShortElement(maxLength, maxRate));
+		// If either value is increased, it will throw
+		assertThrows(IllegalArgumentException.class,
+			() -> new LinearShortElement(
+				(short) (maxLength + 1), maxRate
+			));
+		assertThrows(IllegalArgumentException.class,
+			() -> new LinearShortElement(
+				maxLength, (short) (maxRate + 1)
+			));
+	}
+
+	@Test
 	public void testLengthSetter() {
 		assertFalse(
 			mElement.setLength(initialLength));
@@ -75,10 +94,14 @@ public final class LinearShortElementTest {
 			mElement.setLength((short) 80));
 		assertEquals(
 			80, mElement.getLength());
+	}
+
+	@Test
+	public void testLengthSetterMaximumValue() {
 		assertTrue(
-			mElement.setLength((short) 1));
+			mElement.setLength(maxLength)); // Maximum accepted value
 		assertEquals(
-			1, mElement.getLength());
+			maxLength, mElement.getLength());
 	}
 
 	@Test
@@ -86,7 +109,7 @@ public final class LinearShortElementTest {
 		assertFalse(
 			mElement.setLength((short) 0));
 		assertFalse(
-			mElement.setLength((short) 181));
+			mElement.setLength((short) (maxLength + 1)));
 		// Value is the same as initial
 		assertEquals(
 			initialLength, mElement.getLength());
@@ -106,9 +129,9 @@ public final class LinearShortElementTest {
 	@Test
 	public void testRateSetterMaximumValue() {
 		assertTrue(
-			mElement.setRate((short) 200)); // Maximum accepted value
+			mElement.setRate(maxRate)); // Maximum accepted value
 		assertEquals(
-			200, mElement.getRate());
+			maxRate, mElement.getRate());
 	}
 
 	@Test
@@ -116,7 +139,7 @@ public final class LinearShortElementTest {
 		assertFalse(
 			mElement.setRate((short) 0));
 		assertFalse(
-			mElement.setRate((short) 201));
+			mElement.setRate((short) (maxRate + 1)));
 		assertEquals(
 			initialRate, mElement.getRate());
 	}
