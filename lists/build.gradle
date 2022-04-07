@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.4.3"
+			version = "0.4.4"
 			from components.java
 		}
 	}
@@ -29,10 +29,6 @@ publishing {
 
 dependencies {
 	api guava
-
-	// Align versions of all Kotlin components
-	implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 	// Coroutine support
 	//implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
