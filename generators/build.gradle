@@ -21,14 +21,13 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.4.3"
+			version = "0.4.4"
 			from components.java
 		}
 	}
 }
 
 dependencies {
-	api project(":lists")
 	api project(":statistics")
 	api project(":numbers")
 
@@ -80,11 +79,11 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.9
+				minimum = 0.95
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.9
+				minimum = 0.92
 			}
 		}
 	}
