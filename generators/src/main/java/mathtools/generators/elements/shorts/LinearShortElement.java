@@ -14,51 +14,39 @@ public final class LinearShortElement
 
 	private short mLength;
 
-	private short mRate;
-
 	private int mLengthStates;
 
 	private final Random mRNG;
 
 	/** Create a new Linear Short Element with SecureRandom RNG
 	 * @param length The number of outcomes
-	 * @param rate The rate of change in probability between outcomes
 	 * @throws IllegalArgumentException if length is negative or zero, or rate is negative or zero
 	 */
 	public LinearShortElement(
-		final short length,
-		final short rate
+		final short length
 	) throws IllegalArgumentException {
 		// Validate arguments
 		if (1 > length || 180 < length)
 			throw new IllegalArgumentException("Invalid Length");
-		if (1 > rate || 200 < rate)
-			throw new IllegalArgumentException("Invalid Rate");
 		//
 		mLength = length;
-		mRate = rate;
 		mLengthStates = countLinearStates(length);
 		mRNG = new SecureRandom();
 	}
 
 	/** Create a new Linear Short Element with a given RNG instance
 	 * @param length The number of outcomes
-	 * @param rate The rate of change in probability between outcomes
 	 * @param rng The Random number generator to use
 	 * @throws IllegalArgumentException if length is negative or zero, or rate is negative or zero
 	 */
 	public LinearShortElement(
 		final short length,
-		final short rate,
 		@Nonnull final Random rng
 	) {    // Validate arguments
 		if (1 > length || 180 < length)
 			throw new IllegalArgumentException("Invalid Length");
-		if (1 > rate || 200 < rate)
-			throw new IllegalArgumentException("Invalid Rate");
 		//
 		mLength = length;
-		mRate = rate;
 		mLengthStates = countLinearStates(length);
 		mRNG = rng;
 	}
@@ -81,27 +69,6 @@ public final class LinearShortElement
 		//
 		mLength = length;
 		mLengthStates = countLinearStates(length);
-		return true;
-	}
-
-	/** Obtain the rate of change in probability between outcomes */
-	public short getRate() {
-		return mRate;
-	}
-
-	/** Sets the rate of change in probability of the element
-	 * @param rate The change in probability between outcomes. Max 200.
-	 * @return Whether the new value is valid, and has been updated
-	 */
-	public boolean setRate(
-		final short rate
-	) {
-		if (1 > rate ||
-			200 < rate ||
-			mRate == rate
-		) return false;
-		//
-		mRate = rate;
 		return true;
 	}
 

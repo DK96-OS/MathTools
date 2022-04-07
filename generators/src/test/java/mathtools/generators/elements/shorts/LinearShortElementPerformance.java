@@ -13,8 +13,6 @@ import mathtools.generators.RandomProvider;
 /** Compare the Performance of [LinearShortElement] scenarios */
 public final class LinearShortElementPerformance {
 
-	private static final short initialRate = 1;
-
 	private LinearShortElement mElement1;
 	private LinearShortElement mElementLarge;
 
@@ -29,10 +27,10 @@ public final class LinearShortElementPerformance {
 	@BeforeEach
 	public void testSetup() {
 		mElement1 = new LinearShortElement(
-			largeLength, initialRate, mFixedRandom1
+			largeLength, mFixedRandom1
 		);
 		mElementLarge = new LinearShortElement(
-			largeLength, initialRate, mFixedRandomLarge
+			largeLength, mFixedRandomLarge
 		);
 	}
 
