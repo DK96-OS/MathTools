@@ -39,7 +39,11 @@ public final class RandomProvider {
 			private final int mSecond = second;
 
 			@Override
-			public int nextInt(int bound) { return nextInt(); }
+			public int nextInt(
+				final int bound
+			) {
+				return nextInt();
+			}
 
 			@Override
 			public int nextInt() {
