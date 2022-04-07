@@ -20,7 +20,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "statistics"
-			version = "0.4.3"
+			version = "0.4.4"
 			from components.java
 		}
 	}
@@ -29,13 +29,9 @@ publishing {
 dependencies {
 	api project(":lists")
 
-	// Align versions of all Kotlin components
-	implementation platform("org.jetbrains.kotlin:kotlin-bom")
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
 	// Coroutine support
-	//implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
-	//testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+	//implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+	//testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
 
 	// JUnit 5
 	testImplementation platform("org.junit:junit-bom:5.7.2")
