@@ -13,7 +13,7 @@ public final class TimeMeasurement {
 	/** Initialize a Time Measurement
 	 * Records the time that this was created */
 	public TimeMeasurement() {
-		mStart = System.currentTimeMillis();
+		mStart = System.nanoTime();
 	}
 
 	/** Obtain the measurement
@@ -22,7 +22,7 @@ public final class TimeMeasurement {
 	public long measure() {
 		// If an end time has not been recorded
 		if (null == mEnd) {
-			mEnd = System.currentTimeMillis();
+			mEnd = System.nanoTime();
 		}
 		// Compute the Difference
 		return mEnd - mStart;
@@ -30,7 +30,7 @@ public final class TimeMeasurement {
 
 	/** Reset the Start time */
 	public void reset() {
-		mStart = System.currentTimeMillis();
+		mStart = System.nanoTime();
 		mEnd = null;
 	}
 
