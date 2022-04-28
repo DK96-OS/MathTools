@@ -1,0 +1,174 @@
+package mathtools.numbers.primes;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+
+import kotlin.ranges.IntRange;
+import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
+
+/** Testing [PrimeNumberTools] ReduceByPrimeRange method
+ * @author DK96-OS : 2022 */
+public final class PrimeNumberToolsReduceByPrimeRangeTest {
+
+	private final PrimeNumberTools INST = PrimeNumberTools.INSTANCE;
+
+	@ParameterizedTest
+	@ArgumentsSource(
+		PrimeCacheArgumentProvider.class
+	)
+	public void testReduceByPrimesInvalidRange(
+		final PrimeCacheInterface cache
+	) {
+		// Negative valued ranges are ignored
+		assertNull(
+			INST.reduceByPrimeRange(
+				new IntRange(-3, -1),
+				-30,
+				cache
+			)
+		);
+		// The invalid region of the range is ignored
+		assertNull(
+			INST.reduceByPrimeRange(
+				new IntRange(-3, 3),
+				-60,
+				cache
+			)
+		);
+		// Invalid region is ignored
+		assertEquals(
+			-15,
+			INST.reduceByPrimeRange(
+				new IntRange(-1, 0),
+				-60,
+				cache
+			)
+		);
+	}
+
+	@ParameterizedTest
+	@ArgumentsSource(
+		PrimeCacheArgumentProvider.class
+	)
+	public void testReduceByPrimesReversedRange(
+		final PrimeCacheInterface cache
+	) {
+		assertEquals(
+			4,
+			INST.reduceByPrimeRange(
+				new IntRange(2, 1),
+				60,
+				cache
+			)
+		);
+		assertEquals(
+			-4,
+			INST.reduceByPrimeRange(
+				new IntRange(2, 1),
+				-60,
+				cache
+			)
+		);
+	}
+
+	@ParameterizedTest
+	@ArgumentsSource(
+		PrimeCacheArgumentProvider.class
+	)
+	public void testReduceByPrimesIndivisibleProduct(
+		final PrimeCacheInterface cache
+	) {
+		assertNull(
+			INST.reduceByPrimeRange(
+				new IntRange(1, 3),
+				-1,
+				cache
+			)
+		);
+		assertNull(
+			INST.reduceByPrimeRange(
+				new IntRange(1, 3),
+				0,
+				cache
+			)
+		);
+		assertNull(
+			INST.reduceByPrimeRange(
+				new IntRange(1, 3),
+				1,
+				cache
+			)
+		);
+	}
+
+	@ParameterizedTest
+	@ArgumentsSource(
+		PrimeCacheArgumentProvider.class
+	)
+	public void testReduceByPrimesNegative(
+		final PrimeCacheInterface cache
+	) {
+		assertEquals(
+			-2,
+			INST.reduceByPrimeRange(
+				new IntRange(1, 2),
+				-30,
+				cache
+			)
+		);
+		assertEquals(
+			-4,
+			INST.reduceByPrimeRange(
+				new IntRange(1, 2),
+				-60,
+				cache
+			)
+		);
+		assertEquals(
+			-12,
+			INST.reduceByPrimeRange(
+				new IntRange(2, 3),
+				-60,
+				cache
+			)
+		);
+	}
+
+	@ParameterizedTest
+	@ArgumentsSource(
+		PrimeCacheArgumentProvider.class
+	)
+	public void testReduceByPrimes(
+		final PrimeCacheInterface cache
+	) {
+		assertEquals(
+			2,
+			INST.reduceByPrimeRange(
+				new IntRange(1, 2),
+				30,
+				cache
+			)
+		);
+		assertEquals(
+			4,
+			INST.reduceByPrimeRange(
+				new IntRange(1, 5),
+				60,
+				cache
+			)
+		);
+		assertEquals(
+			12,
+			INST.reduceByPrimeRange(
+				new IntRange(2, 2),
+				60,
+				cache
+			)
+		);
+	}
+
+
+}
