@@ -84,7 +84,9 @@ public final class PrimeValidation {
 		// If this function isn't being used properly, throw Exception
 		if (5 > testNum || BitFactoring.isProductOf2(testNum))
 			throw new IllegalArgumentException(
-				"Improper use of findPrime method"
+				String.format(
+					"Invalid findPrime method argument: %d", testNum
+				)
 			);
 		// Additional conditions on this method may include:
 		// - testNum should be greater than the maximum static prime
