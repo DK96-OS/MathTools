@@ -33,8 +33,12 @@ public final class StaticPrimes {
 	public static boolean containsNumber(
 		final int number
 	) {
-		if (number > initArray.length)
+		final byte maxPrime = initArray[MAX_INDEX];
+		// Compare with the highest value in the array
+		if (number > maxPrime)
 			return false;
+		else if (number == maxPrime)
+			return true;
 		// If it is prime, it will be in the static array
 		//todo: Use a logarithmic algorithm, this is linear (but limited to 16 operations)
 		final int targetIndex = ByteArrayExt.findTargetValueN(
