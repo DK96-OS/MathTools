@@ -63,7 +63,7 @@ public final class PrimeFactoringGetPrimeFactorsTest {
 			final IntPair primePair = factors.get(0);
 			// The only Prime Factor is a 9
 			assertEquals(
-				9, primePair.getFirst());
+				7, primePair.getFirst());
 			// The power matches
 			assertEquals(
 				power, primePair.getSecond());
