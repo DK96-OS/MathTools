@@ -96,6 +96,7 @@ public final class PrimeFactoring {
     /** Determine if number contains prime above limit.
      * @param number The number to check.
      * @param limit The maximum prime number allowed.
+     * @param cache The PrimeCache Interface that will provide prime numbers
      * @return Whether number contains a prime factor above the limit.
      */
     public static boolean hasPrimeAbove(
