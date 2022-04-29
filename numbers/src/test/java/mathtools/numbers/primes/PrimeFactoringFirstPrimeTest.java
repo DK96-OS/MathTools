@@ -2,13 +2,12 @@ package mathtools.numbers.primes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-
-import javax.annotation.Nonnull;
 
 import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
 
@@ -16,59 +15,64 @@ import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
  * @author DK96-OS : 2022 */
 public final class PrimeFactoringFirstPrimeTest {
 
-    private final PrimeCacheInterface cache = new BytePrimeCache();
+    private final PrimeCacheInterface cache = new ShortPrimeCache();
 
-    @ParameterizedTest
-    @ArgumentsSource(
-        PrimeCacheArgumentProvider.class
-    )
-    public void testFirstPrimeAbove(
-        @Nonnull final PrimeCacheInterface cache
-    ) {
+    @Test
+    public void testSmallFirstPrimes() {
         assertEquals(
             7, firstPrimeAbove(49, 6, cache));
+        assertEquals(
+            5, firstPrimeAbove(5000, 4, cache));
+        assertEquals(
+            5, firstPrimeAbove(10_000, 4, cache));
+        assertEquals(
+            5, firstPrimeAbove(1_000_000, 2, cache));
+        assertEquals(
+            3, firstPrimeAbove(3_000_000, 2, cache));
+    }
+
+    @Test
+    public void testNullResults() {
         assertNull(
             firstPrimeAbove(49, 7, cache));
-        //
-        assertEquals(
-            5, firstPrimeAbove(5000, 4, cache));
-        assertEquals(
-            5, firstPrimeAbove(5000, 4, cache));
-        //
         assertNull(
             firstPrimeAbove(5000, 71, cache));
         assertNull(
             firstPrimeAbove(5000, 5, cache));
+        assertNull(
+            firstPrimeAbove(10_000, 5, cache));
+        assertNull(
+            firstPrimeAbove(1_000_000, 5, cache));
     }
 
-    @ParameterizedTest
-    @ArgumentsSource(
-        PrimeCacheArgumentProvider.class
-    )
-    public void testFirstPrimeAboveArgsNegative(
-        @Nonnull final PrimeCacheInterface cache
-    ) {
-        // Check negative inputs
+    @Test
+    public void testNegativeNumber() {
         assertEquals(
             5, firstPrimeAbove(-5000, 4, cache));
         assertNull(
             firstPrimeAbove(-5000, 71, cache));
-        // Null when limit is negative
-        assertNull(
-            firstPrimeAbove(5000, -4, cache));
-        assertNull(
-            firstPrimeAbove(-49, -6, cache));
     }
 
     @Test
-    public void testFirstPrimeAboveArgsMinValue() {
-        final PrimeCacheInterface cache = new ShortPrimeCache();
+    public void testNegativeLimit() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> firstPrimeAbove(5000, -4, cache)
+        );
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> firstPrimeAbove(-49, -6, cache)
+        );
+    }
+
+    @Test
+    public void testMinValue() {
         assertNull(
             firstPrimeAbove(Long.MIN_VALUE, 200, cache));
     }
 
     @Test
-    public void testFirstPrimeAboveArgsProductBaseCases() {
+    public void testProductBaseCases() {
         assertNull(
             firstPrimeAbove(2, 2, cache));
         assertNull(
@@ -125,27 +129,17 @@ public final class PrimeFactoringFirstPrimeTest {
             7,
             firstPrimeAbove(-49, 6, cache)
         );
-        // Null when limit is negative
-        assertNull(
-            firstPrimeAbove(-5000, -4, cache));
-        assertNull(
-            firstPrimeAbove(-49, -6, cache));
     }
 
-    @ParameterizedTest
-    @ArgumentsSource(
-        PrimeCacheArgumentProvider.class
-    )
-    public void testFirstPrimeAboveLimitInvalid(
-        final PrimeCacheInterface cache
-    ) {
+    @Test
+    public void testFirstPrimeAboveLimitInvalid() {
         // Null when product is 1 or zero
         assertNull(
-            firstPrimeAbove(-1, 5, cache));
+            firstPrimeAbove(-1, 3, cache));
         assertNull(
-            firstPrimeAbove(0, 5, cache));
+            firstPrimeAbove(0, 3, cache));
         assertNull(
-            firstPrimeAbove(1, 5, cache));
+            firstPrimeAbove(1, 3, cache));
     }
 
 }
