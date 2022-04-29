@@ -14,29 +14,29 @@ import javax.annotation.Nullable;
 
 /** Static functions for Statistics
  * @author DK96-OS : 2022 */
-final class DistributionStatistics {
-
-    private DistributionStatistics() {}
+public final class DistributionStatistics {
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final byte[] array
+    public static DistributionStats process(
+        @Nonnull final byte[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                SignedBytes.min(array),
-                SignedBytes.max(array)
+            mean,
+            calculateSDev(array, mean),
+            SignedBytes.min(array),
+            SignedBytes.max(array)
         );
     }
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final short[] array
+    public static DistributionStats process(
+        @Nonnull final short[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
                 mean,
@@ -47,10 +47,11 @@ final class DistributionStatistics {
     }
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final int[] array
+    public static DistributionStats process(
+        @Nonnull final int[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
                 mean,
@@ -61,10 +62,11 @@ final class DistributionStatistics {
     }
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final long[] array
+    public static DistributionStats process(
+        @Nonnull final long[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
                 mean,
@@ -75,31 +77,35 @@ final class DistributionStatistics {
     }
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final float[] array
+    public static DistributionStats process(
+        @Nonnull final float[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                Floats.min(array),
-                Floats.max(array)
+            mean,
+            calculateSDev(array, mean),
+            Floats.min(array),
+            Floats.max(array)
         );
     }
 
     @Nullable
-    static DistributionStats process(
-            @Nonnull final double[] array
+    public static DistributionStats process(
+        @Nonnull final double[] array
     ) {
-        if (array.length < 2) return null;
+        if (2 > array.length)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                Doubles.min(array),
-                Doubles.max(array)
+            mean,
+            calculateSDev(array, mean),
+            Doubles.min(array),
+            Doubles.max(array)
         );
     }
+
+    private DistributionStatistics() {}
 
 }
