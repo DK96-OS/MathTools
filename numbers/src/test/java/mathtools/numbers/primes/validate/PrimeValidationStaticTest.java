@@ -40,7 +40,9 @@ public final class PrimeValidationStaticTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(ints = { 3, 5, 7, 19, 29, 47, 53, 59, 61, 67, 71, 73, 101 })
+	@ValueSource(ints = {
+		3, 5, 7, 19, 29, 47, 53, 59, 61, 67, 71, 73, 101
+	})
 	public void testIsPrimeMultiples(
 		final int prime
 	) {

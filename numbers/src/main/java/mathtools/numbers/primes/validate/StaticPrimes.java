@@ -50,4 +50,6 @@ public final class StaticPrimes {
 		return -1 < targetIndex;
 	}
 
+	private StaticPrimes() {}
+
 }
