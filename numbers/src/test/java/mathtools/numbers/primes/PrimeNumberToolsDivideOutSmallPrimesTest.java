@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
 
@@ -15,56 +16,45 @@ import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
  * @author DK96-OS : 2022 */
 public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 
-	private final PrimeNumberTools INST = PrimeNumberTools.INSTANCE;
-
 	private final PrimeCacheInterface cache = new BytePrimeCache();
 
 	@Test
 	public void testInvalidProduct() {
 		assertNull(
-			INST.divideOutSmallPrimes(
-				1, 7, cache)
-		);
+			divideOutSmallPrimes(
+				1, 7, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				0, 7, cache)
-		);
+			divideOutSmallPrimes(
+				0, 7, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				-1, 7, cache)
-		);
+			divideOutSmallPrimes(
+				-1, 7, cache));
 	}
 
 	@Test
 	public void testInvalidMaxPrime() {
 		assertNull(
-			INST.divideOutSmallPrimes(
-				20, 1, cache)
-		);
+			divideOutSmallPrimes(
+				20, 1, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				20, 0, cache)
-		);
+			divideOutSmallPrimes(
+				20, 0, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				20, -1, cache)
-		);
+			divideOutSmallPrimes(
+				20, -1, cache));
 	}
 
 	@Test
 	public void testEqualInputs() {
 		assertNull(
-			INST.divideOutSmallPrimes(
-				7, 7, cache)
-		);
+			divideOutSmallPrimes(
+				7, 7, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				20, 20, cache)
-		);
+			divideOutSmallPrimes(
+				20, 20, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				Integer.MAX_VALUE, Integer.MAX_VALUE, cache)
-		);
+			divideOutSmallPrimes(
+				Integer.MAX_VALUE, Integer.MAX_VALUE, cache));
 	}
 
 	@ParameterizedTest
@@ -75,24 +65,17 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertEquals(
-			25,
-			INST.divideOutSmallPrimes(
-				100, 2, cache)
-		);
+			25, divideOutSmallPrimes(
+				100, 2, cache));
 		assertEquals(
-			25,
-			INST.divideOutSmallPrimes(
-				100, 3, cache)
-		);
+			25, divideOutSmallPrimes(
+				100, 3, cache));
 		assertEquals(
-			25,
-			INST.divideOutSmallPrimes(
-				100, 4, cache)
-		);
+			25, divideOutSmallPrimes(
+				100, 4, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				100, 5, cache)
-		);
+			divideOutSmallPrimes(
+				100, 5, cache));
 	}
 
 	@ParameterizedTest
@@ -103,15 +86,11 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertEquals(
-			11,
-			INST.divideOutSmallPrimes(
-				77, 7, cache)
-		);
+			11, divideOutSmallPrimes(
+				77, 7, cache));
 		assertEquals(
-			11,
-			INST.divideOutSmallPrimes(
-				77, 9, cache)
-		);
+			11, divideOutSmallPrimes(
+				77, 9, cache));
 	}
 
 	@ParameterizedTest
@@ -122,14 +101,11 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertEquals(
-			53,
-			INST.divideOutSmallPrimes(
-				53, 43, cache)
-		);
+			53, divideOutSmallPrimes(
+				53, 43, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				53, 53, cache)
-		);
+			divideOutSmallPrimes(
+				53, 53, cache));
 	}
 
 	@ParameterizedTest
@@ -138,12 +114,25 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 		@Nonnull final PrimeCacheInterface cache
 	) {
 		assertNull(
-			INST.divideOutSmallPrimes(
-				-50, 43, cache)
-		);
+			divideOutSmallPrimes(
+				-50, 43, cache));
 		assertNull(
-			INST.divideOutSmallPrimes(
-				-100, 5, cache)
+			divideOutSmallPrimes(
+				-100, 5, cache));
+	}
+
+	/** Call divideOutSmallPrimes in PrimeNumberTools
+	 */
+	@Nullable
+	private static Long divideOutSmallPrimes(
+		final long product,
+		final long maxPrime,
+		@Nonnull final PrimeCacheInterface cache
+	) {
+		return PrimeNumberTools.INSTANCE.divideOutSmallPrimes(
+			product,
+			maxPrime,
+			cache
 		);
 	}
 
