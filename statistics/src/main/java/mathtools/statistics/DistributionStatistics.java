@@ -12,10 +12,14 @@ import com.google.common.primitives.SignedBytes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** Static functions for Statistics
+/** Array Statistics Functions
  * @author DK96-OS : 2022 */
 public final class DistributionStatistics {
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final byte[] array
@@ -31,6 +35,10 @@ public final class DistributionStatistics {
         );
     }
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final short[] array
@@ -46,6 +54,10 @@ public final class DistributionStatistics {
         );
     }
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final int[] array
@@ -61,6 +73,10 @@ public final class DistributionStatistics {
         );
     }
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final long[] array
@@ -76,6 +92,10 @@ public final class DistributionStatistics {
         );
     }
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final float[] array
@@ -91,6 +111,10 @@ public final class DistributionStatistics {
         );
     }
 
+    /** Process an Array to determine it's DistributionStats
+     * @param array The Array to be processed
+     * @return A DistributionStats representing the Array data
+     */
     @Nullable
     public static DistributionStats process(
         @Nonnull final double[] array
