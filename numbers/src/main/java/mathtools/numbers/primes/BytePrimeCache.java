@@ -16,8 +16,10 @@ public class BytePrimeCache
 	/** The largest prime value that can be stored */
 	public static final int MAX_PRIME = 251;
 
+	/** The internal array used to store prime number representations */
 	private byte[] mArray;
 
+	/** This Index is updated everywhere that reassigns the Array */
 	private byte mHighestCachedIndex = StaticPrimes.MAX_INDEX;  // The static array contains 16 elements
 
 	@Override
@@ -27,7 +29,9 @@ public class BytePrimeCache
 	public int getMaxPrime() { return MAX_PRIME; }
 
 	@Override
-	public int getHighestCachedIndex() { return mHighestCachedIndex; }
+	public int getHighestCachedIndex() {
+		return mHighestCachedIndex;
+	}
 
 	@Override
 	public void clear() {
@@ -98,15 +102,20 @@ public class BytePrimeCache
 		final int arrayIndex,
 		final int value
 	) {
-		if (255 >= value) {
+		if (256 > value) {
+			// Values up to 256 (excluded) can be represented
 			if (Byte.MAX_VALUE < value) {
+				// Values greater than 127 need to be translated
 				array[arrayIndex] = (byte) (value - 256);
 				return true;
-			} else if (0 < value) {
+			} else if (-1 < value) {
+				// Small non-negative are okay
 				array[arrayIndex] = (byte) value;
 				return true;
 			}
+			// Negative values are invalid
 		}
+		// Values 256+ are currently invalid
 		throw new IllegalArgumentException(
 			String.format(
 				"Invalid input: %d", value
