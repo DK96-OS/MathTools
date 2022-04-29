@@ -65,25 +65,4 @@ class DistributionStatsTest {
         }
     }
 
-    @Test
-    fun testEmptyList() {
-        assertEquals(
-            null,
-            DistributionStats.process(emptyList())
-        )
-    }
-
-    @Test
-    fun testSingleList() {
-        DistributionStats.process(
-	        listOf(24L)
-        )!!.apply {
-            assertEquals(24.0, mean)
-            assertEquals(0.0, standardDeviation)
-            assertEquals(24.0, min)
-            assertEquals(24.0, max)
-
-        }
-    }
-
 }

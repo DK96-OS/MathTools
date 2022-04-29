@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.4.4"
+			version = "0.5"
 			from components.java
 		}
 	}
