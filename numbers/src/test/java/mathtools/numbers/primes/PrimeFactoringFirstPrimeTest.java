@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static mathtools.numbers.primes.PrimeFactoring.firstPrimeAbove;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ArgumentsSource;
-
-import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
 
 /** Testing [PrimeFactoring] firstPrime method
  * @author DK96-OS : 2022 */
@@ -29,6 +25,10 @@ public final class PrimeFactoringFirstPrimeTest {
             5, firstPrimeAbove(1_000_000, 2, cache));
         assertEquals(
             3, firstPrimeAbove(3_000_000, 2, cache));
+        assertEquals(
+            5, firstPrimeAbove(3_000_000, 3, cache));
+        assertEquals(
+            2, firstPrimeAbove(1_000_000, 1, cache));
     }
 
     @Test
@@ -51,6 +51,8 @@ public final class PrimeFactoringFirstPrimeTest {
             5, firstPrimeAbove(-5000, 4, cache));
         assertNull(
             firstPrimeAbove(-5000, 71, cache));
+        assertEquals(
+            7, firstPrimeAbove(-49, 6, cache));
     }
 
     @Test
@@ -72,74 +74,13 @@ public final class PrimeFactoringFirstPrimeTest {
     }
 
     @Test
-    public void testProductBaseCases() {
-        assertNull(
-            firstPrimeAbove(2, 2, cache));
-        assertNull(
-            firstPrimeAbove(2, 10, cache));
+    public void testNumberBaseCases() {
         assertNull(
             firstPrimeAbove(1, 10, cache));
         assertNull(
             firstPrimeAbove(0, 10, cache));
         assertNull(
             firstPrimeAbove(-1, 10, cache));
-        assertNull(
-            firstPrimeAbove(-2, 2, cache));
-    }
-
-    @ParameterizedTest
-    @ArgumentsSource(
-        PrimeCacheArgumentProvider.class
-    )
-    public void testFirstPrimeAboveLimit(
-        final PrimeCacheInterface cache
-    ) {
-        assertNull(
-            firstPrimeAbove(5000, 71, cache));
-        assertNull(
-            firstPrimeAbove(5000, 5, cache));
-        assertEquals(
-            5,
-            firstPrimeAbove(5000, 4, cache));
-        assertEquals(
-            5,
-            firstPrimeAbove(5000, 4, cache));
-        assertEquals(
-            7,
-            firstPrimeAbove(49, 6, cache));
-        assertNull(
-            firstPrimeAbove(49, 7, cache));
-    }
-
-    @ParameterizedTest
-    @ArgumentsSource(
-        PrimeCacheArgumentProvider.class
-    )
-    public void testFirstPrimeAboveLimitNegative(
-        final PrimeCacheInterface cache
-    ) {
-        // Ignore negative sign on product
-        assertNull(
-            firstPrimeAbove(-5000, 71, cache));
-        assertEquals(
-            5,
-            firstPrimeAbove(-5000, 4, cache)
-        );
-        assertEquals(
-            7,
-            firstPrimeAbove(-49, 6, cache)
-        );
-    }
-
-    @Test
-    public void testFirstPrimeAboveLimitInvalid() {
-        // Null when product is 1 or zero
-        assertNull(
-            firstPrimeAbove(-1, 3, cache));
-        assertNull(
-            firstPrimeAbove(0, 3, cache));
-        assertNull(
-            firstPrimeAbove(1, 3, cache));
     }
 
 }
