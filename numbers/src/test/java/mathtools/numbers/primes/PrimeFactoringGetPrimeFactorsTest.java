@@ -48,6 +48,34 @@ public final class PrimeFactoringGetPrimeFactorsTest {
 	}
 
 	@Test
+	public void testProductsOf7() {
+		int product = 7;
+		for (
+			byte power = 1;
+			9 > power;
+			++power
+		) {
+			final List<IntPair> factors = getPrimeFactors(
+				product, cache
+			);
+			assertEquals(
+				1, factors.size());
+			final IntPair primePair = factors.get(0);
+			// The only Prime Factor is a 9
+			assertEquals(
+				9, primePair.getFirst());
+			// The power matches
+			assertEquals(
+				power, primePair.getSecond());
+			// Increase the Product with the Power
+			product *= 7;
+			System.out.printf(
+				"Increased Product to %d", product
+			);
+		}
+	}
+
+	@Test
 	public void testInvalidProduct() {
 		assertEquals(
 			0, getPrimeFactors(1, cache).size());

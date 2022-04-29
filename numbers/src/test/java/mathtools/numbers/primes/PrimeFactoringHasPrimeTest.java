@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import mathtools.numbers.primes.cache.PrimeCacheArgumentProvider;
 
-/** Testing [PrimeFactoring] hasPrime method
+/** Testing [PrimeFactoring] hasPrimeAbove method
  * @author DK96-OS : 2018 - 2022 */
 public final class PrimeFactoringHasPrimeTest {
 
@@ -48,6 +48,26 @@ public final class PrimeFactoringHasPrimeTest {
 			hasPrimeAbove(34, 11, cache));
 		assertTrue(
 			hasPrimeAbove(39, 11, cache));
+	}
+
+	@Test
+	public void testNumberMinValue() {
+		assertFalse(
+			hasPrimeAbove(Long.MIN_VALUE, 50,cache));
+		assertFalse(
+			hasPrimeAbove(301, Long.MIN_VALUE, cache));
+		assertFalse(
+			hasPrimeAbove(Long.MIN_VALUE, Long.MIN_VALUE, cache));
+	}
+
+	@Test
+	public void testNumberMaxValue() {
+		assertTrue(
+			hasPrimeAbove(Long.MAX_VALUE, 50, cache));
+		assertFalse(
+			hasPrimeAbove(301, Long.MAX_VALUE, cache));
+		assertFalse(
+			hasPrimeAbove(Long.MAX_VALUE, Long.MAX_VALUE, cache));
 	}
 
 }
