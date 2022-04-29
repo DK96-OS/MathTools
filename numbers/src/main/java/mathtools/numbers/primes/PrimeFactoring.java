@@ -20,10 +20,11 @@ public final class PrimeFactoring {
 
     /** Obtain lowest Prime Number Factor that is greater than the limit.
      *  Checks all primes below limit and divides them from the number.
-     * @param number The number to check for prime factors
-     * @param limit The maximum value of any prime number that can be allowed
-     * @param cache A PrimeCacheBase instance for obtaining Prime Numbers
+     * @param number The number to decompose into prime factors
+     * @param limit The maximum prime number to ignore. Should be positive, greater than 1.
+     * @param cache A PrimeCache Interface that will provide Prime Numbers
      * @return The first prime number above limit, or null if none found
+     * @throws IllegalArgumentException If the Limit is zero or negative
      */
     @Nullable
     public static Long firstPrimeAbove(
@@ -61,7 +62,8 @@ public final class PrimeFactoring {
                 // If the number was factored
                 if (factoredProduct != number) {
                     // If the number is now below the limit
-                    if (factoredProduct <= limit) return null;
+                    if (factoredProduct <= limit)
+                        return null;
                     // Update
                     number = factoredProduct;
                 }
@@ -83,28 +85,41 @@ public final class PrimeFactoring {
         // Flip all negative limits
         if (0 > limit) {
             // Protect against MinValue
-            if (Long.MIN_VALUE == limit) return false;
-            return hasPrimeAbove(number, -limit, cache);
+            if (Long.MIN_VALUE == limit)
+                return false;
+            return hasPrimeAbove(
+                number,
+                -limit,
+                cache
+            );
         }
         // Limit is greater than number, there is no checking necessary
-        if (limit >= number) return false;
+        if (limit >= number)
+            return false;
         // Remove any factors of 2
         if (BitFactoring.isProductOf2(number))
-            number = Factoring.divideOutFactor(number, 2);
-        //
+            number = Factoring.divideOutFactor(
+                number, 2
+            );
+        // Search primes in increasing order
         int primeIdx = 1;
         int testPrime = cache.getPrime(primeIdx);
+        //
         while (testPrime <= limit) {
-            number = Factoring.divideOutFactor(number, testPrime);
-            if (number <= limit) return false;
+            number = Factoring.divideOutFactor(
+                number, testPrime
+            );
+            if (number <= limit)
+                return false;
             testPrime = cache.getPrime(++primeIdx);
         }
         return true;
     }
 
     /** Determine the prime factors, including the power.
-     * @param product The assumed product to factor
-     * @return A List of Integer Pairs. The factor is stored first, then the power.
+     * @param product The assumed product to factor.
+     * @param cache The PrimeCache Interface that will provide prime numbers.
+     * @return A List of Integer Pairs. The factor is first, then the power.
      */
     @Nonnull
     public static List<IntPair> getPrimeFactors(
