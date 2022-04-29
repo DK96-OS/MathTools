@@ -20,7 +20,7 @@ import mathtools.numbers.primes.validate.PrimeValidation;
 
 /** Testing [BytePrimeCache]
  * @author DK96-OS : 2022 */
-public class BytePrimeCacheTest {
+public final class BytePrimeCacheTest {
 
 	private final List<Integer> primeList = PrimeTestDataProvider.getPrimes251();
 

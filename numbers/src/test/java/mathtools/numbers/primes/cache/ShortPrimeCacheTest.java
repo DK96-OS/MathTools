@@ -18,9 +18,10 @@ import kotlin.random.Random;
 import mathtools.numbers.primes.BytePrimeCache;
 import mathtools.numbers.primes.PrimeTestDataProvider;
 import mathtools.numbers.primes.ShortPrimeCache;
+import mathtools.numbers.structs.IntPair;
 
-/**
- */
+/** Testing [ShortPrimeCache] class
+ * @author DK96-OS : 2022 */
 public final class ShortPrimeCacheTest {
 
 	private final List<Integer> primeList = PrimeTestDataProvider.getPrimes349();
@@ -55,22 +56,38 @@ public final class ShortPrimeCacheTest {
 
 	@Test
 	public void testSpecificPrimes() {
-		assertEquals(547, cache.getPrime(100));
-		assertEquals(661, cache.getPrime(120));
-		assertEquals(811, cache.getPrime(140));
-		assertEquals(947, cache.getPrime(160));
-		assertEquals(1087, cache.getPrime(180));
-		assertEquals(1229, cache.getPrime(200));
-		assertEquals(1993, cache.getPrime(300));
-		assertEquals(2131, cache.getPrime(320));
-		assertEquals(2293, cache.getPrime(340));
-		assertEquals(2437, cache.getPrime(360));
-		assertEquals(2621, cache.getPrime(380));
-		assertEquals(2749, cache.getPrime(400));
-		assertEquals(5801, cache.getPrime(760));
-		assertEquals(7001, cache.getPrime(900));
-		assertEquals(7211, cache.getPrime(920));
-		assertEquals(7727, cache.getPrime(980));
+		assertEquals(
+			547, cache.getPrime(100));
+		assertEquals(
+			661, cache.getPrime(120));
+		assertEquals(
+			811, cache.getPrime(140));
+		assertEquals(
+			947, cache.getPrime(160));
+		assertEquals(
+			1087, cache.getPrime(180));
+		assertEquals(
+			1229, cache.getPrime(200));
+		assertEquals(
+			1993, cache.getPrime(300));
+		assertEquals(
+			2131, cache.getPrime(320));
+		assertEquals(
+			2293, cache.getPrime(340));
+		assertEquals(
+			2437, cache.getPrime(360));
+		assertEquals(
+			2621, cache.getPrime(380));
+		assertEquals(
+			2749, cache.getPrime(400));
+		assertEquals(
+			5801, cache.getPrime(760));
+		assertEquals(
+			7001, cache.getPrime(900));
+		assertEquals(
+			7211, cache.getPrime(920));
+		assertEquals(
+			7727, cache.getPrime(980));
 	}
 
 	@Test
@@ -101,15 +118,17 @@ public final class ShortPrimeCacheTest {
 	}
 
 	@Test
-	public void testMaxIndex() {
-		final List<Integer> testIndices = Lists.newArrayList(
-			1000, 2000, 3000, 3090, 3490,
-			3510, 3511
+	public void testLargeIndices() {
+		final List<IntPair> testData = Lists.newArrayList(
+			new IntPair(1000, 7927),
+			new IntPair(2000, 17393),
+			new IntPair(3000, 27457),
+			new IntPair(3511, 32749)
 		);
-		for (final int i : testIndices) {
-			final int prime = cache.getPrime(i);
-			System.out.printf(
-				"Query(%d) => %d\n", i, prime
+		for (final IntPair pair : testData) {
+			assertEquals(
+				pair.getSecond(),
+				cache.getPrime(pair.getFirst())
 			);
 		}
 	}
