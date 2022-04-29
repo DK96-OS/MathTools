@@ -1,13 +1,14 @@
 package mathtools.numbers.factors;
 
-/** Functions that do factoring
+/** Common Factoring Operations
  * @author DK96-OS : 2022 */
 public final class Factoring {
 
-    /** Reduce by dividing with a factor until a remainder occurs
-     * @param number The number to be reduced
-     * @param factor The factor to try dividing with
-     * @return The reduced number, or the number itself if no divisions succeeded */
+    /** Reduce by dividing with a factor until a non-zero remainder occurs.
+     * @param number The number to be reduced.
+     * @param factor The factor to try dividing with.
+     * @return The reduced number, or the number itself if no divisions succeeded.
+     */
     public static long divideOutFactor(
         long number,
         final int factor
@@ -32,10 +33,11 @@ public final class Factoring {
         return number;
     }
 
-    /** Reduce by dividing with a factor until a remainder occurs
-     * @param number The number to be reduced
+    /** Reduce by dividing with a factor until a remainder occurs.
+     * @param number The number to be reduced.
      * @param factor The factor to try dividing with. Should be positive.
-     * @return The reduced number, or the number itself if no divisions succeeded */
+     * @return The reduced number, or the number itself if no divisions succeeded.
+     */
     public static long divideOutFactor(
         long number,
         long factor
