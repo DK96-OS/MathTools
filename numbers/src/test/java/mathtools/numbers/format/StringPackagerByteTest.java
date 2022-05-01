@@ -19,16 +19,13 @@ public final class StringPackagerByteTest {
 		for (; 0 <= b0; b0 += 4) {
 			//
 			for (b1 = 0; 0 <= b1; b1 += 4) {
-				//
-				final char packed = INSTANCE.packBytes(b0, b1);
-				// Check individual byte unpacking
-				assertEquals(
-					b0, INSTANCE.unpackByte0(packed));
-				assertEquals(
-					b1, INSTANCE.unpackByte1(packed));
+				// NumberSerializer is equivalent
+				final char packed = NumberSerializer.putBytes(
+					b0, b1
+				);
 				// Check pair of bytes unpacked
-				final Pair<Byte, Byte> unpackedPair =
-					INSTANCE.unpackBytes(packed);
+				final Pair<Byte, Byte> unpackedPair;
+				unpackedPair = INSTANCE.unpackBytes(packed);
 				assertEquals(
 					b0, unpackedPair.getFirst());
 				assertEquals(
@@ -44,17 +41,18 @@ public final class StringPackagerByteTest {
 		//
 		for (; 0 > b0; b0 += 4) {
 			//
-			for (b1 = Byte.MIN_VALUE; 0 > b1; b1 += 4) {
-				//
-				final char packed = INSTANCE.packBytes(b0, b1);
-				// Check individual byte unpacking
-				assertEquals(
-					b0, INSTANCE.unpackByte0(packed));
-				assertEquals(
-					b1, INSTANCE.unpackByte1(packed));
+			for (
+				b1 = Byte.MIN_VALUE;
+				0 > b1;
+				b1 += 4
+			) {
+				// NumberSerializer is equivalent
+				final char packed = NumberSerializer.putBytes(
+					b0, b1
+				);
 				// Check pair function
-				final Pair<Byte, Byte> unpackedPair =
-					INSTANCE.unpackBytes(packed);
+				final Pair<Byte, Byte> unpackedPair;
+				unpackedPair = INSTANCE.unpackBytes(packed);
 				assertEquals(
 					b0, unpackedPair.getFirst());
 				assertEquals(
