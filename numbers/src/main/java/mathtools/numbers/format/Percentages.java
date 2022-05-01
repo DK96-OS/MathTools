@@ -21,13 +21,22 @@ public final class Percentages {
 		final float number,
 		final byte decimalsAllowed
 	) {
-		if (0.000_000_1f <= number && 1 > number)
-			return round(
-				100 * number,
-				decimalsAllowed
-			) + "%";
-		else
-			return (1f <= number) ? "100%" : "0%";
+		final String result;
+		if (1f <= number)
+			result = "100%";
+		else if (0.000_000_1f <= number) {
+			if (1 > decimalsAllowed)
+				result = String.format(
+					"%d%%", Math.round(100 * number)
+				);
+			else
+				result = round(
+					100 * number,
+					decimalsAllowed
+				) + "%";
+		} else
+			result = "0%";
+		return result;
 	}
 
 	/** Percent with no decimals
