@@ -1,6 +1,7 @@
 package mathtools.numbers.format;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Encode Numbers into Strings and characters
  * @author DK96-OS : 2021 - 2022 */
@@ -14,8 +15,10 @@ public final class NumberSerializer {
         final byte first,
         final byte second
     ) {
-        final int i0 = first > -1 ? (int) first : 256 + first;
-        final int i1 = second > -1 ? (int) second : 256 + second;
+        // Ensure that the negative values are unique
+        final int i0 = -1 < first ? (int) first : 256 + first;
+        final int i1 = -1 < second ? (int) second : 256 + second;
+        // Combine the values, convert to char
         return (char) ((i0 << 8) + i1);
     }
 
@@ -25,41 +28,49 @@ public final class NumberSerializer {
     public static char putShort(
         final short value
     ) {
-        return value < 0 ? (char) (value + 65536) : (char) value;
+        return 0 > value ? (char) (value + 65536) : (char) value;
     }
 
     /** Put a 32-bit Float into a String of length 2
      * @param value The Float to be serialized
      * @return A String of length 2 */
     @Nonnull
-    public static String putFloat(
+    public static char[] putFloat(
         final float value
     ) {
         final int i = Float.floatToIntBits(value);
-        return String.valueOf(new char[] {
-                (char) i,
-                (char) (i >>> 16)
-        });
+        return new char[] {
+            (char) i,
+            (char) (i >>> 16)
+        };
     }
 
-    /** Put an array of Float into a String
-     * @param floats The array to serialize
-     * @return A String containing the data from the array */
-    @Nonnull
-    public static String putFloats(
+    /** Put an array of Float into a char array
+     * @param floats The array to convert
+     * @return Characters obtained from the float array
+     */
+    @Nullable
+    public static char[] putFloats(
         @Nonnull final float[] floats
     ) {
-        if (floats.length < 2) {
-            if (floats.length == 1) return putFloat(floats[0]);
-            else return "";
+        final int charArrayLength = 2 * floats.length;
+        if (3 > charArrayLength) {
+            if (1 == floats.length)
+                return putFloat(floats[0]);
+            else
+                return null;
         }
-        final StringBuilder builder = new StringBuilder(2 * floats.length);
-        for (float aFloat : floats) {
-            final int bits = Float.floatToRawIntBits(aFloat);
-            builder.append((char) bits);
-            builder.append((char) (bits >>> 16));
+        final char[] array = new char[charArrayLength];
+        int index = 0;
+        for (
+            final float value : floats
+        ) {
+            final int bits = Float.floatToRawIntBits(value);
+            // Conversion to char ignores the larger 16 bits
+            array[index++] = (char) bits;
+            array[index++] = (char) (bits >>> 16);
         }
-        return builder.toString();
+        return array;
     }
 
     private NumberSerializer() {}
