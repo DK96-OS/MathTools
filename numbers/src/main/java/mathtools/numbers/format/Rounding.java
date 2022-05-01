@@ -7,7 +7,8 @@ public final class Rounding {
 	/** Truncate a float to some number of decimal places
 	 * @param number The number to be rounded
 	 * @param decimals The number of decimals to keep. Maximum 5, Minimum 0.
-	 * @return A Floating point number that is rounded */
+	 * @return A Floating point number that is rounded
+	 */
 	public static float round(
 		final float number,
 		final int decimals
