@@ -29,24 +29,21 @@ public final class PrimeNumberToolsReduceByPrimeRangeTest {
 				new IntRange(-3, -1),
 				-30,
 				cache
-			)
-		);
+			));
 		// The invalid region of the range is ignored
 		assertNull(
 			reduceByPrimeRange(
 				new IntRange(-3, 3),
 				-60,
 				cache
-			)
-		);
+			));
 		// Invalid region is ignored
 		assertEquals(
 			-15, reduceByPrimeRange(
 				new IntRange(-1, 0),
 				-60,
 				cache
-			)
-		);
+			));
 	}
 
 	@ParameterizedTest
@@ -61,15 +58,13 @@ public final class PrimeNumberToolsReduceByPrimeRangeTest {
 				new IntRange(2, 1),
 				60,
 				cache
-			)
-		);
+			));
 		assertEquals(
 			-4, reduceByPrimeRange(
 				new IntRange(2, 1),
 				-60,
 				cache
-			)
-		);
+			));
 	}
 
 	@ParameterizedTest
@@ -84,22 +79,19 @@ public final class PrimeNumberToolsReduceByPrimeRangeTest {
 				new IntRange(1, 3),
 				-1,
 				cache
-			)
-		);
+			));
 		assertNull(
 			reduceByPrimeRange(
 				new IntRange(1, 3),
 				0,
 				cache
-			)
-		);
+			));
 		assertNull(
 			reduceByPrimeRange(
 				new IntRange(1, 3),
 				1,
 				cache
-			)
-		);
+			));
 	}
 
 	@ParameterizedTest
@@ -114,22 +106,19 @@ public final class PrimeNumberToolsReduceByPrimeRangeTest {
 				new IntRange(1, 2),
 				-30,
 				cache
-			)
-		);
+			));
 		assertEquals(
 			-4, reduceByPrimeRange(
 				new IntRange(1, 2),
 				-60,
 				cache
-			)
-		);
+			));
 		assertEquals(
 			-12, reduceByPrimeRange(
 				new IntRange(2, 3),
 				-60,
 				cache
-			)
-		);
+			));
 	}
 
 	@ParameterizedTest
@@ -144,22 +133,19 @@ public final class PrimeNumberToolsReduceByPrimeRangeTest {
 				new IntRange(1, 2),
 				30,
 				cache
-			)
-		);
+			));
 		assertEquals(
 			4, reduceByPrimeRange(
 				new IntRange(1, 5),
 				60,
 				cache
-			)
-		);
+			));
 		assertEquals(
 			12, reduceByPrimeRange(
 				new IntRange(2, 2),
 				60,
 				cache
-			)
-		);
+			));
 	}
 
 	/** Call reduceByPrimeRange in PrimeNumberTools

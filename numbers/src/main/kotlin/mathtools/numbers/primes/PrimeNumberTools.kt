@@ -10,7 +10,8 @@ object PrimeNumberTools {
 	/** Try to divide the product by all primes in the index range.
 	 * @param primeIndexRange The range of prime number indices to try
 	 * @param product Assumed to be a product of prime numbers
-	 * @return Remaining product after all divisions attempted, or null if 1 */
+	 * @return Remaining product after all divisions attempted, or null if 1
+	 */
 	fun reduceByPrimeRange(
 		primeIndexRange: IntRange,
 		product: Long,
@@ -53,8 +54,11 @@ object PrimeNumberTools {
 		}
 		// Do reduction
 		var composite: Long = product
-		for (primeIdx in primeIndexRange) {
-			val testPrime = cache.getPrime(primeIdx)
+		var primeIdx = primeIndexRange.first
+		while (
+			primeIdx <= primeIndexRange.last
+		) {
+			val testPrime = cache.getPrime(primeIdx++)
 			composite = divideOutFactor(
 				composite, testPrime
 			)
@@ -63,13 +67,16 @@ object PrimeNumberTools {
 				break
 		}
 		return if (composite <= 1L)
-			null else composite
+			null
+		else
+			composite
 	}
 	
     /** Remove any prime factors less than or equal to the maximum
 	 * @param product Assumed product of a set of prime numbers
 	 * @param maxPrime The maximum prime factor to be removed
-     * @return A number containing only primes greater than maxPrime, or null */
+     * @return A number containing only primes greater than maxPrime, or null
+     */
 	fun divideOutSmallPrimes(
 	    product: Long,
 	    maxPrime: Long,
