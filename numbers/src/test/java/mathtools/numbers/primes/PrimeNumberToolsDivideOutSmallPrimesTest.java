@@ -57,6 +57,22 @@ public final class PrimeNumberToolsDivideOutSmallPrimesTest {
 				Integer.MAX_VALUE, Integer.MAX_VALUE, cache));
 	}
 
+	@Test
+	public void testMaxValueMaxPrime() {
+		assertNull(
+			divideOutSmallPrimes(
+				901, Long.MAX_VALUE, cache
+			));
+	}
+
+	@Test
+	public void testCacheOverflow() {
+		assertNull(
+			divideOutSmallPrimes(
+				1_107_729, Long.MAX_VALUE, cache
+			));
+	}
+
 	@ParameterizedTest
 	@ArgumentsSource(
 		PrimeCacheArgumentProvider.class
