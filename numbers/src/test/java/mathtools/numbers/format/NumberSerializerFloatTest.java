@@ -43,4 +43,27 @@ public final class NumberSerializerFloatTest {
 			putFloats(ARRAY));
 	}
 
+	@Test
+	public void testFloatList1() {
+		final float[] inputArray;
+		final char[] serialized;
+		//
+		inputArray = new float[]{
+			1f, 4f, Float.MAX_VALUE, Float.MIN_VALUE
+		};
+		serialized = putFloats(inputArray);
+		assert null != serialized;
+		for (
+			int index = 0;
+			index < inputArray.length; ++index
+		) {
+			final float deserialized = getFloat(
+				serialized[index * 2],
+				serialized[index * 2 + 1]
+			);
+			assertEquals(
+				inputArray[index], deserialized);
+		}
+	}
+
 }
