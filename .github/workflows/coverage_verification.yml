@@ -3,8 +3,6 @@
 name: Coverage Verification
 on:
   workflow_call:
-  push:
-    branches: [ master ]
 
 jobs:
   coverage-verification:
