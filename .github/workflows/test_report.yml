@@ -3,8 +3,6 @@
 name: Test
 on:
   workflow_call:
-  push:
-    branches: [ master ]
 
 jobs:
   test:
