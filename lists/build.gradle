@@ -1,7 +1,7 @@
 plugins {
 	id "org.jetbrains.kotlin.jvm"
 	id "jacoco"
-	id "org.jetbrains.dokka" version "1.6.10"
+	id "org.jetbrains.dokka" version "1.6.21"
 }
 apply from: "../dependencies.gradle"
 
@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.5.1"
+			version = "0.5.2"
 			from components.java
 		}
 	}
