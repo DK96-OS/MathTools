@@ -22,7 +22,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "numbers"
-			version = "0.5.2"
+			version = "0.5.3"
 			from components.java
 		}
 	}
