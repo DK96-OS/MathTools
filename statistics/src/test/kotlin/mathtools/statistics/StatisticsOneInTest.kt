@@ -2,11 +2,11 @@ package mathtools.statistics
 
 import mathtools.statistics.Statistics.oneIn
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
 /** Testing [Statistics] oneIn function
  * @author DK96-OS : 2022 */
@@ -20,8 +20,12 @@ class StatisticsOneInTest {
 
     @Test
     fun testInvalidInputs() {
-        assertThrows<IllegalArgumentException> { oneIn(0) }
-        assertThrows<IllegalArgumentException> { oneIn(-1) }
+        assertFalse(
+            oneIn(0)
+        )
+        assertFalse(
+            oneIn(-1)
+        )
     }
 
     @RepeatedTest(3)
