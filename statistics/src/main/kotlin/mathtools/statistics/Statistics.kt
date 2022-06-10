@@ -8,13 +8,15 @@ import kotlin.math.sqrt
 object Statistics {
 
 	/** Return true once every x times this function is called */
+	@Deprecated(
+		"Use Probability class"
+	)
 	fun oneIn(
-		x: Int
-	) : Boolean = when {
-		x > 1 -> Math.random() < 0.9999999f / x
-		x == 1 -> true
-		else -> throw IllegalArgumentException()
-	}
+		x: Int,
+	) : Boolean = if (1 < x)
+		x * Math.random() < 0.9999999f
+	else
+		1 == x
 
 	/** Calculate the mean (average) value of the elements in a Number List
 	 * 	 */
