@@ -12,8 +12,9 @@ import com.google.common.primitives.SignedBytes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** Array Statistics Functions
- * @author DK96-OS : 2022 */
+/** Array Statistics Functions.
+ * @author DK96-OS : 2022
+ */
 public final class DistributionStatistics {
 
     /** Process an Array to determine it's DistributionStats
@@ -31,7 +32,8 @@ public final class DistributionStatistics {
             mean,
             calculateSDev(array, mean),
             SignedBytes.min(array),
-            SignedBytes.max(array)
+            SignedBytes.max(array),
+            array.length
         );
     }
 
@@ -47,10 +49,11 @@ public final class DistributionStatistics {
             return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                Shorts.min(array),
-                Shorts.max(array)
+            mean,
+            calculateSDev(array, mean),
+            Shorts.min(array),
+            Shorts.max(array),
+            array.length
         );
     }
 
@@ -66,10 +69,11 @@ public final class DistributionStatistics {
             return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                Ints.min(array),
-                Ints.max(array)
+            mean,
+            calculateSDev(array, mean),
+            Ints.min(array),
+            Ints.max(array),
+            array.length
         );
     }
 
@@ -85,10 +89,11 @@ public final class DistributionStatistics {
             return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
-                mean,
-                calculateSDev(array, mean),
-                Longs.min(array),
-                Longs.max(array)
+            mean,
+            calculateSDev(array, mean),
+            Longs.min(array),
+            Longs.max(array),
+            array.length
         );
     }
 
@@ -107,7 +112,8 @@ public final class DistributionStatistics {
             mean,
             calculateSDev(array, mean),
             Floats.min(array),
-            Floats.max(array)
+            Floats.max(array),
+            array.length
         );
     }
 
@@ -126,7 +132,8 @@ public final class DistributionStatistics {
             mean,
             calculateSDev(array, mean),
             Doubles.min(array),
-            Doubles.max(array)
+            Doubles.max(array),
+            array.length
         );
     }
 

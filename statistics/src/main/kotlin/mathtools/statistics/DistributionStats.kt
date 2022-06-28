@@ -3,20 +3,27 @@ package mathtools.statistics
 import mathtools.statistics.Statistics.calculateMean
 import mathtools.statistics.Statistics.calculateSDev
 
-/** The key statistical parameters of a distribution
- * @author DK96-OS : 2022 */
+/** The key statistical parameters of a distribution.
+ * @author DK96-OS : 2022
+ */
 class DistributionStats internal constructor(
     val mean: Double,
     val standardDeviation: Double,
     val min: Double,
     val max: Double,
+    val count: Int,
 ) {
 
     constructor(
-        mean: Double, sDev: Double, min: Number, max: Number,
-    ) : this(mean, sDev, min.toDouble(), max.toDouble())
+        mean: Double,
+        sDev: Double,
+        min: Number,
+        max: Number,
+        count: Int,
+    ) : this(mean, sDev, min.toDouble(), max.toDouble(), count)
 
-    /** Calculate the value at a specific number of deviations from mean */
+    /** Calculate the value at a specific number of deviations from mean
+     */
     fun valueAtDeviation(nDevs: Double)
         : Double = mean + nDevs * standardDeviation
 
@@ -30,6 +37,7 @@ class DistributionStats internal constructor(
         if (standardDeviation != other.standardDeviation) return false
         if (min != other.min) return false
         if (max != other.max) return false
+        if (count != other.count) return false
 
         return true
     }
@@ -39,6 +47,7 @@ class DistributionStats internal constructor(
         result = 31 * result + standardDeviation.hashCode()
         result = 31 * result + min.hashCode()
         result = 31 * result + max.hashCode()
+        result = 31 * result + count
         return result
     }
 
@@ -46,12 +55,15 @@ class DistributionStats internal constructor(
         append("Mean: $mean, ")
         append("SD: $standardDeviation, ")
         append("Min: $min, ")
-        append("Max: $max")
+        append("Max: $max, ")
+        append("Count: $count")
     }
 
     companion object {
-        /** Obtain the [DistributionStats] of a Number List
-         * @return A DistributionStats instance, or null if list is empty */
+        
+        /** Obtain the [DistributionStats] of a Number List.
+         * @return A DistributionStats instance, or null if list is empty.
+         */
         fun <T : Number> process(
             list: List<T>
         ) : DistributionStats? {
@@ -60,7 +72,7 @@ class DistributionStats internal constructor(
                 1 -> {
                     val first = list[0]
                     return DistributionStats(
-                        first.toDouble(), 0.0, first, first
+                        first.toDouble(), 0.0, first, first, 1
                     )
                 }
             }
@@ -72,7 +84,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 is Double -> {
@@ -80,7 +93,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!! as Number,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 is Long -> {
@@ -88,7 +102,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 is Int -> {
@@ -96,7 +111,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 is Short -> {
@@ -104,7 +120,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 is Byte -> {
@@ -112,7 +129,8 @@ class DistributionStats internal constructor(
                     return DistributionStats(
                         mean, sDev,
                         typedList.minOrNull()!!,
-                        typedList.maxOrNull()!!
+                        typedList.maxOrNull()!!,
+                        typedList.size,
                     )
                 }
                 else -> throw IllegalArgumentException(
