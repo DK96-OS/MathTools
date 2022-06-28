@@ -47,6 +47,7 @@ class DistributionStats internal constructor(
         result = 31 * result + standardDeviation.hashCode()
         result = 31 * result + min.hashCode()
         result = 31 * result + max.hashCode()
+        result = 31 * result + count
         return result
     }
 
@@ -71,7 +72,7 @@ class DistributionStats internal constructor(
                 1 -> {
                     val first = list[0]
                     return DistributionStats(
-                        first.toDouble(), 0.0, first, first
+                        first.toDouble(), 0.0, first, first, 1
                     )
                 }
             }
@@ -84,7 +85,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 is Double -> {
@@ -93,7 +94,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!! as Number,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 is Long -> {
@@ -102,7 +103,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 is Int -> {
@@ -111,7 +112,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 is Short -> {
@@ -120,7 +121,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 is Byte -> {
@@ -129,7 +130,7 @@ class DistributionStats internal constructor(
                         mean, sDev,
                         typedList.minOrNull()!!,
                         typedList.maxOrNull()!!,
-                        typedList.size(),
+                        typedList.size,
                     )
                 }
                 else -> throw IllegalArgumentException(
