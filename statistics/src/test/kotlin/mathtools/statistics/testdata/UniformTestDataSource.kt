@@ -2,8 +2,9 @@ package mathtools.statistics.testdata
 
 import mathtools.statistics.DistributionStats
 
-/** Uniform Data Collections
- * Developed by DK96-OS : 2022 */
+/** Uniform Data Collections.
+ * Developed by DK96-OS : 2022
+ */
 object UniformTestDataSource {
 
 	/** Uniform 101
@@ -31,7 +32,8 @@ object UniformTestDataSource {
 
 	val uniform101DC = DistributionStats(
 		30.0, 29.300_170_647_967_224,
-		-20.0, 80.0
+		-20.0, 80.0,
+		101,
 	)
 
 	const val uniform101Sum: Double = 3030.0

@@ -67,6 +67,7 @@ class DistributionStatsArrayTypesTest {
         assertEquals(80.0, dc.max)
         assertEquals(30.0, dc.mean)
         assertEquals(29.3, dc.standardDeviation, 0.002)
+        assertEquals(101, dc.count)
         // Methods
         assertEquals(
             30 + 29.3 * 2,

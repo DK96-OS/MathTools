@@ -16,6 +16,7 @@ class DistributionStatsTest {
             assertEquals(3.31, standardDeviation, 0.01)
             assertEquals(25.0, min)
             assertEquals(35.0, max)
+            assertEquals(11, count)
             assertEquals(
                 30.0 + 3.31 * 3,
                 valueAtDeviation(3.0),
@@ -38,6 +39,7 @@ class DistributionStatsTest {
             assertEquals(40.82, standardDeviation, 0.01)
             assertEquals(1.0, min)
             assertEquals(199.0, max)
+            assertEquals(10000, count)
             assertEquals(
                 100.0 + 40.82 * 3,
                 valueAtDeviation(3.0),
@@ -57,6 +59,7 @@ class DistributionStatsTest {
             assertEquals(4.59, standardDeviation, 0.01)
             assertEquals(1.0, min)
             assertEquals(19.0, max)
+            assertEquals(190, count)
             assertEquals(
                 13.0 + 4.59 * 3,
                 valueAtDeviation(3.0),

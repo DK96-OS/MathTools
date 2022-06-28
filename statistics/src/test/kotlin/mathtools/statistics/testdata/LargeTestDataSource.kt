@@ -3,7 +3,8 @@ package mathtools.statistics.testdata
 import mathtools.statistics.DistributionStats
 
 /** A Source for Large TestData lists
- * Developed by DK96-OS : 2022 */
+ * Developed by DK96-OS : 2022
+ */
 object LargeTestDataSource {
 
 	/** Large 123 Data Set
@@ -17,7 +18,7 @@ object LargeTestDataSource {
 	 * (120 + 121 + 125 + 126)B + (122 + 124)C + 123T
 	 * Simplify:
 	 * = 492B + 246C + 123T
-	 * */
+	 */
 	val large123: List<Byte> by lazy { ArrayList<Byte>(30_000).apply {
 		for (i in 0 until 10_000) add(123)
 		for (i in 0 until 5_000) {
@@ -34,7 +35,8 @@ object LargeTestDataSource {
 
 	val large123DC = DistributionStats(
 		123.0, 1.5811651830568505,
-		120, 126
+		120, 126,
+		30_000,
 	)
 
 	const val large123Sum: Double = 3.69E6
@@ -48,7 +50,7 @@ object LargeTestDataSource {
 	 * Sum Calculation:
 	 * = 32760 * T + (32759 + 32761) * C + 4(32760) * B
 	 * = 32760 * (T + 2C + 4B)
-	 * */
+	 */
 	val large32760: List<Short> by lazy { ArrayList<Short>(65_553).apply {
 		for (i in 0 until 25_553) add(32760)
 		for (i in 0 until 10_000) {
@@ -65,10 +67,12 @@ object LargeTestDataSource {
 
 	val large32760DC = DistributionStats(
 		32760.0, 1.5126994751837317,
-		32757, 32763
+		32757, 32763,
+		65_553,
 	)
 
-	/** Sum is greater than max value of 32 bit signed Integer value */
+	/** Sum is greater than max value of 32 bit signed Integer value.
+	 */
 	const val large32760Sum: Double = 2.14751628E9
 
 }

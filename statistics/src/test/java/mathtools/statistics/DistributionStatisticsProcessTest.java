@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Testing [DistributionStatistics] Process methods
- * @author DK96-OS : 2022 */
+/** Testing [DistributionStatistics] Process methods.
+ * @author DK96-OS : 2022
+ */
 public final class DistributionStatisticsProcessTest {
 
 	@Test
@@ -46,6 +47,9 @@ public final class DistributionStatisticsProcessTest {
 			24.0, stats.getMin());
 		assertEquals(
 			24.0, stats.getMax());
+		assertEquals(
+			1, stats.getCount()
+		);
 	}
 
 	@Test
