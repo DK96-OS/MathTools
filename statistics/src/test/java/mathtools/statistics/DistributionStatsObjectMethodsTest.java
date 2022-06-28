@@ -34,10 +34,12 @@ public final class DistributionStatsObjectMethodsTest {
     @Test
     void testString() {
         final String s1 = "Mean: 31.0, SD: "
-                + mStats1.getStandardDeviation()
-                + ", Min: 30.0, Max: 32.0";
+            + mStats1.getStandardDeviation()
+            + ", Min: 30.0, Max: 32.0"
+            + ", Count: 3";
         assertEquals(
-                s1, mStats1.toString());
+            s1, mStats1.toString()
+        );
     }
 
     @Test
