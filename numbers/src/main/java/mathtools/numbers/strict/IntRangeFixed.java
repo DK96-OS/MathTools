@@ -6,11 +6,16 @@ package mathtools.numbers.strict;
 public class IntRangeFixed
     implements IntRange {
 
+    /** The Start value of the Integer Range.
+     */
     public final int start;
 
+    /** The Last value in the Integer Range.
+     */
     public final int last;
 
-    /**
+    /** Create a Fixed IntRange.
+     *  Note: if arguments are not in ascending order, they will be reversed.
      * @param start The start value of the range.
      * @param last The last value in the range.
      */
@@ -18,8 +23,13 @@ public class IntRangeFixed
         final int start,
         final int last
     ) {
-        this.start = start;
-        this.last = last;
+        if (start <= last) {
+            this.start = start;
+            this.last = last;
+        } else {
+            this.start = last;
+            this.last = start;
+        }
     }
 
     @Override
@@ -31,4 +41,5 @@ public class IntRangeFixed
     public int getLastValue() {
         return last;
     }
+
 }
