@@ -45,7 +45,15 @@ public class IntRangeMutable
     public boolean setStart(
         final int newStart
     ) {
-        return false;
+        if (newStart < mStart) {
+            mStart = newStart;
+            return true;
+        } else if (newStart <= mLast) {
+            if (newStart == mStart) return false;
+            mStart = newStart;
+            return true;
+        } else
+            return false;
     }
 
     /** Set The Last value in the Range.
@@ -55,7 +63,15 @@ public class IntRangeMutable
     public boolean setLast(
         final int newLast
     ) {
-        return false;
+        if (newLast > mLast) {
+            mLast = newLast;
+            return true;
+        } else if (newLast < mLast) {
+            if (newLast < mStart) return false;
+            mLast = newLast;
+            return true;
+        } else
+            return false;
     }
 
     /** Expand the Range to incude the given value.
