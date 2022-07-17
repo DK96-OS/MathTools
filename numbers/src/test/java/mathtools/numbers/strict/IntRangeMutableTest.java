@@ -36,17 +36,6 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSimpleValues() {
-		final IntRange range = new IntRangeMutable(0, 1);
-		assertEquals(
-			0, range.getStartValue()
-		);
-		assertEquals(
-			1, range.getLastValue()
-		);
-	}
-
-	@Test
 	public void testSingleValue() {
 		final int value = 1;
 		final IntRange range = new IntRangeMutable(
@@ -96,13 +85,22 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetStartAboveLast() {
-		final int nextStart = initialLast + 30000;
+	public void testSetStartFalse() {
 		assertFalse(
-			mRange.setStart(nextStart)
+			mRange.setStart(initialStart)
 		);
+		assertFalse(
+			mRange.setStart(initialLast + 1)
+		);
+		assertFalse(
+			mRange.setStart(Integer.MAX_VALUE)
+		);
+		// IntRange Properties have not changed
 		assertEquals(
 			initialStart, mRange.getStartValue()
+		);
+		assertEquals(
+			initialLast, mRange.getLastValue()
 		);
 	}
 
@@ -129,10 +127,22 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetLastBelowStart() {
-		final int nextLast = initialStart - 1;
+	public void testSetLastToStart() {
+		assertTrue(
+			mRange.setLast(initialStart)
+		);
+		assertEquals(
+			mRange.getStartValue(), mRange.getLastValue()
+		);
+	}
+
+	@Test
+	public void testSetLastFalse() {
 		assertFalse(
-			mRange.setLast(nextLast)
+			mRange.setLast(initialLast)
+		);
+		assertFalse(
+			mRange.setLast(initialStart - 1)
 		);
 		assertEquals(
 			initialLast, mRange.getLastValue()
@@ -140,12 +150,49 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testExpandRangeTo() {
-
+	public void testExpandRangeToMax() {
+		assertTrue(
+			mRange.expandRangeTo(Integer.MAX_VALUE)
+		);
+		assertEquals(
+			initialStart, mRange.getStartValue()
+		);
+		assertEquals(
+			Integer.MAX_VALUE, mRange.getLastValue()
+		);
 	}
 
 	@Test
-	public void test() {
+	public void testExpandRangeToMin() {
+		assertTrue(
+			mRange.expandRangeTo(Integer.MIN_VALUE)
+		);
+		assertEquals(
+			Integer.MIN_VALUE, mRange.getStartValue()
+		);
+		assertEquals(
+			initialLast, mRange.getLastValue()
+		);
+	}
+
+	@Test
+	public void testExpandRangeFalse() {
+		assertFalse(
+			mRange.expandRangeTo(initialStart)
+		);
+		assertFalse(
+			mRange.expandRangeTo(initialStart + 1)
+		);
+		assertFalse(
+			mRange.expandRangeTo(initialLast)
+		);
+		// IntRange Properties have not changed
+		assertEquals(
+			initialStart, mRange.getStartValue()
+		);
+		assertEquals(
+			initialLast, mRange.getLastValue()
+		);
 	}
 
 }
