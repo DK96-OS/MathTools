@@ -10,10 +10,10 @@ Software Tools for Applied Mathematics are categorized into these modules:
 
 ### Import in Gradle Build Script
 	dependencies {  
-		implementation 'io.github.dk96-os:lists:0.5.2'
-		implementation 'io.github.dk96-os:statistics:0.5.2'
-		implementation 'io.github.dk96-os:numbers:0.5.2'
-		implementation 'io.github.dk96-os:generators:0.5.2'
+		implementation 'io.github.dk96-os:lists:0.5.5'
+		implementation 'io.github.dk96-os:statistics:0.5.5'
+		implementation 'io.github.dk96-os:numbers:0.5.5'
+		implementation 'io.github.dk96-os:generators:0.5.5'
 	}
 
 ___
