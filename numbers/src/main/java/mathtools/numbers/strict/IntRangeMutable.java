@@ -81,7 +81,14 @@ public class IntRangeMutable
     public boolean expandRangeTo(
         final int value
     ) {
-        return false;
+        if (value < mStart) {
+            mStart = value;
+            return true;
+        } else if (value > mLast) {
+            mLast = value;
+            return true;
+        } else
+            return false;
     }
 
 }
