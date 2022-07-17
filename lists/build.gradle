@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.5.3"
+			version = "0.5.4"
 			from components.java
 		}
 	}
@@ -81,7 +81,7 @@ tasks.jacocoTestCoverageVerification {
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.95
+				minimum = 0.97
 			}
 		}
 	}

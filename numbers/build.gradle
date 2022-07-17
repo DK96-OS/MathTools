@@ -22,7 +22,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "numbers"
-			version = "0.5.3"
+			version = "0.5.4"
 			from components.java
 		}
 	}
@@ -81,11 +81,11 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.95
+				minimum = 0.97
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.92
+				minimum = 0.93
 			}
 		}
 	}
