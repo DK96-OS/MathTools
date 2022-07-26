@@ -29,10 +29,10 @@ publishing {
 }
 
 dependencies {
-	api project(":lists")
-	api project(":statistics")
+	implementation project(":lists")
+	implementation project(":statistics")
 
-	api guava
+	implementation guava
 
 	// Coroutine support
     //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"

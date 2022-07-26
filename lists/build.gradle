@@ -1,4 +1,5 @@
 plugins {
+	id "java-library"
 	id "org.jetbrains.kotlin.jvm"
 	id "jacoco"
 	id "org.jetbrains.dokka"
@@ -28,7 +29,7 @@ publishing {
 }
 
 dependencies {
-	api guava
+	implementation guava
 
 	// Coroutine support
 	//implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
