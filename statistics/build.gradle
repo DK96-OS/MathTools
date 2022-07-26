@@ -2,7 +2,6 @@ plugins {
 	id "java-library"
 	id "org.jetbrains.kotlin.jvm"
 	id "jacoco"
-	id "org.jetbrains.dokka"
 }
 
 java {
@@ -28,17 +27,16 @@ publishing {
 }
 
 dependencies {
+	apply from: "../dependencies.gradle"
+
+	implementation guava
+
 	implementation project(":lists")
 
-	// Coroutine support
-	//implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-	//testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
-
-	// JUnit 5
-	testImplementation platform("org.junit:junit-bom:5.8.2")
-	testImplementation "org.junit.jupiter:junit-jupiter-api"
-	testImplementation "org.junit.jupiter:junit-jupiter-params"
-	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+	testImplementation platform(junit5.bom)
+	testImplementation junit5.api
+	testImplementation junit5.params
+	testRuntimeOnly junit5.engine
 }
 
 sourceSets.main {

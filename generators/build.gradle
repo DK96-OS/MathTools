@@ -3,7 +3,6 @@ plugins {
 	id "test-report-aggregation"
 	id "jacoco"
 }
-apply from: "../dependencies.gradle"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
@@ -28,16 +27,18 @@ publishing {
 }
 
 dependencies {
-	api project(":statistics")
-	api project(":numbers")
+	apply from: "../dependencies.gradle"
 
-	//implementation guava
+	implementation guava
 
-	// JUnit 5
-	testImplementation platform("org.junit:junit-bom:5.8.2")
-	testImplementation "org.junit.jupiter:junit-jupiter-api"
-	testImplementation "org.junit.jupiter:junit-jupiter-params"
-	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+	implementation project(":lists")
+	implementation project(":statistics")
+	implementation project(":numbers")
+
+	testImplementation platform(junit5.bom)
+	testImplementation junit5.api
+	testImplementation junit5.params
+	testRuntimeOnly junit5.engine
 }
 
 sourceSets.main {
