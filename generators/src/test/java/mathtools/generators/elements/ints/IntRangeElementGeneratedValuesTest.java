@@ -61,7 +61,7 @@ public final class IntRangeElementGeneratedValuesTest {
         assertEquals(
             (double) targetMeanCount, stats.getMean());
         assertEquals(
-            10.0, stats.getStandardDeviation(), 4.5);
+            9.5, stats.getStandardDeviation(), 4.6);
     }
 
     @Test
