@@ -21,7 +21,7 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "generators"
-			version = "0.5.6"
+			version = "0.5.7"
 			from components.java
 		}
 	}
@@ -34,7 +34,7 @@ dependencies {
 	//implementation guava
 
 	// JUnit 5
-	testImplementation platform("org.junit:junit-bom:5.9.1")
+	testImplementation platform("org.junit:junit-bom:5.9.2")
 	testImplementation "org.junit.jupiter:junit-jupiter-api"
 	testImplementation "org.junit.jupiter:junit-jupiter-params"
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
