@@ -35,9 +35,6 @@ dependencies {
 	implementation project(":lists")
 	implementation project(":statistics")
 
-    //implementation coroutines.core
-    //testImplementation coroutines.test
-
     testImplementation platform(junit5.bom)
     testImplementation junit5.api
     testImplementation junit5.params

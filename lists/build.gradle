@@ -2,6 +2,7 @@ plugins {
 	id "java-library"
 	id "org.jetbrains.kotlin.jvm"
 	id "jacoco"
+	id "org.jetbrains.dokka"
 }
 
 java {
@@ -30,7 +31,7 @@ dependencies {
 	apply from: "../dependencies.gradle"
 
 	implementation guava
-	
+
 	testImplementation platform(junit5.bom)
 	testImplementation junit5.api
 	testImplementation junit5.params
