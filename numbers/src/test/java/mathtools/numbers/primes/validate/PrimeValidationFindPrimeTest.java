@@ -103,7 +103,7 @@ public final class PrimeValidationFindPrimeTest {
 	@Test
 	public void testFindPrimeAboveMax() {
 		assertNull(
-			findPrime(253, byteCache));
+			findPrime(BytePrimeCache.MAX_PRIME + 2, byteCache));
 		assertNull(
 			findPrime(57599, byteCache));
 		//
