@@ -1,4 +1,4 @@
-package mathtools.lists.objects
+package mathtools.lists
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
