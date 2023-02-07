@@ -26,16 +26,36 @@ public final class PrimeTestDataProvider {
 		229, 233, 239, 241, 251
 	};
 
+	private static final int[] primes257To349 = {
+		257, 263, 269, 271, 277, 281, 283, 293,
+		307, 311, 313, 317, 331, 337, 347, 349
+	};
+
+	private static final int[] primes353To509 = {
+		353, 359, 367, 373, 379, 383, 389, 397,
+		401, 409, 419, 421, 431, 433, 439, 443,
+		449, 457, 461, 463, 467, 479, 487, 491,
+		499, 503, 509
+	};
+
 	/** Get a list of primes up to 349 */
 	@Nonnull
 	public static List<Integer> getPrimes349() {
 		return IntArrayExt.toList(
 			Ints.concat(
-				primes251,
-				new int[]{
-					257, 263, 269, 271, 277, 281, 283, 293,
-					307, 311, 313, 317, 331, 337, 347, 349
-				}
+				primes251, primes257To349
+			)
+		);
+	}
+
+	@Nonnull
+	public static List<Integer> getPrimes509() {
+		final int[] primes349 = Ints.concat(
+			primes251, primes257To349
+		);
+		return IntArrayExt.toList(
+			Ints.concat(
+				primes349, primes353To509
 			)
 		);
 	}
