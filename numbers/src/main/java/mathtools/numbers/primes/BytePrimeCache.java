@@ -6,21 +6,24 @@ import mathtools.numbers.primes.validate.PrimeValidation;
 import mathtools.numbers.primes.validate.StaticPrimes;
 
 /** An array-based cache for Prime Numbers using bytes
- * @author DK96-OS : 2021 - 2022 */
+ * @author DK96-OS : 2021 - 2023
+ */
 public class BytePrimeCache
 	implements PrimeCacheInterface {
 
 	/** The largest index that can be stored */
-	public static final int MAX_INDEX = 53;
+	public static final int MAX_INDEX = 96;
 
 	/** The largest prime value that can be stored */
-	public static final int MAX_PRIME = 251;
+	public static final int MAX_PRIME = 509;
 
 	/** The internal array used to store prime number representations */
 	private byte[] mArray;
 
-	/** This Index is updated everywhere that reassigns the Array */
-	private byte mHighestCachedIndex = StaticPrimes.MAX_INDEX;  // The static array contains 16 elements
+	/** This Index is updated everywhere that reassigns the Array.
+	 * The initial value is the static array size that contains 16 elements.
+	 */
+	private byte mHighestCachedIndex = StaticPrimes.MAX_INDEX;
 
 	@Override
 	public int getMaxIndex() { return MAX_INDEX; }
@@ -86,11 +89,15 @@ public class BytePrimeCache
 	private int readFromArray(
 		final int arrayIndex
 	) {
-		int value = mArray[arrayIndex];
-		// The first 15 bytes are positive
-		if (14 < arrayIndex)
-			value += 256;
-		return value;
+		final int value = mArray[arrayIndex];
+		final int result;
+		if (52 - StaticPrimes.MAX_INDEX < arrayIndex)
+			result = value + 383;   // Shift
+		else if (14 < arrayIndex)
+			result = value + 256;   // Shift
+		else
+			result = value; // The first 15 bytes require no shift
+		return result;
 	}
 
 	/** Convert the value to be stored in the data structure
@@ -102,6 +109,7 @@ public class BytePrimeCache
 		final int arrayIndex,
 		final int value
 	) {
+		// Skip Index check
 		if (256 > value) {
 			// Values up to 256 (excluded) can be represented
 			if (Byte.MAX_VALUE < value) {
@@ -114,8 +122,12 @@ public class BytePrimeCache
 				return true;
 			}
 			// Negative values are invalid
+		} else if (510 > value) {
+			// Values up to 509 (included) are represented using a larger shift
+			array[arrayIndex] = (byte) (value - 383);
+			return true;
 		}
-		// Values 256+ are currently invalid
+		// Values 512+ are currently invalid
 		throw new IllegalArgumentException(
 			String.format(
 				"Invalid input: %d", value
@@ -166,7 +178,9 @@ public class BytePrimeCache
 		mArray = Bytes.concat(
 			mArray, newPrimes
 		);
-		mHighestCachedIndex = (byte) (15 + mArray.length);
+		mHighestCachedIndex = (byte) (
+			StaticPrimes.MAX_INDEX + mArray.length
+		);
 		return true;
 	}
 

@@ -17,7 +17,7 @@ open class ShortPrimeCache
 
 	/** Storage for short primes */
 	private var shortArray: ShortArray = shortArrayOf(
-	    257, 263, 269, 271, 277, 281, 283, 293,
+		521, 523, 541, 547, 557, 563, 569, 571,
     )
 	private val shortQueue = ArrayDeque<Short>(12)	
 
@@ -94,7 +94,7 @@ open class ShortPrimeCache
 	override fun clear() {
 		shortQueue.clear()
 		shortArray = shortArrayOf(
-		    257, 263, 269, 271, 277, 281, 283, 293,
+			521, 523, 541, 547, 557, 563, 569, 571,
 		)
 		byteCache.clear()
 	}
