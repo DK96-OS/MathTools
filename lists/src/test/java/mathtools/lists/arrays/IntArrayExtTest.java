@@ -1,6 +1,8 @@
 package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,6 +43,45 @@ public final class IntArrayExtTest {
         final int[] array = newArray(10, Short.MAX_VALUE);
         assertEquals(
                 10 * Short.MAX_VALUE, IntArrayExt.sum(array));
+    }
+
+    @Test
+    void testAllNonZero_ReturnsTrue() {
+        assertTrue(
+            IntArrayExt.allNonZero(new int[]{1})
+        );
+        assertTrue(
+            IntArrayExt.allNonZero(
+                new int[]{-1, 7, 1, 4, 20}
+            )
+        );
+    }
+
+    @Test
+    void testAllNonZero_EmptyArray_ReturnsTrue() {
+        assertTrue(
+            IntArrayExt.allNonZero(new int[0])
+        );
+    }
+
+    @Test
+    void testAllNonZero_AllocatedArray_ReturnsFalse() {
+        assertFalse(
+            IntArrayExt.allNonZero(new int[5])
+        );
+        assertFalse(
+            IntArrayExt.allNonZero(new int[20])
+        );
+    }
+
+    @Test
+    void testAllNonZero_ArrayWithAnyZero_ReturnsFalse() {
+        assertFalse(
+            IntArrayExt.allNonZero(new int[] {20, 0, 1})
+        );
+        assertFalse(
+            IntArrayExt.allNonZero(new int[] {202, 1240, 411, 0})
+        );
     }
 
 }
