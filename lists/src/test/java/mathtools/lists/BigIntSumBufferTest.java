@@ -42,22 +42,28 @@ public final class BigIntSumBufferTest {
     void testNegativeLong() {
         mBuffer.add(-2L);
         assertEquals(
-                BigInteger.TWO.negate(), mBuffer.getSum());
-        //
+            BigInteger.valueOf(-2),
+            mBuffer.getSum()
+        );
         mBuffer.add(Long.MIN_VALUE + 2L);
         assertEquals(
-                BigInteger.valueOf(Long.MIN_VALUE), mBuffer.getSum());
+            BigInteger.valueOf(Long.MIN_VALUE),
+            mBuffer.getSum()
+        );
     }
 
     @Test
     void testNegativeInt() {
         mBuffer.add(-2);
         assertEquals(
-                BigInteger.TWO.negate(), mBuffer.getSum());
-        //
+            BigInteger.valueOf(-2),
+            mBuffer.getSum()
+        );
         mBuffer.add(Integer.MIN_VALUE + 2);
         assertEquals(
-                BigInteger.valueOf(Integer.MIN_VALUE), mBuffer.getSum());
+            BigInteger.valueOf(Integer.MIN_VALUE),
+            mBuffer.getSum()
+        );
     }
 
     @Test
@@ -83,8 +89,10 @@ public final class BigIntSumBufferTest {
         mBuffer.add(Integer.MAX_VALUE);
         //
         assertEquals(
-                belowLimitBig.multiply(BigInteger.TWO).add(bigIntMax),
-                mBuffer.getSum()
+            belowLimitBig.multiply(
+                BigInteger.valueOf(2)
+            ).add(bigIntMax),
+            mBuffer.getSum()
         );
     }
 
@@ -126,6 +134,15 @@ public final class BigIntSumBufferTest {
                 Integer.MIN_VALUE);
         assertEquals(
                 bigLongMin.subtract(BigInteger.ONE), mBuffer.getSum());
+    }
+
+    @Test
+    void testAdd_ZeroInputs_DoesNothing() {
+        mBuffer.add(0L);
+        mBuffer.add(0);
+        assertEquals(
+            BigInteger.ZERO, mBuffer.getSum()
+        );
     }
 
 }

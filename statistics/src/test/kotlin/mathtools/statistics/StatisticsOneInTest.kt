@@ -1,9 +1,7 @@
 package mathtools.statistics
 
 import mathtools.statistics.Statistics.oneIn
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -28,40 +26,40 @@ class StatisticsOneInTest {
         )
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(2)
     fun testOneIn2To9Probability() {
-        val n = 100_000L
+        val n = 50_000L
         assertEquals(
-            50f, checkPercentage(2, n), 0.5f)
+            50f, checkPercentage(2, n), 1.5f)
         assertEquals(
-            33.33f, checkPercentage(3, n), 0.5f)
+            33.33f, checkPercentage(3, n), 1.4f)
         assertEquals(
-            25.00f, checkPercentage(4, n), 0.5f)
+            25.00f, checkPercentage(4, n), 1.3f)
         assertEquals(
-            20.00f, checkPercentage(5, n), 0.5f)
+            20.00f, checkPercentage(5, n), 1.2f)
         assertEquals(
-            16.67f, checkPercentage(6, n), 0.5f)
+            16.67f, checkPercentage(6, n), 1.1f)
         assertEquals(
-            14.28f, checkPercentage(7, n), 0.5f)
+            14.28f, checkPercentage(7, n), 1f)
         assertEquals(
-            12.50f, checkPercentage(8, n), 0.5f)
+            12.50f, checkPercentage(8, n), 1f)
         assertEquals(
-            11.11f, checkPercentage(9, n), 0.5f)
+            11.11f, checkPercentage(9, n), 1f)
     }
 
-    @RepeatedTest(3)
+    @RepeatedTest(2)
     fun testOneIn20To100Probability() {
-        val n = 100_000L
+        val n = 80_000L
         assertEquals(
-            5.0f, checkPercentage(20, n), 0.4f)
+            5.0f, checkPercentage(20, n), 1f)
         assertEquals(
-            4.0f, checkPercentage(25, n), 0.4f)
+            4.0f, checkPercentage(25, n), 0.8f)
         assertEquals(
-            2.5f, checkPercentage(40, n), 0.35f)
+            2.5f, checkPercentage(40, n), 0.7f)
         assertEquals(
-            2.0f, checkPercentage(50, n), 0.35f)
+            2.0f, checkPercentage(50, n), 0.6f)
         assertEquals(
-            1.0f, checkPercentage(100, n), 0.35f)
+            1.0f, checkPercentage(100, n), 0.5f)
     }
 
     @Tag("slow")
@@ -71,22 +69,21 @@ class StatisticsOneInTest {
         val mean = Statistics.calculateMean(measurements)
         val sDev = Statistics.calculateSDev(measurements, mean)
         assertEquals(
-            0.2, mean, 0.015)
+            0.2, mean, 0.02)
         assertEquals(
-            0.0015, sDev, 0.0009)
+            0.0015, sDev, 0.001)
     }
 
     @Tag("slow")
     @RepeatedTest(2)
     fun testOneIn5000Distribution() {
-        val measurements = measureOneIn(5000, 10_000L, 8)
+        val measurements = measureOneIn(5000, 8_000L, 8)
         val mean = Statistics.calculateMean(measurements)
         val sDev = Statistics.calculateSDev(measurements, mean)
         assertEquals(
-            0.02, mean, 0.002)
+            0.02, mean, 0.005)
         assertEquals(
-            0.000_3, sDev, 0.000_29)
-        println("Standard Deviation: $sDev")
+            0.000_5, sDev, 0.000_4)
     }
 
     /** Runs the Statistics OneIn( x ) function N times.

@@ -1,6 +1,8 @@
 package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -58,6 +60,49 @@ public final class ShortArrayExtTest {
             assertEquals(
                     (short) (i + 4), list.get(i));
         }
+    }
+
+    @Test
+    void testAllNonZero_ReturnsTrue() {
+        assertTrue(
+            ShortArrayExt.allNonZero(new short[]{1})
+        );
+        assertTrue(
+            ShortArrayExt.allNonZero(
+                new short[]{-1, 7, 1, 4, 20}
+            )
+        );
+    }
+
+    @Test
+    void testAllNonZero_EmptyArray_ReturnsTrue() {
+        assertTrue(
+            ShortArrayExt.allNonZero(new short[0])
+        );
+    }
+
+    @Test
+    void testAllNonZero_AllocatedArray_ReturnsFalse() {
+        assertFalse(
+            ShortArrayExt.allNonZero(new short[5])
+        );
+        assertFalse(
+            ShortArrayExt.allNonZero(new short[20])
+        );
+    }
+
+    @Test
+    void testAllNonZero_ArrayWithAnyZero_ReturnsFalse() {
+        assertFalse(
+            ShortArrayExt.allNonZero(
+                new short[] {20, 0, 1}
+            )
+        );
+        assertFalse(
+            ShortArrayExt.allNonZero(
+                new short[] {102, 124, 41, 0}
+            )
+        );
     }
 
 }

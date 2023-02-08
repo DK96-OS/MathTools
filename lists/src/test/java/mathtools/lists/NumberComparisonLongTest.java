@@ -147,4 +147,26 @@ public final class NumberComparisonLongTest {
 			isEquivalent(-100027.0001, -100027L));
 	}
 
+	@Test
+	void testFloatInfinity() {
+		long input = 0;
+		assertFalse(
+			isEquivalent(Float.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Float.NEGATIVE_INFINITY, input)
+		);
+	}
+
+	@Test
+	void testDoubleInfinity() {
+		long input = 0;
+		assertFalse(
+			isEquivalent(Double.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Double.NEGATIVE_INFINITY, input)
+		);
+	}
+
 }

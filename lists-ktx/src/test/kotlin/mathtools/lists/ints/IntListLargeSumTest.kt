@@ -1,22 +1,22 @@
-package mathtools.lists.longs
+package mathtools.lists.ints
 
-import mathtools.lists.LongList.largeSum
-import mathtools.lists.NumberListConversion.toLong
+import mathtools.lists.IntList.largeSum
+import mathtools.lists.NumberListConversion.toInt
 import mathtools.lists.testdata.ListDataSource.uniform101
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.math.BigInteger
 
-/** Testing the LongList LargeSum function
+/** Testing the IntList LargeSum function
  * @author DK96-OS : 2022 */
-class LongListLargeSumTest {
+class IntListLargeSumTest {
 
-	private val limit = Long.MAX_VALUE / 2
-	private val bigLimit = BigInteger.valueOf(limit)
+	private val limit = Integer.MAX_VALUE / 2
+	private val bigLimit = BigInteger.valueOf(limit.toLong())
 
 	@Test
 	fun testU101() {
-		val data = toLong(uniform101)
+		val data = toInt(uniform101)
 		assertEquals(
 			BigInteger.valueOf(3030), largeSum(data)
 		)
@@ -24,13 +24,11 @@ class LongListLargeSumTest {
 
 	@Test
 	fun testMaxIntValues() {
-		val data = mutableListOf<Long>()
+		val data = mutableListOf<Int>()
 		for (i in 0 until 5000)
-			data.add(Long.MAX_VALUE)
-		var maxLong = BigInteger.valueOf(Long.MAX_VALUE)
-		maxLong *= BigInteger.valueOf(5000)
+			data.add(Int.MAX_VALUE)
 		assertEquals(
-			maxLong, largeSum(data)
+			BigInteger.valueOf(5000L * Int.MAX_VALUE), largeSum(data)
 		)
 	}
 
@@ -43,7 +41,7 @@ class LongListLargeSumTest {
 			bigLimit, largeSum(listOf(limit)))
 		//
 		assertEquals(
-			bigLimit.multiply(BigInteger.TWO),
+			bigLimit.multiply(BigInteger.valueOf(2)),
 			largeSum(listOf(limit, limit))
 		)
 	}
@@ -54,7 +52,9 @@ class LongListLargeSumTest {
 		val array = Array(8) { value }
 		//
 		assertEquals(
-			BigInteger.valueOf(value).multiply(BigInteger.valueOf(8)),
+			BigInteger.valueOf(value.toLong()).multiply(
+				BigInteger.valueOf(8)
+			),
 			largeSum(array.toList())
 		)
 	}

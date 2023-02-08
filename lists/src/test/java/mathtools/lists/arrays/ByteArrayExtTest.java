@@ -1,6 +1,8 @@
 package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -62,4 +64,56 @@ public final class ByteArrayExtTest {
             0, ByteArrayExt.sum(array));
     }
 
+    @Test
+    void testClear() {
+        final byte[] input = new byte[]{5, 6, 8};
+        ByteArrayExt.clear(input);
+        assertEquals(
+            0L, ByteArrayExt.sum(input)
+        );
+    }
+
+    @Test
+    void testAllNonZero_ReturnsTrue() {
+        assertTrue(
+            ByteArrayExt.allNonZero(new byte[]{1})
+        );
+        assertTrue(
+            ByteArrayExt.allNonZero(
+                new byte[]{-1, 7, 1, 4, 20}
+            )
+        );
+    }
+
+    @Test
+    void testAllNonZero_EmptyArray_ReturnsTrue() {
+        assertTrue(
+            ByteArrayExt.allNonZero(new byte[0])
+        );
+    }
+
+    @Test
+    void testAllNonZero_AllocatedArray_ReturnsFalse() {
+        assertFalse(
+            ByteArrayExt.allNonZero(new byte[5])
+        );
+        assertFalse(
+            ByteArrayExt.allNonZero(new byte[20])
+        );
+    }
+
+    @Test
+    void testAllNonZero_ArrayWithAnyZero_ReturnsFalse() {
+        assertFalse(
+            ByteArrayExt.allNonZero(
+                new byte[] {20, 0, 1}
+            )
+        );
+        assertFalse(
+            ByteArrayExt.allNonZero(
+                new byte[] {102, 124, 41, 0}
+            )
+        );
+    }
+    
 }

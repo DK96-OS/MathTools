@@ -94,4 +94,26 @@ public class NumberComparisonShortTest {
             isEquivalent(32767.001, (short) 32767));
     }
 
+    @Test
+    void testFloatInfinity() {
+        short input = 0;
+        assertFalse(
+            isEquivalent(Float.POSITIVE_INFINITY, input)
+        );
+        assertFalse(
+            isEquivalent(Float.NEGATIVE_INFINITY, input)
+        );
+    }
+
+    @Test
+    void testDoubleInfinity() {
+        short input = 0;
+        assertFalse(
+            isEquivalent(Double.POSITIVE_INFINITY, input)
+        );
+        assertFalse(
+            isEquivalent(Double.NEGATIVE_INFINITY, input)
+        );
+    }
+
 }
