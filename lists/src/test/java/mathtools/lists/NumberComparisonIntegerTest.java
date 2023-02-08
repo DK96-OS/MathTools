@@ -179,4 +179,26 @@ public final class NumberComparisonIntegerTest {
 			isEquivalent(123456.2, 123456));
 	}
 
+	@Test
+	void testFloatInfinity() {
+		int input = 0;
+		assertFalse(
+			isEquivalent(Float.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Float.NEGATIVE_INFINITY, input)
+		);
+	}
+
+	@Test
+	void testDoubleInfinity() {
+		int input = 0;
+		assertFalse(
+			isEquivalent(Double.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Double.NEGATIVE_INFINITY, input)
+		);
+	}
+
 }

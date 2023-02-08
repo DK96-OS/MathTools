@@ -29,6 +29,7 @@ jobs:
         name: Coverage-Report
         path: |
           /home/runner/work/MathTools/MathTools/lists/build/jacocoReport/
+          /home/runner/work/MathTools/MathTools/lists-ktx/build/jacocoReport/
           /home/runner/work/MathTools/MathTools/numbers/build/jacocoReport/
           /home/runner/work/MathTools/MathTools/statistics/build/jacocoReport/
           /home/runner/work/MathTools/MathTools/generators/build/jacocoReport/

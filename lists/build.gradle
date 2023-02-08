@@ -1,9 +1,7 @@
 plugins {
-	id "org.jetbrains.kotlin.jvm"
+	id "java-library"
 	id "jacoco"
-	id "org.jetbrains.dokka"
 }
-apply from: "../dependencies.gradle"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
@@ -21,24 +19,21 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.5.8"
+			version = "0.6"
 			from components.java
 		}
 	}
 }
 
 dependencies {
-	api guava
+	apply from: "../dependencies.gradle"
 
-	// Coroutine support
-	//implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-	//testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+	implementation guava
 
-	// JUnit 5
-	testImplementation(platform("org.junit:junit-bom:5.9.2"))
-	testImplementation("org.junit.jupiter:junit-jupiter-api")
-	testImplementation("org.junit.jupiter:junit-jupiter-params")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation platform(junit5.bom)
+	testImplementation junit5.api
+	testImplementation junit5.params
+	testRuntimeOnly junit5.engine
 }
 
 sourceSets.main {

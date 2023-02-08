@@ -2,6 +2,9 @@ package mathtools.numbers.format
 
 /** Package numbers inside characters and strings
  * @author DK96-OS : 2021 - 2022 */
+@Deprecated(
+    "No Longer Supported"
+)
 object StringPackager {
 
     /** Pack two UBytes into a Char */

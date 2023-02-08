@@ -1,7 +1,5 @@
 package mathtools.lists.arrays;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +17,7 @@ public final class ShortArrayExt {
      * @param array The elements to add in the sum
      * @return A long integer, the sum of the elements */
     public static long sum(
-            @NotNull short[] array
+            @Nonnull short[] array
     ) {
         long sum = 0;
         for (short s : array) sum += s;

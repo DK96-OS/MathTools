@@ -1,4 +1,4 @@
-package mathtools.lists.objects
+package mathtools.lists
 
 /** Sorting related Group operations
  * @author DK96-OS : 2022 */

@@ -2,9 +2,6 @@ package mathtools.lists.arrays;
 
 import com.google.common.primitives.Bytes;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +17,7 @@ public final class ByteArrayExt {
      * @param array The array of elements
      * @return A Long value containing the sum of the elements */
     public static long sum(
-        @NotNull final byte[] array
+        @Nonnull final byte[] array
     ) {
         long sum = 0;
         for (byte b : array) sum += b;
@@ -31,13 +28,13 @@ public final class ByteArrayExt {
      *  Uses java.util.Arrays.fill()
      * @param array The array to reset to all zero */
     public static void clear(
-        @NotNull final byte[] array
+        @Nonnull final byte[] array
     ) {
         Arrays.fill(array, (byte) 0);
     }
 
     /** Create a List from the values in an array */
-    @NonNull
+    @Nonnull
     public static List<Byte> toList(
         @Nonnull final byte[] array
     ) {

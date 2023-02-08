@@ -104,4 +104,26 @@ public final class NumberComparisonByteTest {
 			isEquivalent(1234f, (byte) -123));
 	}
 
+	@Test
+	void testFloatInfinity() {
+		byte input = 0;
+		assertFalse(
+			isEquivalent(Float.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Float.NEGATIVE_INFINITY, input)
+		);
+	}
+
+	@Test
+	void testDoubleInfinity() {
+		byte input = 0;
+		assertFalse(
+			isEquivalent(Double.POSITIVE_INFINITY, input)
+		);
+		assertFalse(
+			isEquivalent(Double.NEGATIVE_INFINITY, input)
+		);
+	}
+
 }

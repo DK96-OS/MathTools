@@ -1,6 +1,8 @@
 package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,13 +17,13 @@ import java.util.List;
 public final class LongArrayExtTest {
 
     private static final BigInteger longMax =
-            BigInteger.valueOf(Long.MAX_VALUE);
+        BigInteger.valueOf(Long.MAX_VALUE);
 
     private static final BigInteger eight = BigInteger.valueOf(8);
 
     private static long[] newArray(
-            final int size,
-            final long startVal
+        final int size,
+        final long startVal
     ) {
         if (size < 0 || size > 200_000_000)
             throw new IllegalArgumentException();
@@ -33,10 +35,10 @@ public final class LongArrayExtTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 2, 3, 4, 5})
     void testToListBaseCases(
-            final int arraySize
+        final int arraySize
     ) {
         final List<Long> list = LongArrayExt.toList(
-                newArray(arraySize, 4)
+            newArray(arraySize, 4)
         );
         for (int i = 0; i < arraySize; i++)
             assertEquals(4, list.get(i));
@@ -46,8 +48,8 @@ public final class LongArrayExtTest {
     void testSumOfIntegerSizedValues() {
         final long[] array = newArray(8, Integer.MAX_VALUE);
         assertEquals(
-                BigInteger.valueOf(8L * Integer.MAX_VALUE),
-                LongArrayExt.sum(array)
+            BigInteger.valueOf(8L * Integer.MAX_VALUE),
+            LongArrayExt.sum(array)
         );
     }
 
@@ -55,8 +57,8 @@ public final class LongArrayExtTest {
     void testSumOfMaxValues() {
         final long[] array = newArray(8, Long.MAX_VALUE);
         assertEquals(
-                longMax.multiply(eight),
-                LongArrayExt.sum(array)
+            longMax.multiply(eight),
+            LongArrayExt.sum(array)
         );
     }
 
@@ -65,8 +67,8 @@ public final class LongArrayExtTest {
         final long halfMax = (Long.MAX_VALUE - 3) / 2;
         final long[] array = newArray(8, halfMax);
         assertEquals(
-                eight.multiply(BigInteger.valueOf(halfMax)),
-                LongArrayExt.sum(array)
+            eight.multiply(BigInteger.valueOf(halfMax)),
+            LongArrayExt.sum(array)
         );
     }
 
@@ -75,8 +77,8 @@ public final class LongArrayExtTest {
         final long quarterMax = ((Long.MAX_VALUE / 2) + 1) / 2;
         final long[] array = newArray(8, quarterMax);
         assertEquals(
-                eight.multiply(BigInteger.valueOf(quarterMax)),
-                LongArrayExt.sum(array)
+            eight.multiply(BigInteger.valueOf(quarterMax)),
+            LongArrayExt.sum(array)
         );
     }
 
@@ -85,8 +87,47 @@ public final class LongArrayExtTest {
         final long quarterMax = -((Long.MAX_VALUE / 2) + 1) / 2;
         final long[] array = newArray(8, quarterMax);
         assertEquals(
-                eight.multiply(BigInteger.valueOf(quarterMax)),
-                LongArrayExt.sum(array)
+            eight.multiply(BigInteger.valueOf(quarterMax)),
+            LongArrayExt.sum(array)
+        );
+    }
+
+    @Test
+    void testAllNonZero_ReturnsTrue() {
+        assertTrue(
+            LongArrayExt.allNonZero(new long[]{1})
+        );
+        assertTrue(
+            LongArrayExt.allNonZero(
+                new long[]{-1, 7, 1, 4, 20}
+            )
+        );
+    }
+
+    @Test
+    void testAllNonZero_EmptyArray_ReturnsTrue() {
+        assertTrue(
+            LongArrayExt.allNonZero(new long[0])
+        );
+    }
+
+    @Test
+    void testAllNonZero_AllocatedArray_ReturnsFalse() {
+        assertFalse(
+            LongArrayExt.allNonZero(new long[5])
+        );
+        assertFalse(
+            LongArrayExt.allNonZero(new long[20])
+        );
+    }
+
+    @Test
+    void testAllNonZero_ArrayWithAnyZero_ReturnsFalse() {
+        assertFalse(
+            LongArrayExt.allNonZero(new long[] {20, 0, 1})
+        );
+        assertFalse(
+            LongArrayExt.allNonZero(new long[] {202, 1240, 411, 0})
         );
     }
 

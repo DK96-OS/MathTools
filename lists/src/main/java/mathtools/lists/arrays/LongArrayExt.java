@@ -1,7 +1,5 @@
 package mathtools.lists.arrays;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +20,7 @@ public final class LongArrayExt {
      * @param array The elements to add in the sum
      * @return A long integer, the sum of the elements */
     public static BigInteger sum(
-            @NotNull long[] array
+            @Nonnull long[] array
     ) {
         if (array.length == 0) return BigInteger.ZERO;
         else if (array.length == 1) return BigInteger.valueOf(array[0]);

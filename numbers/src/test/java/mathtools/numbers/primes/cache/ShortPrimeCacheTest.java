@@ -24,12 +24,8 @@ import mathtools.numbers.structs.IntPair;
  * @author DK96-OS : 2022 */
 public final class ShortPrimeCacheTest {
 
-	private final List<Integer> primeList = PrimeTestDataProvider.getPrimes349();
-	/* These are the indices for a selection of numbers in the prime list:
-    	assertEquals(199, primeList[45])
-    	assertEquals(251, primeList[53])
-    	assertEquals(349, primeList[69])
-    */
+	private final List<Integer> primeList = PrimeTestDataProvider.getPrimes509();
+
 	private final int maxPrimeIndex = primeList.size() - 1;
 
 	private ShortPrimeCache cache = null;
