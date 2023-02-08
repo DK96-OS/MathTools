@@ -75,6 +75,22 @@ public final class NumberListConversionTest {
         );
     }
 
+    @Test
+    public void testToShort_InputIntegers_ReliesOnShortValue() {
+        List<Number> input = NumberListTestResources.intList;
+        List<Short> result = NumberListConversion.toShort(input);
+        assertEquals(
+            input.size(), result.size()
+        );
+        for (int index = 0;
+             index < result.size();
+             index++
+        ) assertEquals(
+            input.get(index).shortValue(),
+            result.get(index)
+        );
+    }
+
     /**  */
     @Test
     void testToByte_InputShorts() {
