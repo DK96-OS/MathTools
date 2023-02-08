@@ -49,6 +49,7 @@ jobs:
           name: JavaDocs-${{ matrix.java }}
           path: |
             /home/runner/work/MathTools/MathTools/lists/build/dokka/
+            /home/runner/work/MathTools/MathTools/lists-ktx/build/dokka/
             /home/runner/work/MathTools/MathTools/numbers/build/dokka/
             /home/runner/work/MathTools/MathTools/statistics/build/dokka/
             /home/runner/work/MathTools/MathTools/generators/build/dokka/
