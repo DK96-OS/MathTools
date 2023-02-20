@@ -18,7 +18,7 @@ public final class StaticPrimes {
 	/** Obtain a Prime from the Static Array.
 	 * The static array contains primes from 2 to 53.
 	 * @param index The index of the prime number, from 0 to StaticPrimeCache MAX_INDEX
-	 * @return The Prime Number at the requested index
+	 * @return The Prime Number at the requested index.
 	 * @throws ArrayIndexOutOfBoundsException If the index is not within the static array bounds
 	 */
 	public static byte getStaticPrime(
@@ -27,10 +27,12 @@ public final class StaticPrimes {
 		return initArray[index];
 	}
 
-	/** Determine if a number is present in the cache
-	 * @param number The number to search for
-	 * @return Whether the number is present or not */
-	public static boolean containsNumber(
+	/** Determine if a number is present in the static prime array.
+	 * This array contains the first 16 primes (2 to 53).
+	 * @param number The number to search for.
+	 * @return Whether the number is present or not.
+	 */
+	static boolean containsNumber(
 		final int number
 	) {
 		final byte maxPrime = initArray[MAX_INDEX];
