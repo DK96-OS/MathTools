@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 /** Testing [BytePair] class
- * @author DK96-OS : 2022 */
+ * @author DK96-OS : 2022
+ */
 public final class BytePairTest {
 
 	/** Assert that actual is not null, and it's values match expectations */
