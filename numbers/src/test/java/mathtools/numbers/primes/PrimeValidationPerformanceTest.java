@@ -1,4 +1,4 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -6,8 +6,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
 
-import mathtools.numbers.primes.BytePrimeCache;
-import mathtools.numbers.primes.PrimeCacheInterface;
 import mathtools.numbers.primes.cache.PrimeCachePerformanceTest;
 import mathtools.numbers.structs.TimeMeasurement;
 

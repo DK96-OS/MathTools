@@ -1,11 +1,11 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mathtools.numbers.primes.validate.StaticPrimes.containsNumber;
-import static mathtools.numbers.primes.validate.StaticPrimes.getStaticPrime;
+import static mathtools.numbers.primes.StaticPrimes.containsNumber;
+import static mathtools.numbers.primes.StaticPrimes.getStaticPrime;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
