@@ -1,10 +1,9 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import mathtools.numbers.factors.BitFactoring;
-import mathtools.numbers.primes.PrimeCacheInterface;
 
 /** For finding and checking for prime numbers
  * @author DK96-OS : 2022 */

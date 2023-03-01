@@ -1,13 +1,13 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import mathtools.lists.arrays.ByteArrayExt;
 
 /** An organized static structure for containing small prime numbers
  * @author DK96-OS : 2022 */
-public final class StaticPrimes {
+final class StaticPrimes {
 
 	/** The index of the largest prime number in this cache */
-	public static final byte MAX_INDEX = 15;
+	static final byte MAX_INDEX = 15;
 
 	/** The first 16 useful primes */
 	private static final byte[] initArray = {
@@ -21,7 +21,7 @@ public final class StaticPrimes {
 	 * @return The Prime Number at the requested index.
 	 * @throws ArrayIndexOutOfBoundsException If the index is not within the static array bounds
 	 */
-	public static byte getStaticPrime(
+	static byte getStaticPrime(
 		final int index
 	) throws ArrayIndexOutOfBoundsException {
 		return initArray[index];

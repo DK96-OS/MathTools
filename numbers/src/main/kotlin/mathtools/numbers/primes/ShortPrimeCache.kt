@@ -1,7 +1,5 @@
 package mathtools.numbers.primes
 
-import mathtools.numbers.primes.validate.PrimeValidation
-
 /** An array-based cache for Prime Numbers in the 16-bit integer range
  * @author DK96-OS : 2021 - 2022 */
 open class ShortPrimeCache
