@@ -6,7 +6,7 @@ import mathtools.generators.elements.ints.IntElementInterface;
 
 /** Runs an Integer Element Generator alongside a Counter
  * @author DK96-OS : 2022 */
-public class IntGeneratorCounter {
+public final class IntGeneratorCounter {
 
     private final IntElementInterface mGenerator;
 
