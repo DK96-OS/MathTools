@@ -45,7 +45,10 @@ public final class NumberFactors {
 				return 0;
 			else {
 				int counter = 1;
-				for(; 1L < remainder && 0L == remainder % longF; ++counter) {
+				for (;
+				     1L < remainder && 0L == remainder % longF;
+					 ++counter
+				) {
 					remainder /= longF;
 				}
 				return counter;

@@ -1,16 +1,18 @@
 package mathtools.numbers.primes
 
-/** An array-based cache for Prime Numbers in the 16-bit integer range
- * @author DK96-OS : 2021 - 2022 */
+/** An array-based cache for Prime Numbers in the 16-bit integer range.
+ * @author DK96-OS : 2021 - 2022
+ */
 open class ShortPrimeCache
 	: PrimeCacheInterface {
 
-	/** Rely on BytePrimeCache for smallest primes */
+	/** Rely on BytePrimeCache for smallest primes.
+	 */
 	private val byteCache = BytePrimeCache()
 	
-	/** The range of indexed prime numbers serviced by this cache
-		*  note: maximum index must be less than the index of 32767.  */
-	internal val shortIndexRange
+	/** The range of indexed prime numbers served by this cache.
+	 */
+	private val shortIndexRange
 		: IntRange = BytePrimeCache.MAX_INDEX + 1 .. maxIndex
 
 	/** Storage for short primes */
@@ -31,14 +33,18 @@ open class ShortPrimeCache
 
 	override fun getPrime(idx: Int): Int {
 		val shortIndex = idx - shortIndexRange.first
-		if (shortIndex < 0) return byteCache.getPrime(idx)
+		if (shortIndex < 0)
+			return byteCache.getPrime(idx)
 			// First check the Array
-		if (shortIndex < arraySize) return shortArray[shortIndex].toInt()
+		if (shortIndex < arraySize)
+			return shortArray[shortIndex].toInt()
 			// Check the Queue
 		val overflow = shortIndex - arraySize
-		if (overflow < queueSize) return shortQueue[overflow].toInt()
+		if (overflow < queueSize)
+			return shortQueue[overflow].toInt()
 			// Expand the Cache
-		if (idx <= maxIndex && extendCache(idx)) return getPrime(idx)
+		if (idx <= maxIndex && extendCache(idx))
+			return getPrime(idx)
 		throw IllegalStateException("Unable to obtain Prime")
 	}
 
@@ -98,9 +104,12 @@ open class ShortPrimeCache
 	}
 
 	companion object {
-		/** The largest index that can be stored */
+		/** The largest index that can be stored.
+		 */
 		const val MAX_INDEX: Int = 3511
-		/** The largest prime value that can be stored */
+
+		/** The largest prime value that can be stored.
+		 */
 		const val MAX_PRIME: Int = 32749
 	}
 }
