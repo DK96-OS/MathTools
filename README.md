@@ -4,6 +4,7 @@
 Software Tools for Applied Mathematics are categorized into these modules:
 ### Modules
 - [__Lists__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
+- [__Lists-ktx__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
 - [__Statistics__](https://github.com/DK96-OS/MathTools/wiki/Statistics-Module)
 - [__Numbers__](https://github.com/DK96-OS/MathTools/wiki/Numbers-Module)
 - [__Generators__](https://github.com/DK96-OS/MathTools/wiki/Generators-Module)
@@ -11,6 +12,7 @@ Software Tools for Applied Mathematics are categorized into these modules:
 ### Import in Gradle Build Script
 	dependencies {  
 		implementation 'io.github.dk96-os:lists:$mt_version'
+		implementation 'io.github.dk96-os:lists-ktx:$mt_version'
 		implementation 'io.github.dk96-os:statistics:$mt_version'
 		implementation 'io.github.dk96-os:numbers:$mt_version'
 		implementation 'io.github.dk96-os:generators:$mt_version'
@@ -21,6 +23,9 @@ ___
 ### Lists
 For some specialized list and array operations, with an emphasis on Number types.
 - Search for numbers outside or within a specific range.
+
+#### Lists-ktx
+The Kotlin extensions for Lists module.
 
 ___
 
