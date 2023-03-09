@@ -1,26 +1,36 @@
 package mathtools.numbers.structs;
 
-/** A pair of primitive integers
- * @author DK96-OS : 2022 */
+/** A pair of primitive 8-bit integers that are mutable.
+ * @author DK96-OS : 2022 - 2023
+ */
 public class BytePair {
 
-	public byte getFirst() { return m1; }
+	public byte getFirst() {
+		return mFirst;
+	}
 
-	public byte getSecond() { return m2; }
+	public byte getSecond() {
+		return mSecond;
+	}
 
-	public void setFirst(final byte value) { m1 = value; }
+	public void setFirst(final byte value) {
+		mFirst = value;
+	}
 
-	public void setSecond(final byte value) { m2 = value; }
+	public void setSecond(final byte value) {
+		mSecond = value;
+	}
 
-	private byte m1;
-	private byte m2;
+	private byte mFirst;
+
+	private byte mSecond;
 
 	public BytePair(
 		final byte first,
 		final byte second
 	) {
-		m1 = first;
-		m2 = second;
+		mFirst = first;
+		mSecond = second;
 	}
 
 }

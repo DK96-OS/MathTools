@@ -1,8 +1,8 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static mathtools.numbers.primes.validate.PrimeValidation.staticIsPrime;
+import static mathtools.numbers.primes.PrimeValidation.staticIsPrime;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

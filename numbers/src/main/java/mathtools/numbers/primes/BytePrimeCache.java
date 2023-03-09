@@ -2,9 +2,6 @@ package mathtools.numbers.primes;
 
 import com.google.common.primitives.Bytes;
 
-import mathtools.numbers.primes.validate.PrimeValidation;
-import mathtools.numbers.primes.validate.StaticPrimes;
-
 /** An array-based cache for Prime Numbers using bytes
  * @author DK96-OS : 2021 - 2023
  */

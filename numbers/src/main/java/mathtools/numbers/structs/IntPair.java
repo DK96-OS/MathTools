@@ -1,18 +1,28 @@
 package mathtools.numbers.structs;
 
-/** A pair of primitive integers
- * @author DK96-OS : 2022 */
+/** A pair of primitive 32-bit integers that are mutable.
+ * @author DK96-OS : 2022 - 2023
+ */
 public class IntPair {
 
-	public int getFirst() { return mFirst; }
+	public int getFirst() {
+		return mFirst;
+	}
 
-	public int getSecond() { return mSecond; }
+	public int getSecond() {
+		return mSecond;
+	}
 
-	public void setFirst(final int value) { mFirst = value; }
+	public void setFirst(final int value) {
+		mFirst = value;
+	}
 
-	public void setSecond(final int value) { mSecond = value; }
+	public void setSecond(final int value) {
+		mSecond = value;
+	}
 
 	private int mFirst;
+
 	private int mSecond;
 
 	public IntPair(

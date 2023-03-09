@@ -1,19 +1,15 @@
-package mathtools.numbers.primes.validate;
+package mathtools.numbers.primes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static mathtools.numbers.primes.validate.PrimeValidation.findPrime;
+import static mathtools.numbers.primes.PrimeValidation.findPrime;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
-
-import mathtools.numbers.primes.BytePrimeCache;
-import mathtools.numbers.primes.PrimeCacheInterface;
-import mathtools.numbers.primes.PrimeTestDataProvider;
 
 /** Testing [PrimeChecker] FindPrime Static Method
  * @author DK96-OS : 2022 */

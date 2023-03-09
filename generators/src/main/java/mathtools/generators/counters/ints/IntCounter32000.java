@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 /** 32-bit Integer Counter that can count up to 32767
  *  Up to [IntCounter32000.MAX_RANGE_SIZE] consecutive integer values can be counted together
  * @author DK96-OS : 2022 */
-public class IntCounter32000 implements IntRangeCounter {
+public final class IntCounter32000 implements IntRangeCounter {
 
     /** The maximum number of unique integers that can be counted */
     public static final int MAX_RANGE_SIZE = 500_000;

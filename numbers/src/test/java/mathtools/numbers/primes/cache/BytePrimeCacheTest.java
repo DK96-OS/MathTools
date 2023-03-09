@@ -16,7 +16,7 @@ import kotlin.random.Random;
 import kotlin.ranges.IntRange;
 import mathtools.numbers.primes.BytePrimeCache;
 import mathtools.numbers.primes.PrimeTestDataProvider;
-import mathtools.numbers.primes.validate.PrimeValidation;
+import mathtools.numbers.primes.PrimeValidation;
 
 /** Testing [BytePrimeCache]
  * @author DK96-OS : 2022 */
