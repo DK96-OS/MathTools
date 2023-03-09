@@ -53,10 +53,7 @@ public final class PrimeFactoring {
             // If 2 is over the limit, then first Prime is found
             if (2 > limit)
                 return 2L;
-            // Divide out 2
-            number = Factoring.divideOutFactor(
-                number, 2
-            );
+            number = BitFactoring.divide2(number);
             // If the number only contained factors of 2
             if (3 > number)
                 return null;
@@ -120,9 +117,7 @@ public final class PrimeFactoring {
             return false;
         // Remove any factors of 2
         if (BitFactoring.isProductOf2(number))
-            number = Factoring.divideOutFactor(
-                number, 2
-            );
+            number = BitFactoring.divide2(number);
         // Search primes in increasing order
         int primeIdx = 1;
         int testPrime = cache.getPrime(primeIdx);
@@ -162,9 +157,7 @@ public final class PrimeFactoring {
                 2, product // It is odd that the args are reversed
             ); // Factor 2nd is preferred in the future.
             // Divide every 2 from remainder
-            remainingComposite = Factoring.divideOutFactor(
-                product, 2
-            );
+            remainingComposite = BitFactoring.divide2(product);
             // Add the Prime Factor entry to the list
             list.add(
                 new IntPair(2, count));
