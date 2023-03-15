@@ -21,4 +21,22 @@ public class LongPairFixed {
 		this.second = second;
 	}
 
+	public LongPair toMutable() {
+		return new LongPair(first, second);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof LongPairFixed) {
+			final LongPairFixed other = (LongPairFixed) obj;
+			return first == other.first
+					&& second == other.second;
+		} else if (obj instanceof LongPair) {
+			final LongPair other = (LongPair) obj;
+			return first == other.getFirst()
+					&& second == other.getSecond();
+		} else
+			return false;
+	}
+	
 }

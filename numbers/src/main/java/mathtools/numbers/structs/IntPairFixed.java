@@ -21,4 +21,22 @@ public class IntPairFixed {
 		this.second = second;
 	}
 
+	public IntPair toMutable() {
+		return new IntPair(first, second);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof IntPairFixed) {
+			final IntPairFixed other = (IntPairFixed) obj;
+			return first == other.first
+					&& second == other.second;
+		} else if (obj instanceof IntPair) {
+			final IntPair other = (IntPair) obj;
+			return first == other.getFirst()
+					&& second == other.getSecond();
+		} else
+			return false;
+	}
+	
 }

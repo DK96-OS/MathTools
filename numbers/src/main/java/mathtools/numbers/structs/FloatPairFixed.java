@@ -21,4 +21,22 @@ public class FloatPairFixed {
 		this.second = second;
 	}
 
+	public FloatPair toMutable() {
+		return new FloatPair(first, second);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof FloatPairFixed) {
+			final FloatPairFixed other = (FloatPairFixed) obj;
+			return first == other.first
+					&& second == other.second;
+		} else if (obj instanceof FloatPair) {
+			final FloatPair other = (FloatPair) obj;
+			return first == other.getFirst()
+					&& second == other.getSecond();
+		} else
+			return false;
+	}
+
 }

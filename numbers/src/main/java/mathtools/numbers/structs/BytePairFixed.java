@@ -21,4 +21,22 @@ public class BytePairFixed {
 		this.second = second;
 	}
 
+	public BytePair toMutable() {
+		return new BytePair(first, second);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof BytePairFixed) {
+			final BytePairFixed other = (BytePairFixed) obj;
+			return first == other.first
+					&& second == other.second;
+		} else if (obj instanceof BytePair) {
+			final BytePair other = (BytePair) obj;
+			return first == other.getFirst()
+					&& second == other.getSecond();
+		} else
+			return false;
+	}
+
 }
