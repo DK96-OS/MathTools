@@ -20,7 +20,8 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "statistics"
-			version = "0.6.1"
+			apply from: "../artifacts.gradle"
+			version = artifactVersions.statistics
 			from components.java
 		}
 	}
