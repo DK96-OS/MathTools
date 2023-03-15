@@ -21,9 +21,9 @@ public class IntPair {
 		mSecond = value;
 	}
 
-	private int mFirst;
+	protected int mFirst;
 
-	private int mSecond;
+	protected int mSecond;
 
 	public IntPair(
 		final int first,
@@ -31,6 +31,24 @@ public class IntPair {
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	public IntPairFixed toFixed() {
+		return new IntPairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof IntPairFixed) {
+			final IntPairFixed other = (IntPairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof IntPair) {
+			final IntPair other = (IntPair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }

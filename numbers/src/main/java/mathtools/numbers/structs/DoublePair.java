@@ -21,9 +21,9 @@ public class DoublePair {
 		mSecond = value;
 	}
 
-	private double mFirst;
+	protected double mFirst;
 
-	private double mSecond;
+	protected double mSecond;
 
 	public DoublePair(
 		final double first,
@@ -31,6 +31,24 @@ public class DoublePair {
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	public DoublePairFixed toFixed() {
+		return new DoublePairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof DoublePairFixed) {
+			final DoublePairFixed other = (DoublePairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof DoublePair) {
+			final DoublePair other = (DoublePair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }

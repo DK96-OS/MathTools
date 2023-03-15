@@ -21,9 +21,9 @@ public class ShortPair {
 		mSecond = value;
 	}
 
-	private short mFirst;
+	protected short mFirst;
 
-	private short mSecond;
+	protected short mSecond;
 
 	public ShortPair(
 		final short first,
@@ -31,6 +31,24 @@ public class ShortPair {
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	public ShortPairFixed toFixed() {
+		return new ShortPairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ShortPairFixed) {
+			final ShortPairFixed other = (ShortPairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof ShortPair) {
+			final ShortPair other = (ShortPair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }

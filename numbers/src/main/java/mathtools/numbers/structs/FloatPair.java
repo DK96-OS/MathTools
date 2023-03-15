@@ -21,9 +21,9 @@ public class FloatPair {
 		mSecond = value;
 	}
 
-	private float mFirst;
+	protected float mFirst;
 
-	private float mSecond;
+	protected float mSecond;
 
 	public FloatPair(
 		final float first,
@@ -31,6 +31,24 @@ public class FloatPair {
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	public FloatPairFixed toFixed() {
+		return new FloatPairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof FloatPairFixed) {
+			final FloatPairFixed other = (FloatPairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof FloatPair) {
+			final FloatPair other = (FloatPair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }

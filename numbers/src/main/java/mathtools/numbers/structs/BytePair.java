@@ -21,9 +21,9 @@ public class BytePair {
 		mSecond = value;
 	}
 
-	private byte mFirst;
+	protected byte mFirst;
 
-	private byte mSecond;
+	protected byte mSecond;
 
 	public BytePair(
 		final byte first,
@@ -31,6 +31,24 @@ public class BytePair {
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	public BytePairFixed toFixed() {
+		return new BytePairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof BytePairFixed) {
+			final BytePairFixed other = (BytePairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof BytePair) {
+			final BytePair other = (BytePair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }
