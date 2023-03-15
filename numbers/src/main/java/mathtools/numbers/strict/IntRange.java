@@ -6,11 +6,24 @@ package mathtools.numbers.strict;
 public interface IntRange {
 
     /** The lowest int in this range.
+     * @return Start Value.
      */
     int getStartValue();
 
     /** The largest int in this range.
+     * @return Last Value.
      */
     int getLastValue();
+
+    /** Determine whether this Range contains a value.
+     * @param value The value to check.
+     * @return True if value is in Range (endpoints included).
+     */
+    default boolean contains(
+        final int value
+    ) {
+        return getStartValue() <= value
+            && value <= getLastValue();
+    }
 
 }
