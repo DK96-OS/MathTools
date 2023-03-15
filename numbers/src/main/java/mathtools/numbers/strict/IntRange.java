@@ -1,13 +1,16 @@
 package mathtools.numbers.strict;
 
-/** A group of consecutive integer values
- * @author DK96-OS : 2022 */
+/** A selection of consecutive integer values.
+ * @author DK96-OS : 2022 - 2023
+ */
 public interface IntRange {
 
-    /** The lowest int that can be counted by this counter */
+    /** The lowest int in this range.
+     */
     int getStartValue();
 
-    /** The largest int that can be counted by this counter */
+    /** The largest int in this range.
+     */
     int getLastValue();
 
 }

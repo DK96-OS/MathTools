@@ -1,7 +1,7 @@
 package mathtools.numbers.strict;
 
 /** An implementation of IntRange where endpoints are mutable.
- * @author DK96-OS : 2022
+ * @author DK96-OS : 2022 - 2023
  */
 public class IntRangeMutable
     implements IntRange {
@@ -38,7 +38,7 @@ public class IntRangeMutable
         return mLast;
     }
 
-    /** Set The Start of the Range to a spacific value.
+    /** Set The Start of the Range to a specific value.
      * @param newStart The new start value of the range.
      * @return Whether the input was valid, and the operation succeeded.
      */
@@ -74,8 +74,8 @@ public class IntRangeMutable
             return false;
     }
 
-    /** Expand the Range to incude the given value.
-     * @param value The value to inlcude in the range.
+    /** Expand the Range to include the given value.
+     * @param value The value to include in the range.
      * @return Whether the Range was modified to include the given value.
      */
     public boolean expandRangeTo(
