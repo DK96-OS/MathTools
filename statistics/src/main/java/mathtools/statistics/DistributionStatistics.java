@@ -4,13 +4,14 @@ import static mathtools.statistics.ArrayStatisticsKt.calculateSDev;
 
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Floats;
-import com.google.common.primitives.Ints;
-import com.google.common.primitives.Longs;
-import com.google.common.primitives.Shorts;
-import com.google.common.primitives.SignedBytes;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import mathtools.lists.arrays.ByteArrayExt;
+import mathtools.lists.arrays.IntArrayExt;
+import mathtools.lists.arrays.LongArrayExt;
+import mathtools.lists.arrays.ShortArrayExt;
 
 /** Array Statistics Functions.
  * @author DK96-OS : 2022
@@ -27,12 +28,15 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final byte[] minAndMax = ByteArrayExt.getMinAndMax(array);
+        if (minAndMax == null)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            SignedBytes.min(array),
-            SignedBytes.max(array),
+            minAndMax[0],
+            minAndMax[1],
             array.length
         );
     }
@@ -47,12 +51,15 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final short[] minAndMax = ShortArrayExt.getMinAndMax(array);
+        if (minAndMax == null)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            Shorts.min(array),
-            Shorts.max(array),
+            minAndMax[0],
+            minAndMax[1],
             array.length
         );
     }
@@ -67,12 +74,15 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final int[] minAndMax = IntArrayExt.getMinAndMax(array);
+        if (minAndMax == null)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            Ints.min(array),
-            Ints.max(array),
+            minAndMax[0],
+            minAndMax[1],
             array.length
         );
     }
@@ -87,12 +97,15 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final long[] minAndMax = LongArrayExt.getMinAndMax(array);
+        if (minAndMax == null)
+            return null;
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            Longs.min(array),
-            Longs.max(array),
+            minAndMax[0],
+            minAndMax[1],
             array.length
         );
     }
