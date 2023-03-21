@@ -31,12 +31,19 @@ public final class DistributionStatistics {
         final byte[] minAndMax = ByteArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
+        final byte min = minAndMax[0];
+        final byte max = minAndMax[1];
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            minAndMax[0],
-            minAndMax[1],
+            min,
+            max,
             array.length
         );
     }
@@ -54,12 +61,19 @@ public final class DistributionStatistics {
         final short[] minAndMax = ShortArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
+        final short min = minAndMax[0];
+        final short max = minAndMax[1];
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            minAndMax[0],
-            minAndMax[1],
+            min,
+            max,
             array.length
         );
     }
@@ -77,12 +91,19 @@ public final class DistributionStatistics {
         final int[] minAndMax = IntArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
+        final int min = minAndMax[0];
+        final int max = minAndMax[1];
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            minAndMax[0],
-            minAndMax[1],
+            min,
+            max,
             array.length
         );
     }
@@ -100,12 +121,19 @@ public final class DistributionStatistics {
         final long[] minAndMax = LongArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
+        final long min = minAndMax[0];
+        final long max = minAndMax[1];
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            minAndMax[0],
-            minAndMax[1],
+            min,
+            max,
             array.length
         );
     }
@@ -120,12 +148,19 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final float min = Floats.min(array);
+        final float max = Floats.max(array);
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            Floats.min(array),
-            Floats.max(array),
+            min,
+            max,
             array.length
         );
     }
@@ -140,12 +175,19 @@ public final class DistributionStatistics {
     ) {
         if (2 > array.length)
             return null;
+        final double min = Doubles.min(array);
+        final double max = Doubles.max(array);
+        if (min == max) {
+            return new DistributionStats(
+                min, 0, min, max, array.length
+            );
+        }
         final double mean = ArrayStatistics.calculateMean(array);
         return new DistributionStats(
             mean,
             calculateSDev(array, mean),
-            Doubles.min(array),
-            Doubles.max(array),
+            min,
+            max,
             array.length
         );
     }
