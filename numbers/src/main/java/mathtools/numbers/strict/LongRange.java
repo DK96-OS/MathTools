@@ -1,5 +1,7 @@
 package mathtools.numbers.strict;
 
+import com.google.common.math.LongMath;
+
 /** A selection of consecutive long values.
  * @author DK96-OS : 2023
  */
@@ -24,6 +26,17 @@ public interface LongRange {
     ) {
         return getStartValue() <= value
             && value <= getLastValue();
+    }
+
+    /** Obtain the Size of the Range.
+     * @return The number of values in this Range.
+     */
+    default long getSize() throws ArithmeticException {
+        return LongMath.checkedAdd(
+            LongMath.checkedSubtract(
+                getLastValue(), getStartValue()
+            ), 1L
+        );
     }
 
 }
