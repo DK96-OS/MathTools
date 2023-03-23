@@ -1,6 +1,7 @@
 package mathtools.generators.counters.ints;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.math.IntMath;
 
 import java.util.List;
 
@@ -54,11 +55,20 @@ public final class IntCounterTree implements IntRangeCounter {
     @Override
     @Nonnull
     public List<Integer> toList() {
-        return ImmutableList
-                .<Integer>builder()
-                .addAll(mLeft.toList())
-                .addAll(mRight.toList())
-                .build();
+        int count;
+        try {
+            count = IntMath.checkedAdd(
+                mLeft.getSize(), mRight.getSize()
+            );
+        } catch (ArithmeticException e) {
+            throw new IllegalStateException(
+                "This list is too large to create"
+            );
+        }
+        ImmutableList.Builder<Integer> builder = ImmutableList.builderWithExpectedSize(count);
+        builder.addAll(mLeft.toList());
+        return builder.addAll(mRight.toList())
+            .build();
     }
 
 }
