@@ -38,10 +38,20 @@ public final class LinearShortElementAnalysis {
 		}
 		final List<Integer> results = mCounter.toList();
 		// Print the results
+		// Format the largest number
+		final byte largestNumberLength = (byte) String.valueOf(mCounter.getLastValue()).length();
+		final String formatString;
+		switch (largestNumberLength) {
+			case 2: formatString = "%2d "; break;
+			case 3: formatString = "%3d "; break;
+			case 4: formatString = "%4d "; break;
+			default: formatString = "%d ";
+		}
 		for (int i = 0; i < results.size(); ++i) {
-			final int outcome = i + 1;
 			System.out.printf(
-				"%d : %d\n", outcome, results.get(i)
+					formatString.concat(": %d\n"),
+					i + 1,
+					results.get(i)
 			);
 		}
 		assert 0 < mCounter.getCountOf(1);

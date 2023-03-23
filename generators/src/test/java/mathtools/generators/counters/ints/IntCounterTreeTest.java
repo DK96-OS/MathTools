@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 /** Testing [IntTreeCounter]
  * @author DK96-OS : 2022 */
 public final class IntCounterTreeTest {
@@ -58,6 +60,28 @@ public final class IntCounterTreeTest {
         //
         assertFalse(root.count(1));
         assertFalse(root.count(34));
+    }
+
+    @Test
+    void testToList() {
+        final IntRangeCounter lower = new IntCounter127(2, 9);
+        final IntRangeCounter higher = new IntCounter127(10, 17);
+        final IntCounterTree tree = new IntCounterTree(lower, higher);
+        // Provide Counter with Values matching their key
+        for (int i = 2; i <= higher.getLastValue(); ++i) {
+            for (short j = 0; j < i; ++j)
+                tree.count(i);
+        }
+        // Verify Result
+        List<Integer> result = tree.toList();
+        for (int i = 2; i <= higher.getLastValue(); ++i) {
+            assertEquals(
+                i, result.get(i - 2));
+        }
+        assertEquals(
+            lower.getSize() + higher.getSize(),
+            result.size()
+        );
     }
 
 }
