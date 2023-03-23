@@ -13,6 +13,10 @@ public class ShortPairFixed {
 	 */
 	public final short second;
 
+	/** Create a Fixed ShortPair.
+	 * @param first The first short in the pair.
+	 * @param second The second short in the pair.
+	 */
 	public ShortPairFixed(
 		final short first,
 		final short second
@@ -21,6 +25,9 @@ public class ShortPairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable ShortPair instance.
+	 * @return A new ShortPair.
+	 */
 	public ShortPair toMutable() {
 		return new ShortPair(first, second);
 	}

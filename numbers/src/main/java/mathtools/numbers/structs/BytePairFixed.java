@@ -13,6 +13,10 @@ public class BytePairFixed {
 	 */
 	public final byte second;
 
+	/** Create a Fixed BytePair.
+	 * @param first The first byte in the pair.
+	 * @param second The second byte in the pair.
+	 */
 	public BytePairFixed(
 		final byte first,
 		final byte second
@@ -21,6 +25,9 @@ public class BytePairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable BytePair instance.
+	 * @return A new BytePair.
+	 */
 	public BytePair toMutable() {
 		return new BytePair(first, second);
 	}

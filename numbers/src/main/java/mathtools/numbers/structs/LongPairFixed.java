@@ -13,6 +13,10 @@ public class LongPairFixed {
 	 */
 	public final long second;
 
+	/** Create a Fixed LongPair.
+	 * @param first The first long in the pair.
+	 * @param second The second long in the pair.
+	 */
 	public LongPairFixed(
 		final long first,
 		final long second
@@ -21,6 +25,9 @@ public class LongPairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable LongPair instance.
+	 * @return A new LongPair.
+	 */
 	public LongPair toMutable() {
 		return new LongPair(first, second);
 	}

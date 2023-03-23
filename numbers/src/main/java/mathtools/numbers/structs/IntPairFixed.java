@@ -13,6 +13,10 @@ public class IntPairFixed {
 	 */
 	public final int second;
 
+	/** Create a Fixed IntPair.
+	 * @param first The first int in the pair.
+	 * @param second The second int in the pair.
+	 */
 	public IntPairFixed(
 		final int first,
 		final int second
@@ -21,6 +25,9 @@ public class IntPairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable IntPair instance.
+	 * @return A new IntPair.
+	 */
 	public IntPair toMutable() {
 		return new IntPair(first, second);
 	}
