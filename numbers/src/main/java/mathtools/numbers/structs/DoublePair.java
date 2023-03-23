@@ -33,6 +33,9 @@ public class DoublePair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed Pair instance.
+	 * @return A new PairFixed.
+	 */
 	public DoublePairFixed toFixed() {
 		return new DoublePairFixed(mFirst, mSecond);
 	}

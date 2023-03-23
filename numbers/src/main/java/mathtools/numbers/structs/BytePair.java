@@ -5,10 +5,16 @@ package mathtools.numbers.structs;
  */
 public class BytePair {
 
+	/** Obtain the first byte in the pair
+	 * @return The first byte.
+	 */
 	public byte getFirst() {
 		return mFirst;
 	}
 
+	/** Obtain the second byte in the pair
+	 * @return The second byte.
+	 */
 	public byte getSecond() {
 		return mSecond;
 	}
@@ -25,6 +31,10 @@ public class BytePair {
 
 	protected byte mSecond;
 
+	/** Create a Mutable BytePair.
+	 * @param first The first byte in the pair.
+	 * @param second The second byte in the pair.
+	 */
 	public BytePair(
 		final byte first,
 		final byte second
@@ -33,6 +43,9 @@ public class BytePair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed BytePair instance.
+	 * @return A new BytePairFixed.
+	 */
 	public BytePairFixed toFixed() {
 		return new BytePairFixed(mFirst, mSecond);
 	}

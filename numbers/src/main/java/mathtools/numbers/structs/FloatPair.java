@@ -33,6 +33,9 @@ public class FloatPair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed FloatPair instance.
+	 * @return A new FloatPairFixed.
+	 */
 	public FloatPairFixed toFixed() {
 		return new FloatPairFixed(mFirst, mSecond);
 	}

@@ -33,6 +33,9 @@ public class IntPair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed IntPair instance.
+	 * @return A new IntPairFixed.
+	 */
 	public IntPairFixed toFixed() {
 		return new IntPairFixed(mFirst, mSecond);
 	}

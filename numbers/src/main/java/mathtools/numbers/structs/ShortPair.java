@@ -33,6 +33,9 @@ public class ShortPair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed ShortPair instance.
+	 * @return A new ShortPairFixed.
+	 */
 	public ShortPairFixed toFixed() {
 		return new ShortPairFixed(mFirst, mSecond);
 	}

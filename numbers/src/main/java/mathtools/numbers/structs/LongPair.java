@@ -33,6 +33,9 @@ public class LongPair {
 		mSecond = second;
 	}
 
+	/** Create a Fixed LongPair instance.
+	 * @return A new LongPairFixed.
+	 */
 	public LongPairFixed toFixed() {
 		return new LongPairFixed(mFirst, mSecond);
 	}
