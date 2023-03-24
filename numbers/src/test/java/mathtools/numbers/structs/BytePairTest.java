@@ -35,19 +35,15 @@ public final class BytePairTest {
 	@Test
 	void testSetFirst() {
 		mPair0.setFirst((byte) 8);
-		assertEquals(
-			8, mPair0.getFirst());
-		assertEquals(
-			value0, mPair0.getSecond());
+		assertEquals(8, mPair0.getFirst());
+		assertEquals(value0, mPair0.getSecond());
 	}
 
 	@Test
 	void testSetSecond() {
 		mPair0.setSecond((byte) 12);
-		assertEquals(
-			value0, mPair0.getFirst());
-		assertEquals(
-			12, mPair0.getSecond());
+		assertEquals(value0, mPair0.getFirst());
+		assertEquals(12, mPair0.getSecond());
 	}
 
 	@Test
@@ -56,10 +52,9 @@ public final class BytePairTest {
 		//Modify Pair0
 		mPair0.setFirst((byte) 20);
 		mPair0.setSecond((byte) -10);
-		assertEquals(
-			value0, result.first);
-		assertEquals(
-			value0, result.second);
+		// Fixed Pair is unchanged
+		assertEquals(value0, result.first);
+		assertEquals(value0, result.second);
 	}
 
 	@Test
