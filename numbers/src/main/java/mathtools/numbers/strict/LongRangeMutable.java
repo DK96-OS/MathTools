@@ -38,36 +38,28 @@ public class LongRangeMutable
         return mLast;
     }
 
-    /** Set The Start of the Range to a specific value.
+    /** Set the Start of the Range.
      * @param newStart The new start value of the range.
-     * @return Whether the input was valid, and the operation succeeded.
+     * @return Whether the start value was valid relative to the last value.
      */
     public boolean setStart(
         final long newStart
     ) {
-        if (newStart < mStart) {
-            mStart = newStart;
-            return true;
-        } else if (newStart <= mLast) {
-            if (newStart == mStart) return false;
+        if (newStart <= mLast) {
             mStart = newStart;
             return true;
         } else
             return false;
     }
 
-    /** Set The Last value in the Range.
+    /** Set the Last value of the Range.
      * @param newLast The new last value in the range.
-     * @return Whether the input value was valid, and the range was modified.
+     * @return Whether the last value was valid relative to the start value.
      */
     public boolean setLast(
         final long newLast
     ) {
-        if (newLast > mLast) {
-            mLast = newLast;
-            return true;
-        } else if (newLast < mLast) {
-            if (newLast < mStart) return false;
+        if (newLast >= mStart) {
             mLast = newLast;
             return true;
         } else
