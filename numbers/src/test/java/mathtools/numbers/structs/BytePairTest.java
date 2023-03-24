@@ -1,9 +1,8 @@
 package mathtools.numbers.structs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,35 +59,35 @@ public final class BytePairTest {
 	@Test
 	void testEquals_SameValues_ReturnsTrue() {
 		BytePair pair0 = new BytePair(value0, value0);
-		assertTrue(mPair0.equals(pair0));
+		assertEquals(mPair0, pair0);
 	}
 
 	@Test
 	void testEquals_DifferentValues_ReturnsFalse() {
 		BytePair pair = new BytePair(value0, (byte) 2);
-		assertFalse(mPair0.equals(pair));
+		assertNotEquals(mPair0, pair);
 		pair = new BytePair((byte) 2, value0);
-		assertFalse(mPair0.equals(pair));
+		assertNotEquals(mPair0, pair);
 	}
 
 	@Test
 	void testEquals_WithFixedBytePair_ReturnsTrue() {
 		BytePairFixed pair0 = mPair0.toFixed();
-		assertTrue(mPair0.equals(pair0));
+		assertEquals(mPair0, pair0);
 	}
 
 	@Test
 	void testEquals_WithFixedBytePairDifferentValues_ReturnsFalse() {
 		BytePairFixed pair = new BytePairFixed(value0, (byte) 1);
-		assertFalse(mPair0.equals(pair));
+		assertNotEquals(mPair0, pair);
 		pair = new BytePairFixed((byte) 1, value0);
-		assertFalse(mPair0.equals(pair));
+		assertNotEquals(mPair0, pair);
 	}
 
 	@Test
 	void testEquals_UnsupportedType_ReturnsFalse() {
 		String str = "";
-		assertFalse(mPair0.equals(str));
+		assertNotEquals(mPair0, str);
 	}
 
 }

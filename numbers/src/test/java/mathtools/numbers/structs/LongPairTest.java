@@ -34,7 +34,6 @@ public final class LongPairTest {
 		assertEquals(12, mPair0.getSecond());
 	}
 
-
 	@Test
 	void testToFixed() {
 		LongPairFixed result = mPair0.toFixed();
@@ -79,5 +78,5 @@ public final class LongPairTest {
 		String str = "";
 		assertFalse(mPair0.equals(str));
 	}
-	
+
 }

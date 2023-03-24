@@ -28,7 +28,6 @@ public final class IntPairTest {
 		assertEquals(value0, mPair0.getSecond());
 	}
 
-
 	@Test
 	void testSetSecond() {
 		final int newValue = 12;
@@ -36,7 +35,6 @@ public final class IntPairTest {
 		assertEquals(value0, mPair0.getFirst());
 		assertEquals(newValue, mPair0.getSecond());
 	}
-
 
 	@Test
 	void testToFixed() {
