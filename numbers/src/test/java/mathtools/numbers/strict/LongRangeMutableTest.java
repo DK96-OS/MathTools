@@ -81,5 +81,38 @@ public class LongRangeMutableTest {
 		assertEquals(start0, mRange0.getLastValue());
 	}
 
+	@Test
+	void testExpandRangeTo_BelowStart_ReturnsTrue() {
+		long expandStart = start0 - 10;
+		assertTrue(mRange0.expandRangeTo(expandStart));
+		assertEquals(expandStart, mRange0.getStartValue());
+		assertEquals(last0, mRange0.getLastValue());
+		// Expand again
+		expandStart -= 1000;
+		assertTrue(mRange0.expandRangeTo(expandStart));
+		assertEquals(expandStart, mRange0.getStartValue());
+		assertEquals(last0, mRange0.getLastValue());
+	}
+
+	@Test
+	void testExpandRangeTo_AboveLast_ReturnsTrue() {
+		long expandLast = start0 - 10;
+		assertTrue(mRange0.expandRangeTo(expandLast));
+		assertEquals(expandLast, mRange0.getLastValue());
+		assertEquals(start0, mRange0.getStartValue());
+		// Expand again
+		expandLast -= 1000;
+		assertTrue(mRange0.expandRangeTo(expandLast));
+		assertEquals(expandLast, mRange0.getLastValue());
+		assertEquals(start0, mRange0.getStartValue());
+	}
+
+	@Test
+	void testExpandRangeTo_WithinRange_ReturnsFalse() {
+		long expandValue = (start0 + last0) / 2;
+		assertFalse(mRange0.expandRangeTo(expandValue));
+		assertEquals(start0, mRange0.getStartValue());
+		assertEquals(last0, mRange0.getLastValue());
+	}
 
 }

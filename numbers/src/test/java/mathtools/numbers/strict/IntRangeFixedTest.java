@@ -15,8 +15,11 @@ public final class IntRangeFixedTest {
 		final IntRange range = new IntRangeFixed(0, 1);
 		assertEquals(0, range.getStartValue());
 		assertEquals(1, range.getLastValue());
+		// Test Contains
 		assertTrue(range.contains(0));
 		assertTrue(range.contains(1));
+		// Test Size
+		assertEquals(2, range.getSize());
 	}
 
 	@Test
@@ -25,7 +28,9 @@ public final class IntRangeFixedTest {
 		final IntRange range = new IntRangeFixed(value, value);
 		assertEquals(value, range.getStartValue());
 		assertEquals(value, range.getLastValue());
+		// Test Contains
 		assertTrue(range.contains(value));
+		assertEquals(1, range.getSize());
 	}
 
 	@Test
@@ -40,6 +45,7 @@ public final class IntRangeFixedTest {
 			Integer.MAX_VALUE, range.getLastValue()
 		);
 		assertTrue(range.contains(Integer.MIN_VALUE));
+		assertTrue(range.contains(0));
 		assertTrue(range.contains(Integer.MAX_VALUE));
 	}
 
