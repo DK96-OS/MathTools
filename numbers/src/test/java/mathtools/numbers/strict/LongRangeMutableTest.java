@@ -76,7 +76,7 @@ public class LongRangeMutableTest {
 
 	@Test
 	void testSetLast_EqualToStart_ReturnsTrue() {
-		assertFalse(mRange0.setLast(start0));
+		assertTrue(mRange0.setLast(start0));
 		assertEquals(start0, mRange0.getStartValue());
 		assertEquals(start0, mRange0.getLastValue());
 	}
