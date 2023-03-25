@@ -96,12 +96,12 @@ public class LongRangeMutableTest {
 
 	@Test
 	void testExpandRangeTo_AboveLast_ReturnsTrue() {
-		long expandLast = start0 - 10;
+		long expandLast = last0 + 10;
 		assertTrue(mRange0.expandRangeTo(expandLast));
 		assertEquals(expandLast, mRange0.getLastValue());
 		assertEquals(start0, mRange0.getStartValue());
 		// Expand again
-		expandLast -= 1000;
+		expandLast += 1000;
 		assertTrue(mRange0.expandRangeTo(expandLast));
 		assertEquals(expandLast, mRange0.getLastValue());
 		assertEquals(start0, mRange0.getStartValue());
