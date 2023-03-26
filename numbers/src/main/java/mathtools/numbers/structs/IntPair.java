@@ -24,7 +24,11 @@ public class IntPair {
 	protected int mFirst;
 
 	protected int mSecond;
-
+	
+	/** Create a Mutable IntPair.
+	 * @param first The first int in the pair.
+	 * @param second The second int in the pair.
+	 */
 	public IntPair(
 		final int first,
 		final int second

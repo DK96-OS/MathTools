@@ -12,7 +12,11 @@ public class DoublePairFixed {
 	/** The second value in the Pair.
 	 */
 	public final double second;
-
+	
+	/** Create a Fixed DoublePair.
+	 * @param first The first double in the pair.
+	 * @param second The second double in the pair.
+	 */
 	public DoublePairFixed(
 		final double first,
 		final double second
@@ -21,6 +25,9 @@ public class DoublePairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable DoublePair instance.
+	 * @return A new DoublePair.
+	 */
 	public DoublePair toMutable() {
 		return new DoublePair(first, second);
 	}

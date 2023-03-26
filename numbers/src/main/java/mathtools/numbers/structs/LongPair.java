@@ -25,6 +25,10 @@ public class LongPair {
 
 	protected long mSecond;
 
+	/** Create a Mutable LongPair.
+	 * @param first The first long in the pair.
+	 * @param second The second long in the pair.
+	 */
 	public LongPair(
 		final long first,
 		final long second

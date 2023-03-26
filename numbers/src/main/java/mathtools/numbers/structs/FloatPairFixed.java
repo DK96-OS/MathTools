@@ -13,6 +13,10 @@ public class FloatPairFixed {
 	 */
 	public final float second;
 
+	/** Create a Fixed FloatPair.
+	 * @param first The first float in the pair.
+	 * @param second The second float in the pair.
+	 */
 	public FloatPairFixed(
 		final float first,
 		final float second

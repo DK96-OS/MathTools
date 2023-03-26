@@ -25,6 +25,10 @@ public class FloatPair {
 
 	protected float mSecond;
 
+	/** Create a Mutable FloatPair.
+	 * @param first The first float in the pair.
+	 * @param second The second float in the pair.
+	 */
 	public FloatPair(
 		final float first,
 		final float second

@@ -25,6 +25,10 @@ public class ShortPair {
 
 	protected short mSecond;
 
+	/** Create a Mutable ShortPair.
+	 * @param first The first short in the pair.
+	 * @param second The second short in the pair.
+	 */
 	public ShortPair(
 		final short first,
 		final short second

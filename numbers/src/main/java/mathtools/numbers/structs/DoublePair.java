@@ -25,6 +25,10 @@ public class DoublePair {
 
 	protected double mSecond;
 
+	/** Create a Mutable DoublePair.
+	 * @param first The first double in the pair.
+	 * @param second The second double in the pair.
+	 */
 	public DoublePair(
 		final double first,
 		final double second
@@ -33,8 +37,8 @@ public class DoublePair {
 		mSecond = second;
 	}
 
-	/** Create a Fixed Pair instance.
-	 * @return A new PairFixed.
+	/** Create a Fixed DoublePair instance.
+	 * @return A new DoublePairFixed.
 	 */
 	public DoublePairFixed toFixed() {
 		return new DoublePairFixed(mFirst, mSecond);
