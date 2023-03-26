@@ -81,7 +81,7 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.96
+				minimum = 0.97
 			}
 			limit {
 				counter = "BRANCH"
