@@ -70,15 +70,15 @@ public final class ArrayStatisticsTest {
     public void testCalculateMean_InfiniteFloats_IgnoresInfiniteValues() {
         float[] input = new float[]{ 4.2f, 4.0f, Float.NEGATIVE_INFINITY };
         assertEquals(
-            8.2f, calculateMean(input), 0
+            4.1f, calculateMean(input), 0.00001f
         );
         input[2] = Float.POSITIVE_INFINITY;
         assertEquals(
-            8.2f, calculateMean(input), 0
+            4.1f, calculateMean(input), 0.00001f
         );
         input[2] = Float.NaN;
         assertEquals(
-            8.2f, calculateMean(input), 0
+            4.1f, calculateMean(input), 0.00001f
         );
     }
 
@@ -86,15 +86,15 @@ public final class ArrayStatisticsTest {
     public void testCalculateMean_InfiniteDoubles_IgnoresInfiniteValues() {
         double[] input = new double[] { 4.0, 4.2, Double.NEGATIVE_INFINITY };
         assertEquals(
-            8.2, calculateMean(input)
+            4.1, calculateMean(input), 0.00001f
         );
         input[2] = Double.POSITIVE_INFINITY;
         assertEquals(
-            8.2, calculateMean(input)
+            4.1, calculateMean(input), 0.00001f
         );
         input[2] = Double.NaN;
         assertEquals(
-            8.2, calculateMean(input)
+            4.1, calculateMean(input), 0.00001f
         );
     }
 
