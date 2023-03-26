@@ -25,6 +25,9 @@ public class FloatPairFixed {
 		this.second = second;
 	}
 
+	/** Create a Mutable FloatPair instance.
+	 * @return A new FloatPair.
+	 */
 	public FloatPair toMutable() {
 		return new FloatPair(first, second);
 	}
