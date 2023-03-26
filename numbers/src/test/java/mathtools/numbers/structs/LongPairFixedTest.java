@@ -17,31 +17,31 @@ public final class LongPairFixedTest {
 	private LongPairFixed mPair;
 
 	@BeforeEach
-	public void testSetup() {
+	void testSetup() {
 		mPair = new LongPairFixed(number1, number2);
 	}
 
 	@Test
-	public void testInitialCondition() {
+	void testInitialCondition() {
 		assertEquals(number1, mPair.first);
 		assertEquals(number2, mPair.second);
 	}
 
 	@Test
-	public void testToMutable() {
+	void testToMutable() {
 		LongPair pair = mPair.toMutable();
 		assertEquals(mPair.first, pair.getFirst());
 		assertEquals(mPair.second, pair.getSecond());
 	}
 
 	@Test
-	public void testEquals_SameValues_ReturnsTrue() {
+	void testEquals_SameValues_ReturnsTrue() {
 		LongPairFixed pair = new LongPairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
-	public void testEquals_DifferentValues_ReturnsFalse() {
+	void testEquals_DifferentValues_ReturnsFalse() {
 		LongPairFixed pair = new LongPairFixed(
 			number1, (byte) (1 + number2)
 		);

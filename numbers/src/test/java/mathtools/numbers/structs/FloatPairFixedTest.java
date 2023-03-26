@@ -15,7 +15,7 @@ public final class FloatPairFixedTest {
 	private final float number2 = Float.MAX_VALUE;
 
 	@Test
-	public void testConstructor() {
+	void testConstructor() {
 		final DoublePairFixed pair = new DoublePairFixed(number1, number2);
 		assertEquals(number1, pair.first);
 		assertEquals(number2, pair.second);
@@ -24,31 +24,31 @@ public final class FloatPairFixedTest {
 	private FloatPairFixed mPair;
 
 	@BeforeEach
-	public void testSetup() {
+	void testSetup() {
 		mPair = new FloatPairFixed(number1, number2);
 	}
 
 	@Test
-	public void testInitialCondition() {
+	void testInitialCondition() {
 		assertEquals(number1, mPair.first);
 		assertEquals(number2, mPair.second);
 	}
 
 	@Test
-	public void testToMutable() {
+	void testToMutable() {
 		FloatPair pair = mPair.toMutable();
 		assertEquals(mPair.first, pair.getFirst());
 		assertEquals(mPair.second, pair.getSecond());
 	}
 
 	@Test
-	public void testEquals_SameValues_ReturnsTrue() {
+	void testEquals_SameValues_ReturnsTrue() {
 		FloatPairFixed pair = new FloatPairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
-	public void testEquals_DifferentValues_ReturnsFalse() {
+	void testEquals_DifferentValues_ReturnsFalse() {
 		FloatPairFixed pair = new FloatPairFixed(
 			number1, (byte) (1 + number2)
 		);

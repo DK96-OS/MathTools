@@ -17,31 +17,31 @@ public final class IntPairFixedTest {
 	private IntPairFixed mPair;
 
 	@BeforeEach
-	public void testSetup() {
+	void testSetup() {
 		mPair = new IntPairFixed(number1, number2);
 	}
 
 	@Test
-	public void testInitialCondition() {
+	void testInitialCondition() {
 		assertEquals(number1, mPair.first);
 		assertEquals(number2, mPair.second);
 	}
 
 	@Test
-	public void testToMutable() {
+	void testToMutable() {
 		IntPair pair = mPair.toMutable();
 		assertEquals(mPair.first, pair.getFirst());
 		assertEquals(mPair.second, pair.getSecond());
 	}
 
 	@Test
-	public void testEquals_SameValues_ReturnsTrue() {
+	void testEquals_SameValues_ReturnsTrue() {
 		IntPairFixed pair = new IntPairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
-	public void testEquals_DifferentValues_ReturnsFalse() {
+	void testEquals_DifferentValues_ReturnsFalse() {
 		IntPairFixed pair = new IntPairFixed(
 			number1, (byte) (1 + number2)
 		);

@@ -21,7 +21,7 @@ public final class IntPairTest {
 	}
 
 	@Test
-	public void testSetFirst() {
+	void testSetFirst() {
 		final int newValue = 8;
 		mPair0.setFirst(newValue);
 		assertEquals(newValue, mPair0.getFirst());

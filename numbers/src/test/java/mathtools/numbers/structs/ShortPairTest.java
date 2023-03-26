@@ -20,7 +20,7 @@ public final class ShortPairTest {
 	}
 
 	@Test
-	public void testSetFirst() {
+	void testSetFirst() {
 		final short newValue = 8;
 		mPair0.setFirst(newValue);
 		assertEquals(newValue, mPair0.getFirst());

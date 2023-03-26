@@ -21,7 +21,7 @@ public final class LongPairTest {
 	}
 
 	@Test
-	public void testSetFirst() {
+	void testSetFirst() {
 		mPair0.setFirst(8);
 		assertEquals(8, mPair0.getFirst());
 		assertEquals(value0, mPair0.getSecond());

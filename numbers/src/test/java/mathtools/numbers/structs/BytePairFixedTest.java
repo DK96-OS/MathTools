@@ -17,12 +17,12 @@ public final class BytePairFixedTest {
 	private BytePairFixed mPair;
 
 	@BeforeEach
-	public void testSetup() {
+	void testSetup() {
 		mPair = new BytePairFixed(number1, number2);
 	}
 
 	@Test
-	public void testInitialCondition() {
+	void testInitialCondition() {
 		assertEquals(
 			number1, mPair.first);
 		assertEquals(
@@ -30,7 +30,7 @@ public final class BytePairFixedTest {
 	}
 
 	@Test
-	public void testToMutable() {
+	void testToMutable() {
 		BytePair pair = mPair.toMutable();
 		assertEquals(
 			mPair.first, pair.getFirst());
@@ -39,13 +39,13 @@ public final class BytePairFixedTest {
 	}
 
 	@Test
-	public void testEquals_SameValues_ReturnsTrue() {
+	void testEquals_SameValues_ReturnsTrue() {
 		BytePairFixed pair = new BytePairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
-	public void testEquals_DifferentValues_ReturnsFalse() {
+	void testEquals_DifferentValues_ReturnsFalse() {
 		BytePairFixed pair = new BytePairFixed(
 			number1, (byte) (1 + number2)
 		);

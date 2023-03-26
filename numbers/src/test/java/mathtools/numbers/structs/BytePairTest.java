@@ -2,7 +2,6 @@ package mathtools.numbers.structs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,17 +17,6 @@ public final class BytePairTest {
 	@BeforeEach
 	void testSetup() {
 		mPair0 = new BytePair(value0, value0);
-	}
-
-	/** Assert that actual is not null, and it's values match expectations */
-	public static void assertPairEquals(
-		final byte expectedFirst,
-		final byte expectedSecond,
-		final BytePair actual
-	) {
-		assertNotNull(actual);
-		assertEquals(expectedFirst, actual.getFirst());
-		assertEquals(expectedSecond, actual.getSecond());
 	}
 
 	@Test

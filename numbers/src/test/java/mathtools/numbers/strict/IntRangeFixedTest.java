@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public final class IntRangeFixedTest {
 
 	@Test
-	public void testSimpleValues() {
+	void testSimpleValues() {
 		final IntRange range = new IntRangeFixed(0, 1);
 		assertEquals(0, range.getStartValue());
 		assertEquals(1, range.getLastValue());
@@ -23,7 +23,7 @@ public final class IntRangeFixedTest {
 	}
 
 	@Test
-	public void testSingleValue() {
+	void testSingleValue() {
 		final int value = 1;
 		final IntRange range = new IntRangeFixed(value, value);
 		assertEquals(value, range.getStartValue());
@@ -34,7 +34,7 @@ public final class IntRangeFixedTest {
 	}
 
 	@Test
-	public void testReversedRange() {
+	void testReversedRange() {
 		final IntRange range = new IntRangeFixed(
 			Integer.MAX_VALUE, Integer.MIN_VALUE
 		);
