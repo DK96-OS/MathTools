@@ -1,0 +1,10 @@
+def commonArtifactVersion = "0.6.2"
+ext {
+    artifactVersions = [
+            generators : commonArtifactVersion,
+            lists : commonArtifactVersion,
+            lists_ktx : commonArtifactVersion,
+            numbers : commonArtifactVersion,
+            statistics : commonArtifactVersion,
+    ]
+}

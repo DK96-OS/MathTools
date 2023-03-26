@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Methods for operating on a short array
  * @author DK96-OS : 2022 */
@@ -48,6 +49,26 @@ public final class ShortArrayExt {
         for (short value : array)
             if (0 == value) return false;
         return true;
+    }
+
+    /** Determine the min and max values in the array.
+     * @param array The array of values to search.
+     * @return An array containing the min and max values, or null if array is empty.
+     */
+    @Nullable
+    public static short[] getMinAndMax(
+            @Nonnull final short[] array
+    ) {
+        if (array.length == 0) return null;
+        if (array.length == 1) return new short[]{array[0], array[0]};
+        short min = array[0];
+        short max = array[0];
+        for (int i = 1; i < array.length; ++i) {
+            final short value = array[i];
+            if (value < min) min = value;
+            else if (value > max) max = value;
+        }
+        return new short[]{min, max};
     }
 
 }

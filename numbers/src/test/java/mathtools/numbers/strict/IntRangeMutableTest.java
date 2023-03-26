@@ -19,14 +19,14 @@ public final class IntRangeMutableTest {
 	private IntRangeMutable mRange;
 
 	@BeforeEach
-	public void testSetup() {
+	void testSetup() {
 		mRange = new IntRangeMutable(
 			initialStart, initialLast
 		);
 	}
 
 	@Test
-	public void testInitialCondition() {
+	void testInitialCondition() {
 		assertEquals(
 			initialStart, mRange.getStartValue()
 		);
@@ -36,7 +36,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSingleValue() {
+	void testSingleValue() {
 		final int value = 1;
 		final IntRange range = new IntRangeMutable(
 			value, value
@@ -50,7 +50,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testReversedRange() {
+	void testReversedRange() {
 		final IntRange range = new IntRangeMutable(
 			Integer.MAX_VALUE, Integer.MIN_VALUE
 		);
@@ -63,7 +63,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetStartAboveCurrent() {
+	void testSetStartAboveCurrent() {
 		final int nextStart = 3;
 		assertTrue(
 			mRange.setStart(nextStart)
@@ -74,7 +74,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetStartBelowCurrent() {
+	void testSetStartBelowCurrent() {
 		final int nextStart = -1;
 		assertTrue(
 			mRange.setStart(nextStart)
@@ -85,7 +85,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetStartFalse() {
+	void testSetStartFalse() {
 		assertFalse(
 			mRange.setStart(initialStart)
 		);
@@ -105,7 +105,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetLastAboveCurrent() {
+	void testSetLastAboveCurrent() {
 		final int nextLast = initialLast + 300;
 		assertTrue(
 			mRange.setLast(nextLast)
@@ -116,7 +116,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetLastBelowCurrent() {
+	void testSetLastBelowCurrent() {
 		final int nextLast = initialLast - 10;
 		assertTrue(
 			mRange.setLast(nextLast)
@@ -127,7 +127,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetLastToStart() {
+	void testSetLastToStart() {
 		assertTrue(
 			mRange.setLast(initialStart)
 		);
@@ -137,7 +137,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testSetLastFalse() {
+	void testSetLastFalse() {
 		assertFalse(
 			mRange.setLast(initialLast)
 		);
@@ -150,7 +150,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testExpandRangeToMax() {
+	void testExpandRangeToMax() {
 		assertTrue(
 			mRange.expandRangeTo(Integer.MAX_VALUE)
 		);
@@ -163,7 +163,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testExpandRangeToMin() {
+	void testExpandRangeToMin() {
 		assertTrue(
 			mRange.expandRangeTo(Integer.MIN_VALUE)
 		);
@@ -176,7 +176,7 @@ public final class IntRangeMutableTest {
 	}
 
 	@Test
-	public void testExpandRangeFalse() {
+	void testExpandRangeFalse() {
 		assertFalse(
 			mRange.expandRangeTo(initialStart)
 		);

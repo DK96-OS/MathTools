@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public final class ArrayStatisticsTest {
 
     @Test
-    public void testMeanEmptyArray() {
+    public void testCalculateMean_EmptyArray_ReturnsZero() {
         assertEquals(
             0.0, calculateMean(new byte[0]));
         assertEquals(
@@ -27,7 +27,7 @@ public final class ArrayStatisticsTest {
     }
 
     @Test
-    public void testSDevEmptyArray() {
+    public void testCalculateSDev_EmptyArray_ReturnsZero() {
         assertEquals(
             0.0, calculateSDev(new byte[0], 0));
         assertEquals(
@@ -43,35 +43,58 @@ public final class ArrayStatisticsTest {
     }
 
     @Test
-    public void testMeanNonFiniteValues() {
-        // Float
+    public void testCalculateMean_InfiniteFloat_ReturnsZero() {
+        float[] input = new float[]{ Float.NEGATIVE_INFINITY };
+        assertEquals(0.0, calculateMean(input));
+        //
+        input[0] = Float.POSITIVE_INFINITY;
+        assertEquals(0.0, calculateMean(input));
+        //
+        input[0] = Float.NaN;
+        assertEquals(0.0, calculateMean(input));
+    }
+
+    @Test
+    public void testCalculateMean_InfiniteDouble_ReturnsZero() {
+        double[] input = new double[]{ Double.NEGATIVE_INFINITY };
+        assertEquals(0.0, calculateMean(input));
+        //
+        input[0] = Double.POSITIVE_INFINITY;
+        assertEquals(0.0, calculateMean(input));
+        //
+        input[0] = Double.NaN;
+        assertEquals(0.0, calculateMean(input));
+    }
+
+    @Test
+    public void testCalculateMean_InfiniteFloats_IgnoresInfiniteValues() {
+        float[] input = new float[]{ 4.2f, 4.0f, Float.NEGATIVE_INFINITY };
         assertEquals(
-            8.2,
-            calculateMean(new float[] { 8.2f, Float.NEGATIVE_INFINITY }),
-            0.000001
+            4.1f, calculateMean(input), 0.00001f
         );
+        input[2] = Float.POSITIVE_INFINITY;
         assertEquals(
-            8.2,
-            calculateMean(new float[] { 8.2f, Float.POSITIVE_INFINITY }),
-            0.000001
+            4.1f, calculateMean(input), 0.00001f
         );
+        input[2] = Float.NaN;
         assertEquals(
-            8.2,
-            calculateMean(new float[] { 8.2f, Float.NaN }),
-            0.000001
+            4.1f, calculateMean(input), 0.00001f
         );
-        // Double
+    }
+
+    @Test
+    public void testCalculateMean_InfiniteDoubles_IgnoresInfiniteValues() {
+        double[] input = new double[] { 4.0, 4.2, Double.NEGATIVE_INFINITY };
         assertEquals(
-            8.2,
-            calculateMean(new double[] { 8.2, Double.NEGATIVE_INFINITY })
+            4.1, calculateMean(input), 0.00001f
         );
+        input[2] = Double.POSITIVE_INFINITY;
         assertEquals(
-            8.2,
-            calculateMean(new double[] { 8.2, Double.POSITIVE_INFINITY })
+            4.1, calculateMean(input), 0.00001f
         );
+        input[2] = Double.NaN;
         assertEquals(
-            8.2,
-            calculateMean(new double[] { 8.2, Double.NaN })
+            4.1, calculateMean(input), 0.00001f
         );
     }
 

@@ -1,28 +1,28 @@
 package mathtools.numbers.strict;
 
-import com.google.common.math.IntMath;
+import com.google.common.math.LongMath;
 
-/** A selection of consecutive integer values.
- * @author DK96-OS : 2022 - 2023
+/** A selection of consecutive long values.
+ * @author DK96-OS : 2023
  */
-public interface IntRange {
+public interface LongRange {
 
-    /** The lowest int in this range.
+    /** The lowest long in the range.
      * @return Start Value.
      */
-    int getStartValue();
+    long getStartValue();
 
-    /** The largest int in this range.
+    /** The largest long in the range.
      * @return Last Value.
      */
-    int getLastValue();
+    long getLastValue();
 
     /** Determine whether this Range contains a value.
      * @param value The value to check.
      * @return True if value is in Range (endpoints included).
      */
     default boolean contains(
-        final int value
+        final long value
     ) {
         return getStartValue() <= value
             && value <= getLastValue();
@@ -31,11 +31,11 @@ public interface IntRange {
     /** Obtain the Size of the Range.
      * @return The number of values in this Range.
      */
-    default int getSize() throws ArithmeticException {
-        return IntMath.checkedAdd(
-            IntMath.checkedSubtract(
+    default long getSize() throws ArithmeticException {
+        return LongMath.checkedAdd(
+            LongMath.checkedSubtract(
                 getLastValue(), getStartValue()
-            ), 1
+            ), 1L
         );
     }
 

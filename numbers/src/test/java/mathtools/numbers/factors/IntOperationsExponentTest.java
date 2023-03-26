@@ -1,14 +1,16 @@
 package mathtools.numbers.factors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static mathtools.numbers.factors.IntOperations.exponent;
-import static mathtools.numbers.structs.IntPairTest.assertPairEquals;
 
 import org.junit.jupiter.api.Test;
 
 import mathtools.numbers.structs.IntPair;
 
-/** Testing [IntOperations] Exponent function
- * @author DK96-OS : 2022 */
+/** Testing [IntOperations] Exponent function.
+ * @author DK96-OS : 2022
+ */
 public final class IntOperationsExponentTest {
 
 	@Test
@@ -118,6 +120,18 @@ public final class IntOperationsExponentTest {
 			-8, 0, exponent(-2, 3));
 		assertPairEquals(
 			16, 0, exponent(-2, 4));
+	}
+
+	/** Assert that actual is not null, and it's values match expectations.
+	 */
+	static void assertPairEquals(
+		final int expectedFirst,
+		final int expectedSecond,
+		final IntPair actual
+	) {
+		assertNotNull(actual);
+		assertEquals(expectedFirst, actual.getFirst());
+		assertEquals(expectedSecond, actual.getSecond());
 	}
 
 }

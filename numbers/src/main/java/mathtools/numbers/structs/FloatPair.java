@@ -21,16 +21,41 @@ public class FloatPair {
 		mSecond = value;
 	}
 
-	private float mFirst;
+	protected float mFirst;
 
-	private float mSecond;
+	protected float mSecond;
 
+	/** Create a Mutable FloatPair.
+	 * @param first The first float in the pair.
+	 * @param second The second float in the pair.
+	 */
 	public FloatPair(
 		final float first,
 		final float second
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	/** Create a Fixed FloatPair instance.
+	 * @return A new FloatPairFixed.
+	 */
+	public FloatPairFixed toFixed() {
+		return new FloatPairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof FloatPairFixed) {
+			final FloatPairFixed other = (FloatPairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof FloatPair) {
+			final FloatPair other = (FloatPair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }

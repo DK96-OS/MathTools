@@ -19,7 +19,8 @@ publishing {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
 			artifactId = "lists"
-			version = "0.6.1"
+			apply from: "../artifacts.gradle"
+			version = artifactVersions.lists
 			from components.java
 		}
 	}
@@ -72,7 +73,7 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.98
+				minimum = 0.99
 			}
 			limit {
 				counter = "BRANCH"

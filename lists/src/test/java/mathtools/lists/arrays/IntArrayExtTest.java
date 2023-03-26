@@ -2,6 +2,8 @@ package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -84,4 +86,53 @@ public final class IntArrayExtTest {
         );
     }
 
+    @Test
+    void testGetMinAndMax_EmptyArray_ReturnsNull() {
+        assertNull(
+                IntArrayExt.getMinAndMax(new int[0])
+        );
+    }
+
+    @Test
+    void testGetMinAndMax_SingleElementArray_ReturnsElement() {
+        final int value = 5;
+        int[] result = IntArrayExt.getMinAndMax(
+            new int[]{ value }
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(value, result[0]);
+        assertEquals(value, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_AscendingArray() {
+        final int[] ascendingArray = new int[256];
+        for (short i = 0; i < ascendingArray.length; ++i) {
+            ascendingArray[i] = (int) (Byte.MIN_VALUE + i);
+        }
+        int[] result = IntArrayExt.getMinAndMax(
+            ascendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_DescendingArray() {
+        final int[] descendingArray = new int[256];
+        for (int i = 0; i < descendingArray.length; ++i) {
+            descendingArray[i] = Byte.MAX_VALUE - i;
+        }
+        int[] result = IntArrayExt.getMinAndMax(
+            descendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
+    }
+    
 }

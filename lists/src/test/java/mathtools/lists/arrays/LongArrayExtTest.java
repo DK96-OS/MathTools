@@ -2,6 +2,8 @@ package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -131,4 +133,54 @@ public final class LongArrayExtTest {
         );
     }
 
+
+    @Test
+    void testGetMinAndMax_EmptyArray_ReturnsNull() {
+        assertNull(
+                LongArrayExt.getMinAndMax(new long[0])
+        );
+    }
+
+    @Test
+    void testGetMinAndMax_SingleElementArray_ReturnsElement() {
+        final long value = 5;
+        long[] result = LongArrayExt.getMinAndMax(
+                new long[]{ value }
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(value, result[0]);
+        assertEquals(value, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_AscendingArray() {
+        final long[] ascendingArray = new long[256];
+        for (short i = 0; i < ascendingArray.length; ++i) {
+            ascendingArray[i] = Byte.MIN_VALUE + i;
+        }
+        long[] result = LongArrayExt.getMinAndMax(
+                ascendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_DescendingArray() {
+        final long[] descendingArray = new long[256];
+        for (int i = 0; i < descendingArray.length; ++i) {
+            descendingArray[i] = Byte.MAX_VALUE - i;
+        }
+        long[] result = LongArrayExt.getMinAndMax(
+                descendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
+    }
+    
 }

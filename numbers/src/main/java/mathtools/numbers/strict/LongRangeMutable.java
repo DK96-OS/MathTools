@@ -1,23 +1,23 @@
 package mathtools.numbers.strict;
 
-/** An implementation of IntRange where endpoints are mutable.
+/** An implementation of LongRange where endpoints are mutable.
  * @author DK96-OS : 2022 - 2023
  */
-public class IntRangeMutable
-    implements IntRange {
+public class LongRangeMutable
+    implements LongRange {
 
-    private int mStart;
+    private long mStart;
 
-    private int mLast;
+    private long mLast;
 
     /** Create an IntRange that has mutable endpoints.
      *  Note: if arguments are not in ascending order, they will be reversed.
      * @param start The start value of the range.
      * @param last The last value in the range.
      */
-    public IntRangeMutable(
-        final int start,
-        final int last
+    public LongRangeMutable(
+        final long start,
+        final long last
     ) {
         if (start <= last) {
             mStart = start;
@@ -29,45 +29,37 @@ public class IntRangeMutable
     }
 
     @Override
-    public int getStartValue() {
+    public long getStartValue() {
         return mStart;
     }
 
     @Override
-    public int getLastValue() {
+    public long getLastValue() {
         return mLast;
     }
 
-    /** Set The Start of the Range to a specific value.
+    /** Set the Start of the Range.
      * @param newStart The new start value of the range.
-     * @return Whether the input was valid, and the operation succeeded.
+     * @return Whether the start value was valid relative to the last value.
      */
     public boolean setStart(
-        final int newStart
+        final long newStart
     ) {
-        if (newStart < mStart) {
-            mStart = newStart;
-            return true;
-        } else if (newStart <= mLast) {
-            if (newStart == mStart) return false;
+        if (newStart <= mLast) {
             mStart = newStart;
             return true;
         } else
             return false;
     }
 
-    /** Set The Last value in the Range.
+    /** Set the Last value of the Range.
      * @param newLast The new last value in the range.
-     * @return Whether the input value was valid, and the range was modified.
+     * @return Whether the last value was valid relative to the start value.
      */
     public boolean setLast(
-        final int newLast
+        final long newLast
     ) {
-        if (newLast > mLast) {
-            mLast = newLast;
-            return true;
-        } else if (newLast < mLast) {
-            if (newLast < mStart) return false;
+        if (newLast >= mStart) {
             mLast = newLast;
             return true;
         } else
@@ -79,7 +71,7 @@ public class IntRangeMutable
      * @return Whether the Range was modified to include the given value.
      */
     public boolean expandRangeTo(
-        final int value
+        final long value
     ) {
         if (value < mStart) {
             mStart = value;

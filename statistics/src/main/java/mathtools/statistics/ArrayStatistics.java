@@ -1,9 +1,9 @@
 package mathtools.statistics;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
+import javax.annotation.Nonnull;
 
 import mathtools.lists.arrays.ByteArrayExt;
 import mathtools.lists.arrays.IntArrayExt;
@@ -20,7 +20,7 @@ public final class ArrayStatistics {
      * @param array The array of values to use in the calculation
      * @return A double representing the mean (average) value */
     public static double calculateMean(
-            @NotNull byte[] array
+            @Nonnull byte[] array
     ) {
         if (array.length < 1) return 0;
         double sum = (double) ByteArrayExt.sum(array);
@@ -31,7 +31,7 @@ public final class ArrayStatistics {
      * @param array The array of values to use in the calculation
      * @return A double representing the mean (average) value */
     public static double calculateMean(
-            @NotNull short[] array
+            @Nonnull short[] array
     ) {
         if (array.length < 1) return 0;
         double sum = (double) ShortArrayExt.sum(array);
@@ -42,7 +42,7 @@ public final class ArrayStatistics {
      * @param array The array of values to use in the calculation
      * @return A double representing the mean (average) value */
     public static double calculateMean(
-            @NotNull int[] array
+            @Nonnull int[] array
     ) {
         if (array.length < 1) return 0;
         double sum = (double) IntArrayExt.sum(array);
@@ -53,7 +53,7 @@ public final class ArrayStatistics {
      * @param array The array of values to use in the calculation
      * @return A double representing the mean (average) value */
     public static double calculateMean(
-            @NotNull long[] array
+            @Nonnull long[] array
     ) {
         if (array.length < 1) return 0;
         BigInteger sum = LongArrayExt.sum(array);
@@ -68,7 +68,7 @@ public final class ArrayStatistics {
      * @param array The array of Float values
      * @return The mean of array values, or zero if empty */
     public static double calculateMean(
-            @NotNull float[] array
+            @Nonnull float[] array
     ) {
         if (array.length < 1)
             return 0.0;
@@ -94,7 +94,7 @@ public final class ArrayStatistics {
      * @param array The array of Double values
      * @return The mean of array values, or zero if empty */
     public static double calculateMean(
-            @NotNull double[] array
+            @Nonnull double[] array
     ) {
         if (array.length < 1)
             return 0.0;

@@ -1,6 +1,7 @@
 package mathtools.numbers.format;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static mathtools.numbers.format.NumberDeserializer.getByte1;
 import static mathtools.numbers.format.NumberDeserializer.getByte2;
 import static mathtools.numbers.format.NumberDeserializer.getBytes;
@@ -9,7 +10,6 @@ import static mathtools.numbers.format.NumberSerializer.putBytes;
 import org.junit.jupiter.api.Test;
 
 import mathtools.numbers.structs.BytePair;
-import mathtools.numbers.structs.BytePairTest;
 
 /** Testing [NumberSerializer] and [NumberDeserializer] Byte methods
  * @author DK96-OS : 2022 */
@@ -32,7 +32,7 @@ public final class NumberSerializerByteTest {
 					b2, getByte2(serialized));
 				// Check pair of bytes unpacked
 				final BytePair deserializedPair = getBytes(serialized);
-				BytePairTest.assertPairEquals(
+				assertPairEquals(
 					b1, b2, deserializedPair
 				);
 			}
@@ -56,11 +56,23 @@ public final class NumberSerializerByteTest {
 					b2, getByte2(serialized));
 				// Check pair function
 				final BytePair deserializedPair = getBytes(serialized);
-				BytePairTest.assertPairEquals(
+				assertPairEquals(
 					b1, b2, deserializedPair
 				);
 			}
 		}
+	}
+
+	/** Assert that actual is not null, and it's values match expectations.
+	 */
+	static void assertPairEquals(
+		final byte expectedFirst,
+		final byte expectedSecond,
+		final BytePair actual
+	) {
+		assertNotNull(actual);
+		assertEquals(expectedFirst, actual.getFirst());
+		assertEquals(expectedSecond, actual.getSecond());
 	}
 
 }

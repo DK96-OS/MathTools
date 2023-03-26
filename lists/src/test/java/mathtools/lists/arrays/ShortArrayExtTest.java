@@ -2,6 +2,8 @@ package mathtools.lists.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -103,6 +105,55 @@ public final class ShortArrayExtTest {
                 new short[] {102, 124, 41, 0}
             )
         );
+    }
+
+    @Test
+    void testGetMinAndMax_EmptyArray_ReturnsNull() {
+        assertNull(
+                ShortArrayExt.getMinAndMax(new short[0])
+        );
+    }
+
+    @Test
+    void testGetMinAndMax_SingleElementArray_ReturnsElement() {
+        final short value = 5;
+        short[] result = ShortArrayExt.getMinAndMax(
+                new short[]{ value }
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(value, result[0]);
+        assertEquals(value, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_AscendingArray() {
+        final short[] ascendingArray = new short[256];
+        for (short i = 0; i < ascendingArray.length; ++i) {
+            ascendingArray[i] = (short) (Byte.MIN_VALUE + i);
+        }
+        short[] result = ShortArrayExt.getMinAndMax(
+                ascendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
+    }
+
+    @Test
+    void testGetMinAndMax_DescendingArray() {
+        final short[] descendingArray = new short[256];
+        for (short i = 0; i < descendingArray.length; ++i) {
+            descendingArray[i] = (short) (Byte.MAX_VALUE - i);
+        }
+        short[] result = ShortArrayExt.getMinAndMax(
+                descendingArray
+        );
+        assertNotNull(result);
+        assertEquals(2, result.length);
+        assertEquals(Byte.MIN_VALUE, result[0]);
+        assertEquals(Byte.MAX_VALUE, result[1]);
     }
 
 }

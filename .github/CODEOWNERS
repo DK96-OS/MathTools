@@ -13,6 +13,7 @@ README.md	@dk96-os
 
 # Control Gradle Files
 gradle/ @dk96-os
+artifacts.gradle* @dk96-os
 build.gradle* @dk96-os
 settings.gradle* @dk96-os
 dependencies.gradle* @dk96-os

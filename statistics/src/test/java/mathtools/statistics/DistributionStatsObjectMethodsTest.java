@@ -1,16 +1,16 @@
 package mathtools.statistics;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static mathtools.statistics.DistributionStatistics.process;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Collections;
 
 /** Testing [DistributionStats] Object methods
- * @author DK96-OS : 2022 */
+ * @author DK96-OS : 2022
+ */
 public final class DistributionStatsObjectMethodsTest {
 
     private static final DistributionStats mStats1;
@@ -54,18 +54,54 @@ public final class DistributionStatsObjectMethodsTest {
 
     @Test
     void testEqualsSelf() {
-        assertTrue(mStats1.equals(mStats1));
-        assertTrue(mStats2.equals(mStats2));
+        assertEquals(mStats1, mStats1);
+        assertEquals(mStats2, mStats2);
     }
 
     @Test
     void testEqualsNotEqual() {
-        assertFalse(mStats1.equals(mStats2));
-        assertFalse(mStats1.equals(mStats3));
+        assertNotEquals(mStats1, mStats2);
+        assertNotEquals(mStats1, mStats3);
         //
-        assertFalse(mStats1.equals(List.of()));
+        assertNotEquals(mStats1, Collections.EMPTY_LIST);
         //
-        assertFalse(mStats1.equals(null));
+        assertNotEquals(mStats1, null);
+    }
+
+    @Test
+    void testEquals_DifferentMinValues_ReturnsFalse() {
+        DistributionStats stats = new DistributionStats(
+            mStats1.getMean(),
+            mStats1.getStandardDeviation(),
+            mStats1.getMin() + 1,
+            mStats1.getMax(),
+            mStats1.getCount()
+        );
+        assertNotEquals(stats, mStats1);
+    }
+
+    @Test
+    void testEquals_DifferentMaxValues_ReturnsFalse() {
+        DistributionStats stats = new DistributionStats(
+            mStats1.getMean(),
+            mStats1.getStandardDeviation(),
+            mStats1.getMin(),
+            mStats1.getMax() + 1,
+            mStats1.getCount()
+        );
+        assertNotEquals(stats, mStats1);
+    }
+
+    @Test
+    void testEquals_DifferentCounts_ReturnsFalse() {
+        DistributionStats stats = new DistributionStats(
+            mStats1.getMean(),
+            mStats1.getStandardDeviation(),
+            mStats1.getMin(),
+            mStats1.getMax(),
+            mStats1.getCount() + 1
+        );
+        assertNotEquals(stats, mStats1);
     }
 
 }

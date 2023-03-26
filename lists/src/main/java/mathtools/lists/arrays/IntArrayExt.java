@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Methods for operating on an int array
  * @author DK96-OS : 2022 */
@@ -48,6 +49,26 @@ public final class IntArrayExt {
         for (int j : array)
             if (0 == j) return false;
         return true;
+    }
+
+    /** Determine the min and max values in the array.
+     * @param array The array of values to search.
+     * @return An array containing the min and max values, or null if array is empty.
+     */
+    @Nullable
+    public static int[] getMinAndMax(
+            @Nonnull final int[] array
+    ) {
+        if (array.length == 0) return null;
+        if (array.length == 1) return new int[]{array[0], array[0]};
+        int min = array[0];
+        int max = array[0];
+        for (int i = 1; i < array.length; ++i) {
+            final int value = array[i];
+            if (value < min) min = value;
+            else if (value > max) max = value;
+        }
+        return new int[]{min, max};
     }
 
 }

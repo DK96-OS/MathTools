@@ -21,16 +21,41 @@ public class IntPair {
 		mSecond = value;
 	}
 
-	private int mFirst;
+	protected int mFirst;
 
-	private int mSecond;
-
+	protected int mSecond;
+	
+	/** Create a Mutable IntPair.
+	 * @param first The first int in the pair.
+	 * @param second The second int in the pair.
+	 */
 	public IntPair(
 		final int first,
 		final int second
 	) {
 		mFirst = first;
 		mSecond = second;
+	}
+
+	/** Create a Fixed IntPair instance.
+	 * @return A new IntPairFixed.
+	 */
+	public IntPairFixed toFixed() {
+		return new IntPairFixed(mFirst, mSecond);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof IntPairFixed) {
+			final IntPairFixed other = (IntPairFixed) obj;
+			return mFirst == other.first
+					&& mSecond == other.second;
+		} else if (obj instanceof IntPair) {
+			final IntPair other = (IntPair) obj;
+			return mFirst == other.mFirst
+					&& mSecond == other.mSecond;
+		} else
+			return false;
 	}
 
 }
