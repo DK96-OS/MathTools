@@ -26,8 +26,6 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final byte[] array
     ) {
-        if (2 > array.length)
-            return null;
         final byte[] minAndMax = ByteArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
@@ -56,8 +54,6 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final short[] array
     ) {
-        if (2 > array.length)
-            return null;
         final short[] minAndMax = ShortArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
@@ -86,8 +82,6 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final int[] array
     ) {
-        if (2 > array.length)
-            return null;
         final int[] minAndMax = IntArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
@@ -116,8 +110,6 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final long[] array
     ) {
-        if (2 > array.length)
-            return null;
         final long[] minAndMax = LongArrayExt.getMinAndMax(array);
         if (minAndMax == null)
             return null;
@@ -146,7 +138,7 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final float[] array
     ) {
-        if (2 > array.length)
+        if (1 > array.length)
             return null;
         final float min = Floats.min(array);
         final float max = Floats.max(array);
@@ -173,7 +165,7 @@ public final class DistributionStatistics {
     public static DistributionStats process(
         @Nonnull final double[] array
     ) {
-        if (2 > array.length)
+        if (1 > array.length)
             return null;
         final double min = Doubles.min(array);
         final double max = Doubles.max(array);
