@@ -1,17 +1,15 @@
 ext {
-    guava = "com.google.guava:guava:31.1-android"
+    guava = "com.google.guava:guava:32.0.1-android"
 
     junit5 = [
-            bom : "org.junit:junit-bom:5.9.2",
+            bom : "org.junit:junit-bom:5.10.3",
             api : "org.junit.jupiter:junit-jupiter-api",
             params : "org.junit.jupiter:junit-jupiter-params",
             engine : "org.junit.jupiter:junit-jupiter-engine",
     ]
 
     coroutines = [
-            core : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
-            test : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4",
+            core : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2",
+            test : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2",
     ]
-
-    lombok = "org.projectlombok:lombok:1.18.22"
 }
