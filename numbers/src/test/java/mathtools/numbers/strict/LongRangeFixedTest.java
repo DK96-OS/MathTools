@@ -48,7 +48,7 @@ public final class LongRangeFixedTest {
 
 	@Test
 	void testReversedRange() {
-		final LongRange range = new LongRangeFixed(mStart, mLast);
+		final LongRange range = new LongRangeFixed(mLast, mStart);
 		assertEquals(mStart, range.getStartValue());
 		assertEquals(mLast, range.getLastValue());
 		assertTrue(range.contains(mStart));
