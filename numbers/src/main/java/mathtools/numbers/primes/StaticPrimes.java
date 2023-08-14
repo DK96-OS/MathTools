@@ -33,24 +33,18 @@ final class StaticPrimes {
 	static boolean containsNumber(
 		final int number
 	) {
-		final byte maxPrime = initArray[MAX_INDEX];
-		// Compare with the highest value in the array
-		if (number > maxPrime)
-			return false;
-		else if (number == maxPrime)
-			return true;
-		// If it is prime, it will be in the static array
 		// Use a binary-search-like algorithm
+		final int middleIndex = MAX_INDEX >>> 1; // Bit Division
+		final byte mid = initArray[middleIndex];
 		int searchIndex;
 		final int lastIndex;
-		final byte mid = initArray[7];
 		// Split Array in Half using sorted property
 		if (number < mid) {
 			searchIndex = 0;
-			lastIndex = 7;
+			lastIndex = middleIndex - 1;
 		} else if (number > mid) {
-			searchIndex = 8;
-			lastIndex = 15;
+			searchIndex = middleIndex + 1;
+			lastIndex = MAX_INDEX;
 		} else
 			return true;
 		// Traverse half of the array
