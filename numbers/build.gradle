@@ -33,13 +33,13 @@ dependencies {
 
 	implementation guava
 
-	implementation project(":lists")
-	implementation project(":statistics")
-
     testImplementation platform(junit5.bom)
     testImplementation junit5.api
     testImplementation junit5.params
     testRuntimeOnly junit5.engine
+
+	testImplementation project(":lists")
+	testImplementation project(":statistics")
 }
 
 sourceSets.main {
@@ -78,11 +78,11 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.98
+				minimum = 0.986
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.95
+				minimum = 0.960
 			}
 		}
 	}

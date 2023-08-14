@@ -20,7 +20,7 @@ public final class LongRangeFixedTest {
 	final long mLast = 45 * tera;
 
 	@Test
-	void testSimpleValues() {
+	public void testSimpleValues() {
 		final LongRange range = new LongRangeFixed(mStart, mLast);
 		assertEquals(mStart, range.getStartValue());
 		assertEquals(mLast, range.getLastValue());
@@ -35,7 +35,7 @@ public final class LongRangeFixedTest {
 	}
 
 	@Test
-	void testSingleValue() {
+	public void testSingleValue() {
 		final long value = 2 * tera;
 		final LongRange range = new LongRangeFixed(value, value);
 		assertEquals(value, range.getStartValue());
@@ -47,8 +47,8 @@ public final class LongRangeFixedTest {
 	}
 
 	@Test
-	void testReversedRange() {
-		final LongRange range = new LongRangeFixed(mStart, mLast);
+	public void testReversedRange() {
+		final LongRange range = new LongRangeFixed(mLast, mStart);
 		assertEquals(mStart, range.getStartValue());
 		assertEquals(mLast, range.getLastValue());
 		assertTrue(range.contains(mStart));
@@ -56,7 +56,7 @@ public final class LongRangeFixedTest {
 	}
 
 	@Test
-	void testGetSizeOverflow() {
+	public void testGetSizeOverflow() {
 		// Test Size method
 		final long start = Long.MIN_VALUE;
 		final long last = Long.MAX_VALUE;
