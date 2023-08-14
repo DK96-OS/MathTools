@@ -1,6 +1,7 @@
 package mathtools.numbers.strict;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public final class IntRangeFixedTest {
 
 	@Test
-	void testSimpleValues() {
+	public void testSimpleValues() {
 		final IntRange range = new IntRangeFixed(0, 1);
 		assertEquals(0, range.getStartValue());
 		assertEquals(1, range.getLastValue());
@@ -23,7 +24,7 @@ public final class IntRangeFixedTest {
 	}
 
 	@Test
-	void testSingleValue() {
+	public void testSingleValue() {
 		final int value = 1;
 		final IntRange range = new IntRangeFixed(value, value);
 		assertEquals(value, range.getStartValue());
@@ -34,7 +35,7 @@ public final class IntRangeFixedTest {
 	}
 
 	@Test
-	void testReversedRange() {
+	public void testReversedRange() {
 		final IntRange range = new IntRangeFixed(
 			Integer.MAX_VALUE, Integer.MIN_VALUE
 		);
@@ -47,6 +48,16 @@ public final class IntRangeFixedTest {
 		assertTrue(range.contains(Integer.MIN_VALUE));
 		assertTrue(range.contains(0));
 		assertTrue(range.contains(Integer.MAX_VALUE));
+	}
+
+	@Test
+	public void testContains_ReturnsFalse() {
+		final IntRange range = new IntRangeFixed(
+			20, 40
+		);
+		assertFalse(range.contains(0));
+		assertFalse(range.contains(41));
+		assertFalse(range.contains(Integer.MAX_VALUE));
 	}
 
 }

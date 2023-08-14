@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
  * @author DK96-OS : 2022 */
 public final class NumberSerializerFloatTest {
 
-	static final float[] ARRAY = new float[0];
-
 	@Test
 	void testFloatConversions() {
 		for (
@@ -39,8 +37,24 @@ public final class NumberSerializerFloatTest {
 
 	@Test
 	public void testPutFloatsEmpty() {
+		float[] ARRAY = new float[0];
 		assertNull(
 			putFloats(ARRAY));
+	}
+
+	@Test
+	public void testPutFloatsSingleValue() {
+		float value = 34.567f;
+		char[] result = putFloats(new float[]{value});
+		assertEquals(
+			2, result.length
+		);
+		final float deserialized = getFloat(
+			result[0], result[1]
+		);
+		assertEquals(
+			value, deserialized
+		);
 	}
 
 	@Test
