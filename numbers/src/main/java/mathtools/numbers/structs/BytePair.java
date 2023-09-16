@@ -64,4 +64,9 @@ public class BytePair {
 			return false;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + mFirst + ", " + mSecond + ")";
+	}
+
 }
