@@ -46,4 +46,9 @@ public class ShortPairFixed {
 			return false;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + first + ", " + second + ")";
+	}
+
 }
