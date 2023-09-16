@@ -79,4 +79,12 @@ public final class FloatPairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(1.0, " + Float.MAX_VALUE + ")",
+			mPair.toString()
+		);
+	}
+
 }

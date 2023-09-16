@@ -58,4 +58,9 @@ public class IntPair {
 			return false;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + mFirst + ", " + mSecond + ")";
+	}
+
 }

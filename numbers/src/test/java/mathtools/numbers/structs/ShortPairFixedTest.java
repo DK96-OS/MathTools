@@ -72,4 +72,12 @@ public final class ShortPairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(128, -129)",
+			mPair.toString()
+		);
+	}
+
 }

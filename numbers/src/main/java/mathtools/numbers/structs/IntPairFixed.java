@@ -45,5 +45,10 @@ public class IntPairFixed {
 		} else
 			return false;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "(" + first + ", " + second + ")";
+	}
+
 }

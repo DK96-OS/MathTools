@@ -72,4 +72,12 @@ public final class LongPairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(" + number1 + ", " + number2 +")",
+			mPair.toString()
+		);
+	}
+
 }

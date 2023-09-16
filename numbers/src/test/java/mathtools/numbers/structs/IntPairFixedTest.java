@@ -72,4 +72,12 @@ public final class IntPairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(1, 2)",
+			mPair.toString()
+		);
+	}
+
 }
