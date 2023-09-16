@@ -76,4 +76,12 @@ public final class BytePairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(1, 2)",
+			mPair.toString()
+		);
+	}
+
 }

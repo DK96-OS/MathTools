@@ -78,4 +78,22 @@ public final class BytePairTest {
 		assertNotEquals(mPair0, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(0, 0)",
+			mPair0.toString()
+		);
+	}
+
+	@Test
+	void testToString_AfterSetValues() {
+		mPair0.setFirst((byte) 30);
+		mPair0.setSecond((byte) -45);
+		assertEquals(
+			"(30, -45)",
+			mPair0.toString()
+		);
+	}
+
 }

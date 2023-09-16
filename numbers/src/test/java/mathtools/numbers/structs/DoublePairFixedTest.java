@@ -72,4 +72,12 @@ public final class DoublePairFixedTest {
 		assertNotEquals(mPair, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(1.0, " + Double.MAX_VALUE + ")",
+			mPair.toString()
+		);
+	}
+
 }
