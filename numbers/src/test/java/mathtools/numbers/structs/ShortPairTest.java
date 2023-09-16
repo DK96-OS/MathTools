@@ -81,4 +81,22 @@ public final class ShortPairTest {
 		assertNotEquals(mPair0, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(0, 0)",
+			mPair0.toString()
+		);
+	}
+
+	@Test
+	void testToString_AfterSetValues() {
+		mPair0.setFirst((short) 301);
+		mPair0.setSecond((short) -450);
+		assertEquals(
+			"(301, -450)",
+			mPair0.toString()
+		);
+	}
+
 }

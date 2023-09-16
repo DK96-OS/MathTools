@@ -78,4 +78,22 @@ public final class DoublePairTest {
 		assertNotEquals(mPair0, str);
 	}
 
+	@Test
+	void testToString() {
+		assertEquals(
+			"(0.0, 0.0)",
+			mPair0.toString()
+		);
+	}
+
+	@Test
+	void testToString_AfterSetValues() {
+		mPair0.setFirst(301.5f);
+		mPair0.setSecond(-450f);
+		assertEquals(
+			"(301.5, -450.0)",
+			mPair0.toString()
+		);
+	}
+
 }
