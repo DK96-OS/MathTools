@@ -11,7 +11,7 @@ import mathtools.numbers.factors.BitFactoring;
 import mathtools.numbers.factors.Factoring;
 import mathtools.numbers.factors.IntOperations;
 import mathtools.numbers.factors.NumberFactors;
-import mathtools.numbers.structs.IntPair;
+import mathtools.pairs.IntPair;
 
 /** Functions that help factor numbers by primes.
  * @author DK96-OS : 2022 */

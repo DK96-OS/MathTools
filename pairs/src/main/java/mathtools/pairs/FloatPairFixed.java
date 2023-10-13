@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 /** A pair of primitive 32 bit floating point numbers that are immutable.
  * @author DK96-OS : 2023

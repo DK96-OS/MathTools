@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 /** A pair of primitive 32-bit integers that are mutable.
  * @author DK96-OS : 2022 - 2023
