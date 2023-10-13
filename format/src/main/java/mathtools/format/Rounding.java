@@ -1,4 +1,4 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 /** Rounding various Number Types
  * @author DK96-OS : 2022 */

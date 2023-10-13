@@ -1,10 +1,10 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import com.google.common.primitives.UnsignedInteger;
 
 import javax.annotation.Nonnull;
 
-import mathtools.numbers.structs.BytePair;
+import mathtools.pairs.BytePair;
 
 /** Encode Numbers from Strings and characters
  * @author DK96-OS : 2021 - 2022 */

@@ -1,4 +1,4 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -1,6 +1,4 @@
-package mathtools.numbers.format;
-
-import static mathtools.numbers.format.Rounding.round;
+package mathtools.format;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +28,7 @@ public final class Percentages {
 					"%d%%", Math.round(100 * number)
 				);
 			else
-				result = round(
+				result = Rounding.round(
 					100 * number,
 					decimalsAllowed
 				) + "%";
