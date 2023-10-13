@@ -1,5 +1,6 @@
 package mathtools.lists
 
+import mathtools.arrays.sum.BigIntSumBuffer
 import java.math.BigInteger
 
 /** Functions of Long typed Lists
@@ -137,8 +138,8 @@ object LongList {
             1 -> BigInteger.valueOf(list[0]);
             else -> BigInteger.ZERO;
         }
-        val buffer = mathtools.arrays.sum.BigIntSumBuffer()
-        for (idx in list.indices) buffer.add(list[idx])
+        val buffer = BigIntSumBuffer()
+        for (number in list) buffer.add(number)
         return buffer.sum
     }
 
