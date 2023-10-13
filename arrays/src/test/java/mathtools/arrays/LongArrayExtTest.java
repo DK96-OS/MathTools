@@ -56,6 +56,23 @@ public final class LongArrayExtTest {
     }
 
     @Test
+    void testSum_ZeroLengthArray_ReturnsZero() {
+        assertEquals(
+            BigInteger.ZERO,
+            LongArrayExt.sum(new long[0])
+        );
+    }
+
+    @Test
+    void testSum_SingleLengthArray_ReturnsValue() {
+        long value = Long.MAX_VALUE;
+        assertEquals(
+            BigInteger.valueOf(value),
+            LongArrayExt.sum(new long[]{ value })
+        );
+    }
+
+    @Test
     void testSumOfMaxValues() {
         final long[] array = newArray(8, Long.MAX_VALUE);
         assertEquals(
@@ -182,5 +199,22 @@ public final class LongArrayExtTest {
         assertEquals(Byte.MIN_VALUE, result[0]);
         assertEquals(Byte.MAX_VALUE, result[1]);
     }
-    
+
+    @Test
+    void testGetMinAndMax_PseudorandomValues() {
+        var input = new long[]{
+            -453, 893, 510, -500, 1000, 200, 100, 0, 0
+        };
+        var result = LongArrayExt.getMinAndMax(input);
+        assertNotNull(result);
+        assertEquals(
+            -500L,
+            result[0]
+        );
+        assertEquals(
+            1000,
+            result[1]
+        );
+    }
+
 }
