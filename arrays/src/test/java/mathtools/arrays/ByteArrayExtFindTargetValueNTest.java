@@ -1,8 +1,8 @@
-package mathtools.lists.arrays;
+package mathtools.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static mathtools.lists.arrays.ByteArrayExt.findTargetValueN;
-import static mathtools.lists.arrays.ByteArrayExtTest.newArray;
+import static mathtools.arrays.ByteArrayExt.findTargetValueN;
+import static mathtools.arrays.ByteArrayExtTest.newArray;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

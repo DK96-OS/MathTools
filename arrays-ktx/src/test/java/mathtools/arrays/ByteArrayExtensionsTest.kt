@@ -1,20 +1,22 @@
-package mathtools.lists.arrays
+package mathtools.arrays
 
-import mathtools.lists.arrays.IntArrayExtensions.clear
-import mathtools.lists.arrays.IntArrayExtensions.isNonZero
-import org.junit.jupiter.api.Assertions.*
+import mathtools.arrays.ByteArrayExtensions.clear
+import mathtools.arrays.ByteArrayExtensions.isNonZero
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.Arrays
 
-/** Testing IntArray methods
+/** Testing ByteArray methods
  * @author DK96-OS : 2022 */
-class IntArrayExtensionsTest {
+class ByteArrayExtensionsTest {
 
-	private val zero: Int = 0
+	private val zero: Byte = (0).toByte()
 
 	@Test
 	fun testClearArray() {
-		val array = IntArray(8) { it }
+		val array = ByteArray(8) { it.toByte() }
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -29,7 +31,7 @@ class IntArrayExtensionsTest {
 
 	@Test
 	fun testClearArrayEmpty() {
-		val array = IntArray(8)
+		val array = ByteArray(8)
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -37,11 +39,11 @@ class IntArrayExtensionsTest {
 
 	@Test
 	fun testNonZero() {
-		val array = IntArray(8)
+		val array = ByteArray(8)
 		assertFalse(array.isNonZero())
 		Arrays.fill(array, 5)
 		assertTrue(array.isNonZero())
-		array[6] = zero
+		array[6] = 0
 		assertFalse(array.isNonZero())
 	}
 

@@ -1,4 +1,4 @@
-package mathtools.lists.arrays;
+package mathtools.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,13 +13,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /** Testing the ByteArray extension functions
  * @author DK96-OS : 2022 */
 public final class ByteArrayExtTest {
 
-    @Nonnull
     static byte[] newArray(
         final int size,
         final byte initValue

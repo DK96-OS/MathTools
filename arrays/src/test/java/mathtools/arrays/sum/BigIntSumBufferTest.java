@@ -1,4 +1,4 @@
-package mathtools.lists;
+package mathtools.arrays.sum;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,50 +19,50 @@ public final class BigIntSumBufferTest {
     private static final BigInteger bigLongMin =
             BigInteger.valueOf(Long.MIN_VALUE);
 
-    private BigIntSumBuffer mBuffer;
+    private BigIntSumBuffer mInstance;
 
     @BeforeEach
-    void testSetup() { mBuffer = new BigIntSumBuffer(); }
+    void testSetup() { mInstance = new BigIntSumBuffer(); }
 
     @Test
     void testLimits() {
         System.out.printf(
                 "Long Limits: %d < l < %d\n",
-                BigIntSumBuffer.longLimitNegative,
-                BigIntSumBuffer.longLimit
+                mInstance.longLimitNegative,
+                mInstance.longLimit
         );
         System.out.printf(
                 "Integer Limits: %d < l < %d",
-                BigIntSumBuffer.intLimitNegative,
-                BigIntSumBuffer.intLimit
+                mInstance.intLimitNegative,
+                mInstance.intLimit
         );
     }
 
     @Test
     void testNegativeLong() {
-        mBuffer.add(-2L);
+        mInstance.add(-2L);
         assertEquals(
             BigInteger.valueOf(-2),
-            mBuffer.getSum()
+            mInstance.getSum()
         );
-        mBuffer.add(Long.MIN_VALUE + 2L);
+        mInstance.add(Long.MIN_VALUE + 2L);
         assertEquals(
             BigInteger.valueOf(Long.MIN_VALUE),
-            mBuffer.getSum()
+            mInstance.getSum()
         );
     }
 
     @Test
     void testNegativeInt() {
-        mBuffer.add(-2);
+        mInstance.add(-2);
         assertEquals(
             BigInteger.valueOf(-2),
-            mBuffer.getSum()
+            mInstance.getSum()
         );
-        mBuffer.add(Integer.MIN_VALUE + 2);
+        mInstance.add(Integer.MIN_VALUE + 2);
         assertEquals(
             BigInteger.valueOf(Integer.MIN_VALUE),
-            mBuffer.getSum()
+            mInstance.getSum()
         );
     }
 
@@ -71,77 +71,77 @@ public final class BigIntSumBufferTest {
         final int largeInt = Integer.MAX_VALUE - 5;
         final BigInteger largeIntBig = BigInteger.valueOf(largeInt);
         //
-        for (int i = 0; i < 10; i++) mBuffer.add(largeInt);
+        for (int i = 0; i < 10; i++) mInstance.add(largeInt);
         //
         assertEquals(
                 largeIntBig.multiply(BigInteger.TEN),
-                mBuffer.getSum()
+                mInstance.getSum()
         );
     }
 
     @Test
     void testLongsAndIntegers() {
-        final long belowLimit = BigIntSumBuffer.longLimit - 1;
+        final long belowLimit = mInstance.longLimit - 1;
         final BigInteger belowLimitBig = BigInteger.valueOf(belowLimit);
         //
-        mBuffer.add(belowLimit);
-        mBuffer.add(belowLimit);
-        mBuffer.add(Integer.MAX_VALUE);
+        mInstance.add(belowLimit);
+        mInstance.add(belowLimit);
+        mInstance.add(Integer.MAX_VALUE);
         //
         assertEquals(
             belowLimitBig.multiply(
                 BigInteger.valueOf(2)
             ).add(bigIntMax),
-            mBuffer.getSum()
+            mInstance.getSum()
         );
     }
 
     @Test
     void testIntegerNearLimit() {
-        mBuffer.setLongBuffer(
-                BigIntSumBuffer.intLimit);
-        mBuffer.add(
+        mInstance.setLongBuffer(
+                mInstance.intLimit);
+        mInstance.add(
                 Integer.MAX_VALUE);
         assertEquals(
-                bigLongMax, mBuffer.getSum());
+                bigLongMax, mInstance.getSum());
     }
 
     @Test
     void testNegativeIntegerNearLimit() {
-        mBuffer.setLongBuffer(
-                BigIntSumBuffer.intLimitNegative);
-        mBuffer.add(
+        mInstance.setLongBuffer(
+                mInstance.intLimitNegative);
+        mInstance.add(
                 Integer.MIN_VALUE);
         assertEquals(
-                bigLongMin, mBuffer.getSum());
+                bigLongMin, mInstance.getSum());
     }
 
     @Test
     void testIntegerOverflow() {
-        mBuffer.setLongBuffer(
-                BigIntSumBuffer.intLimit + 1);
-        mBuffer.add(
+        mInstance.setLongBuffer(
+                mInstance.intLimit + 1);
+        mInstance.add(
                 Integer.MAX_VALUE);
         assertEquals(
-                bigLongMax.add(BigInteger.ONE), mBuffer.getSum());
+                bigLongMax.add(BigInteger.ONE), mInstance.getSum());
     }
 
     @Test
     void testNegativeIntegerOverflow() {
-        mBuffer.setLongBuffer(
-                BigIntSumBuffer.intLimitNegative - 1);
-        mBuffer.add(
+        mInstance.setLongBuffer(
+                mInstance.intLimitNegative - 1);
+        mInstance.add(
                 Integer.MIN_VALUE);
         assertEquals(
-                bigLongMin.subtract(BigInteger.ONE), mBuffer.getSum());
+                bigLongMin.subtract(BigInteger.ONE), mInstance.getSum());
     }
 
     @Test
     void testAdd_ZeroInputs_DoesNothing() {
-        mBuffer.add(0L);
-        mBuffer.add(0);
+        mInstance.add(0L);
+        mInstance.add(0);
         assertEquals(
-            BigInteger.ZERO, mBuffer.getSum()
+            BigInteger.ZERO, mInstance.getSum()
         );
     }
 

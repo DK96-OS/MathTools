@@ -1,4 +1,4 @@
-package mathtools.lists.arrays;
+package mathtools.arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

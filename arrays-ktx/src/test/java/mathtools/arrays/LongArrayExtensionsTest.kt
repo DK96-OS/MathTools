@@ -1,20 +1,22 @@
-package mathtools.lists.arrays
+package mathtools.arrays
 
-import mathtools.lists.arrays.ByteArrayExtensions.clear
-import mathtools.lists.arrays.ByteArrayExtensions.isNonZero
-import org.junit.jupiter.api.Assertions.*
+import mathtools.arrays.LongArrayExtensions.clear
+import mathtools.arrays.LongArrayExtensions.isNonZero
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.Arrays
 
-/** Testing ByteArray methods
+/** Testing LongArray methods
  * @author DK96-OS : 2022 */
-class ByteArrayExtensionsTest {
+class LongArrayExtensionsTest {
 
-	private val zero: Byte = (0).toByte()
+	private val zero: Long = 0L
 
 	@Test
 	fun testClearArray() {
-		val array = ByteArray(8) { it.toByte() }
+		val array = LongArray(8) { it.toLong() }
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -29,7 +31,7 @@ class ByteArrayExtensionsTest {
 
 	@Test
 	fun testClearArrayEmpty() {
-		val array = ByteArray(8)
+		val array = LongArray(8)
 		array.clear()
 		for (i in array.indices)
 			assertEquals(zero, array[i])
@@ -37,11 +39,11 @@ class ByteArrayExtensionsTest {
 
 	@Test
 	fun testNonZero() {
-		val array = ByteArray(8)
+		val array = LongArray(8)
 		assertFalse(array.isNonZero())
 		Arrays.fill(array, 5)
 		assertTrue(array.isNonZero())
-		array[6] = 0
+		array[6] = zero
 		assertFalse(array.isNonZero())
 	}
 
