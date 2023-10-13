@@ -1,6 +1,6 @@
-package mathtools.lists.arrays
+package mathtools.arrays
 
-import java.util.*
+import java.util.Arrays
 
 /** Convenient ByteArray methods
  * @author DK96-OS : 2022 */

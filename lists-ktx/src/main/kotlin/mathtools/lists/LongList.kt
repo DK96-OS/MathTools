@@ -137,7 +137,7 @@ object LongList {
             1 -> BigInteger.valueOf(list[0]);
             else -> BigInteger.ZERO;
         }
-        val buffer = BigIntSumBuffer()
+        val buffer = mathtools.arrays.sum.BigIntSumBuffer()
         for (idx in list.indices) buffer.add(list[idx])
         return buffer.sum
     }

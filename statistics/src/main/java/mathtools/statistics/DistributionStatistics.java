@@ -8,10 +8,10 @@ import com.google.common.primitives.Floats;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import mathtools.lists.arrays.ByteArrayExt;
-import mathtools.lists.arrays.IntArrayExt;
-import mathtools.lists.arrays.LongArrayExt;
-import mathtools.lists.arrays.ShortArrayExt;
+import mathtools.arrays.ByteArrayExt;
+import mathtools.arrays.IntArrayExt;
+import mathtools.arrays.LongArrayExt;
+import mathtools.arrays.ShortArrayExt;
 
 /** Array Statistics Functions.
  * @author DK96-OS : 2022

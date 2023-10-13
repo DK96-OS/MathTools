@@ -1,6 +1,4 @@
-package mathtools.lists.arrays;
-
-import com.google.common.primitives.Bytes;
+package mathtools.arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,6 +58,23 @@ public final class ByteArrayExt {
         return true;
     }
 
+
+    /** Determine the first Index containing the target value.
+     * @param array The Array to search in.
+     * @param target The Target Value.
+     * @return The index of the target value, or -1.
+     */
+    public static int indexOf(
+        @Nonnull final byte[] array,
+        final byte target
+    ) {
+        for (int i = 0; i < array.length; ++i) {
+            if (array[i] == target)
+                return i;
+        }
+        return -1;
+    }
+
     /** Search the array from start to end, for a specific repeating value.
      * @param array The array to search in.
      * @param target The target values to search for.
@@ -71,7 +86,7 @@ public final class ByteArrayExt {
         final byte target,
         int counter
     ) {
-        final int firstIndex = Bytes.indexOf(array, target);
+        final int firstIndex = indexOf(array, target);
         //
         if (-1 == firstIndex) return -1;
         // If only 1 is required

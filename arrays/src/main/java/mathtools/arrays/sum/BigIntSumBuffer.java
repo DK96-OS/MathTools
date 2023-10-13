@@ -1,4 +1,4 @@
-package mathtools.lists;
+package mathtools.arrays.sum;
 
 import java.math.BigInteger;
 
@@ -8,12 +8,12 @@ import java.math.BigInteger;
 public final class BigIntSumBuffer {
 
     /** The limit for when a long will be added directly to BigInteger */
-    public static final long longLimit = Long.MAX_VALUE / 2;
-    public static final long longLimitNegative = Long.MIN_VALUE / 2;
+    public final long longLimit = Long.MAX_VALUE / 2;
+    public final long longLimitNegative = Long.MIN_VALUE / 2;
 
     /** The integer limit is much higher */
-    public static final long intLimit = Long.MAX_VALUE - Integer.MAX_VALUE;
-    public static final long intLimitNegative = Long.MIN_VALUE - Integer.MIN_VALUE;
+    public final long intLimit = Long.MAX_VALUE - Integer.MAX_VALUE;
+    public final long intLimitNegative = Long.MIN_VALUE - Integer.MIN_VALUE;
 
     /** The BigInteger part of the sum */
     private BigInteger mSum = BigInteger.ZERO;

@@ -134,7 +134,7 @@ object IntList {
 			1 -> BigInteger.valueOf(list[0].toLong())
 			else -> BigInteger.ZERO
 		}
-		val buffer = BigIntSumBuffer()
+		val buffer = mathtools.arrays.sum.BigIntSumBuffer()
 		for (i in list) buffer.add(i)
 		return buffer.sum
 	}
