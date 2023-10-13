@@ -43,24 +43,34 @@ open class ShortPrimeCache
 		if (overflow < queueSize)
 			return shortQueue[overflow].toInt()
 			// Expand the Cache
-		if (idx <= maxIndex && extendCache(idx))
-			return getPrime(idx)
+		if (idx <= maxIndex) {
+			val primesRequired = idx - highestCachedIndex
+			if (extendCache(primesRequired)) {
+				return getPrime(idx)
+			}
+		}
 		throw IllegalStateException("Unable to obtain Prime")
 	}
 
-	/** Determine if this is a prime number */
+	/** Determine if this is a prime number.
+	 * @param number The number to test for Prime status.
+	 * @return True, if the number is Prime.
+	 *  */
 	fun isPrime(number: Int)
 		: Boolean = PrimeValidation.isPrime(number, this)
 
-	private fun extendCache(toIndex: Int)
-	: Boolean = if (toIndex in shortIndexRange) {
-		var primesRequired = toIndex - highestCachedIndex
-		if (primesRequired <= 0) false
-		else if (primesRequired + queueSize > 12)
-			consolidate(primesRequired) > 0
-		else {	// Look for primes, append to queue
+	private fun extendCache(
+		addPrimes: Int
+	) : Boolean {
+		var primesRequired = addPrimes
+		// If there are more than 12 items in the temporary queue
+		return if (primesRequired + queueSize > 12) {
+			consolidate(primesRequired)
+			true
+		} else {	// Look for primes, append to queue
 			var prevPrime = (
-				shortQueue.lastOrNull() ?: shortArray.last()).toInt()
+				shortQueue.lastOrNull() ?: shortArray.last()
+			).toInt()
 			var testN = prevPrime + 2
 			while (primesRequired > 0) {
 				val prime = PrimeValidation.findPrime(
@@ -73,12 +83,13 @@ open class ShortPrimeCache
 			}
 			primesRequired == 0	// The correct amount of primes found
 		}
-	} else false
+	}
 
-	private fun consolidate(add: Int): Int {
-		if (add <= 0) throw IllegalArgumentException()
+	private fun consolidate(add: Int) {
+		//if (add <= 0) throw IllegalArgumentException()
 		val prevSize = arraySize + queueSize
-		if (prevSize + add > maxIndex + 1) return -1
+		if (prevSize + add > maxIndex + 1)
+			return
 		val oldArray = shortArray
 		var prev = (shortQueue.lastOrNull() ?: oldArray.last()).toInt()
 		shortArray = ShortArray(prevSize + add) {
@@ -92,7 +103,6 @@ open class ShortPrimeCache
 				newPrime.toShort()
 			}
 		}
-		return shortArray.last().toInt()
 	}
 
 	override fun clear() {

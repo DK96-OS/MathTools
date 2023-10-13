@@ -197,4 +197,13 @@ public final class ShortPrimeCacheTest {
 		}
 	}
 
+	@Test
+	public void testCacheLimit() {
+		int maxIndex = cache.getMaxIndex();
+		assertEquals(
+			cache.getMaxPrime(),
+			cache.getPrime(maxIndex)
+		);
+	}
+
 }
