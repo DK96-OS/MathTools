@@ -1,8 +1,6 @@
 plugins {
 	id "java-library"
-	id "org.jetbrains.kotlin.jvm"
 	id "jacoco"
-	id "org.jetbrains.dokka"
 }
 
 java {
@@ -20,9 +18,9 @@ publishing {
 	publications {
 		maven(MavenPublication) {
 			groupId = "io.github.dk96-os"
-			artifactId = "numbers"
+			artifactId = "arrays"
 			apply from: "../artifacts.gradle"
-			version = artifactVersions.numbers
+			version = artifactVersions.arrays
 			from components.java
 		}
 	}
@@ -31,37 +29,32 @@ publishing {
 dependencies {
 	apply from: "../dependencies.gradle"
 
-	implementation guava
+	implementation find_bugs
 
-	api project(":pairs")
-
-    testImplementation platform(junit5.bom)
-    testImplementation junit5.api
-    testImplementation junit5.params
-    testRuntimeOnly junit5.engine
-
-	testImplementation project(":arrays")
-	testImplementation project(":statistics")
+	testImplementation platform(junit5.bom)
+	testImplementation junit5.api
+	testImplementation junit5.params
+	testRuntimeOnly junit5.engine
 }
 
 sourceSets.main {
-	java.srcDirs("src/main/java", "src/main/kotlin")
+	java.srcDirs("src/main/java")
 }
 
 tasks.test {
-    useJUnitPlatform() {
-        excludeTags("slow")
-    }
+	useJUnitPlatform() {
+		excludeTags("slow")
+	}
 	maxParallelForks = 3
 	testLogging {
-        events("passed", "failed") // not including "skipped"
-    }
-    reports {
-    	junitXml {
-    		outputPerTestCase = true
-    		mergeReruns = true
-    	}
-    }
+		events("passed", "failed") // not including "skipped"
+	}
+	reports {
+		junitXml {
+			outputPerTestCase = true
+			mergeReruns = true
+		}
+	}
 }
 
 tasks.jacocoTestReport {
@@ -80,11 +73,11 @@ tasks.jacocoTestCoverageVerification {
 		rule {
 			limit {
 				counter = "INSTRUCTION"
-				minimum = 0.986
+				minimum = 0.99
 			}
 			limit {
 				counter = "BRANCH"
-				minimum = 0.960
+				minimum = 0.97
 			}
 		}
 	}

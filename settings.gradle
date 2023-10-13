@@ -1,7 +1,7 @@
 pluginManagement {
 	plugins {
 		id "org.jetbrains.kotlin.jvm" version "1.9.10"
-		id "org.jetbrains.dokka" version "1.8.20"
+		id "org.jetbrains.dokka" version "1.9.0"
 	}
 	repositories {
 		google()
@@ -14,9 +14,13 @@ pluginManagement {
 }
 rootProject.name = "MathTools"
 include(
+	":arrays",
+	":arrays-ktx",
+	":format",
+	":generators",
 	":lists",
 	":lists-ktx",
 	":numbers",
+	":pairs",
 	":statistics",
-	":generators"
 )
