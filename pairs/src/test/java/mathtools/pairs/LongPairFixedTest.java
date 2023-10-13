@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -6,67 +6,63 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/** Testing [BytePairFixed] class.
+/** Testing [LongPairFixed] class.
  * @author DK96-OS : 2023
  */
-public final class BytePairFixedTest {
+public final class LongPairFixedTest {
 
-	private final byte number1 = 1;
-	private final byte number2 = 2;
+	private final long number1 = Integer.MAX_VALUE + 1;
+	private final long number2 = Integer.MIN_VALUE - 1;
 
-	private BytePairFixed mPair;
+	private LongPairFixed mPair;
 
 	@BeforeEach
 	void testSetup() {
-		mPair = new BytePairFixed(number1, number2);
+		mPair = new LongPairFixed(number1, number2);
 	}
 
 	@Test
 	void testInitialCondition() {
-		assertEquals(
-			number1, mPair.first);
-		assertEquals(
-			number2, mPair.second);
+		assertEquals(number1, mPair.first);
+		assertEquals(number2, mPair.second);
 	}
 
 	@Test
 	void testToMutable() {
-		BytePair pair = mPair.toMutable();
-		assertEquals(
-			mPair.first, pair.getFirst());
-		assertEquals(
-			mPair.second, pair.getSecond());
+		LongPair pair = mPair.toMutable();
+		assertEquals(mPair.first, pair.getFirst());
+		assertEquals(mPair.second, pair.getSecond());
 	}
 
 	@Test
 	void testEquals_SameValues_ReturnsTrue() {
-		BytePairFixed pair = new BytePairFixed(number1, number2);
+		LongPairFixed pair = new LongPairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
 	void testEquals_DifferentValues_ReturnsFalse() {
-		BytePairFixed pair = new BytePairFixed(
+		LongPairFixed pair = new LongPairFixed(
 			number1, (byte) (1 + number2)
 		);
 		assertNotEquals(mPair, pair);
-		pair = new BytePairFixed(
+		pair = new LongPairFixed(
 			(byte) (1 + number1), number2
 		);
 		assertNotEquals(mPair, pair);
 	}
 
 	@Test
-	void testEquals_WithMutableBytePair_ReturnsTrue() {
-		BytePair pair0 = mPair.toMutable();
+	void testEquals_WithMutableLongPair_ReturnsTrue() {
+		LongPair pair0 = mPair.toMutable();
 		assertEquals(mPair, pair0);
 	}
 
 	@Test
-	void testEquals_WithMutableBytePairDifferentValues_ReturnsFalse() {
-		BytePair pair = new BytePair(number1, (byte) 10);
+	void testEquals_WithMutableLongPairDifferentValues_ReturnsFalse() {
+		LongPair pair = new LongPair(number1, (byte) 10);
 		assertNotEquals(mPair, pair);
-		pair = new BytePair((byte) 10, number2);
+		pair = new LongPair((byte) 10, number2);
 		assertNotEquals(mPair, pair);
 	}
 
@@ -79,7 +75,7 @@ public final class BytePairFixedTest {
 	@Test
 	void testToString() {
 		assertEquals(
-			"(1, 2)",
+			"(" + number1 + ", " + number2 +")",
 			mPair.toString()
 		);
 	}

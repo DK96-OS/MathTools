@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/** Testing [DoublePairFixed] class.
+/** Testing [ShortPairFixed] class.
  * @author DK96-OS : 2023
  */
-public final class DoublePairFixedTest {
+public final class ShortPairFixedTest {
 
-	private final double number1 = 1.0;
-	private final double number2 = Double.MAX_VALUE;
+	private final short number1 = Byte.MAX_VALUE + 1;
+	private final short number2 = Byte.MIN_VALUE - 1;
 
-	private DoublePairFixed mPair;
-	
+	private ShortPairFixed mPair;
+
 	@BeforeEach
 	void testSetup() {
-		mPair = new DoublePairFixed(number1, number2);
+		mPair = new ShortPairFixed(number1, number2);
 	}
 
 	@Test
@@ -29,40 +29,40 @@ public final class DoublePairFixedTest {
 
 	@Test
 	void testToMutable() {
-		DoublePair pair = mPair.toMutable();
+		ShortPair pair = mPair.toMutable();
 		assertEquals(mPair.first, pair.getFirst());
 		assertEquals(mPair.second, pair.getSecond());
 	}
 
 	@Test
 	void testEquals_SameValues_ReturnsTrue() {
-		DoublePairFixed pair = new DoublePairFixed(number1, number2);
+		ShortPairFixed pair = new ShortPairFixed(number1, number2);
 		assertEquals(mPair, pair);
 	}
 
 	@Test
 	void testEquals_DifferentValues_ReturnsFalse() {
-		DoublePairFixed pair = new DoublePairFixed(
+		ShortPairFixed pair = new ShortPairFixed(
 			number1, (byte) (1 + number2)
 		);
 		assertNotEquals(mPair, pair);
-		pair = new DoublePairFixed(
+		pair = new ShortPairFixed(
 			(byte) (1 + number1), number2
 		);
 		assertNotEquals(mPair, pair);
 	}
 
 	@Test
-	void testEquals_WithMutableDoublePair_ReturnsTrue() {
-		DoublePair pair0 = mPair.toMutable();
+	void testEquals_WithMutableShortPair_ReturnsTrue() {
+		ShortPair pair0 = mPair.toMutable();
 		assertEquals(mPair, pair0);
 	}
 
 	@Test
-	void testEquals_WithMutableDoublePairDifferentValues_ReturnsFalse() {
-		DoublePair pair = new DoublePair(number1, (byte) 10);
+	void testEquals_WithMutableShortPairDifferentValues_ReturnsFalse() {
+		ShortPair pair = new ShortPair(number1, (byte) 10);
 		assertNotEquals(mPair, pair);
-		pair = new DoublePair((byte) 10, number2);
+		pair = new ShortPair((byte) 10, number2);
 		assertNotEquals(mPair, pair);
 	}
 
@@ -75,7 +75,7 @@ public final class DoublePairFixedTest {
 	@Test
 	void testToString() {
 		assertEquals(
-			"(1.0, " + Double.MAX_VALUE + ")",
+			"(128, -129)",
 			mPair.toString()
 		);
 	}

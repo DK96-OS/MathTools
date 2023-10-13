@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.ArrayList;
 
 import mathtools.numbers.primes.cache.PrimeCachePerformanceTest;
-import mathtools.numbers.structs.TimeMeasurement;
 
 /** Performance Measurements of PrimeValidation methods
  * @author DK96-OS : 2022 */

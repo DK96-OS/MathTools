@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,39 +7,42 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/** Testing [LongPair] class.
- * @author DK96-OS : 2023
+/** Testing [IntPair] class.
+ * @author DK96-OS : 2022
  */
-public final class LongPairTest {
+public final class IntPairTest {
 
-	private LongPair mPair0;
-	private final long value0 = 0L;
+	private IntPair mPair0;
+	private final int value0 = 0;
 
 	@BeforeEach
 	void testSetup() {
-		mPair0 = new LongPair(value0, value0);
+		mPair0 = new IntPair(value0, value0);
 	}
 
 	@Test
 	void testSetFirst() {
-		mPair0.setFirst(8);
-		assertEquals(8, mPair0.getFirst());
+		final int newValue = 8;
+		mPair0.setFirst(newValue);
+		assertEquals(newValue, mPair0.getFirst());
 		assertEquals(value0, mPair0.getSecond());
 	}
 
 	@Test
 	void testSetSecond() {
-		mPair0.setSecond(12);
+		final int newValue = 12;
+		mPair0.setSecond(newValue);
 		assertEquals(value0, mPair0.getFirst());
-		assertEquals(12, mPair0.getSecond());
+		assertEquals(newValue, mPair0.getSecond());
 	}
 
 	@Test
 	void testToFixed() {
-		LongPairFixed result = mPair0.toFixed();
+		IntPairFixed result = mPair0.toFixed();
 		//Modify Pair0
-		mPair0.setFirst(20);
-		mPair0.setSecond(-10);
+		final short newValue = 20;
+		mPair0.setFirst(newValue);
+		mPair0.setSecond(newValue);
 		// Fixed Pair is unchanged
 		assertEquals(value0, result.first);
 		assertEquals(value0, result.second);
@@ -47,29 +50,29 @@ public final class LongPairTest {
 
 	@Test
 	void testEquals_SameValues_ReturnsTrue() {
-		LongPair pair0 = new LongPair(value0, value0);
+		IntPair pair0 = new IntPair(value0, value0);
 		assertTrue(mPair0.equals(pair0));
 	}
 
 	@Test
 	void testEquals_DifferentValues_ReturnsFalse() {
-		LongPair pair = new LongPair(value0, (byte) 2);
+		IntPair pair = new IntPair(value0, (byte) 2);
 		assertFalse(mPair0.equals(pair));
-		pair = new LongPair((byte) 2, value0);
+		pair = new IntPair((byte) 2, value0);
 		assertFalse(mPair0.equals(pair));
 	}
 
 	@Test
-	void testEquals_WithFixedLongPair_ReturnsTrue() {
-		LongPairFixed pair0 = mPair0.toFixed();
+	void testEquals_WithFixedIntPair_ReturnsTrue() {
+		IntPairFixed pair0 = mPair0.toFixed();
 		assertTrue(mPair0.equals(pair0));
 	}
 
 	@Test
-	void testEquals_WithFixedLongPairDifferentValues_ReturnsFalse() {
-		LongPairFixed pair = new LongPairFixed(value0, (byte) 1);
+	void testEquals_WithFixedIntPairDifferentValues_ReturnsFalse() {
+		IntPairFixed pair = new IntPairFixed(value0, (byte) 1);
 		assertFalse(mPair0.equals(pair));
-		pair = new LongPairFixed((byte) 1, value0);
+		pair = new IntPairFixed((byte) 1, value0);
 		assertFalse(mPair0.equals(pair));
 	}
 

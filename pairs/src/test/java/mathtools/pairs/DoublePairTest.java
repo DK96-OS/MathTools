@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.pairs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -6,39 +6,39 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/** Testing [FloatPair] class.
+/** Testing [DoublePair] class.
  * @author DK96-OS : 2023
  */
-public final class FloatPairTest {
-
-	private FloatPair mPair0;
-	private final float value0 = 0;
+public final class DoublePairTest {
+	
+	private DoublePair mPair0;
+	private final double value0 = 0;
 
 	@BeforeEach
 	void testSetup() {
-		mPair0 = new FloatPair(value0, value0);
+		mPair0 = new DoublePair(value0, value0);
 	}
-
+	
 	@Test
-	void testSetFirst() {
-		mPair0.setFirst(8f);
-		assertEquals(8f, mPair0.getFirst(), 0f);
+	void testSetters() {
+		mPair0.setFirst(8.0);
+		assertEquals(8.0, mPair0.getFirst(), 0f);
 		assertEquals(value0, mPair0.getSecond(), 0f);
 	}
 
 	@Test
 	void testSetSecond() {
-		mPair0.setSecond(12f);
+		mPair0.setSecond(12.0);
 		assertEquals(value0, mPair0.getFirst(), 0f);
-		assertEquals(12f, mPair0.getSecond(), 0f);
+		assertEquals(12.0, mPair0.getSecond(), 0f);
 	}
-
+	
 	@Test
 	void testToFixed() {
-		FloatPairFixed result = mPair0.toFixed();
+		DoublePairFixed result = mPair0.toFixed();
 		//Modify Pair0
-		mPair0.setFirst(20f);
-		mPair0.setSecond(-10f);
+		mPair0.setFirst(20);
+		mPair0.setSecond(-10);
 		// Fixed Pair is unchanged
 		assertEquals(value0, result.first);
 		assertEquals(value0, result.second);
@@ -46,29 +46,29 @@ public final class FloatPairTest {
 
 	@Test
 	void testEquals_SameValues_ReturnsTrue() {
-		FloatPair pair0 = new FloatPair(value0, value0);
+		DoublePair pair0 = new DoublePair(value0, value0);
 		assertEquals(mPair0, pair0);
 	}
 
 	@Test
 	void testEquals_DifferentValues_ReturnsFalse() {
-		FloatPair pair = new FloatPair(value0, (byte) 2);
+		DoublePair pair = new DoublePair(value0, (byte) 2);
 		assertNotEquals(mPair0, pair);
-		pair = new FloatPair((byte) 2, value0);
+		pair = new DoublePair((byte) 2, value0);
 		assertNotEquals(mPair0, pair);
 	}
 
 	@Test
-	void testEquals_WithFixedFloatPair_ReturnsTrue() {
-		FloatPairFixed pair0 = mPair0.toFixed();
+	void testEquals_WithFixedDoublePair_ReturnsTrue() {
+		DoublePairFixed pair0 = mPair0.toFixed();
 		assertEquals(mPair0, pair0);
 	}
 
 	@Test
-	void testEquals_WithFixedFloatPairDifferentValues_ReturnsFalse() {
-		FloatPairFixed pair = new FloatPairFixed(value0, (byte) 1);
+	void testEquals_WithFixedDoublePairDifferentValues_ReturnsFalse() {
+		DoublePairFixed pair = new DoublePairFixed(value0, (byte) 1);
 		assertNotEquals(mPair0, pair);
-		pair = new FloatPairFixed((byte) 1, value0);
+		pair = new DoublePairFixed((byte) 1, value0);
 		assertNotEquals(mPair0, pair);
 	}
 

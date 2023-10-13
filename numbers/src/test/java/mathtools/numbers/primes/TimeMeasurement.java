@@ -1,4 +1,4 @@
-package mathtools.numbers.structs;
+package mathtools.numbers.primes;
 
 /** Records Time Values for performing measurements
  * @author DK96-OS : 2022 */

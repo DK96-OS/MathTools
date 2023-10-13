@@ -6,7 +6,7 @@ import static mathtools.numbers.factors.IntOperations.exponent;
 
 import org.junit.jupiter.api.Test;
 
-import mathtools.numbers.structs.IntPair;
+import mathtools.pairs.IntPair;
 
 /** Testing [IntOperations] Exponent function.
  * @author DK96-OS : 2022

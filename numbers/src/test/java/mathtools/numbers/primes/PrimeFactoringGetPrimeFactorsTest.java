@@ -10,7 +10,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import mathtools.numbers.factors.IntOperations;
-import mathtools.numbers.structs.IntPair;
+import mathtools.pairs.IntPair;
 
 /** Testing [PrimeFactoring] GetPrimeFactors method
  * @author DK96-OS : 2022 */

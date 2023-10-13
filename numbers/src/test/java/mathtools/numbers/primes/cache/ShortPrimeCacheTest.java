@@ -18,7 +18,7 @@ import kotlin.random.Random;
 import mathtools.numbers.primes.BytePrimeCache;
 import mathtools.numbers.primes.PrimeTestDataProvider;
 import mathtools.numbers.primes.ShortPrimeCache;
-import mathtools.numbers.structs.IntPair;
+import mathtools.pairs.IntPair;
 
 /** Testing [ShortPrimeCache] class
  * @author DK96-OS : 2022 */
