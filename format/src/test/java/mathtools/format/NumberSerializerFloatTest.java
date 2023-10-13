@@ -1,12 +1,14 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static mathtools.numbers.format.NumberDeserializer.getFloat;
-import static mathtools.numbers.format.NumberSerializer.putFloat;
-import static mathtools.numbers.format.NumberSerializer.putFloats;
+import static mathtools.format.NumberDeserializer.getFloat;
+import static mathtools.format.NumberSerializer.putFloat;
+import static mathtools.format.NumberSerializer.putFloats;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /** Testing [NumberSerializer] and [NumberDeserializer] float methods
  * @author DK96-OS : 2022 */
@@ -78,6 +80,22 @@ public final class NumberSerializerFloatTest {
 			assertEquals(
 				inputArray[index], deserialized);
 		}
+	}
+
+	@ParameterizedTest
+	@ValueSource(floats = {
+			Float.POSITIVE_INFINITY,
+			Float.NEGATIVE_INFINITY,
+			Float.NaN
+	})
+	public void testNAN(
+		final float testValue
+	) {
+		var serialized = putFloat(testValue);
+		float deserialized = getFloat(serialized[0], serialized[1]);
+		assertEquals(
+			testValue, deserialized, 0f
+		);
 	}
 
 }

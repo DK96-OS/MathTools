@@ -1,15 +1,15 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static mathtools.numbers.format.NumberDeserializer.getByte1;
-import static mathtools.numbers.format.NumberDeserializer.getByte2;
-import static mathtools.numbers.format.NumberDeserializer.getBytes;
-import static mathtools.numbers.format.NumberSerializer.putBytes;
+import static mathtools.format.NumberDeserializer.getByte1;
+import static mathtools.format.NumberDeserializer.getByte2;
+import static mathtools.format.NumberDeserializer.getBytes;
+import static mathtools.format.NumberSerializer.putBytes;
 
 import org.junit.jupiter.api.Test;
 
-import mathtools.numbers.structs.BytePair;
+import mathtools.pairs.BytePair;
 
 /** Testing [NumberSerializer] and [NumberDeserializer] Byte methods
  * @author DK96-OS : 2022 */

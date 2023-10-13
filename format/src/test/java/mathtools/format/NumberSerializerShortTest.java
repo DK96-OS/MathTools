@@ -1,4 +1,4 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

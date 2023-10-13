@@ -1,7 +1,7 @@
-package mathtools.numbers.format;
+package mathtools.format;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static mathtools.numbers.format.Percentages.strictPercent;
+import static mathtools.format.Percentages.strictPercent;
 
 import org.junit.jupiter.api.Test;
 
