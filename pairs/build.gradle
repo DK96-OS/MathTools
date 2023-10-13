@@ -1,0 +1,82 @@
+plugins {
+	id "java-library"
+	id "jacoco"
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+	withJavadocJar()
+	withSourcesJar()
+}
+
+tasks.sourcesJar {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId = "io.github.dk96-os"
+			artifactId = "pairs"
+			apply from: "../artifacts.gradle"
+			version = artifactVersions.pairs
+			from components.java
+		}
+	}
+}
+
+dependencies {
+	apply from: "../dependencies.gradle"
+
+	testImplementation platform(junit5.bom)
+	testImplementation junit5.api
+	testImplementation junit5.params
+	testRuntimeOnly junit5.engine
+}
+
+sourceSets.main {
+	java.srcDirs("src/main/java")
+}
+
+tasks.test {
+	useJUnitPlatform() {
+		excludeTags("slow")
+	}
+	maxParallelForks = 3
+	testLogging {
+		events("passed", "failed") // not including "skipped"
+	}
+	reports {
+		junitXml {
+			outputPerTestCase = true
+			mergeReruns = true
+		}
+	}
+}
+
+tasks.jacocoTestReport {
+	dependsOn tasks.test
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir("jacocoReport")
+	}
+}
+
+tasks.jacocoTestCoverageVerification {
+	dependsOn tasks.test
+	violationRules {
+		failOnViolation = true
+		rule {
+			limit {
+				counter = "INSTRUCTION"
+				minimum = 0.99
+			}
+			limit {
+				counter = "BRANCH"
+				minimum = 0.97
+			}
+		}
+	}
+}

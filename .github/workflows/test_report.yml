@@ -9,18 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    
-    strategy:
-      matrix:
-        java: [ '11', '17' ]
-    
-    name: Test - Java ${{ matrix.java }}
 
+    name: Test Report
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
-        java-version: ${{ matrix.java }}
+        java-version: 17
         distribution: 'temurin'
         cache: 'gradle'
     
@@ -32,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: success() || failure()
       with:
-        name: Java-${{ matrix.java }}-Tests
+        name: MT-TestReport
         path: /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
         retention-days: 60
         if-no-files-found: error

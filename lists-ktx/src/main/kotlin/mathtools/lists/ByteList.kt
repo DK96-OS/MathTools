@@ -1,5 +1,6 @@
 package mathtools.lists
 
+import mathtools.arrays.sum.BigIntSumBuffer
 import java.math.BigInteger
 
 /** Functions of Byte typed Lists
@@ -139,7 +140,7 @@ object ByteList {
 			else -> BigInteger.ZERO
 		}
 		val buffer = BigIntSumBuffer()
-		for (i in list) buffer.add(i.toLong())
+		for (i in list) buffer.add(i.toInt())
 		return buffer.sum
 	}
 

@@ -1,6 +1,5 @@
 package mathtools.numbers.primes.cache;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -10,7 +9,7 @@ import java.util.Collections;
 
 import mathtools.numbers.primes.BytePrimeCache;
 import mathtools.numbers.primes.PrimeCacheInterface;
-import mathtools.numbers.structs.TimeMeasurement;
+import mathtools.numbers.primes.TimeMeasurement;
 import mathtools.statistics.Statistics;
 
 /** Performance Testing for Prime Number Caches

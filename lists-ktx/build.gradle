@@ -33,6 +33,7 @@ dependencies {
     implementation guava
 
     api project(":lists")
+    api project(":arrays-ktx")
 
     testImplementation platform(junit5.bom)
     testImplementation junit5.api

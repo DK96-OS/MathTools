@@ -4,7 +4,7 @@ import com.google.common.math.IntMath;
 
 import javax.annotation.Nonnull;
 
-import mathtools.numbers.structs.IntPair;
+import mathtools.pairs.IntPair;
 
 /** Functions that operate on 32-bit Integers
  * @author DK96-OS : 2020 - 2022 */

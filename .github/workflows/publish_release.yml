@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: 17
           distribution: 'temurin'
           cache: 'gradle'
         
@@ -46,12 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
-          name: JavaDocs-${{ matrix.java }}
-          path: |
-            /home/runner/work/MathTools/MathTools/lists/build/dokka/
-            /home/runner/work/MathTools/MathTools/lists-ktx/build/dokka/
-            /home/runner/work/MathTools/MathTools/numbers/build/dokka/
-            /home/runner/work/MathTools/MathTools/statistics/build/dokka/
-            /home/runner/work/MathTools/MathTools/generators/build/dokka/
+          name: MT-JavaDocs
+          path: /home/runner/work/MathTools/MathTools/*/build/dokka/
           retention-days: 60
         timeout-minutes: 1

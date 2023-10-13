@@ -5,10 +5,10 @@ import java.math.BigInteger;
 
 import javax.annotation.Nonnull;
 
-import mathtools.lists.arrays.ByteArrayExt;
-import mathtools.lists.arrays.IntArrayExt;
-import mathtools.lists.arrays.LongArrayExt;
-import mathtools.lists.arrays.ShortArrayExt;
+import mathtools.arrays.ByteArrayExt;
+import mathtools.arrays.IntArrayExt;
+import mathtools.arrays.LongArrayExt;
+import mathtools.arrays.ShortArrayExt;
 
 /** Statistics functions on Array types
  * @author DK96-OS : 2022 */

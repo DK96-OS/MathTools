@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import mathtools.lists.arrays.IntArrayExt;
+import mathtools.arrays.IntArrayExt;
 
 /** Provides Prime Number Data for Tests */
 public final class PrimeTestDataProvider {
