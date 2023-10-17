@@ -28,7 +28,26 @@ jobs:
       if: success() || failure()
       with:
         name: MT-TestReport
-        path: /home/runner/work/MathTools/MathTools/generators/build/reports/tests/unit-test/aggregated-results
+        path: /home/runner/work/*/*/*/build/reports/tests/
         retention-days: 60
         if-no-files-found: error
       timeout-minutes: 1
+
+    - name: Run JaCoCo Test Report
+      if: success()
+      run: ./gradlew jacocoTestReport --warn
+      timeout-minutes: 3
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: Coverage-Report
+        path: /home/runner/work/*/*/*/build/jacocoReport/
+        retention-days: 60
+      timeout-minutes: 1
+
+    - name: Verify Coverage
+      if: success()
+      run: ./gradlew jacocoTestCoverageVerification --warn
+      timeout-minutes: 4
