@@ -14,23 +14,25 @@ Software Tools for Applied Mathematics are categorized into these modules:
 - [__Statistics__](https://github.com/DK96-OS/MathTools/wiki/Statistics-Module)
 
 ### Import in Gradle Build Script
-Choose The Modules that you want to import
-
-	dependencies {  
+Choose The Modules that you want to import:
+	def mt_version = "0.7.1"
+	dependencies {
 		implementation 'io.github.dk96-os:arrays:$mt_version'
 		implementation 'io.github.dk96-os:arrays-ktx:$mt_version'
+		implementation 'io.github.dk96-os:format:$mt_version'
+		implementation 'io.github.dk96-os:generators:$mt_version'
 		implementation 'io.github.dk96-os:lists:$mt_version'
 		implementation 'io.github.dk96-os:lists-ktx:$mt_version'
-		implementation 'io.github.dk96-os:statistics:$mt_version'
 		implementation 'io.github.dk96-os:numbers:$mt_version'
-		implementation 'io.github.dk96-os:generators:$mt_version'
+		implementation 'io.github.dk96-os:pairs:$mt_version'
+		implementation 'io.github.dk96-os:statistics:$mt_version'
 	}
 
 ___
 
-## Modules
+## MathTools Modules
 Each module is published as a package that can be downloaded from GitHub packages.
-Some modules depend on each other, but this number of dependencies has been kept at a minimum.
+Some modules depend on each other, but cross-module dependencies have been minimized.
 
 ### Arrays
 Numerical array operations not included in the standard library.
