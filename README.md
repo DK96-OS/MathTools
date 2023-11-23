@@ -4,17 +4,16 @@
 Software Tools for Applied Mathematics are categorized into these modules:
 ### Modules
 - [__Arrays__]()
-- [__Arrays-ktx__]()
 - [__Format__]()
 - [__Generators__](https://github.com/DK96-OS/MathTools/wiki/Generators-Module)
 - [__Lists__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
-- [__Lists-ktx__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
 - [__Numbers__](https://github.com/DK96-OS/MathTools/wiki/Numbers-Module)
 - [__Pairs__]()
 - [__Statistics__](https://github.com/DK96-OS/MathTools/wiki/Statistics-Module)
 
 ### Import in Gradle Build Script
 Choose The Modules that you want to import:
+
 	def mt_version = "0.7.1"
 	dependencies {
 		implementation 'io.github.dk96-os:arrays:$mt_version'
