@@ -3,13 +3,13 @@
 
 Software Tools for Applied Mathematics are categorized into these modules:
 ### Modules
-- [__Arrays__]()
-- [__Format__]()
-- [__Generators__](https://github.com/DK96-OS/MathTools/wiki/Generators-Module)
-- [__Lists__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
-- [__Numbers__](https://github.com/DK96-OS/MathTools/wiki/Numbers-Module)
-- [__Pairs__]()
-- [__Statistics__](https://github.com/DK96-OS/MathTools/wiki/Statistics-Module)
+- __Arrays__
+- __Format__
+- __Generators__
+- __Lists__
+- __Numbers__
+- __Pairs__
+- __Statistics__
 
 ### Import in Gradle Build Script
 Choose The Modules that you want to import:
@@ -83,4 +83,4 @@ Process lists and arrays of primitive Number types, to determine statistical cha
 - Outlier Detection Policy
 
 ____
-For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)!
+For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)
