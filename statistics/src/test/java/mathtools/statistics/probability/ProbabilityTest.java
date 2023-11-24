@@ -14,32 +14,36 @@ import java.util.Random;
 public final class ProbabilityTest {
 
 	private Random mRandom;
-	private Probability mProbability;
+	private Probability mInstance;
 
 	@BeforeEach
 	public void testSetup() {
 		mRandom = new Random(400L);
-		mProbability = new Probability(mRandom);
+		mInstance = new Probability(mRandom);
 	}
 
 	@Test
-	public void testOneInOne() {
+	public void testOneIn_One_ReturnsTrue() {
 		for (
 			byte i = 0; 10 > i; ++i
 		) assertTrue(
-			mProbability.oneIn(1)
+			mInstance.oneIn(1)
 		);
 	}
 
 	@Test
-	public void testInvalidInputs() {
+	public void testOneIn_InvalidInput_Zero_ThrowsException() {
 		assertThrows(
 			IllegalArgumentException.class,
-			() -> mProbability.oneIn(0)
+			() -> mInstance.oneIn(0)
 		);
+	}
+
+	@Test
+	public void testOneIn_InvalidInput_Negative1_ThrowsException() {
 		assertThrows(
 			IllegalArgumentException.class,
-			() -> mProbability.oneIn(-1)
+			() -> mInstance.oneIn(-1)
 		);
 	}
 

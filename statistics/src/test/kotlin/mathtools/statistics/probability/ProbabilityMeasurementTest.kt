@@ -1,42 +1,19 @@
-package mathtools.statistics
+package mathtools.statistics.probability
 
-import mathtools.statistics.probability.Probability
+import mathtools.statistics.Statistics
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 
-/** Testing [Statistics] oneIn function
- * @author DK96-OS : 2022 */
-class StatisticsOneInTest {
+/** Testing [Probability] by measuring a large number of outputs.
+ * @author DK96-OS : 2022
+ */
+class ProbabilityMeasurementTest {
 
     /** The OneIn method has been replaced by Probability class.
      *  The Probability class provides more control over the random algorithm.
      */
-    val p = Probability()
-
-    private val oneIn: (x: Int) -> Boolean = p::oneIn
-
-    @Test
-    fun testOne() {
-        for (i in 0 until 10)
-            assertTrue(oneIn(1))
-    }
-
-    @Test
-    fun testInvalidInput_Zero_ThrowsException() {
-        assertThrows<IllegalArgumentException> {
-            oneIn(0)
-        }
-    }
-
-    @Test
-    fun testInvalidInput_Negative1_ThrowsException() {
-        assertThrows<IllegalArgumentException> {
-            oneIn(-1)
-        }
-    }
+    private val p = Probability()
 
     @RepeatedTest(2)
     fun testOneIn2To9Probability() {
@@ -99,23 +76,32 @@ class StatisticsOneInTest {
     }
 
     /** Runs the Statistics OneIn( x ) function N times.
-     * N must end in a zero; it must be integer divisible by 10   */
-    private fun checkPercentage(x: Int, N: Long): Float {
+     * N must end in a zero; it must be integer divisible by 10.
+     */
+    private fun checkPercentage(
+        x: Int,
+        N: Long,
+    ) : Float {
         var trueCount = 0L
         for (i in 0 until N)
-            if (oneIn(x)) trueCount++
+            if (p.oneIn(x))
+                trueCount++
         return trueCount * 100f / N
     }
 
     /** Create a list of Measurements for OneIn output Statistics
      * @param x The input to oneIn.
-     * @param nFactor A factor in determining the number of trials per measurement
-     * @param measurements The number of times to measure the percentage independently */
+     * @param nFactor A factor in determining the number of trials per measurement.
+     * @param measurements The number of times to measure the percentage independently.
+     */
     private fun measureOneIn(
-        x: Int, nFactor: Long = 25_000L,
+        x: Int,
+        nFactor: Long = 25_000L,
         measurements: Int = 10,
     ) : List<Float> = Array(measurements) {
-        checkPercentage(x, x * nFactor)
-    }.toList()
+        checkPercentage(
+            x, x * nFactor
+        )
+    }.asList()
 
 }
