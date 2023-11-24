@@ -15,7 +15,7 @@ class StatisticsOneInTest {
      */
     val p = Probability()
 
-    private fun oneIn(x: Int): Boolean = p.oneIn(x)
+    private val oneIn: (x: Int) -> Boolean = p::oneIn
 
     @Test
     fun testOne() {
