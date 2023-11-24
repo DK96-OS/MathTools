@@ -3,34 +3,35 @@
 
 Software Tools for Applied Mathematics are categorized into these modules:
 ### Modules
-- [__Arrays__]()
-- [__Arrays-ktx__]()
-- [__Format__]()
-- [__Generators__](https://github.com/DK96-OS/MathTools/wiki/Generators-Module)
-- [__Lists__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
-- [__Lists-ktx__](https://github.com/DK96-OS/MathTools/wiki/Lists-Module)
-- [__Numbers__](https://github.com/DK96-OS/MathTools/wiki/Numbers-Module)
-- [__Pairs__]()
-- [__Statistics__](https://github.com/DK96-OS/MathTools/wiki/Statistics-Module)
+- __Arrays__
+- __Format__
+- __Generators__
+- __Lists__
+- __Numbers__
+- __Pairs__
+- __Statistics__
 
 ### Import in Gradle Build Script
-Choose The Modules that you want to import
+Choose The Modules that you want to import:
 
-	dependencies {  
+	def mt_version = "0.7.1"
+	dependencies {
 		implementation 'io.github.dk96-os:arrays:$mt_version'
 		implementation 'io.github.dk96-os:arrays-ktx:$mt_version'
+		implementation 'io.github.dk96-os:format:$mt_version'
+		implementation 'io.github.dk96-os:generators:$mt_version'
 		implementation 'io.github.dk96-os:lists:$mt_version'
 		implementation 'io.github.dk96-os:lists-ktx:$mt_version'
-		implementation 'io.github.dk96-os:statistics:$mt_version'
 		implementation 'io.github.dk96-os:numbers:$mt_version'
-		implementation 'io.github.dk96-os:generators:$mt_version'
+		implementation 'io.github.dk96-os:pairs:$mt_version'
+		implementation 'io.github.dk96-os:statistics:$mt_version'
 	}
 
 ___
 
-## Modules
+## MathTools Modules
 Each module is published as a package that can be downloaded from GitHub packages.
-Some modules depend on each other, but this number of dependencies has been kept at a minimum.
+Some modules depend on each other, but cross-module dependencies have been minimized.
 
 ### Arrays
 Numerical array operations not included in the standard library.
@@ -82,4 +83,4 @@ Process lists and arrays of primitive Number types, to determine statistical cha
 - Outlier Detection Policy
 
 ____
-For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)!
+For additional information, see the [Project Wiki](https://github.com/DK96-OS/MathTools/wiki)

@@ -7,17 +7,6 @@ import kotlin.math.sqrt
  * @author DK96-OS : 2022 */
 object Statistics {
 
-	/** Return true once every x times this function is called */
-	@Deprecated(
-		"Use Probability class"
-	)
-	fun oneIn(
-		x: Int,
-	) : Boolean = if (1 < x)
-		x * Math.random() < 0.9999999f
-	else
-		1 == x
-
 	/** Calculate the mean (average) value of the elements in a Number List
 	 * 	 */
     fun <T : Number> calculateMean(
