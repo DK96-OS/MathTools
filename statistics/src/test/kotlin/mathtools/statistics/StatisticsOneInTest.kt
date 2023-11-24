@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 /** Testing [Statistics] oneIn function
  * @author DK96-OS : 2022 */
@@ -24,13 +25,17 @@ class StatisticsOneInTest {
     }
 
     @Test
-    fun testInvalidInputs() {
-        assertFalse(
+    fun testInvalidInput_Zero_ThrowsException() {
+        assertThrows<IllegalArgumentException> {
             oneIn(0)
-        )
-        assertFalse(
+        }
+    }
+
+    @Test
+    fun testInvalidInput_Negative1_ThrowsException() {
+        assertThrows<IllegalArgumentException> {
             oneIn(-1)
-        )
+        }
     }
 
     @RepeatedTest(2)
