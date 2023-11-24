@@ -1,6 +1,6 @@
 package mathtools.statistics
 
-import mathtools.statistics.Statistics.oneIn
+import mathtools.statistics.probability.Probability
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Tag
@@ -9,6 +9,13 @@ import org.junit.jupiter.api.Test
 /** Testing [Statistics] oneIn function
  * @author DK96-OS : 2022 */
 class StatisticsOneInTest {
+
+    /** The OneIn method has been replaced by Probability class.
+     *  The Probability class provides more control over the random algorithm.
+     */
+    val p = Probability()
+
+    private fun oneIn(x: Int): Boolean = p.oneIn(x)
 
     @Test
     fun testOne() {
