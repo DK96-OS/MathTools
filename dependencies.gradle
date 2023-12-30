@@ -1,5 +1,5 @@
 ext {
-    guava = "com.google.guava:guava:32.1.3-android"
+    guava = "com.google.guava:guava:33.0.0-android"
     find_bugs = "com.google.code.findbugs:jsr305:3.0.2"
 
     junit5 = [
