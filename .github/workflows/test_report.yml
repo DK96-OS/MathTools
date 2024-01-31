@@ -24,7 +24,7 @@ jobs:
       timeout-minutes: 4
 
     - name: Upload Test Reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success() || failure()
       with:
         name: MT-TestReport
@@ -39,7 +39,7 @@ jobs:
       timeout-minutes: 3
 
     - name: Upload Coverage Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: success()
       with:
         name: Coverage-Report
