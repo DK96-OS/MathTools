@@ -1,4 +1,4 @@
-def commonArtifactVersion = "0.7.3"
+def commonArtifactVersion = "0.7.4"
 ext {
     artifactVersions = [
             arrays : commonArtifactVersion,
