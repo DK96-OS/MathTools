@@ -14,7 +14,7 @@ Software Tools for Applied Mathematics are categorized into these modules:
 ### Import in Gradle Build Script
 Choose The Modules that you want to import:
 
-	def mt_version = "0.7.4"
+	def mt_version = "0.7.5"
 	dependencies {
 		implementation 'io.github.dk96-os:arrays:$mt_version'
 		implementation 'io.github.dk96-os:arrays-ktx:$mt_version'
