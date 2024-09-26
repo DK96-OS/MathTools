@@ -31,7 +31,7 @@ publishing {
 dependencies {
 	apply from: "../dependencies.gradle"
 
-	implementation guava
+	api guava
 
 	api project(":pairs")
 

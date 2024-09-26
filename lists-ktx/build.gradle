@@ -30,7 +30,7 @@ publishing {
 dependencies {
     apply from: "../dependencies.gradle"
 
-    implementation guava
+    api find_bugs
 
     api project(":lists")
     api project(":arrays-ktx")

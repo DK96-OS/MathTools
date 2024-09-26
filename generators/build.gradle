@@ -30,11 +30,11 @@ publishing {
 dependencies {
 	apply from: "../dependencies.gradle"
 
-	implementation guava
+	api find_bugs
 
-	implementation project(":lists")
-	implementation project(":statistics")
-	implementation project(":numbers")
+	api project(":lists")
+	api project(":statistics")
+	api project(":numbers")
 
 	testImplementation platform(junit5.bom)
 	testImplementation junit5.api
