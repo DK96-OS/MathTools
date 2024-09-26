@@ -29,7 +29,7 @@ publishing {
 dependencies {
 	apply from: "../dependencies.gradle"
 
-	implementation guava
+	api find_bugs
 
 	testImplementation platform(junit5.bom)
 	testImplementation junit5.api

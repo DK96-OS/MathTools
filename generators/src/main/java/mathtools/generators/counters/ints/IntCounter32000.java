@@ -1,7 +1,6 @@
 package mathtools.generators.counters.ints;
 
-import com.google.common.collect.ImmutableList;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -91,10 +90,10 @@ public final class IntCounter32000 implements IntRangeCounter {
     /** Get the Count of all values as a List
      * The zeroth index of the List corresponds to the Range StartValue */
     public List<Integer> toList() {
-        ImmutableList.Builder<Integer> b =
-                ImmutableList.builderWithExpectedSize(mArray.length);
-        for (short s : mArray) b.add((int) s);
-        return b.build();
+        final var b = new ArrayList<Integer>(mArray.length);
+        for (short val : mArray)
+            b.add((int) val);
+        return b;
     }
 
     /** Obtain the Counter Array

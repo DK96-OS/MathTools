@@ -31,9 +31,10 @@ publishing {
 dependencies {
 	apply from: "../dependencies.gradle"
 
-	implementation guava
 
-	implementation project(":lists-ktx")
+	api guava
+
+	api project(":lists-ktx")
 
 	testImplementation platform(junit5.bom)
 	testImplementation junit5.api
