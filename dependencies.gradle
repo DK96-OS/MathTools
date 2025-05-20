@@ -3,7 +3,7 @@ ext {
     find_bugs = "com.google.code.findbugs:jsr305:3.0.2"
 
     junit5 = [
-            bom : "org.junit:junit-bom:5.12.2",
+            bom : "org.junit:junit-bom:5.13.0-RC1",
             api : "org.junit.jupiter:junit-jupiter-api",
             params : "org.junit.jupiter:junit-jupiter-params",
             engine : "org.junit.jupiter:junit-jupiter-engine",
