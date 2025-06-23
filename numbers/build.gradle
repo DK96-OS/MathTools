@@ -32,6 +32,7 @@ dependencies {
 	apply from: "../dependencies.gradle"
 
 	api guava
+	api find_bugs
 
 	api project(":pairs")
 
