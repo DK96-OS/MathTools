@@ -30,6 +30,7 @@ dependencies {
 	apply from: "../dependencies.gradle"
 
 	implementation guava
+	api find_bugs
 	api project(":pairs")
 
 	testImplementation platform(junit5.bom)
